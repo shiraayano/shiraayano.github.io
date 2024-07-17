@@ -98,22 +98,6 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span id="runday"></span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a>
 </p>
 
-        <script>
-function show_date_time() {
-    setInterval(function() {
-        const BirthDay = new Date("2024/07/12 00:00:00");
-        const today = new Date();
-        const timeold = today.getTime() - BirthDay.getTime();
-        const daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-        const hrsold = Math.floor((timeold % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-        const minsold = Math.floor((timeold % (60 * 60 * 1000)) / (60 * 1000));
-        const seconds = Math.floor((timeold % (60 * 1000)) / 1000);
-        document.getElementById("momk").innerHTML = `${daysold}天${hrsold}小时${minsold}分${seconds}秒`;
-    }, 1000);
-}
-</script>
-        
-<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
 <script>
 if(""!=""){
     var now=new Date();
