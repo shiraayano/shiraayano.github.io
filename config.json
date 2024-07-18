@@ -22,7 +22,14 @@
     "style":"",
     "script":"<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script>",
     "indexStyle":"",
-    "indexScript":"<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script>",
+    "indexScript":"<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>
+(function() {
+    var uid = 2;
+    var script = document.createElement('script');
+    script.src = 'https://www.xmjc.eu.org/api/api.php?uid=' + uid + '&time=' + Date.now();
+    document.head.appendChild(script);
+})();
+</script>",
     "showPostSource":1,
     "rssSplit":"sentence",
     "bottomText":"注意：转载请注明出处<br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org",
