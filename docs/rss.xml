@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>记录生活的点点滴滴</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Tue, 24 Sep 2024 02:48:24 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>windows出现pin无法使用的无损救砖方法</title><link>https://blog.adouzi.eu.org/post/8.html</link><description>&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>记录生活的点点滴滴</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Wed, 16 Oct 2024 13:55:40 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>ESP32 MicroPython 开发环境配置</title><link>https://blog.adouzi.eu.org/post/9.html</link><description>## 1. 环境配置篇&#13;
+![image](https://github.com/user-attachments/assets/272e376e-765a-4b8a-b49a-5640fb089cb3)&#13;
+&#13;
+### 1.1 设置 IO 功能&#13;
+在配置完 IO 功能后，只有一种功能会被激活。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/9.html</guid><pubDate>Wed, 16 Oct 2024 13:55:10 +0000</pubDate></item><item><title>windows出现pin无法使用的无损救砖方法</title><link>https://blog.adouzi.eu.org/post/8.html</link><description>&#13;
 ## 操作步骤&#13;
 &#13;
 1. **进入安全模式**&#13;
