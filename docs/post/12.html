@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# 递归
+# 面向对象
+
+### 面向对象编程（OOP）笔记
+
+![image (54)](https://github.com/user-attachments/assets/a651492b-5e75-4e2f-ad61-cbcf4dc2cbe8)
+
+
+#### Java类及类的成员
+1. **类的成员**
+   - **属性**：定义对象的状态和特征（通常称为类的字段或成员变量）。">
+<meta property="og:title" content="Java基础 003 未完">
+<meta property="og:description" content="# 递归
+# 面向对象
+
+### 面向对象编程（OOP）笔记
+
+![image (54)](https://github.com/user-attachments/assets/a651492b-5e75-4e2f-ad61-cbcf4dc2cbe8)
+
+
+#### Java类及类的成员
+1. **类的成员**
+   - **属性**：定义对象的状态和特征（通常称为类的字段或成员变量）。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/12.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java基础 003 未完</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java基础 003 未完</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/12" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>递归</h1>
+<h1>面向对象</h1>
+<h3>面向对象编程（OOP）笔记</h3>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a651492b-5e75-4e2f-ad61-cbcf4dc2cbe8"><img src="https://github.com/user-attachments/assets/a651492b-5e75-4e2f-ad61-cbcf4dc2cbe8" alt="image (54)" style="max-width: 100%;"></a></p>
+<h4>Java类及类的成员</h4>
+<ol>
+<li><strong>类的成员</strong>
+<ul>
+<li><strong>属性</strong>：定义对象的状态和特征（通常称为类的字段或成员变量）。</li>
+<li><strong>方法</strong>：定义对象的行为，用于操作类的属性。</li>
+<li><strong>构造器</strong>：初始化对象实例，为属性赋初值。</li>
+</ul>
+</li>
+<li><strong>代码块</strong>
+<ul>
+<li><strong>普通代码块</strong>：在方法内部，用于局部范围内逻辑块的处理。</li>
+<li><strong>静态代码块</strong>：在类加载时执行，仅执行一次，用于初始化静态资源。</li>
+</ul>
+</li>
+<li><strong>内部类</strong>
+<ul>
+<li>定义在另一个类内部的类，可用于封装更为复杂的结构，便于组织逻辑和代码。</li>
+</ul>
+</li>
+</ol>
+<h4>面向对象的特征</h4>
+<ol>
+<li><strong>封装</strong>：隐藏对象的内部实现，仅对外提供访问接口。</li>
+<li><strong>继承</strong>：子类继承父类的属性和方法，促进代码复用。</li>
+<li><strong>多态</strong>：对象可以表现为多种形态，具体表现由运行时动态决定。</li>
+</ol>
+<h4>编程范式</h4>
+<ul>
+<li><strong>面向过程编程（POP）</strong>：强调按顺序执行一系列指令来实现功能。</li>
+<li><strong>面向对象编程（OOP）</strong>：通过对象的属性和方法来封装行为。</li>
+<li><strong>指令式编程</strong>：按步骤操作数据。</li>
+<li><strong>函数式编程</strong>：用函数来封装行为，以不可变的数据传递流为核心。</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8c8d2e97-bfb3-4f05-94dd-fc7549a2c592"><img src="https://github.com/user-attachments/assets/8c8d2e97-bfb3-4f05-94dd-fc7549a2c592" alt="image (55)" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ea86d0a0-4c78-40c5-94ac-b6c01dfcb1d5"><img src="https://github.com/user-attachments/assets/ea86d0a0-4c78-40c5-94ac-b6c01dfcb1d5" alt="image (56)" style="max-width: 100%;"></a></p>
+<h4>调用方法</h4>
+<ul>
+<li>对象.属性</li>
+<li>对象.方法</li>
+</ul>
+<h4>示例代码</h4>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e5a90cb0-35b1-4df2-a698-44c6932d09ed"><img src="https://github.com/user-attachments/assets/e5a90cb0-35b1-4df2-a698-44c6932d09ed" alt="image (57)" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/122d3852-eceb-47e5-9c12-53907f34ccec"><img src="https://github.com/user-attachments/assets/122d3852-eceb-47e5-9c12-53907f34ccec" alt="image (58)" style="max-width: 100%;"></a></p>
+<ol>
+<li><strong>创建对象并操作属性</strong></li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 创建Phone类的对象p1</span>
+<span class="pl-smi">Phone</span> <span class="pl-s1">p1</span> = <span class="pl-k">new</span> <span class="pl-smi">Phone</span>();
+<span class="pl-s1">p1</span>.<span class="pl-s1">name</span> = <span class="pl-s">"huawei"</span>;   <span class="pl-c">// 设置属性</span>
+<span class="pl-s1">p1</span>.<span class="pl-s1">price</span> = <span class="pl-c1">6999</span>;      <span class="pl-c">// 设置属性</span>
+
+<span class="pl-c">// 输出属性</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"name="</span> + <span class="pl-s1">p1</span>.<span class="pl-s1">name</span>);  <span class="pl-c">// 输出 name 属性</span></pre></div>
+<ol start="2">
+<li><strong>用户类层次结构</strong></li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 用户类</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">User</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">username</span>;  <span class="pl-c">// 用户名</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">password</span>;  <span class="pl-c">// 密码</span>
+
+    <span class="pl-c">// 构造器，初始化用户名和密码</span>
+    <span class="pl-k">public</span> <span class="pl-smi">User</span>(<span class="pl-smi">String</span> <span class="pl-s1">username</span>, <span class="pl-smi">String</span> <span class="pl-s1">password</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">username</span> = <span class="pl-s1">username</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">password</span> = <span class="pl-s1">password</span>;
+    }
+
+    <span class="pl-c">// Getter 和 Setter 方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getUsername</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">username</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setUsername</span>(<span class="pl-smi">String</span> <span class="pl-s1">username</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">username</span> = <span class="pl-s1">username</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getPassword</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">password</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setPassword</span>(<span class="pl-smi">String</span> <span class="pl-s1">password</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">password</span> = <span class="pl-s1">password</span>;
+    }
+
+    <span class="pl-c">// 通用用户登录方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">login</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">username</span> + <span class="pl-s">" is logging in."</span>);
+    }
+}
+
+<span class="pl-c">// 管理员类，继承User类</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Admin</span> <span class="pl-k">extends</span> <span class="pl-smi">User</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">Admin</span>(<span class="pl-smi">String</span> <span class="pl-s1">username</span>, <span class="pl-smi">String</span> <span class="pl-s1">password</span>) {
+        <span class="pl-en">super</span>(<span class="pl-s1">username</span>, <span class="pl-s1">password</span>);
+    }
+
+    <span class="pl-c">// 管理员特有方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">manageUsers</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">getUsername</span>() + <span class="pl-s">" is managing users."</span>);
+    }
+}
+
+<span class="pl-c">// 超级管理员类，继承Admin类</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SuperAdmin</span> <span class="pl-k">extends</span> <span class="pl-smi">Admin</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">SuperAdmin</span>(<span class="pl-smi">String</span> <span class="pl-s1">username</span>, <span class="pl-smi">String</span> <span class="pl-s1">password</span>) {
+        <span class="pl-en">super</span>(<span class="pl-s1">username</span>, <span class="pl-s1">password</span>);
+    }
+
+    <span class="pl-c">// 超级管理员特有方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">grantAdminRights</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">getUsername</span>() + <span class="pl-s">" is granting admin rights."</span>);
+    }
+}
+
+<span class="pl-c">// 用户管理类，用于测试创建用户、管理员和超级管理员</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserManager</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">// 创建普通用户</span>
+        <span class="pl-smi">User</span> <span class="pl-s1">regularUser</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"johnDoe"</span>, <span class="pl-s">"password123"</span>);
+        <span class="pl-s1">regularUser</span>.<span class="pl-en">login</span>();
+
+        <span class="pl-c">// 创建管理员</span>
+        <span class="pl-smi">Admin</span> <span class="pl-s1">adminUser</span> = <span class="pl-k">new</span> <span class="pl-smi">Admin</span>(<span class="pl-s">"janeAdmin"</span>, <span class="pl-s">"adminpass"</span>);
+        <span class="pl-s1">adminUser</span>.<span class="pl-en">login</span>();
+        <span class="pl-s1">adminUser</span>.<span class="pl-en">manageUsers</span>();
+
+        <span class="pl-c">// 创建超级管理员</span>
+        <span class="pl-smi">SuperAdmin</span> <span class="pl-s1">superAdminUser</span> = <span class="pl-k">new</span> <span class="pl-smi">SuperAdmin</span>(<span class="pl-s">"bobSuper"</span>, <span class="pl-s">"superpass"</span>);
+        <span class="pl-s1">superAdminUser</span>.<span class="pl-en">login</span>();
+        <span class="pl-s1">superAdminUser</span>.<span class="pl-en">manageUsers</span>();
+        <span class="pl-s1">superAdminUser</span>.<span class="pl-en">grantAdminRights</span>();
+    }
+}</pre></div>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ccf01c78-125c-48f5-b10e-e01faa7f211f"><img src="https://github.com/user-attachments/assets/ccf01c78-125c-48f5-b10e-e01faa7f211f" alt="image (59)" style="max-width: 100%;"></a></p>
+<h4>对象的独立性和引用</h4>
+<ol>
+<li>
+<p><strong>独立实体</strong>：每个对象在堆空间中都有一个独立的实体，保存着类属性的副本。更改一个对象的属性不会影响其他对象。</p>
+<ul>
+<li>示例：
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Person</span> <span class="pl-s1">p1</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+<span class="pl-smi">Person</span> <span class="pl-s1">p2</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+
+<span class="pl-s1">p1</span>.<span class="pl-s1">age</span> = <span class="pl-c1">18</span>;  <span class="pl-c">// 修改 p1 的 age</span>
+<span class="pl-s1">p2</span>.<span class="pl-s1">age</span> = <span class="pl-c1">28</span>;  <span class="pl-c">// p2 的 age 独立不受影响</span>
+<span class="pl-s1">p1</span>.<span class="pl-s1">age</span> = <span class="pl-c1">30</span>;  <span class="pl-c">// 修改 p1 的 age 后，p2 的 age 仍为 28</span></pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>引用变量共享</strong>：如果两个变量指向同一个对象，修改其中一个的属性会影响另一个。</p>
+<ul>
+<li>示例：
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Person</span> <span class="pl-s1">p1</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+<span class="pl-smi">Person</span> <span class="pl-s1">p3</span> = <span class="pl-s1">p1</span>;  <span class="pl-c">// p3 引用 p1 的对象</span>
+
+<span class="pl-s1">p3</span>.<span class="pl-s1">age</span> = <span class="pl-c1">25</span>;     <span class="pl-c">// 修改 p3 的 age</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">p1</span>.<span class="pl-s1">age</span>);  <span class="pl-c">// 访问 p1 的 age，值为 25</span></pre></div>
+</li>
+</ul>
+</li>
+</ol>
+<p>这些内容包含了Java面向对象编程的基本要点和细节，代码示例提供了清晰的参考。</p>
+<hr>
+<h3>Java 面向对象笔记（详细版）</h3>
+<hr>
+<h4>成员变量与局部变量</h4>
+<ol>
+<li>
+<p><strong>成员变量（Field）</strong></p>
+<ul>
+<li>
+<p><strong>定义</strong>：在类中定义，但不在任何方法、构造方法或代码块中的变量。</p>
+</li>
+<li>
+<p><strong>特点</strong>：</p>
+<ol>
+<li><strong>作用域</strong>：整个类内可见，类的所有方法均可访问。</li>
+<li><strong>生命周期</strong>：与对象绑定，对象创建时初始化，随对象销毁而销毁。</li>
+<li><strong>初始化</strong>：未显式赋值时，自动初始化为默认值（例如 <code class="notranslate">int</code> 默认值为 <code class="notranslate">0</code>，对象引用默认值为 <code class="notranslate">null</code>）。</li>
+<li><strong>访问控制</strong>：可以使用 <code class="notranslate">public</code>、<code class="notranslate">private</code>、<code class="notranslate">protected</code> 等访问修饰符来控制可见性。</li>
+</ol>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Person</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>; <span class="pl-c">// 成员变量</span>
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;     <span class="pl-c">// 成员变量</span>
+
+    <span class="pl-k">public</span> <span class="pl-smi">Person</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>; <span class="pl-c">// 初始化成员变量</span>
+        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">displayInfo</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Name: "</span> + <span class="pl-s1">name</span> + <span class="pl-s">", Age: "</span> + <span class="pl-s1">age</span>);
+    }
+}</pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>局部变量（Local Variable）</strong></p>
+<ul>
+<li>
+<p><strong>定义</strong>：在方法、构造方法或代码块中声明的变量。</p>
+</li>
+<li>
+<p><strong>特点</strong>：</p>
+<ol>
+<li><strong>作用域</strong>：仅在定义它的块内可见，块结束后超出作用域。</li>
+<li><strong>生命周期</strong>：随方法执行过程创建和销毁。</li>
+<li><strong>初始化</strong>：必须显式初始化，否则会导致编译错误。</li>
+<li><strong>访问控制</strong>：不能使用访问修饰符，因为它们仅在当前块内可见。</li>
+</ol>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Calculator</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">add</span>(<span class="pl-smi">int</span> <span class="pl-s1">a</span>, <span class="pl-smi">int</span> <span class="pl-s1">b</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">sum</span> = <span class="pl-s1">a</span> + <span class="pl-s1">b</span>; <span class="pl-c">// 局部变量</span>
+        <span class="pl-k">return</span> <span class="pl-s1">sum</span>;
+    }
+}</pre></div>
+</li>
+</ul>
+</li>
+</ol>
+<h4>内部类与外部类实例化</h4>
+<ol>
+<li>
+<p><strong>内部类</strong>：将一个类定义在另一个类的内部，内部类可以访问外部类的所有成员（包括私有成员）。</p>
+<ul>
+<li>
+<p><strong>示例</strong>：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">OuterClass</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">outerField</span> = <span class="pl-s">"Outer field"</span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">InnerClass</span> {
+        <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">display</span>() {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Accessing outer field: "</span> + <span class="pl-s1">outerField</span>);
+        }
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">InnerClass</span> <span class="pl-en">getInnerClassInstance</span>() {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">InnerClass</span>();
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestInnerClass</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">OuterClass</span> <span class="pl-s1">outer</span> = <span class="pl-k">new</span> <span class="pl-smi">OuterClass</span>();
+        <span class="pl-smi">OuterClass</span>.<span class="pl-smi">InnerClass</span> <span class="pl-s1">inner</span> = <span class="pl-s1">outer</span>.<span class="pl-en">getInnerClassInstance</span>();
+        <span class="pl-s1">inner</span>.<span class="pl-en">display</span>();
+    }
+}</pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>外部类实例化</strong>：在一个类中创建另一个类的实例，通过实例访问方法和属性。</p>
+<ul>
+<li>
+<p><strong>示例</strong>：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Car</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">brand</span> = <span class="pl-s">"Toyota"</span>;
+    
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">startEngine</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">brand</span> + <span class="pl-s">" engine started"</span>);
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Garage</span> {
+    <span class="pl-smi">Car</span> <span class="pl-s1">myCar</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">Garage</span>() {
+        <span class="pl-s1">myCar</span> = <span class="pl-k">new</span> <span class="pl-smi">Car</span>(); <span class="pl-c">// 创建 Car 实例</span>
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">startCarEngine</span>() {
+        <span class="pl-s1">myCar</span>.<span class="pl-en">startEngine</span>(); <span class="pl-c">// 调用 Car 实例的方法</span>
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestGarage</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Garage</span> <span class="pl-s1">garage</span> = <span class="pl-k">new</span> <span class="pl-smi">Garage</span>();
+        <span class="pl-s1">garage</span>.<span class="pl-en">startCarEngine</span>();
+    }
+}</pre></div>
+</li>
+</ul>
+</li>
+</ol>
+<h4>方法（Method）</h4>
+<ul>
+<li>
+<p><strong>方法的定义</strong>：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">[访问修饰符] [<span class="pl-k">static</span>] 返回类型 方法名(参数类型 参数名, ...) {
+    <span class="pl-c">// 方法体</span>
+    <span class="pl-k">return</span> 返回值; <span class="pl-c">// 如果有返回值</span>
+}</pre></div>
+<ul>
+<li><strong>访问修饰符</strong>：定义方法可见性，如 <code class="notranslate">public</code>、<code class="notranslate">private</code>、<code class="notranslate">protected</code>。</li>
+<li><strong>static</strong>：用于静态方法，直接通过类名调用，无需实例化。</li>
+<li><strong>返回类型</strong>：方法返回的数据类型。若无返回值，用 <code class="notranslate">void</code>。</li>
+<li><strong>方法名</strong>：符合命名规范，表示方法功能。</li>
+<li><strong>参数</strong>：方法输入的数据。</li>
+<li><strong>方法体</strong>：方法的执行内容。</li>
+</ul>
+</li>
+<li>
+<p><strong>方法的调用</strong>：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Calculator</span> {
+
+    <span class="pl-c">// 无返回值的方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">displayMessage</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Hello, World!"</span>);
+    }
+
+    <span class="pl-c">// 有参数有返回值的方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">add</span>(<span class="pl-smi">int</span> <span class="pl-s1">num1</span>, <span class="pl-smi">int</span> <span class="pl-s1">num2</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">sum</span> = <span class="pl-s1">num1</span> + <span class="pl-s1">num2</span>;
+        <span class="pl-k">return</span> <span class="pl-s1">sum</span>; <span class="pl-c">// 返回结果</span>
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Calculator</span> <span class="pl-s1">calc</span> = <span class="pl-k">new</span> <span class="pl-smi">Calculator</span>(); <span class="pl-c">// 创建实例</span>
+
+        <span class="pl-c">// 调用无返回值方法</span>
+        <span class="pl-s1">calc</span>.<span class="pl-en">displayMessage</span>();
+
+        <span class="pl-c">// 调用有返回值方法</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-s1">calc</span>.<span class="pl-en">add</span>(<span class="pl-c1">5</span>, <span class="pl-c1">10</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"The sum is: "</span> + <span class="pl-s1">result</span>);
+    }
+}</pre></div>
+</li>
+<li>
+<p><strong>注意事项</strong>：</p>
+<ol>
+<li>静态方法可通过类名直接调用，如 <code class="notranslate">ClassName.methodName()</code>。</li>
+<li>非静态方法需在类实例上调用。</li>
+<li>方法参数必须与定义时参数类型和顺序一致。</li>
+<li><code class="notranslate">return</code> 结束方法，并将值返回给调用者，<code class="notranslate">return</code> 后不可再有代码。</li>
+</ol>
+</li>
+<li>
+<p><strong>方法的分类</strong>：</p>
+<ul>
+<li><strong>无返回值类型</strong>：<code class="notranslate">void</code> 类型，无需返回值。</li>
+<li><strong>有返回值类型</strong>：需要使用 <code class="notranslate">return</code> 语句返回与定义类型匹配的数据。</li>
+</ul>
+</li>
+</ul>
+<h4>示例代码</h4>
+<ol>
+<li>
+<p><strong>成员变量与局部变量的比较</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Example</span> {
+
+    <span class="pl-c">// 成员变量，生命周期与对象一致</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">methodExample</span>() {
+        <span class="pl-c">// 局部变量，生命周期仅在当前方法内</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">number</span> = <span class="pl-c1">10</span>;
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Local variable number: "</span> + <span class="pl-s1">number</span>);
+    }
+}</pre></div>
+</li>
+<li>
+<p><strong>使用方法与参数</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Person</span> {
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">sleep</span>(<span class="pl-smi">int</span> <span class="pl-s1">hours</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"人每天至少睡："</span> + <span class="pl-s1">hours</span> + <span class="pl-s">"小时"</span>);
+    }
+}</pre></div>
+<ul>
+<li><strong>说明</strong>：方法定义时根据功能决定参数类型；参数列表为空时表示无输入要求。</li>
+</ul>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/9e7c9b33-2e75-4378-a986-52b51c0bac67"><img src="https://github.com/user-attachments/assets/9e7c9b33-2e75-4378-a986-52b51c0bac67" alt="image (60)" style="max-width: 100%;"></a></p>
+<h3>方法的定义与调用</h3>
+<p>在 Java 中，方法是实现功能模块的基本单元。一个方法可以包含逻辑代码、接收参数并返回数据。方法的定义结构包括访问修饰符、可选的 <code class="notranslate">static</code> 关键字、返回值类型、方法名和参数列表。</p>
+<h4>方法的定义结构</h4>
+<div class="highlight highlight-source-java"><pre class="notranslate">[访问修饰符] [<span class="pl-k">static</span>] 返回类型 方法名(参数类型 参数名, 参数类型 参数名, ...) {
+    <span class="pl-c">// 方法体</span>
+    <span class="pl-c">// ...</span>
+    <span class="pl-c">// 返回语句（如果方法有返回值）</span>
+    <span class="pl-k">return</span> 返回值;
+}</pre></div>
+<p><strong>要点：</strong></p>
+<ul>
+<li><strong>访问修饰符</strong>：如 <code class="notranslate">public</code>、<code class="notranslate">private</code>、<code class="notranslate">protected</code>，控制方法的访问权限。</li>
+<li><strong>static</strong>：若方法为静态，则使用类名直接调用，不需要创建实例。</li>
+<li><strong>返回类型</strong>：指定方法返回的数据类型，若没有返回值，使用 <code class="notranslate">void</code>。</li>
+<li><strong>方法名</strong>：方法的标识符，遵循 Java 命名规范。</li>
+<li><strong>参数</strong>：方法的输入，可以在调用时传递数据。</li>
+</ul>
+<h4>方法的调用</h4>
+<p>调用方法时使用方法名，并传入相应的参数（如果有）。方法的返回值可以用于后续操作。</p>
+<p><strong>示例：</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Calculator</span> {
+
+    <span class="pl-c">// 无参数、无返回值的方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">displayMessage</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Hello, World!"</span>);
+    }
+
+    <span class="pl-c">// 有参数、有返回值的方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">add</span>(<span class="pl-smi">int</span> <span class="pl-s1">num1</span>, <span class="pl-smi">int</span> <span class="pl-s1">num2</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">sum</span> = <span class="pl-s1">num1</span> + <span class="pl-s1">num2</span>;
+        <span class="pl-k">return</span> <span class="pl-s1">sum</span>; <span class="pl-c">// 返回计算结果</span>
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Calculator</span> <span class="pl-s1">calc</span> = <span class="pl-k">new</span> <span class="pl-smi">Calculator</span>(); <span class="pl-c">// 创建 Calculator 类的实例</span>
+
+        <span class="pl-c">// 调用无参数、无返回值的方法</span>
+        <span class="pl-s1">calc</span>.<span class="pl-en">displayMessage</span>();
+
+        <span class="pl-c">// 调用有参数、有返回值的方法，并打印结果</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-s1">calc</span>.<span class="pl-en">add</span>(<span class="pl-c1">5</span>, <span class="pl-c1">10</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"The sum is: "</span> + <span class="pl-s1">result</span>);
+    }
+}</pre></div>
+<p>在这个例子中，<code class="notranslate">Calculator</code> 类包含两个方法：<code class="notranslate">displayMessage</code> 和 <code class="notranslate">add</code>。<code class="notranslate">displayMessage</code> 没有参数，也没有返回值，它仅打印消息。<code class="notranslate">add</code> 方法接受两个整数参数，返回它们的和。</p>
+<h4>注意事项</h4>
+<ul>
+<li><strong>静态方法</strong>：可通过类名直接调用，如 <code class="notranslate">Calculator.displayMessage()</code>。</li>
+<li><strong>非静态方法</strong>：必须在实例上调用，如 <code class="notranslate">calc.displayMessage()</code>。</li>
+<li><strong>参数匹配</strong>：传入的参数必须与方法定义的参数类型和顺序相匹配。</li>
+<li><strong>调用限制</strong>：方法可以调用同一类中的其他方法，包括自己。</li>
+</ul>
+<h3>方法声明</h3>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8afa91f3-d9f5-4c9b-9f43-495979185092"><img src="https://github.com/user-attachments/assets/8afa91f3-d9f5-4c9b-9f43-495979185092" alt="image (60)" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-java"><pre class="notranslate">权限修饰符 [其它修饰符（非必要）] 返回值类型 方法名（形参列表）{
+    <span class="pl-c">// 方法体</span>
+}</pre></div>
+<h4>方法分类</h4>
+<ol>
+<li><strong>无返回值类型</strong>：若方法没有返回值，使用 <code class="notranslate">void</code>，如 <code class="notranslate">public void displayMessage()</code>。</li>
+<li><strong>有返回值类型</strong>：返回具体的数据类型，如 <code class="notranslate">int</code>、<code class="notranslate">String</code> 等，并必须包含 <code class="notranslate">return</code> 语句。</li>
+</ol>
+<h4>形参列表的使用</h4>
+<p>当方法需要外部数据时，形参列表可指定接收的参数：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">sleep</span>(<span class="pl-smi">int</span> <span class="pl-s1">hour</span>) {
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"人每天最少睡："</span> + <span class="pl-s1">hour</span> + <span class="pl-s">" 小时"</span>);
+}</pre></div>
+<h4>注意 <code class="notranslate">return</code> 语句</h4>
+<ul>
+<li><code class="notranslate">return</code> 用于结束方法并返回值。</li>
+<li><code class="notranslate">return</code> 后不能有任何可执行语句，否则编译错误。</li>
+</ul>
+<h3>Java 递归方法</h3>
+<p><strong>递归</strong>指的是方法在自身内部调用自己。递归是一种强大的编程技术，通常用于解决具有重复子结构的问题，比如分治法、树结构处理和数学计算等场景。</p>
+<h4>递归方法的分类</h4>
+<ol>
+<li><strong>直接递归</strong>：方法直接调用自己。</li>
+<li><strong>间接递归</strong>：方法通过其他方法间接调用自身。例如，<code class="notranslate">A()</code> 调用 <code class="notranslate">B()</code>，然后 <code class="notranslate">B()</code> 再调用 <code class="notranslate">A()</code>。</li>
+</ol>
+<h4>递归的特性</h4>
+<ul>
+<li><strong>隐式循环</strong>：递归方法通过方法调用栈来实现循环，因此可以被认为包含一种隐式的循环。</li>
+<li><strong>递归终止条件</strong>：递归方法一定要在已知的方向上递归，即每次递归调用要朝着满足条件的方向收敛。否则会出现<strong>无限递归</strong>，最终导致栈内存溢出（StackOverflowError）。</li>
+</ul>
+<h4>递归示例</h4>
+<p>以下是一个简单的递归示例：<strong>计算阶乘</strong>。</p>
+<p><strong>阶乘的定义</strong>：</p>
+<ul>
+<li>n! = n × (n - 1) × (n - 2) × ... × 1</li>
+<li>特殊情况：0! = 1</li>
+</ul>
+<p><strong>代码实现：</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Factorial</span> {
+    <span class="pl-c">// 递归计算阶乘的方法</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">factorial</span>(<span class="pl-smi">int</span> <span class="pl-s1">n</span>) {
+        <span class="pl-c">// 递归终止条件：当 n 为 0 时返回 1</span>
+        <span class="pl-k">if</span> (<span class="pl-s1">n</span> == <span class="pl-c1">0</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        }
+        <span class="pl-c">// 递归调用：计算 n * (n-1)!</span>
+        <span class="pl-k">return</span> <span class="pl-s1">n</span> * <span class="pl-en">factorial</span>(<span class="pl-s1">n</span> - <span class="pl-c1">1</span>);
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">number</span> = <span class="pl-c1">5</span>;
+        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-en">factorial</span>(<span class="pl-s1">number</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">number</span> + <span class="pl-s">"! = "</span> + <span class="pl-s1">result</span>);  <span class="pl-c">// 输出结果</span>
+    }
+}</pre></div>
+<p><strong>代码说明</strong>：</p>
+<ul>
+<li><code class="notranslate">factorial</code> 方法在每次调用时都会检查是否满足终止条件 <code class="notranslate">n == 0</code>。</li>
+<li>如果满足条件则返回 1，否则继续调用 <code class="notranslate">factorial(n - 1)</code> 计算 <code class="notranslate">(n - 1)!</code>。</li>
+<li>最终每层递归都会返回计算值，直至整个阶乘计算完成。</li>
+</ul>
+<h4>注意事项</h4>
+<ol>
+<li><strong>确保递归终止条件</strong>：递归方法必须有明确的终止条件，否则会导致无限递归。</li>
+<li><strong>优化递归</strong>：递归效率较低，尤其是在需要重复计算的情况下（如斐波那契数列）。这时可以考虑使用<strong>动态规划</strong>等优化方式。</li>
+</ol>
+<hr>
+<p>递归的概念和用法主要总结如上，适用于解决许多复杂问题。</p>
+<p>这个代码定义了多个递归和非递归方法，来展示递归的应用。代码有一些需要修改和完善的地方，我已为你整理并补充了注释。</p>
+<hr>
+<h3>递归示例代码</h3>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 文件名: RecursionTest.java</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">RecursionTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">// 创建当前类的对象，用于调用实例方法</span>
+        <span class="pl-smi">RecursionTest</span> <span class="pl-s1">rt</span> = <span class="pl-k">new</span> <span class="pl-smi">RecursionTest</span>();
+
+        <span class="pl-c">// 调用求和方法（非递归）</span>
+        <span class="pl-s1">rt</span>.<span class="pl-en">method2</span>();
+
+        <span class="pl-c">// 调用递归求和方法</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"1到100的总和："</span> + <span class="pl-s1">rt</span>.<span class="pl-en">method3</span>(<span class="pl-c1">100</span>));
+
+        <span class="pl-c">// 调用递归计算阶乘方法</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"5的阶乘："</span> + <span class="pl-s1">rt</span>.<span class="pl-en">method4</span>(<span class="pl-c1">5</span>));
+
+        <span class="pl-c">// 调用斐波那契数列计算方法</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"斐波那契数列第10项："</span> + <span class="pl-s1">rt</span>.<span class="pl-en">method5</span>(<span class="pl-c1">10</span>));
+    }
+
+    <span class="pl-c">// 递归方法示例：无限递归</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method1</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"method1。。。"</span>);
+        <span class="pl-c">// 自己调用自己，会导致无限递归</span>
+        <span class="pl-en">method1</span>();
+    }
+
+    <span class="pl-c">// 非递归求和方法：计算1到100之间的总和</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method2</span>() {
+        <span class="pl-smi">int</span> <span class="pl-s1">sum</span> = <span class="pl-c1">0</span>;
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">sum</span> += <span class="pl-s1">i</span>;
+        }
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"1到100的总和："</span> + <span class="pl-s1">sum</span>);
+    }
+
+    <span class="pl-c">// 递归求和方法：计算1到num的总和</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">method3</span>(<span class="pl-smi">int</span> <span class="pl-s1">num</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">num</span> == <span class="pl-c1">1</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">return</span> <span class="pl-s1">num</span> + <span class="pl-en">method3</span>(<span class="pl-s1">num</span> - <span class="pl-c1">1</span>);
+        }
+    }
+
+    <span class="pl-c">// 递归计算阶乘：计算n的阶乘 n!</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">method4</span>(<span class="pl-smi">int</span> <span class="pl-s1">n</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">n</span> == <span class="pl-c1">1</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">return</span> <span class="pl-s1">n</span> * <span class="pl-en">method4</span>(<span class="pl-s1">n</span> - <span class="pl-c1">1</span>);
+        }
+    }
+
+    <span class="pl-c">// 递归计算斐波那契数列：f(n) = f(n-1) + f(n-2)</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">method5</span>(<span class="pl-smi">int</span> <span class="pl-s1">n</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">n</span> == <span class="pl-c1">1</span> || <span class="pl-s1">n</span> == <span class="pl-c1">2</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">return</span> <span class="pl-en">method5</span>(<span class="pl-s1">n</span> - <span class="pl-c1">1</span>) + <span class="pl-en">method5</span>(<span class="pl-s1">n</span> - <span class="pl-c1">2</span>);
+        }
+    }
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 文件名: RecursionExer.java</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">RecursionExer</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">RecursionExer</span> <span class="pl-s1">exer</span> = <span class="pl-k">new</span> <span class="pl-smi">RecursionExer</span>();
+
+        <span class="pl-c">// 测试自定义递归方法 f 和 func</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"f(20)的值："</span> + <span class="pl-s1">exer</span>.<span class="pl-en">f</span>(<span class="pl-c1">20</span>));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"func(20)的值："</span> + <span class="pl-s1">exer</span>.<span class="pl-en">func</span>(<span class="pl-c1">20</span>));
+    }
+
+    <span class="pl-c">// 递归方法：根据自定义规则定义的递归公式</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">f</span>(<span class="pl-smi">int</span> <span class="pl-s1">n</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">n</span> == <span class="pl-c1">20</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">n</span> == <span class="pl-c1">21</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">4</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">return</span> <span class="pl-en">f</span>(<span class="pl-s1">n</span> + <span class="pl-c1">1</span>) + <span class="pl-en">f</span>(<span class="pl-s1">n</span> + <span class="pl-c1">2</span>);
+        }
+    }
+
+    <span class="pl-c">// 递归方法：另一个自定义的递归公式</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">func</span>(<span class="pl-smi">int</span> <span class="pl-s1">n</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">n</span> == <span class="pl-c1">0</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">n</span> == <span class="pl-c1">1</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">4</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">return</span> <span class="pl-c1">2</span> * <span class="pl-en">func</span>(<span class="pl-s1">n</span> - <span class="pl-c1">1</span>) + <span class="pl-c1">2</span> * <span class="pl-en">func</span>(<span class="pl-s1">n</span> - <span class="pl-c1">2</span>);
+        }
+    }
+}</pre></div>
+<h3>代码说明</h3>
+<ol>
+<li><strong>method1</strong>：无限递归调用自己，无终止条件，会导致<strong>栈溢出错误</strong>（StackOverflowError）。</li>
+<li><strong>method2</strong>：非递归方法，用于计算 1 到 100 的总和。</li>
+<li><strong>method3</strong>：递归求和方法，计算从 1 到 <code class="notranslate">num</code> 的总和。终止条件为 <code class="notranslate">num == 1</code>。</li>
+<li><strong>method4</strong>：递归阶乘方法，计算 <code class="notranslate">n!</code>。终止条件为 <code class="notranslate">n == 1</code>。</li>
+<li><strong>method5</strong>：递归实现的斐波那契数列，终止条件为 <code class="notranslate">n == 1</code> 或 <code class="notranslate">n == 2</code>。</li>
+<li><strong>f</strong> 和 <strong>func</strong>：两个自定义递归方法，依次计算指定规则的递归序列。</li>
+</ol>
+<h3>注意事项</h3>
+<ul>
+<li>递归方法中务必设置<strong>递归终止条件</strong>，防止无限递归。</li>
+<li>对于计算量大的递归问题，可以考虑使用<strong>缓存</strong>或<strong>动态规划</strong>来提高效率，如斐波那契数列等。</li>
+</ul></div>
+<div style="font-size:small;margin-top:8px;float:right;">注意：转载请注明出处<br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script>
+
+</html>
