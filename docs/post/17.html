@@ -10,8 +10,7 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="
-## 6. 再谈同步
+<meta name="description" content="## 6. 再谈同步
 ### 6.1 单例设计模式的线程安全问题
 #### 6.1.1 饿汉式没有线程安全问题
 饿汉式：在类初始化时就直接创建单例对象，而类初始化过程是没有线程安全问题的
@@ -148,8 +147,7 @@ public class LazyOne {
     ctorSingleton(instance); 为单例对象通过instance调用构造器
     从JDK2开始，分配空间、初始化、调用构造器会在线程的工作存储区一次性完成，然后复制到主存储区。">
 <meta property="og:title" content="Java学习笔记基础篇 007">
-<meta property="og:description" content="
-## 6. 再谈同步
+<meta property="og:description" content="## 6. 再谈同步
 ### 6.1 单例设计模式的线程安全问题
 #### 6.1.1 饿汉式没有线程安全问题
 饿汉式：在类初始化时就直接创建单例对象，而类初始化过程是没有线程安全问题的
@@ -1515,7 +1513,757 @@ Callable使用了泛型参数，可以指明具体的call()的返回值类型，
         <span class="pl-s1">service</span>.<span class="pl-en">shutdown</span>();
     }
 
-}</pre></div></div>
+}</pre></div>
+<h1>第11章_常用类和基础API</h1>
+<p>1.String类的理解(以JDK8为例说明)<br>
+1.1 类的声明<br>
+public final class String<br>
+implements java.io.Serializable, Comparable, CharSequence final:String是不可被继承的 Serializable:可序列化的接口。凡是实现此接口的类的对象就可以通过网络或本地流进行数据的传输。 Comparable:凡是实现此接口的类，其对象都可以比较大小。 1.2 内部声明的属性: jdk8中: private final char value[];//存储字符串数据的容器</p>
+<blockquote>
+<p>final :指明此value数组一日初始化，其地址就不可变，<br>
+jdk9开始:为了节省内存空间，做了优化<br>
+private final byte[] value;//存储字符串数据的容器<br>
+字符串常量的存储位置</p>
+</blockquote>
+<p>1.2 内部声明的属性:<br>
+jdk8中:<br>
+private final char value[];//存储字符串数据的容器</p>
+<blockquote>
+<p>final :指明此valve数组一旦初始化，其地址就不可变<br>
+jdk9开始:为了节省内存空间，做了优化<br>
+private final byte[] value;//存储字符串数据的容器<br>
+2.字符串常量的存储位置<br>
+字符串常量都存储在字符串常量池(StringTable)中<br>
+字符串常量池不允许存放两个相同的字符串常量。<br>
+字符串常量池，在不同的jdk版本中，存放位置不同:<br>
+jdk7之前:字符串常量池存放在方法区<br>
+jdk7及之后:字符串常量池存放在堆空间。</p>
+</blockquote>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">StringDemo</span> {
+    <span class="pl-c">//字符量常量池</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"hello"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"hello"</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"hello"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);<span class="pl-c">//true</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s3</span>);<span class="pl-c">//false</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//false</span>
+    }
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//String的不可变性</span>
+<span class="pl-c">//当对字符串进行修改时，会在内存中创建新的对象</span>
+<span class="pl-c">//当对字符串进行修改时，需要在内存中重新开辟空间，不能直接修改</span></pre></div>
+<h4>String实例化的两种方式</h4>
+<p>第1种方式:String s1="hello";</p>
+<p>第2种方式:String s2 = new string("hello");</p>
+<p>【面试题】</p>
+<p>String s2 = new string("hello");在内存中创建了几个对象? 两个!</p>
+<p>一个是堆空间中new的对象。另一个是在字符串常量池中生成的字面量。</p>
+<h4>String的连接操作 :</h4>
+<p>情况1:常量 + 常量:结果仍然存储在字符串常量池中，返回此字面量的地址。注:此时的常量可能是字面量，也可能是final修饰的常</p>
+<p>情况2:常量 +变量或变量+变量 :都会通过new的方式创建一个新的字符串，返回堆空间中此字符串对象的地址</p>
+<p>情况了:调用字符串的intern():返回的是字符串常量池中字面量的地址</p>
+<p>(了解)情况4:concat(xxx):不管是常量调用此方法，还是变量调用，同样不管参数是常量还是变量，总之，调用完concat()方法</p>
+<p>都返回一个新new的对象。</p>
+<h2>1. 字符串相关类之不可变字符序列：String</h2>
+<h3>1.1 String的特性</h3>
+<ul>
+<li><code class="notranslate">java.lang.String</code> 类代表字符串。Java程序中所有的字符串文字（例如<code class="notranslate">"hello"</code> ）都可以看作是实现此类的实例。</li>
+<li>字符串是常量，用双引号引起来表示。它们的值在创建之后不能更改。</li>
+<li>字符串String类型本身是final声明的，意味着我们不能继承String。</li>
+<li>String对象的字符内容是存储在一个字符数组value[]中的。<code class="notranslate">"abc"</code> 等效于 <code class="notranslate">char[] data={'h','e','l','l','o'}</code>。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//jdk8中的String源码：</span>
+<span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-k">class</span> <span class="pl-smi">String</span>
+    <span class="pl-k">implements</span> <span class="pl-smi">java</span>.<span class="pl-smi">io</span>.<span class="pl-smi">Serializable</span>, <span class="pl-smi">Comparable</span>&lt;<span class="pl-smi">String</span>&gt;, <span class="pl-smi">CharSequence</span> {
+    <span class="pl-c">/** The value is used for character storage. */</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">char</span> <span class="pl-s1">value</span>[]; <span class="pl-c">//String对象的字符内容是存储在此数组中</span>
+ 
+    <span class="pl-c">/** Cache the hash code for the string */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">hash</span>; <span class="pl-c">// Default to 0</span></pre></div>
+<pre class="notranslate"><code class="notranslate">- private意味着外面无法直接获取字符数组，而且String没有提供value的get和set方法。
+- final意味着字符数组的引用不可改变，而且String也没有提供方法来修改value数组某个元素值
+- 因此字符串的字符数组内容也不可变的，即String代表着不可变的字符序列。即，一旦对字符串进行修改，就会产生新对象。
+- JDK9只有，底层使用byte[]数组。
+</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-k">class</span> <span class="pl-smi">String</span> <span class="pl-k">implements</span> <span class="pl-smi">java</span>.<span class="pl-smi">io</span>.<span class="pl-smi">Serializable</span>, <span class="pl-smi">Comparable</span>&lt;<span class="pl-smi">String</span>&gt;, <span class="pl-smi">CharSequence</span> { 
+    <span class="pl-c1">@</span><span class="pl-c1">Stable</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">byte</span>[] <span class="pl-s1">value</span>;
+}
+
+<span class="pl-c">//官方说明：... that most String objects contain only Latin-1 characters. Such characters require only one byte of storage, hence half of the space in the internal char arrays of such String objects is going unused.</span>
+
+<span class="pl-c">//细节：... The new String class will store characters encoded either as ISO-8859-1/Latin-1 (one byte per character), or as UTF-16 (two bytes per character), based upon the contents of the string. The encoding flag will indicate which encoding is used.</span></pre></div>
+<ul>
+<li>Java 语言提供对字符串串联符号（"+"）以及将其他对象转换为字符串的特殊支持（toString()方法）。</li>
+</ul>
+<h3>1.2 String的内存结构</h3>
+<h4>1.2.1 概述</h4>
+<p>因为字符串对象设计为不可变，那么所以字符串有常量池来保存很多常量对象。</p>
+<p>JDK6中，字符串常量池在方法区。JDK7开始，就移到堆空间，直到目前JDK17版本。</p>
+<p>举例内存结构分配：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1562945799274.png"><img src="images/1562945799274.png" alt="" style="max-width: 100%;"></a></p>
+<h4>1.2.2 练习类型1：拼接</h4>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"hello"</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);
+<span class="pl-c">// 内存中只有一个"hello"对象被创建，同时被s1和s2共享。</span></pre></div>
+<p>对应内存结构为：（以下内存结构以<code class="notranslate">JDK6为例</code>绘制）：</p>
+<p>进一步：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Person</span> <span class="pl-s1">p1</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+<span class="pl-s1">p1</span>.<span class="pl-s1">name</span> = “<span class="pl-s1">Tom</span><span class="pl-s">";</span>
+<span class="pl-s"></span>
+<span class="pl-s">Person p2 = new Person();</span>
+<span class="pl-s">p2.name = “Tom"</span>;
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">p1</span>.<span class="pl-s1">name</span>.<span class="pl-en">equals</span>( <span class="pl-s1">p2</span>.<span class="pl-s1">name</span>)); <span class="pl-c">//</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">p1</span>.<span class="pl-s1">name</span> == <span class="pl-s1">p2</span>.<span class="pl-s1">name</span>); <span class="pl-c">//</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">p1</span>.<span class="pl-s1">name</span> == <span class="pl-s">"Tom"</span>); <span class="pl-c">//</span></pre></div>
+<h4>1.2.3 练习类型2：new</h4>
+<p>String str1 = “abc”; 与 String str2 = new String(“abc”);的区别？</p>
+<p>str2 首先指向堆中的一个字符串对象，然后堆中字符串的value数组指向常量池中常量对象的value数组。</p>
+<blockquote>
+<ul>
+<li>字符串常量存储在字符串常量池，目的是共享。</li>
+<li>字符串非常量对象存储在堆中。</li>
+</ul>
+</blockquote>
+<p>练习：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"javaEE"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"javaEE"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"javaEE"</span>);
+<span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"javaEE"</span>);
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);<span class="pl-c">//true</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s3</span>);<span class="pl-c">//false</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//false</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//false</span></pre></div>
+<p>练习：String str2 = new String("hello"); 在内存中创建了几个对象？</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">两个
+</code></pre>
+<h4>1.2.4 练习类型3：intern()</h4>
+<ul>
+<li><strong>String s1 = "a";</strong></li>
+</ul>
+<p>说明：在字符串常量池中创建了一个字面量为"a"的字符串。</p>
+<ul>
+<li><strong>s1 = s1 + "b";</strong></li>
+</ul>
+<p>说明：实际上原来的“a”字符串对象已经丢弃了，现在在堆空间中产生了一个字符串s1+"b"（也就是"ab")。如果多次执行这些改变串内容的操作，会导致大量副本字符串对象存留在内存中，降低效率。如果这样的操作放到循环中，会极大影响程序的性能。</p>
+<ul>
+<li><strong>String s2 = "ab";</strong></li>
+</ul>
+<p>说明：直接在字符串常量池中创建一个字面量为"ab"的字符串。</p>
+<ul>
+<li><strong>String s3 = "a" + "b";</strong></li>
+</ul>
+<p>说明：s3指向字符串常量池中已经创建的"ab"的字符串。</p>
+<ul>
+<li><strong>String s4 = s1.intern();</strong></li>
+</ul>
+<p>说明：堆空间的s1对象在调用intern()之后，会将常量池中已经存在的"ab"字符串赋值给s4。</p>
+<p>练习：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"hello"</span> + <span class="pl-s">"world"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-s1">s1</span> + <span class="pl-s">"world"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s5</span> = <span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s6</span> = (<span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>).<span class="pl-en">intern</span>();
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s5</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s4</span> == <span class="pl-s1">s5</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s6</span>);</pre></div>
+<blockquote>
+<p><strong>结论：</strong></p>
+<p>（1）常量+常量：结果是常量池。且常量池中不会存在相同内容的常量。</p>
+<p>（2）常量与变量 或 变量与变量：结果在堆中</p>
+<p>（3）拼接后调用intern方法：返回值在常量池中</p>
+</blockquote>
+<p>练习：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
+        
+    <span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-s1">s1</span> + <span class="pl-s">"world"</span>;<span class="pl-c">//s4字符串内容也helloworld，s1是变量，"world"常量，变量 + 常量的结果在堆中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s5</span> = <span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>;<span class="pl-c">//s5字符串内容也helloworld，s1和s2都是变量，变量 + 变量的结果在堆中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s6</span> = <span class="pl-s">"hello"</span> + <span class="pl-s">"world"</span>;<span class="pl-c">//常量+ 常量 结果在常量池中，因为编译期间就可以确定结果</span>
+        
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//false</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s5</span>);<span class="pl-c">//false</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s6</span>);<span class="pl-c">//true</span>
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>(){
+    <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+    <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
+    
+    <span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-s1">s1</span> + <span class="pl-s">"world"</span>;<span class="pl-c">//s4字符串内容也helloworld，s1是常量，"world"常量，常量+常量结果在常量池中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s5</span> = <span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>;<span class="pl-c">//s5字符串内容也helloworld，s1和s2都是常量，常量+ 常量 结果在常量池中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s6</span> = <span class="pl-s">"hello"</span> + <span class="pl-s">"world"</span>;<span class="pl-c">//常量+ 常量 结果在常量池中，因为编译期间就可以确定结果</span>
+        
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//true</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s5</span>);<span class="pl-c">//true</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s6</span>);<span class="pl-c">//true</span>
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
+        
+    <span class="pl-smi">String</span> <span class="pl-s1">s4</span> = (<span class="pl-s1">s1</span> + <span class="pl-s">"world"</span>).<span class="pl-en">intern</span>();<span class="pl-c">//把拼接的结果放到常量池中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s5</span> = (<span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>).<span class="pl-en">intern</span>();
+        
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//true</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s5</span>);<span class="pl-c">//true</span>
+}</pre></div>
+<p>练习：下列程序运行的结果：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestString</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"hello"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"world"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str3</span> =<span class="pl-s">"helloworld"</span>;
+        
+        <span class="pl-smi">String</span> <span class="pl-s1">str4</span> = <span class="pl-s">"hello"</span>.<span class="pl-en">concat</span>(<span class="pl-s">"world"</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">str5</span> = <span class="pl-s">"hello"</span>+<span class="pl-s">"world"</span>;
+        
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str3</span> == <span class="pl-s1">str4</span>);<span class="pl-c">//false</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str3</span> == <span class="pl-s1">str5</span>);<span class="pl-c">//true</span>
+    }
+}</pre></div>
+<blockquote>
+<p>concat方法拼接，哪怕是两个常量对象拼接，结果也是在堆。</p>
+</blockquote>
+<p>练习：下列程序运行的结果：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">StringTest</span> {
+
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"good"</span>);
+    <span class="pl-smi">char</span>[] <span class="pl-s1">ch</span> = { <span class="pl-s">'t'</span>, <span class="pl-s">'e'</span>, <span class="pl-s">'s'</span>, <span class="pl-s">'t'</span> };
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">change</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">char</span> <span class="pl-s1">ch</span>[]) {
+        <span class="pl-s1">str</span> = <span class="pl-s">"test ok"</span>;
+        <span class="pl-s1">ch</span>[<span class="pl-c1">0</span>] = <span class="pl-s">'b'</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">StringTest</span> <span class="pl-s1">ex</span> = <span class="pl-k">new</span> <span class="pl-smi">StringTest</span>();
+        <span class="pl-s1">ex</span>.<span class="pl-en">change</span>(<span class="pl-s1">ex</span>.<span class="pl-s1">str</span>, <span class="pl-s1">ex</span>.<span class="pl-s1">ch</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s1">ex</span>.<span class="pl-s1">str</span> + <span class="pl-s">" and "</span>);<span class="pl-c">//</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">ex</span>.<span class="pl-s1">ch</span>);
+    }
+}</pre></div>
+<h3>1.3 String的常用API-1</h3>
+<h4>1.3.1 构造器</h4>
+<ul>
+<li><code class="notranslate">public String() </code> ：初始化新创建的 String对象，以使其表示空字符序列。</li>
+<li><code class="notranslate"> String(String original)</code>： 初始化一个新创建的 <code class="notranslate">String</code> 对象，使其表示一个与参数相同的字符序列；换句话说，新创建的字符串是该参数字符串的副本。</li>
+<li><code class="notranslate">public String(char[] value) </code> ：通过当前参数中的字符数组来构造新的String。</li>
+<li><code class="notranslate">public String(char[] value,int offset, int count) </code> ：通过字符数组的一部分来构造新的String。</li>
+<li><code class="notranslate">public String(byte[] bytes) </code> ：通过使用平台的<strong>默认字符集</strong>解码当前参数中的字节数组来构造新的String。</li>
+<li><code class="notranslate">public String(byte[] bytes,String charsetName) </code> ：通过使用指定的字符集解码当前参数中的字节数组来构造新的String。</li>
+</ul>
+<p>举例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//字面量定义方式：字符串常量对象</span>
+<span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"hello"</span>;
+
+<span class="pl-c">//构造器定义方式：无参构造</span>
+<span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>();
+
+<span class="pl-c">//构造器定义方式：创建"hello"字符串常量的副本</span>
+<span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"hello"</span>);
+
+<span class="pl-c">//构造器定义方式：通过字符数组构造</span>
+<span class="pl-smi">char</span> <span class="pl-s1">chars</span>[] = {<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>,<span class="pl-s">'d'</span>,<span class="pl-s">'e'</span>};     
+<span class="pl-smi">String</span> <span class="pl-s1">str3</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">chars</span>);
+<span class="pl-smi">String</span> <span class="pl-s1">str4</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">chars</span>,<span class="pl-c1">0</span>,<span class="pl-c1">3</span>);
+
+<span class="pl-c">//构造器定义方式：通过字节数组构造</span>
+<span class="pl-smi">byte</span> <span class="pl-s1">bytes</span>[] = {<span class="pl-c1">97</span>, <span class="pl-c1">98</span>, <span class="pl-c1">99</span> };     
+<span class="pl-smi">String</span> <span class="pl-s1">str5</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">bytes</span>);
+<span class="pl-smi">String</span> <span class="pl-s1">str6</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">bytes</span>,<span class="pl-s">"GBK"</span>);</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+    <span class="pl-smi">char</span>[] <span class="pl-s1">data</span> = {<span class="pl-s">'h'</span>,<span class="pl-s">'e'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'o'</span>,<span class="pl-s">'j'</span>,<span class="pl-s">'a'</span>,<span class="pl-s">'v'</span>,<span class="pl-s">'a'</span>};
+    <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>);
+    <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>,<span class="pl-c1">0</span>,<span class="pl-c1">5</span>);
+    <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-c1">123456</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">num</span>);
+    
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span>);
+}</pre></div>
+<h4>1.3.2 String与其他结构间的转换</h4>
+<p><strong>字符串 --&gt; 基本数据类型、包装类：</strong></p>
+<ul>
+<li>Integer包装类的public static int parseInt(String s)：可以将由“数字”字符组成的字符串转换为整型。</li>
+<li>类似地，使用java.lang包中的Byte、Short、Long、Float、Double类调相应的类方法可以将由“数字”字符组成的字符串，转化为相应的基本数据类型。</li>
+</ul>
+<p><strong>基本数据类型、包装类 --&gt; 字符串：</strong></p>
+<ul>
+<li>调用String类的public String valueOf(int n)可将int型转换为字符串</li>
+<li>相应的valueOf(byte b)、valueOf(long l)、valueOf(float f)、valueOf(double d)、valueOf(boolean b)可由参数的相应类型到字符串的转换。</li>
+</ul>
+<p><strong>字符数组 --&gt;  字符串：</strong></p>
+<ul>
+<li>String 类的构造器：String(char[]) 和 String(char[]，int offset，int length) 分别用字符数组中的全部字符和部分字符创建字符串对象。</li>
+</ul>
+<p><strong>字符串 --&gt;  字符数组：</strong></p>
+<ul>
+<li>public char[] toCharArray()：将字符串中的全部字符存放在一个字符数组中的方法。</li>
+<li>public void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)：提供了将指定索引范围内的字符串存放到数组中的方法。</li>
+</ul>
+<p><strong>字符串 --&gt; 字节数组：（编码）</strong></p>
+<ul>
+<li>public byte[] getBytes() ：使用平台的默认字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</li>
+<li>public byte[] getBytes(String charsetName) ：使用指定的字符集将此 String 编码到 byte 序列，并将结果存储到新的 byte 数组。</li>
+</ul>
+<p><strong>字节数组 --&gt; 字符串：（解码）</strong></p>
+<ul>
+<li>String(byte[])：通过使用平台的默认字符集解码指定的 byte 数组，构造一个新的 String。</li>
+<li>String(byte[]，int offset，int length) ：用指定的字节数组的一部分，即从数组起始位置offset开始取length个字节构造一个字符串对象。</li>
+<li>String(byte[], String charsetName ) 或 new String(byte[], int, int,String charsetName )：解码，按照指定的编码方式进行解码。</li>
+</ul>
+<p>代码示例：</p>
+<p>在 utf-8 中 一个汉字占用三个字节</p>
+<p>在 gbk 中 一个汉字占用 2 个字节</p>
+<p>utf8 与 gbk 都向下兼容了 ascii 码</p>
+<p>编码与解码 编码用什么解码就要用什么 否则乱码</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>() <span class="pl-k">throws</span> <span class="pl-s1">Exception</span> {
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"中国"</span>;
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"ISO8859-1"</span>).<span class="pl-s1">length</span>);<span class="pl-c">// 2</span>
+    <span class="pl-c">// ISO8859-1把所有的字符都当做一个byte处理，处理不了多个字节</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"GBK"</span>).<span class="pl-s1">length</span>);<span class="pl-c">// 4 每一个中文都是对应2个字节</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"UTF-8"</span>).<span class="pl-s1">length</span>);<span class="pl-c">// 6 常规的中文都是3个字节</span>
+
+    <span class="pl-c">/*</span>
+<span class="pl-c">     * 不乱码：（1）保证编码与解码的字符集名称一样（2）不缺字节</span>
+<span class="pl-c">     */</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"ISO8859-1"</span>), <span class="pl-s">"ISO8859-1"</span>));<span class="pl-c">// 乱码</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"GBK"</span>), <span class="pl-s">"GBK"</span>));<span class="pl-c">// 中国</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"UTF-8"</span>), <span class="pl-s">"UTF-8"</span>));<span class="pl-c">// 中国</span>
+}</pre></div>
+<h3>1.4 String的常用API-2</h3>
+<p><code class="notranslate">String</code> 类包括的方法可用于检查序列的单个字符、比较字符串、搜索字符串、提取子字符串、创建字符串副本并将所有字符全部转换为大写或小写。</p>
+<h4>1.4.1 系列1：常用方法</h4>
+<p>（1）boolean isEmpty()：字符串是否为空<br>
+（2）int length()：返回字符串的长度<br>
+（3）String concat(xx)：拼接<br>
+（4）boolean equals(Object obj)：比较字符串是否相等，区分大小写<br>
+（5）boolean equalsIgnoreCase(Object obj)：比较字符串是否相等，不区分大小写<br>
+（6）int compareTo(String other)：比较字符串大小，区分大小写，按照Unicode编码值比较大小<br>
+（7）int compareToIgnoreCase(String other)：比较字符串大小，不区分大小写<br>
+（8）String toLowerCase()：将字符串中大写字母转为小写<br>
+（9）String toUpperCase()：将字符串中小写字母转为大写<br>
+（10）String trim()：去掉字符串前后空白符<br>
+（11）public String intern()：结果在常量池中共享</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+        <span class="pl-c">//将用户输入的单词全部转为小写，如果用户没有输入单词，重新输入</span>
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">word</span>;
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入单词："</span>);
+            <span class="pl-s1">word</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextLine</span>();
+            <span class="pl-k">if</span>(<span class="pl-s1">word</span>.<span class="pl-en">trim</span>().<span class="pl-en">length</span>()!=<span class="pl-c1">0</span>){
+                <span class="pl-s1">word</span> = <span class="pl-s1">word</span>.<span class="pl-en">toLowerCase</span>();
+                <span class="pl-k">break</span>;
+            }
+        }
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">word</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>(){
+        <span class="pl-c">//随机生成验证码，验证码由0-9，A-Z,a-z的字符组成</span>
+        <span class="pl-smi">char</span>[] <span class="pl-s1">array</span> = <span class="pl-k">new</span> <span class="pl-smi">char</span>[<span class="pl-c1">26</span>*<span class="pl-c1">2</span>+<span class="pl-c1">10</span>];
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">array</span>[<span class="pl-s1">i</span>] = (<span class="pl-smi">char</span>)(<span class="pl-s">'0'</span> + <span class="pl-s1">i</span>);
+        }
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">10</span>,<span class="pl-s1">j</span>=<span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>+<span class="pl-c1">26</span>; <span class="pl-s1">i</span>++,<span class="pl-s1">j</span>++) {
+            <span class="pl-s1">array</span>[<span class="pl-s1">i</span>] = (<span class="pl-smi">char</span>)(<span class="pl-s">'A'</span> + <span class="pl-s1">j</span>);
+        }
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">10</span>+<span class="pl-c1">26</span>,<span class="pl-s1">j</span>=<span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">array</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++,<span class="pl-s1">j</span>++) {
+            <span class="pl-s1">array</span>[<span class="pl-s1">i</span>] = (<span class="pl-smi">char</span>)(<span class="pl-s">'a'</span> + <span class="pl-s1">j</span>);
+        }
+        <span class="pl-smi">String</span> <span class="pl-s1">code</span> = <span class="pl-s">""</span>;
+        <span class="pl-smi">Random</span> <span class="pl-s1">rand</span> = <span class="pl-k">new</span> <span class="pl-smi">Random</span>();
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">4</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">code</span> += <span class="pl-s1">array</span>[<span class="pl-s1">rand</span>.<span class="pl-en">nextInt</span>(<span class="pl-s1">array</span>.<span class="pl-s1">length</span>)];
+        }
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"验证码："</span> + <span class="pl-s1">code</span>);
+        <span class="pl-c">//将用户输入的单词全部转为小写，如果用户没有输入单词，重新输入</span>
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入验证码："</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">inputCode</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextLine</span>();
+        
+        <span class="pl-k">if</span>(!<span class="pl-s1">code</span>.<span class="pl-en">equalsIgnoreCase</span>(<span class="pl-s1">inputCode</span>)){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"验证码输入不正确"</span>);
+        }
+    }</pre></div>
+<h4>1.4.2 系列2：查找</h4>
+<p>（11）boolean contains(xx)：是否包含xx<br>
+（12）int indexOf(xx)：从前往后找当前字符串中xx，即如果有返回第一次出现的下标，要是没有返回-1<br>
+（13）int indexOf(String str, int fromIndex)：返回指定子字符串在此字符串中第一次出现处的索引，从指定的索引开始<br>
+（14）int lastIndexOf(xx)：从后往前找当前字符串中xx，即如果有返回最后一次出现的下标，要是没有返回-1<br>
+（15）int lastIndexOf(String str, int fromIndex)：返回指定子字符串在此字符串中最后一次出现处的索引，从指定的索引开始反向搜索。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"尚硅谷是一家靠谱的培训机构，尚硅谷可以说是IT培训的小清华，JavaEE是尚硅谷的当家学科，尚硅谷的大数据培训是行业独角兽。尚硅谷的前端和UI专业一样独领风骚。"</span>;
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"是否包含清华："</span> + <span class="pl-s1">str</span>.<span class="pl-en">contains</span>(<span class="pl-s">"清华"</span>));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"培训出现的第一次下标："</span> + <span class="pl-s1">str</span>.<span class="pl-en">indexOf</span>(<span class="pl-s">"培训"</span>));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"培训出现的最后一次下标："</span> + <span class="pl-s1">str</span>.<span class="pl-en">lastIndexOf</span>(<span class="pl-s">"培训"</span>));
+    }</pre></div>
+<h4>1.4.3 系列3：字符串截取</h4>
+<p>（16）String substring(int beginIndex) ：返回一个新的字符串，它是此字符串的从beginIndex开始截取到最后的一个子字符串。<br>
+（17）String substring(int beginIndex, int endIndex) ：返回一个新字符串，它是此字符串从beginIndex开始截取到endIndex(不包含)的一个子字符串。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"helloworldjavaatguigu"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">sub1</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">5</span>);
+    <span class="pl-smi">String</span> <span class="pl-s1">sub2</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">5</span>,<span class="pl-c1">10</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sub1</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sub2</span>);
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">fileName</span> = <span class="pl-s">"快速学习Java的秘诀.dat"</span>;
+    <span class="pl-c">//截取文件名</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"文件名："</span> + <span class="pl-s1">fileName</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>,<span class="pl-s1">fileName</span>.<span class="pl-en">lastIndexOf</span>(<span class="pl-s">"."</span>)));
+    <span class="pl-c">//截取后缀名</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"后缀名："</span> + <span class="pl-s1">fileName</span>.<span class="pl-en">substring</span>(<span class="pl-s1">fileName</span>.<span class="pl-en">lastIndexOf</span>(<span class="pl-s">"."</span>)));
+}</pre></div>
+<h4>1.4.4 系列4：和字符/字符数组相关</h4>
+<p>（18）char charAt(index)：返回[index]位置的字符<br>
+（19）char[] toCharArray()： 将此字符串转换为一个新的字符数组返回<br>
+（20）static String valueOf(char[] data)  ：返回指定数组中表示该字符序列的 String<br>
+（21）static String valueOf(char[] data, int offset, int count) ： 返回指定数组中表示该字符序列的 String<br>
+（22）static String copyValueOf(char[] data)： 返回指定数组中表示该字符序列的 String<br>
+（23）static String copyValueOf(char[] data, int offset, int count)：返回指定数组中表示该字符序列的 String</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+        <span class="pl-c">//将字符串中的字符按照大小顺序排列</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"helloworldjavaatguigu"</span>;
+        <span class="pl-smi">char</span>[] <span class="pl-s1">array</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
+        <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">array</span>);
+        <span class="pl-s1">str</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">array</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>);
+    }
+    
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>(){
+        <span class="pl-c">//将首字母转为大写</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"jack"</span>;
+        <span class="pl-s1">str</span> = <span class="pl-smi">Character</span>.<span class="pl-en">toUpperCase</span>(<span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-c1">0</span>))+<span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>);
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test03</span>(){
+        <span class="pl-smi">char</span>[] <span class="pl-s1">data</span> = {<span class="pl-s">'h'</span>,<span class="pl-s">'e'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'o'</span>,<span class="pl-s">'j'</span>,<span class="pl-s">'a'</span>,<span class="pl-s">'v'</span>,<span class="pl-s">'a'</span>};
+        <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>,<span class="pl-c1">0</span>,<span class="pl-c1">5</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-c1">123456</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">num</span>);
+    
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span>);
+    }</pre></div>
+<h4>1.4.5 系列5：开头与结尾</h4>
+<p>（24）boolean startsWith(xx)：测试此字符串是否以指定的前缀开始<br>
+（25）boolean startsWith(String prefix, int toffset)：测试此字符串从指定索引开始的子字符串是否以指定前缀开始<br>
+（26）boolean endsWith(xx)：测试此字符串是否以指定的后缀结束</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+        <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-s">"张三"</span>;
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">name</span>.<span class="pl-en">startsWith</span>(<span class="pl-s">"张"</span>));
+    }
+    
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test2</span>(){
+        <span class="pl-smi">String</span> <span class="pl-s1">file</span> = <span class="pl-s">"Hello.txt"</span>;
+        <span class="pl-k">if</span>(<span class="pl-s1">file</span>.<span class="pl-en">endsWith</span>(<span class="pl-s">".java"</span>)){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Java源文件"</span>);
+        }<span class="pl-k">else</span> <span class="pl-k">if</span>(<span class="pl-s1">file</span>.<span class="pl-en">endsWith</span>(<span class="pl-s">".class"</span>)){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Java字节码文件"</span>);
+        }<span class="pl-k">else</span>{
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"其他文件"</span>);
+        }
+    }</pre></div>
+<h4>1.4.6 系列6：替换</h4>
+<p>（27）String replace(char oldChar, char newChar)：返回一个新的字符串，它是通过用 newChar 替换此字符串中出现的所有 oldChar 得到的。 不支持正则。<br>
+（28）String replace(CharSequence target, CharSequence replacement)：使用指定的字面值替换序列替换此字符串所有匹配字面值目标序列的子字符串。<br>
+（29）String replaceAll(String regex, String replacement)：使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串。<br>
+（30）String replaceFirst(String regex, String replacement)：使用给定的 replacement 替换此字符串匹配给定的正则表达式的第一个子字符串。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"hello244world.java;887"</span>;
+    <span class="pl-c">//把其中的非字母去掉</span>
+    <span class="pl-s1">str1</span> = <span class="pl-s1">str1</span>.<span class="pl-en">replaceAll</span>(<span class="pl-s">"[^a-zA-Z]"</span>, <span class="pl-s">""</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>);
+
+    <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"12hello34world5java7891mysql456"</span>;
+    <span class="pl-c">//把字符串中的数字替换成,，如果结果中开头和结尾有，的话去掉</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">string</span> = <span class="pl-s1">str2</span>.<span class="pl-en">replaceAll</span>(<span class="pl-s">"<span class="pl-cce">\\</span>d+"</span>, <span class="pl-s">","</span>).<span class="pl-en">replaceAll</span>(<span class="pl-s">"^,|,$"</span>, <span class="pl-s">""</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">string</span>);
+
+}</pre></div>
+<h3>1.5 常见算法题目</h3>
+<p>**题目1：**模拟一个trim方法，去除字符串两端的空格。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">myTrim</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">str</span> != <span class="pl-c1">null</span>) {
+            <span class="pl-smi">int</span> <span class="pl-s1">start</span> = <span class="pl-c1">0</span>;<span class="pl-c">// 用于记录从前往后首次索引位置不是空格的位置的索引</span>
+            <span class="pl-smi">int</span> <span class="pl-s1">end</span> = <span class="pl-s1">str</span>.<span class="pl-en">length</span>() - <span class="pl-c1">1</span>;<span class="pl-c">// 用于记录从后往前首次索引位置不是空格的位置的索引</span>
+
+            <span class="pl-k">while</span> (<span class="pl-s1">start</span> &lt; <span class="pl-s1">end</span> &amp;&amp; <span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">start</span>) == <span class="pl-s">' '</span>) {
+                <span class="pl-s1">start</span>++;
+            }
+
+            <span class="pl-k">while</span> (<span class="pl-s1">start</span> &lt; <span class="pl-s1">end</span> &amp;&amp; <span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">end</span>) == <span class="pl-s">' '</span>) {
+                <span class="pl-s1">end</span>--;
+            }
+            <span class="pl-k">if</span> (<span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">start</span>) == <span class="pl-s">' '</span>) {
+                <span class="pl-k">return</span> <span class="pl-s">""</span>;
+            }
+
+            <span class="pl-k">return</span> <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-s1">start</span>, <span class="pl-s1">end</span> + <span class="pl-c1">1</span>);
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testMyTrim</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"   a   "</span>;
+        <span class="pl-c">// str = " ";</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">newStr</span> = <span class="pl-en">myTrim</span>(<span class="pl-s1">str</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"---"</span> + <span class="pl-s1">newStr</span> + <span class="pl-s">"---"</span>);
+    }</pre></div>
+<p>**题目2：**将一个字符串进行反转。将字符串中指定部分进行反转。比如“ab<code class="notranslate">cdef</code>g”反转为”ab<code class="notranslate">fedc</code>g”</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 方式一：</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">reverse1</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {<span class="pl-c">// start:2,end:5</span>
+        <span class="pl-k">if</span> (<span class="pl-s1">str</span> != <span class="pl-c1">null</span>) {
+            <span class="pl-c">// 1.</span>
+            <span class="pl-smi">char</span>[] <span class="pl-s1">charArray</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
+            <span class="pl-c">// 2.</span>
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-s1">start</span>, <span class="pl-s1">j</span> = <span class="pl-s1">end</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">j</span>; <span class="pl-s1">i</span>++, <span class="pl-s1">j</span>--) {
+                <span class="pl-smi">char</span> <span class="pl-s1">temp</span> = <span class="pl-s1">charArray</span>[<span class="pl-s1">i</span>];
+                <span class="pl-s1">charArray</span>[<span class="pl-s1">i</span>] = <span class="pl-s1">charArray</span>[<span class="pl-s1">j</span>];
+                <span class="pl-s1">charArray</span>[<span class="pl-s1">j</span>] = <span class="pl-s1">temp</span>;
+            }
+            <span class="pl-c">// 3.</span>
+            <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">charArray</span>);
+
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
+
+    }
+
+    <span class="pl-c">// 方式二：</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">reverse2</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {
+        <span class="pl-c">// 1.</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">newStr</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>, <span class="pl-s1">start</span>);<span class="pl-c">// ab</span>
+        <span class="pl-c">// 2.</span>
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-s1">end</span>; <span class="pl-s1">i</span> &gt;= <span class="pl-s1">start</span>; <span class="pl-s1">i</span>--) {
+            <span class="pl-s1">newStr</span> += <span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">i</span>);
+        } <span class="pl-c">// abfedc</span>
+            <span class="pl-c">// 3.</span>
+        <span class="pl-s1">newStr</span> += <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-s1">end</span> + <span class="pl-c1">1</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">newStr</span>;
+    }
+
+    <span class="pl-c">// 方式三：推荐 （相较于方式二做的改进）</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">reverse3</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {<span class="pl-c">// ArrayList list = new ArrayList(80);</span>
+        <span class="pl-c">// 1.</span>
+        <span class="pl-smi">StringBuffer</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s1">str</span>.<span class="pl-en">length</span>());
+        <span class="pl-c">// 2.</span>
+        <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>, <span class="pl-s1">start</span>));<span class="pl-c">// ab</span>
+        <span class="pl-c">// 3.</span>
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-s1">end</span>; <span class="pl-s1">i</span> &gt;= <span class="pl-s1">start</span>; <span class="pl-s1">i</span>--) {
+            <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">i</span>));
+        }
+
+        <span class="pl-c">// 4.</span>
+        <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-s1">end</span> + <span class="pl-c1">1</span>));
+
+        <span class="pl-c">// 5.</span>
+        <span class="pl-k">return</span> <span class="pl-s1">s</span>.<span class="pl-en">toString</span>();
+
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testReverse</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"abcdefg"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-en">reverse3</span>(<span class="pl-s1">str</span>, <span class="pl-c1">2</span>, <span class="pl-c1">5</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>);<span class="pl-c">// abfedcg</span>
+
+    }</pre></div>
+<p>**题目3：**获取一个字符串在另一个字符串中出现的次数。<br>
+比如：获取“ ab”在 “abkkcadkabkebfkabkskab” 中出现的次数</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第3题</span>
+    <span class="pl-c">// 判断str2在str1中出现的次数</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-s1">getCount</span>(<span class="pl-smi">String</span> <span class="pl-s1">mainStr</span>, <span class="pl-smi">String</span> <span class="pl-s1">subStr</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">mainStr</span>.<span class="pl-en">length</span>() &gt;= <span class="pl-s1">subStr</span>.<span class="pl-en">length</span>()) {
+            <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-c1">0</span>;
+            <span class="pl-smi">int</span> <span class="pl-s1">index</span> = <span class="pl-c1">0</span>;
+            <span class="pl-c">// while((index = mainStr.indexOf(subStr)) != -1){</span>
+            <span class="pl-c">// count++;</span>
+            <span class="pl-c">// mainStr = mainStr.substring(index + subStr.length());</span>
+            <span class="pl-c">// }</span>
+            <span class="pl-c">// 改进：</span>
+            <span class="pl-k">while</span> ((<span class="pl-s1">index</span> = <span class="pl-s1">mainStr</span>.<span class="pl-en">indexOf</span>(<span class="pl-s1">subStr</span>, <span class="pl-s1">index</span>)) != -<span class="pl-c1">1</span>) {
+                <span class="pl-s1">index</span> += <span class="pl-s1">subStr</span>.<span class="pl-en">length</span>();
+                <span class="pl-s1">count</span>++;
+            }
+
+            <span class="pl-k">return</span> <span class="pl-s1">count</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+        }
+
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testGetCount</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"cdabkkcadkabkebfkabkskab"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"ab"</span>;
+        <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-en">getCount</span>(<span class="pl-s1">str1</span>, <span class="pl-s1">str2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">count</span>);
+    }</pre></div>
+<p>**题目4：**获取两个字符串中最大相同子串。比如：<br>
+str1 = "abcwerthelloyuiodef“;str2 = "cvhellobnm"<br>
+提示：将短的那个串进行长度依次递减的子串与较长的串比较。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第4题</span>
+    <span class="pl-c">// 如果只存在一个最大长度的相同子串</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">getMaxSameSubString</span>(<span class="pl-smi">String</span> <span class="pl-s1">str1</span>, <span class="pl-smi">String</span> <span class="pl-s1">str2</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">str1</span> != <span class="pl-c1">null</span> &amp;&amp; <span class="pl-s1">str2</span> != <span class="pl-c1">null</span>) {
+            <span class="pl-smi">String</span> <span class="pl-s1">maxStr</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str1</span> : <span class="pl-s1">str2</span>;
+            <span class="pl-smi">String</span> <span class="pl-s1">minStr</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str2</span> : <span class="pl-s1">str1</span>;
+
+            <span class="pl-smi">int</span> <span class="pl-s1">len</span> = <span class="pl-s1">minStr</span>.<span class="pl-en">length</span>();
+
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">len</span>; <span class="pl-s1">i</span>++) {<span class="pl-c">// 0 1 2 3 4 此层循环决定要去几个字符</span>
+
+                <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">x</span> = <span class="pl-c1">0</span>, <span class="pl-s1">y</span> = <span class="pl-s1">len</span> - <span class="pl-s1">i</span>; <span class="pl-s1">y</span> &lt;= <span class="pl-s1">len</span>; <span class="pl-s1">x</span>++, <span class="pl-s1">y</span>++) {
+
+                    <span class="pl-k">if</span> (<span class="pl-s1">maxStr</span>.<span class="pl-en">contains</span>(<span class="pl-s1">minStr</span>.<span class="pl-en">substring</span>(<span class="pl-s1">x</span>, <span class="pl-s1">y</span>))) {
+
+                        <span class="pl-k">return</span> <span class="pl-s1">minStr</span>.<span class="pl-en">substring</span>(<span class="pl-s1">x</span>, <span class="pl-s1">y</span>);
+                    }
+
+                }
+
+            }
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
+    }
+
+    <span class="pl-c">// 如果存在多个长度相同的最大相同子串</span>
+    <span class="pl-c">// 此时先返回String[]，后面可以用集合中的ArrayList替换，较方便</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span>[] <span class="pl-s1">getMaxSameSubString1</span>(<span class="pl-smi">String</span> <span class="pl-s1">str1</span>, <span class="pl-smi">String</span> <span class="pl-s1">str2</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">str1</span> != <span class="pl-c1">null</span> &amp;&amp; <span class="pl-s1">str2</span> != <span class="pl-c1">null</span>) {
+            <span class="pl-smi">StringBuffer</span> <span class="pl-s1">sBuffer</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>();
+            <span class="pl-smi">String</span> <span class="pl-s1">maxString</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str1</span> : <span class="pl-s1">str2</span>;
+            <span class="pl-smi">String</span> <span class="pl-s1">minString</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str2</span> : <span class="pl-s1">str1</span>;
+
+            <span class="pl-smi">int</span> <span class="pl-s1">len</span> = <span class="pl-s1">minString</span>.<span class="pl-en">length</span>();
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">len</span>; <span class="pl-s1">i</span>++) {
+                <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">x</span> = <span class="pl-c1">0</span>, <span class="pl-s1">y</span> = <span class="pl-s1">len</span> - <span class="pl-s1">i</span>; <span class="pl-s1">y</span> &lt;= <span class="pl-s1">len</span>; <span class="pl-s1">x</span>++, <span class="pl-s1">y</span>++) {
+                    <span class="pl-smi">String</span> <span class="pl-s1">subString</span> = <span class="pl-s1">minString</span>.<span class="pl-en">substring</span>(<span class="pl-s1">x</span>, <span class="pl-s1">y</span>);
+                    <span class="pl-k">if</span> (<span class="pl-s1">maxString</span>.<span class="pl-en">contains</span>(<span class="pl-s1">subString</span>)) {
+                        <span class="pl-s1">sBuffer</span>.<span class="pl-en">append</span>(<span class="pl-s1">subString</span> + <span class="pl-s">","</span>);
+                    }
+                }
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sBuffer</span>);
+                <span class="pl-k">if</span> (<span class="pl-s1">sBuffer</span>.<span class="pl-en">length</span>() != <span class="pl-c1">0</span>) {
+                    <span class="pl-k">break</span>;
+                }
+            }
+            <span class="pl-smi">String</span>[] <span class="pl-s1">split</span> = <span class="pl-s1">sBuffer</span>.<span class="pl-en">toString</span>().<span class="pl-en">replaceAll</span>(<span class="pl-s">",$"</span>, <span class="pl-s">""</span>).<span class="pl-en">split</span>(<span class="pl-s">"<span class="pl-cce">\\</span>,"</span>);
+            <span class="pl-k">return</span> <span class="pl-s1">split</span>;
+        }
+
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
+    }
+    <span class="pl-c">// 如果存在多个长度相同的最大相同子串：使用ArrayList</span>
+<span class="pl-c">//	public List&lt;String&gt; getMaxSameSubString1(String str1, String str2) {</span>
+<span class="pl-c">//		if (str1 != null &amp;&amp; str2 != null) {</span>
+<span class="pl-c">//			List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span>
+<span class="pl-c">//			String maxString = (str1.length() &gt; str2.length()) ? str1 : str2;</span>
+<span class="pl-c">//			String minString = (str1.length() &gt; str2.length()) ? str2 : str1;</span>
+<span class="pl-c">//</span>
+<span class="pl-c">//			int len = minString.length();</span>
+<span class="pl-c">//			for (int i = 0; i &lt; len; i++) {</span>
+<span class="pl-c">//				for (int x = 0, y = len - i; y &lt;= len; x++, y++) {</span>
+<span class="pl-c">//					String subString = minString.substring(x, y);</span>
+<span class="pl-c">//					if (maxString.contains(subString)) {</span>
+<span class="pl-c">//						list.add(subString);</span>
+<span class="pl-c">//					}</span>
+<span class="pl-c">//				}</span>
+<span class="pl-c">//				if (list.size() != 0) {</span>
+<span class="pl-c">//					break;</span>
+<span class="pl-c">//				}</span>
+<span class="pl-c">//			}</span>
+<span class="pl-c">//			return list;</span>
+<span class="pl-c">//		}</span>
+<span class="pl-c">//</span>
+<span class="pl-c">//		return null;</span>
+<span class="pl-c">//	}</span>
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testGetMaxSameSubString</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"abcwerthelloyuiodef"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"cvhellobnmiodef"</span>;
+        <span class="pl-smi">String</span>[] <span class="pl-s1">strs</span> = <span class="pl-en">getMaxSameSubString1</span>(<span class="pl-s1">str1</span>, <span class="pl-s1">str2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">strs</span>));
+    }</pre></div>
+<p>**题目5：**对字符串中字符进行自然顺序排序。<br>
+提示：<br>
+1）字符串变成字符数组。<br>
+2）对数组排序，选择，冒泡，Arrays.sort();<br>
+3）将排序后的数组变成字符串。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第5题</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testSort</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"abcwerthelloyuiodef"</span>;
+        <span class="pl-smi">char</span>[] <span class="pl-s1">arr</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
+        <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">arr</span>);
+
+        <span class="pl-smi">String</span> <span class="pl-s1">newStr</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">arr</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">newStr</span>);
+    }</pre></div>
+<h2>2. 字符串相关类之可变字符序列：StringBuffer、StringBuilder</h2>
+<p>因为String对象是不可变对象，虽然可以共享常量对象，但是对于频繁字符串的修改和拼接操作，效率极低，空间消耗也比较高。因此，JDK又在java.lang包提供了可变字符序列StringBuffer和StringBuilder类型。</p>
+<h3>2.1 StringBuffer与StringBuilder的理解</h3>
+<ul>
+<li>java.lang.StringBuffer代表<code class="notranslate">可变的字符序列</code>，JDK1.0中声明，可以对字符串内容进行增删，此时不会产生新的对象。比如：</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//情况1:</span>
+<span class="pl-smi">String</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"我喜欢学习"</span>); 
+<span class="pl-c">//情况2：</span>
+<span class="pl-smi">StringBuffer</span> <span class="pl-s1">buffer</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s">"我喜欢学习"</span>); 
+<span class="pl-s1">buffer</span>.<span class="pl-en">append</span>(<span class="pl-s">"数学"</span>); </pre></div>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220405221714261.png"><img src="images/image-20220405221714261.png" alt="" style="max-width: 100%;"></a></p>
+<ul>
+<li>继承结构：</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220405174233055.png"><img src="images/image-20220405174233055.png" alt="" style="max-width: 100%;"></a></p>
+<ul>
+<li>StringBuilder 和 StringBuffer 非常类似，均代表可变的字符序列，而且提供相关功能的方法也一样。</li>
+<li>区分String、StringBuffer、StringBuilder
+<ul>
+<li>String:不可变的字符序列； 底层使用char[]数组存储(JDK8.0中)</li>
+<li>StringBuffer:可变的字符序列；线程安全（方法有synchronized修饰），效率低；底层使用char[]数组存储 (JDK8.0中)</li>
+<li>StringBuilder:可变的字符序列； jdk1.5引入，线程不安全的，效率高；底层使用char[]数组存储(JDK8.0中)</li>
+</ul>
+</li>
+</ul></div>
 <div style="font-size:small;margin-top:8px;float:right;">注意：转载请注明出处<br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
