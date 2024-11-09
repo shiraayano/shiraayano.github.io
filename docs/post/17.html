@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="
+## 6. 再谈同步
+### 6.1 单例设计模式的线程安全问题
+#### 6.1.1 饿汉式没有线程安全问题
+饿汉式：在类初始化时就直接创建单例对象，而类初始化过程是没有线程安全问题的
+
+形式一：
+
+```java
+package com.atguigu.single.hungry;
+
+public class HungrySingle {
+    private static HungrySingle INSTANCE = new HungrySingle(); //对象是否声明为final 都可以
+    
+    private HungrySingle(){}
+    
+    public static HungrySingle getInstance(){
+        return INSTANCE;
+    }
+}
+```
+
+形式二：
+
+```java
+/*
+public class HungryOne{
+    public static final HungryOne INSTANCE = new HungryOne();
+    private HungryOne(){}
+}*/
+
+public enum HungryOne{
+    INSTANCE
+}
+```
+
+测试类：
+
+```java
+package com.atguigu.single.hungry;
+
+public class HungrySingleTest {
+
+    static HungrySingle hs1 = null;
+    static HungrySingle hs2 = null;
+
+    //演示存在的线程安全问题
+    public static void main(String[] args) {
+
+        Thread t1 = new Thread() {
+            @Override
+            public void run() {
+                hs1 = HungrySingle.getInstance();
+            }
+        };
+
+        Thread t2 = new Thread() {
+            @Override
+            public void run() {
+                hs2 = HungrySingle.getInstance();
+            }
+        };
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(hs1);
+        System.out.println(hs2);
+        System.out.println(hs1 == hs2);//true
+    }
+
+}
+```
+
+#### 6.1.2 懒汉式线程安全问题
+懒汉式：延迟创建对象，第一次调用getInstance方法再创建对象
+
+形式一：
+
+```java
+package com.atguigu.single.lazy;
+
+public class LazyOne {
+    private static LazyOne instance;
+
+    private LazyOne(){}
+
+    //方式1：
+    public static synchronized LazyOne getInstance1(){
+        if(instance == null){
+            instance = new LazyOne();
+        }
+        return instance;
+    }
+    //方式2：
+    public static LazyOne getInstance2(){
+        synchronized(LazyOne.class) {
+            if (instance == null) {
+                instance = new LazyOne();
+            }
+            return instance;
+        }
+    }
+    //方式3：
+    public static LazyOne getInstance3(){
+        if(instance == null){
+            synchronized (LazyOne.class) {
+                try {
+                    Thread.sleep(10);//加这个代码，暴露问题
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(instance == null){
+                    instance = new LazyOne();
+                }
+            }
+        }
+
+        return instance;
+    }
+    /*
+    注意：上述方式3中，有指令重排问题
+    mem = allocate(); 为单例对象分配内存空间
+    instance = mem;   instance引用现在非空，但还未初始化
+    ctorSingleton(instance); 为单例对象通过instance调用构造器
+    从JDK2开始，分配空间、初始化、调用构造器会在线程的工作存储区一次性完成，然后复制到主存储区。">
+<meta property="og:title" content="Java学习笔记基础篇 007">
+<meta property="og:description" content="
+## 6. 再谈同步
+### 6.1 单例设计模式的线程安全问题
+#### 6.1.1 饿汉式没有线程安全问题
+饿汉式：在类初始化时就直接创建单例对象，而类初始化过程是没有线程安全问题的
+
+形式一：
+
+```java
+package com.atguigu.single.hungry;
+
+public class HungrySingle {
+    private static HungrySingle INSTANCE = new HungrySingle(); //对象是否声明为final 都可以
+    
+    private HungrySingle(){}
+    
+    public static HungrySingle getInstance(){
+        return INSTANCE;
+    }
+}
+```
+
+形式二：
+
+```java
+/*
+public class HungryOne{
+    public static final HungryOne INSTANCE = new HungryOne();
+    private HungryOne(){}
+}*/
+
+public enum HungryOne{
+    INSTANCE
+}
+```
+
+测试类：
+
+```java
+package com.atguigu.single.hungry;
+
+public class HungrySingleTest {
+
+    static HungrySingle hs1 = null;
+    static HungrySingle hs2 = null;
+
+    //演示存在的线程安全问题
+    public static void main(String[] args) {
+
+        Thread t1 = new Thread() {
+            @Override
+            public void run() {
+                hs1 = HungrySingle.getInstance();
+            }
+        };
+
+        Thread t2 = new Thread() {
+            @Override
+            public void run() {
+                hs2 = HungrySingle.getInstance();
+            }
+        };
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(hs1);
+        System.out.println(hs2);
+        System.out.println(hs1 == hs2);//true
+    }
+
+}
+```
+
+#### 6.1.2 懒汉式线程安全问题
+懒汉式：延迟创建对象，第一次调用getInstance方法再创建对象
+
+形式一：
+
+```java
+package com.atguigu.single.lazy;
+
+public class LazyOne {
+    private static LazyOne instance;
+
+    private LazyOne(){}
+
+    //方式1：
+    public static synchronized LazyOne getInstance1(){
+        if(instance == null){
+            instance = new LazyOne();
+        }
+        return instance;
+    }
+    //方式2：
+    public static LazyOne getInstance2(){
+        synchronized(LazyOne.class) {
+            if (instance == null) {
+                instance = new LazyOne();
+            }
+            return instance;
+        }
+    }
+    //方式3：
+    public static LazyOne getInstance3(){
+        if(instance == null){
+            synchronized (LazyOne.class) {
+                try {
+                    Thread.sleep(10);//加这个代码，暴露问题
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(instance == null){
+                    instance = new LazyOne();
+                }
+            }
+        }
+
+        return instance;
+    }
+    /*
+    注意：上述方式3中，有指令重排问题
+    mem = allocate(); 为单例对象分配内存空间
+    instance = mem;   instance引用现在非空，但还未初始化
+    ctorSingleton(instance); 为单例对象通过instance调用构造器
+    从JDK2开始，分配空间、初始化、调用构造器会在线程的工作存储区一次性完成，然后复制到主存储区。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/17.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java学习笔记基础篇 007</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java学习笔记基础篇 007</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/17" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h2>6. 再谈同步</h2>
+<h3>6.1 单例设计模式的线程安全问题</h3>
+<h4>6.1.1 饿汉式没有线程安全问题</h4>
+<p>饿汉式：在类初始化时就直接创建单例对象，而类初始化过程是没有线程安全问题的</p>
+<p>形式一：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">hungry</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">HungrySingle</span> {
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">HungrySingle</span> <span class="pl-c1">INSTANCE</span> = <span class="pl-k">new</span> <span class="pl-smi">HungrySingle</span>(); <span class="pl-c">//对象是否声明为final 都可以</span>
+    
+    <span class="pl-k">private</span> <span class="pl-smi">HungrySingle</span>(){}
+    
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">HungrySingle</span> <span class="pl-en">getInstance</span>(){
+        <span class="pl-k">return</span> <span class="pl-c1">INSTANCE</span>;
+    }
+}</pre></div>
+<p>形式二：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/*</span>
+<span class="pl-c">public class HungryOne{</span>
+<span class="pl-c">    public static final HungryOne INSTANCE = new HungryOne();</span>
+<span class="pl-c">    private HungryOne(){}</span>
+<span class="pl-c">}*/</span>
+
+<span class="pl-k">public</span> <span class="pl-k">enum</span> <span class="pl-smi">HungryOne</span>{
+    <span class="pl-c1">INSTANCE</span>
+}</pre></div>
+<p>测试类：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">hungry</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">HungrySingleTest</span> {
+
+    <span class="pl-k">static</span> <span class="pl-smi">HungrySingle</span> <span class="pl-s1">hs1</span> = <span class="pl-c1">null</span>;
+    <span class="pl-k">static</span> <span class="pl-smi">HungrySingle</span> <span class="pl-s1">hs2</span> = <span class="pl-c1">null</span>;
+
+    <span class="pl-c">//演示存在的线程安全问题</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-s1">hs1</span> = <span class="pl-smi">HungrySingle</span>.<span class="pl-en">getInstance</span>();
+            }
+        };
+
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-s1">hs2</span> = <span class="pl-smi">HungrySingle</span>.<span class="pl-en">getInstance</span>();
+            }
+        };
+
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
+
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t1</span>.<span class="pl-en">join</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        }
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t2</span>.<span class="pl-en">join</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        }
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">hs1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">hs2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">hs1</span> == <span class="pl-s1">hs2</span>);<span class="pl-c">//true</span>
+    }
+
+}</pre></div>
+<h4>6.1.2 懒汉式线程安全问题</h4>
+<p>懒汉式：延迟创建对象，第一次调用getInstance方法再创建对象</p>
+<p>形式一：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">lazy</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LazyOne</span> {
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">LazyOne</span> <span class="pl-s1">instance</span>;
+
+    <span class="pl-k">private</span> <span class="pl-smi">LazyOne</span>(){}
+
+    <span class="pl-c">//方式1：</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">synchronized</span> <span class="pl-smi">LazyOne</span> <span class="pl-en">getInstance1</span>(){
+        <span class="pl-k">if</span>(<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>){
+            <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">LazyOne</span>();
+        }
+        <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
+    }
+    <span class="pl-c">//方式2：</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">LazyOne</span> <span class="pl-en">getInstance2</span>(){
+        <span class="pl-k">synchronized</span>(<span class="pl-smi">LazyOne</span>.<span class="pl-k">class</span>) {
+            <span class="pl-k">if</span> (<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>) {
+                <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">LazyOne</span>();
+            }
+            <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
+        }
+    }
+    <span class="pl-c">//方式3：</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">LazyOne</span> <span class="pl-en">getInstance3</span>(){
+        <span class="pl-k">if</span>(<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>){
+            <span class="pl-k">synchronized</span> (<span class="pl-smi">LazyOne</span>.<span class="pl-k">class</span>) {
+                <span class="pl-k">try</span> {
+                    <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);<span class="pl-c">//加这个代码，暴露问题</span>
+                } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                    <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+                }
+                <span class="pl-k">if</span>(<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>){
+                    <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">LazyOne</span>();
+                }
+            }
+        }
+
+        <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
+    }
+    <span class="pl-c">/*</span>
+<span class="pl-c">    注意：上述方式3中，有指令重排问题</span>
+<span class="pl-c">    mem = allocate(); 为单例对象分配内存空间</span>
+<span class="pl-c">    instance = mem;   instance引用现在非空，但还未初始化</span>
+<span class="pl-c">    ctorSingleton(instance); 为单例对象通过instance调用构造器</span>
+<span class="pl-c">    从JDK2开始，分配空间、初始化、调用构造器会在线程的工作存储区一次性完成，然后复制到主存储区。但是需要   </span>
+<span class="pl-c">    volatile关键字，避免指令重排。</span>
+<span class="pl-c">    */</span>
+    
+}</pre></div>
+<p>形式二：使用内部类</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">lazy</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LazySingle</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">LazySingle</span>(){}
+    
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">LazySingle</span> <span class="pl-en">getInstance</span>(){
+        <span class="pl-k">return</span> <span class="pl-smi">Inner</span>.<span class="pl-c1">INSTANCE</span>;
+    }
+    
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-smi">Inner</span>{
+        <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">LazySingle</span> <span class="pl-c1">INSTANCE</span> = <span class="pl-k">new</span> <span class="pl-smi">LazySingle</span>();
+    }
+    
+}</pre></div>
+<blockquote>
+<p>内部类只有在外部类被调用才加载，产生INSTANCE实例；又不用加锁。</p>
+<p>此模式具有之前两个模式的优点，同时屏蔽了它们的缺点，是最好的单例模式。</p>
+<p>此时的内部类，使用enum进行定义，也是可以的。</p>
+</blockquote>
+<p>测试类：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">lazy</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestLazy</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-smi">LazyOne</span> <span class="pl-s1">s1</span> = <span class="pl-smi">LazyOne</span>.<span class="pl-en">getInstance</span>();
+        <span class="pl-smi">LazyOne</span> <span class="pl-s1">s2</span> = <span class="pl-smi">LazyOne</span>.<span class="pl-en">getInstance</span>();
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);
+    }
+
+    <span class="pl-c">//把s1和s2声明在外面，是想要在线程的匿名内部类中为s1和s2赋值</span>
+    <span class="pl-smi">LazyOne</span> <span class="pl-s1">s1</span>;
+    <span class="pl-smi">LazyOne</span> <span class="pl-s1">s2</span>;
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+                <span class="pl-s1">s1</span> = <span class="pl-smi">LazyOne</span>.<span class="pl-en">getInstance</span>();
+            }
+        };
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+                <span class="pl-s1">s2</span> = <span class="pl-smi">LazyOne</span>.<span class="pl-en">getInstance</span>();
+            }
+        };
+
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
+
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t1</span>.<span class="pl-en">join</span>();
+            <span class="pl-s1">t2</span>.<span class="pl-en">join</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        }
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);
+    }
+
+
+    <span class="pl-smi">LazySingle</span> <span class="pl-s1">obj1</span>;
+    <span class="pl-smi">LazySingle</span> <span class="pl-s1">obj2</span>;
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+                <span class="pl-s1">obj1</span> = <span class="pl-smi">LazySingle</span>.<span class="pl-en">getInstance</span>();
+            }
+        };
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+                <span class="pl-s1">obj2</span> = <span class="pl-smi">LazySingle</span>.<span class="pl-en">getInstance</span>();
+            }
+        };
+
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
+
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t1</span>.<span class="pl-en">join</span>();
+            <span class="pl-s1">t2</span>.<span class="pl-en">join</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        }
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj1</span> == <span class="pl-s1">obj2</span>);
+    }
+}</pre></div>
+<p>三种方案实现线程安全</p>
+<h3>1. 同步整个方法</h3>
+<p>这种方法简单直接，通过将<code class="notranslate">getInstance</code>方法声明为<code class="notranslate">synchronized</code>来保证线程安全。但是这样做会降低程序的性能，因为每次调用<code class="notranslate">getInstance</code>时都会锁住整个方法，即使<code class="notranslate">instance</code>已经被初始化了。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">BankTest</span> {
+    <span class="pl-c">//static Bank bank = new Bank();</span>
+    <span class="pl-c">//static Bank bank2 = new Bank();</span>
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
+            }
+        };
+
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
+            }
+        };
+
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">Bank</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">Bank</span>() {}
+
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">Bank</span> <span class="pl-s1">instance</span> = <span class="pl-c1">null</span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">synchronized</span> <span class="pl-smi">Bank</span> <span class="pl-en">getInstance</span>() {
+        <span class="pl-k">if</span> (<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">Bank</span>();
+        }
+        <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
+    }
+}</pre></div>
+<h3>2. 双重检查锁定（Double-Check Locking）</h3>
+<p>这是更高效的实现方式，它只在<code class="notranslate">instance</code>未被初始化时进行同步操作。这样可以避免每次调用<code class="notranslate">getInstance</code>时都进行同步，提高了性能。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">BankTest</span> {
+    <span class="pl-c">//static Bank bank = new Bank();</span>
+    <span class="pl-c">//static Bank bank2 = new Bank();</span>
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
+            }
+        };
+
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
+            }
+        };
+
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">Bank</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">Bank</span>() {}
+
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">volatile</span> <span class="pl-smi">Bank</span> <span class="pl-s1">instance</span> = <span class="pl-c1">null</span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">Bank</span> <span class="pl-en">getInstance</span>() {
+        <span class="pl-k">if</span> (<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>) { <span class="pl-c">// 第一次检查</span>
+            <span class="pl-k">synchronized</span> (<span class="pl-smi">Bank</span>.<span class="pl-k">class</span>) {
+                <span class="pl-k">if</span> (<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>) { <span class="pl-c">// 第二次检查</span>
+                    <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">Bank</span>();
+                }
+            }
+        }
+        <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
+    }
+}</pre></div>
+<h3>3. 静态内部类</h3>
+<p>这是最推荐的方式，因为它既保证了线程安全，又避免了同步带来的性能损失。静态内部类在第一次被加载时才会初始化，因此是延迟加载的。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">BankTest</span> {
+    <span class="pl-c">//static Bank bank = new Bank();</span>
+    <span class="pl-c">//static Bank bank2 = new Bank();</span>
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
+            }
+        };
+
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
+            }
+        };
+
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">Bank</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">Bank</span>() {}
+
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-smi">BankHolder</span> {
+        <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">Bank</span> <span class="pl-c1">INSTANCE</span> = <span class="pl-k">new</span> <span class="pl-smi">Bank</span>();
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">Bank</span> <span class="pl-en">getInstance</span>() {
+        <span class="pl-k">return</span> <span class="pl-smi">BankHolder</span>.<span class="pl-c1">INSTANCE</span>;
+    }
+}</pre></div>
+<h3>总结</h3>
+<ul>
+<li><strong>同步整个方法</strong>：简单但性能较差，每次调用<code class="notranslate">getInstance</code>都会加锁。</li>
+<li><strong>双重检查锁定</strong>：性能较好，只在<code class="notranslate">instance</code>未被初始化时进行同步。</li>
+<li><strong>静态内部类</strong>：推荐使用，既线程安全又延迟加载，性能最好。</li>
+</ul>
+<p>你可以根据具体需求选择适合的实现方式。希望这些示例对你有所帮助！</p>
+<h3>6.2 死锁</h3>
+<p>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/thread-lock.png"><img src="images/thread-lock.png" alt="" style="max-width: 100%;"></a></p>
+<blockquote>
+<p>【小故事】</p>
+<p>面试官：你能解释清楚什么是死锁，我就录取你！<br>
+面试者：你录取我，我就告诉你什么是死锁！<br>
+….<br>
+恭喜你，面试通过了</p>
+</blockquote>
+<p>1.如何看待死锁?</p>
+<p>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁。</p>
+<p>我们编写程序时，要避免出现死锁。</p>
+<p>2.诱发死锁的原因?</p>
+<p>互斥条件</p>
+<p>占用且等待</p>
+<p>不可抢夺(或不可抢占)</p>
+<p>循环等待</p>
+<p>以上4个条件，同时出现就会触发死锁。</p>
+<p>3.如何避免死锁?</p>
+<p>针对条件1:互斥条件基本上无法被破坏。因为线程需要通过互斥解决安全问题。</p>
+<p>针对条件2:可以考虑一次性申请所有所需的资源，这样就不存在等待的问题。</p>
+<p>针对条件3:占用部分资源的线程在进一步申请其他资源时，如果申请不到，就主动释放掉已经占用的资源。</p>
+<p>针对条件4:可以将资源改为线性顺序。申请资源时，先申请序号较小的，这样避免循环等待问题。</p>
+<p>1.步骤:</p>
+<p>步骤1.创建Lock的实例，需要确保多个线程共用同一个Lock实例!需要考虑将此对象声明为static final</p>
+<p>步骤2.执行lock()方法，锁定对共享资源的调用</p>
+<p>步骤了.unlock(的调用，释放对共享数据的锁定</p>
+<p>2.面试题:</p>
+<p>synchronized同步的方式与Lock的对比?</p>
+<p>synchronized不管是同步代码块还是同步方法，都需要在结束一对{}之后，释放对同步监视器的调用</p>
+<p>-ock是通过两个方法控制需要被同步的代码，更灵活一些。</p>
+<p>Lock作为接口，提供了多种实现类，适合更多更复杂的场景，效率更高。</p>
+<p>一旦出现死锁，整个程序既不会发生异常，也不会给出任何提示，只是所有线程处于阻塞状态，无法继续。</p>
+<p>举例1：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">DeadLockTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+
+        <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s1</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
+        <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s2</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
+
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-k">synchronized</span> (<span class="pl-s1">s1</span>) {
+                    <span class="pl-s1">s1</span>.<span class="pl-en">append</span>(<span class="pl-s">"a"</span>);
+                    <span class="pl-s1">s2</span>.<span class="pl-en">append</span>(<span class="pl-s">"1"</span>);
+                    
+                    <span class="pl-k">try</span> {
+                        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);
+                    } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                        <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+                    }
+
+                    <span class="pl-k">synchronized</span> (<span class="pl-s1">s2</span>) {
+                        <span class="pl-s1">s1</span>.<span class="pl-en">append</span>(<span class="pl-s">"b"</span>);
+                        <span class="pl-s1">s2</span>.<span class="pl-en">append</span>(<span class="pl-s">"2"</span>);
+
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+
+                    }
+                }
+            }
+        }.<span class="pl-en">start</span>();
+
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-k">synchronized</span> (<span class="pl-s1">s2</span>) {
+                    <span class="pl-s1">s1</span>.<span class="pl-en">append</span>(<span class="pl-s">"c"</span>);
+                    <span class="pl-s1">s2</span>.<span class="pl-en">append</span>(<span class="pl-s">"3"</span>);
+
+                    <span class="pl-k">try</span> {
+                        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);
+                    } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                        <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+                    }
+                    
+                    <span class="pl-k">synchronized</span> (<span class="pl-s1">s1</span>) {
+                        <span class="pl-s1">s1</span>.<span class="pl-en">append</span>(<span class="pl-s">"d"</span>);
+                        <span class="pl-s1">s2</span>.<span class="pl-en">append</span>(<span class="pl-s">"4"</span>);
+
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+
+                    }
+
+                }
+            }
+        }.<span class="pl-en">start</span>();
+
+    }
+}</pre></div>
+<p>举例2：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">A</span> {
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">foo</span>(<span class="pl-smi">B</span> <span class="pl-s1">b</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前线程名: "</span> + <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()
+                + <span class="pl-s">" 进入了A实例的foo方法"</span>); <span class="pl-c">// ①</span>
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">200</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">ex</span>) {
+            <span class="pl-s1">ex</span>.<span class="pl-en">printStackTrace</span>();
+        }
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前线程名: "</span> + <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()
+                + <span class="pl-s">" 企图调用B实例的last方法"</span>); <span class="pl-c">// ③</span>
+        <span class="pl-s1">b</span>.<span class="pl-en">last</span>();
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">last</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入了A类的last方法内部"</span>);
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">B</span> {
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">bar</span>(<span class="pl-smi">A</span> <span class="pl-s1">a</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前线程名: "</span> + <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()
+                + <span class="pl-s">" 进入了B实例的bar方法"</span>); <span class="pl-c">// ②</span>
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">200</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">ex</span>) {
+            <span class="pl-s1">ex</span>.<span class="pl-en">printStackTrace</span>();
+        }
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前线程名: "</span> + <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()
+                + <span class="pl-s">" 企图调用A实例的last方法"</span>); <span class="pl-c">// ④</span>
+        <span class="pl-s1">a</span>.<span class="pl-en">last</span>();
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">last</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入了B类的last方法内部"</span>);
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">DeadLock</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
+    <span class="pl-smi">A</span> <span class="pl-s1">a</span> = <span class="pl-k">new</span> <span class="pl-smi">A</span>();
+    <span class="pl-smi">B</span> <span class="pl-s1">b</span> = <span class="pl-k">new</span> <span class="pl-smi">B</span>();
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">init</span>() {
+        <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">setName</span>(<span class="pl-s">"主线程"</span>);
+        <span class="pl-c">// 调用a对象的foo方法</span>
+        <span class="pl-s1">a</span>.<span class="pl-en">foo</span>(<span class="pl-s1">b</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入了主线程之后"</span>);
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">setName</span>(<span class="pl-s">"副线程"</span>);
+        <span class="pl-c">// 调用b对象的bar方法</span>
+        <span class="pl-s1">b</span>.<span class="pl-en">bar</span>(<span class="pl-s1">a</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入了副线程之后"</span>);
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">DeadLock</span> <span class="pl-s1">dl</span> = <span class="pl-k">new</span> <span class="pl-smi">DeadLock</span>();
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">dl</span>).<span class="pl-en">start</span>();
+        <span class="pl-s1">dl</span>.<span class="pl-en">init</span>();
+    }
+}</pre></div>
+<p>举例3：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestDeadLock</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Object</span> <span class="pl-s1">g</span> = <span class="pl-k">new</span> <span class="pl-smi">Object</span>();
+        <span class="pl-smi">Object</span> <span class="pl-s1">m</span> = <span class="pl-k">new</span> <span class="pl-smi">Object</span>();
+        <span class="pl-smi">Owner</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">Owner</span>(<span class="pl-s1">g</span>,<span class="pl-s1">m</span>);
+        <span class="pl-smi">Customer</span> <span class="pl-s1">c</span> = <span class="pl-k">new</span> <span class="pl-smi">Customer</span>(<span class="pl-s1">g</span>,<span class="pl-s1">m</span>);
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">s</span>).<span class="pl-en">start</span>();
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">c</span>).<span class="pl-en">start</span>();
+    }
+}
+<span class="pl-k">class</span> <span class="pl-smi">Owner</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">Object</span> <span class="pl-s1">goods</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">Object</span> <span class="pl-s1">money</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">Owner</span>(<span class="pl-smi">Object</span> <span class="pl-s1">goods</span>, <span class="pl-smi">Object</span> <span class="pl-s1">money</span>) {
+        <span class="pl-en">super</span>();
+        <span class="pl-smi">this</span>.<span class="pl-s1">goods</span> = <span class="pl-s1">goods</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">money</span> = <span class="pl-s1">money</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">synchronized</span> (<span class="pl-s1">goods</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"先给钱"</span>);
+            <span class="pl-k">synchronized</span> (<span class="pl-s1">money</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"发货"</span>);
+            }
+        }
+    }
+}
+<span class="pl-k">class</span> <span class="pl-smi">Customer</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">Object</span> <span class="pl-s1">goods</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">Object</span> <span class="pl-s1">money</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">Customer</span>(<span class="pl-smi">Object</span> <span class="pl-s1">goods</span>, <span class="pl-smi">Object</span> <span class="pl-s1">money</span>) {
+        <span class="pl-en">super</span>();
+        <span class="pl-smi">this</span>.<span class="pl-s1">goods</span> = <span class="pl-s1">goods</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">money</span> = <span class="pl-s1">money</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">synchronized</span> (<span class="pl-s1">money</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"先发货"</span>);
+            <span class="pl-k">synchronized</span> (<span class="pl-s1">goods</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"再给钱"</span>);
+            }
+        }
+    }
+}</pre></div>
+<p><strong>诱发死锁的原因：</strong></p>
+<ul>
+<li>互斥条件</li>
+<li>占用且等待</li>
+<li>不可抢夺（或不可抢占）</li>
+<li>循环等待</li>
+</ul>
+<p>以上4个条件，同时出现就会触发死锁。</p>
+<p><strong>解决死锁：</strong></p>
+<p>死锁一旦出现，基本很难人为干预，只能尽量规避。可以考虑打破上面的诱发条件。</p>
+<p>针对条件1：互斥条件基本上无法被破坏。因为线程需要通过互斥解决安全问题。</p>
+<p>针对条件2：可以考虑一次性申请所有所需的资源，这样就不存在等待的问题。</p>
+<p>针对条件3：占用部分资源的线程在进一步申请其他资源时，如果申请不到，就主动释放掉已经占用的资源。</p>
+<p>针对条件4：可以将资源改为线性顺序。申请资源时，先申请序号较小的，这样避免循环等待问题。</p>
+<h3>6.3 JDK5.0新特性：Lock(锁)</h3>
+<ul>
+<li>JDK5.0的新增功能，保证线程的安全。与采用synchronized相比，Lock可提供多种锁方案，更灵活、更强大。Lock通过显式定义同步锁对象来实现同步。同步锁使用Lock对象充当。</li>
+<li>java.util.concurrent.locks.Lock接口是控制多个线程对共享资源进行访问的工具。锁提供了对共享资源的独占访问，每次只能有一个线程对Lock对象加锁，线程开始访问共享资源之前应先获得Lock对象。</li>
+<li>在实现线程安全的控制中，比较常用的是<code class="notranslate">ReentrantLock</code>，可以显式加锁、释放锁。
+<ul>
+<li>ReentrantLock类实现了 Lock 接口，它拥有与 synchronized 相同的并发性和内存语义，但是添加了类似锁投票、定时锁等候和可中断锁等候的一些特性。此外，它还提供了在激烈争用情况下更佳的性能。</li>
+</ul>
+</li>
+<li>Lock锁也称同步锁，加锁与释放锁方法，如下：
+<ul>
+<li>public void lock() :加同步锁。</li>
+<li>public void unlock() :释放同步锁。</li>
+</ul>
+</li>
+<li>代码结构</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">A</span>{
+    <span class="pl-c">//1. 创建Lock的实例，必须确保多个线程共享同一个Lock实例</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">ReentrantLock</span> <span class="pl-s1">lock</span> = <span class="pl-k">new</span> <span class="pl-smi">ReenTrantLock</span>();
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">m</span>(){
+        <span class="pl-c">//2. 调动lock()，实现需共享的代码的锁定</span>
+        <span class="pl-s1">lock</span>.<span class="pl-en">lock</span>();
+        <span class="pl-k">try</span>{
+            <span class="pl-c">//保证线程安全的代码;</span>
+        }
+        <span class="pl-k">finally</span>{
+            <span class="pl-c">//3. 调用unlock()，释放共享代码的锁定</span>
+            <span class="pl-s1">lock</span>.<span class="pl-en">unlock</span>();  
+        }
+    }
+}</pre></div>
+<blockquote>
+<p>注意：如果同步代码有异常，要将unlock()写入finally语句块。</p>
+</blockquote>
+<p>举例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">concurrent</span>.<span class="pl-s1">locks</span>.<span class="pl-s1">ReentrantLock</span>;
+
+<span class="pl-k">class</span> <span class="pl-smi">Window</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
+    <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
+    <span class="pl-c">//1. 创建Lock的实例，必须确保多个线程共享同一个Lock实例</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">ReentrantLock</span> <span class="pl-s1">lock</span> = <span class="pl-k">new</span> <span class="pl-smi">ReentrantLock</span>();
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+        
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
+            <span class="pl-k">try</span>{
+                <span class="pl-c">//2. 调动lock()，实现需共享的代码的锁定</span>
+                <span class="pl-s1">lock</span>.<span class="pl-en">lock</span>();
+                <span class="pl-k">if</span>(<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>){
+                    <span class="pl-k">try</span> {
+                        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);
+                    } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                        <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+                    }
+                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">ticket</span>--);
+                }<span class="pl-k">else</span>{
+                    <span class="pl-k">break</span>;
+                }
+            }<span class="pl-k">finally</span>{
+                <span class="pl-c">//3. 调用unlock()，释放共享代码的锁定</span>
+                <span class="pl-s1">lock</span>.<span class="pl-en">unlock</span>();
+            }
+        }
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ThreadLock</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Window</span> <span class="pl-s1">t</span> = <span class="pl-k">new</span> <span class="pl-smi">Window</span>();
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">t</span>);
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">t</span>);
+        
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
+    }
+}</pre></div>
+<p><strong>synchronized与Lock的对比</strong></p>
+<ol>
+<li>Lock是显式锁（手动开启和关闭锁，别忘记关闭锁），synchronized是隐式锁，出了作用域、遇到异常等自动解锁</li>
+<li>Lock只有代码块锁，synchronized有代码块锁和方法锁</li>
+<li>使用Lock锁，JVM将花费较少的时间来调度线程，性能更好。并且具有更好的扩展性（提供更多的子类），更体现面向对象。</li>
+<li>（了解）Lock锁可以对读不加锁，对写加锁，synchronized不可以</li>
+<li>（了解）Lock锁可以有多种获取锁的方式，可以从sleep的线程中抢到锁，synchronized不可以</li>
+</ol>
+<blockquote>
+<p>说明：开发建议中处理线程安全问题优先使用顺序为：</p>
+<p>•    Lock ----&gt; 同步代码块 ----&gt; 同步方法</p>
+</blockquote>
+<h2>7. 线程的通信</h2>
+<h3>7.1 线程间通信</h3>
+<p><strong>为什么要处理线程间通信：</strong></p>
+<p>当我们<code class="notranslate">需要多个线程</code>来共同完成一件任务，并且我们希望他们<code class="notranslate">有规律的执行</code>，那么多线程之间需要一些通信机制，可以协调它们的工作，以此实现多线程共同操作一份数据。</p>
+<p>比如：线程A用来生产包子的，线程B用来吃包子的，包子可以理解为同一资源，线程A与线程B处理的动作，一个是生产，一个是消费，此时B线程必须等到A线程完成后才能执行，那么线程A与线程B之间就需要线程通信，即—— <strong>等待唤醒机制。</strong></p>
+<h3>7.2 等待唤醒机制</h3>
+<p>这是多个线程间的一种<code class="notranslate">协作机制</code>。谈到线程我们经常想到的是线程间的<code class="notranslate">竞争（race）</code>，比如去争夺锁，但这并不是故事的全部，线程间也会有协作机制。</p>
+<p>在一个线程满足某个条件时，就进入等待状态（<code class="notranslate">wait() / wait(time)</code>）， 等待其他线程执行完他们的指定代码过后再将其唤醒（<code class="notranslate">notify()</code>）;或可以指定wait的时间，等时间到了自动唤醒；在有多个线程进行等待时，如果需要，可以使用 <code class="notranslate">notifyAll()</code>来唤醒所有的等待线程。wait/notify 就是线程间的一种协作机制。</p>
+<ol>
+<li>wait：线程不再活动，不再参与调度，进入 <code class="notranslate">wait set</code> 中，因此不会浪费 CPU 资源，也不会去竞争锁了，这时的线程状态是 WAITING 或 TIMED_WAITING。它还要等着别的线程执行一个<code class="notranslate">特别的动作</code>，也即“<code class="notranslate">通知（notify）</code>”或者等待时间到，在这个对象上等待的线程从wait set 中释放出来，重新进入到调度队列（<code class="notranslate">ready queue</code>）中</li>
+<li>notify：则选取所通知对象的 wait set 中的一个线程释放；</li>
+<li>notifyAll：则释放所通知对象的 wait set 上的全部线程。</li>
+</ol>
+<blockquote>
+<p>注意：</p>
+<p>被通知的线程被唤醒后也不一定能立即恢复执行，因为它当初中断的地方是在同步块内，而此刻它已经不持有锁，所以它需要再次尝试去获取锁（很可能面临其它线程的竞争），成功后才能在当初调用 wait 方法之后的地方恢复执行。</p>
+<p>总结如下：</p>
+<ul>
+<li>如果能获取锁，线程就从 WAITING 状态变成 RUNNABLE（可运行） 状态；</li>
+<li>否则，线程就从 WAITING 状态又变成 BLOCKED（等待锁） 状态</li>
+</ul>
+</blockquote>
+<h3>7.3 举例</h3>
+<p>例题：使用两个线程打印 1-100。线程1, 线程2 交替打印</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">Communication</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
+    <span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>;
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
+            <span class="pl-k">synchronized</span> (<span class="pl-smi">this</span>) {
+                <span class="pl-en">notify</span>();
+                <span class="pl-k">if</span> (<span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>) {
+                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">":"</span> + <span class="pl-s1">i</span>++);
+                } <span class="pl-k">else</span>
+                    <span class="pl-k">break</span>;
+                <span class="pl-k">try</span> {
+                    <span class="pl-en">wait</span>();
+                } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                    <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+                }
+            }
+        }
+    }
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">PrintNumber</span> {
+    <span class="pl-c">// 定义一个锁对象</span>
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">Object</span> <span class="pl-s1">lock</span> = <span class="pl-k">new</span> <span class="pl-smi">Object</span>();
+    <span class="pl-c">// 定义一个计数器</span>
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-c1">1</span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">// 创建两个线程，一个打印奇数，一个打印偶数</span>
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-k">new</span> <span class="pl-smi">PrintTask</span>(<span class="pl-c1">true</span>), <span class="pl-s">"Thread-1"</span>);
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-k">new</span> <span class="pl-smi">PrintTask</span>(<span class="pl-c1">false</span>), <span class="pl-s">"Thread-2"</span>);
+
+        <span class="pl-c">// 启动线程</span>
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
+    }
+
+    <span class="pl-c">// 定义一个打印任务的内部类</span>
+    <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-smi">PrintTask</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
+        <span class="pl-c">// 定义一个布尔变量，用于判断是打印奇数还是偶数</span>
+        <span class="pl-k">private</span> <span class="pl-smi">boolean</span> <span class="pl-s1">isOdd</span>;
+
+        <span class="pl-c">// 构造方法，传入布尔变量</span>
+        <span class="pl-k">public</span> <span class="pl-smi">PrintTask</span>(<span class="pl-smi">boolean</span> <span class="pl-s1">isOdd</span>) {
+            <span class="pl-smi">this</span>.<span class="pl-s1">isOdd</span> = <span class="pl-s1">isOdd</span>;
+        }
+
+        <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+        <span class="pl-c">// 实现Runnable接口的run方法</span>
+        <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+            <span class="pl-c">// 循环打印数字</span>
+            <span class="pl-k">while</span> (<span class="pl-s1">count</span> &lt;= <span class="pl-c1">100</span>) {
+                <span class="pl-c">// 加锁</span>
+                <span class="pl-k">synchronized</span> (<span class="pl-s1">lock</span>) {
+                    <span class="pl-c">// 判断是否打印奇数或偶数</span>
+                    <span class="pl-k">if</span> ((<span class="pl-s1">count</span> % <span class="pl-c1">2</span> == <span class="pl-c1">1</span> &amp;&amp; <span class="pl-s1">isOdd</span>) || (<span class="pl-s1">count</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span> &amp;&amp; !<span class="pl-s1">isOdd</span>)) {
+                        <span class="pl-c">// 打印数字</span>
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">": "</span> + <span class="pl-s1">count</span>++);
+                        <span class="pl-c">// 唤醒其他线程</span>
+                        <span class="pl-s1">lock</span>.<span class="pl-en">notify</span>();
+                    } <span class="pl-k">else</span> {
+                        <span class="pl-c">// 如果不是当前线程应该打印的数字，则等待</span>
+                        <span class="pl-k">try</span> {
+                            <span class="pl-s1">lock</span>.<span class="pl-en">wait</span>();
+                        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</pre></div>
+<p>sleep 和 wait 的区别 sleep 不会释放同步监视器</p>
+<h3>7.4 调用wait和notify需注意的细节</h3>
+<ol>
+<li>wait方法与notify方法必须要由<code class="notranslate">同一个锁对象调用</code>。因为：对应的锁对象可以通过notify唤醒使用同一个锁对象调用的wait方法后的线程。</li>
+<li>wait方法与notify方法是属于Object类的方法的。因为：锁对象可以是任意对象，而任意对象的所属类都是继承了Object类的。</li>
+<li>wait方法与notify方法必须要在<code class="notranslate">同步代码块</code>或者是<code class="notranslate">同步函数</code>中使用。因为：必须要<code class="notranslate">通过锁对象</code>调用这2个方法。否则会报java.lang.IllegalMonitorStateException异常。</li>
+</ol>
+<p>涉及到三个方法的使用:</p>
+<p>wait():线程一旦执行此方法，就进入等待状态。同时，会释放对同步监视器的调用</p>
+<p>notify():一旦执行此方法，就会唤醒被wait()的线程中优先级最高的那一个线程。(如果被wait()的多个线程的优先级相同</p>
+<p>随机唤醒一个)。被唤醒的线程从当初被wait的位置继续执行。</p>
+<p>notifyALl():一旦执行此方法，就会唤醒所有被wait的线程。</p>
+<p>注意点:</p>
+<p>此三个方法的使用，必须是在同步代码块或同步方法中，</p>
+<p>(超纲:Lock需要配合Condition实现线程间的通信)</p>
+<p>此三个方法的调用者，必须是同步监视器。否则，会报IllegalMonitorStateException异常</p>
+<p>此三个方法声明在0bject类中。</p>
+<ol>
+<li><strong>此三个方法的使用必须是在同步代码块或同步方法中</strong>：
+<ul>
+<li>这是因为 <code class="notranslate">wait()</code>, <code class="notranslate">notify()</code>, 和 <code class="notranslate">notifyAll()</code> 方法需要在同步上下文中调用，以确保线程安全。如果尝试在非同步上下文中调用这些方法，将抛出 <code class="notranslate">IllegalMonitorStateException</code> 异常。</li>
+</ul>
+</li>
+<li><strong>此三个方法的调用者必须是同步监视器</strong>：
+<ul>
+<li>同步监视器通常是指当前执行线程所持有的对象锁。如果一个线程没有持有对象的锁，那么它就不能调用这些方法，否则会抛出 <code class="notranslate">IllegalMonitorStateException</code> 异常。</li>
+</ul>
+</li>
+<li><strong>此三个方法声明在Object类中</strong>：
+<ul>
+<li>这意味着所有的 Java 对象都可以使用这些方法，因为它们继承自 Object 类。</li>
+</ul>
+</li>
+</ol>
+<p>下面是使用这些方法的代码示例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Example</span> {
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">doSomething</span>() {
+        <span class="pl-k">while</span> (<span class="pl-s1">conditionNotMet</span>) {
+            <span class="pl-k">try</span> {
+                <span class="pl-en">wait</span>(); <span class="pl-c">// 调用 wait() 方法，释放锁并等待</span>
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+            }
+        }
+        <span class="pl-c">// 执行一些操作</span>
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">changeCondition</span>() {
+        <span class="pl-c">// 改变条件</span>
+        <span class="pl-s1">conditionNotMet</span> = <span class="pl-c1">false</span>;
+        <span class="pl-en">notifyAll</span>(); <span class="pl-c">// 唤醒所有等待的线程</span>
+    }
+}</pre></div>
+<p>在这个例子中，<code class="notranslate">doSomething()</code> 方法是一个同步方法，它在条件不满足时调用 <code class="notranslate">wait()</code> 方法，使得当前线程等待，并且释放锁。<code class="notranslate">changeCondition()</code> 方法也是一个同步方法，它在条件改变时调用 <code class="notranslate">notifyAll()</code> 方法，唤醒所有等待的线程。</p>
+<p>请注意，<code class="notranslate">wait()</code> 方法会释放锁，允许其他线程进入同步块或方法，而 <code class="notranslate">notify()</code> 和 <code class="notranslate">notifyAll()</code> 方法则用于唤醒一个或所有等待的线程。</p>
+<p>对比</p>
+<ol>
+<li><strong>声明的位置</strong>：
+<ul>
+<li><code class="notranslate">wait()</code>：声明在<code class="notranslate">Object</code>类中。</li>
+<li><code class="notranslate">sleep()</code>：声明在<code class="notranslate">Thread</code>类中，是静态的。</li>
+</ul>
+</li>
+<li><strong>使用的场景不同</strong>：
+<ul>
+<li><code class="notranslate">wait()</code>：只能在同步代码块或同步方法中使用。</li>
+<li><code class="notranslate">sleep()</code>：可以在任何需要使用的场景中使用。</li>
+</ul>
+</li>
+<li><strong>使用在同步代码块或同步方法中</strong>：
+<ul>
+<li><code class="notranslate">wait()</code>：一旦执行，会释放同步监视器（即当前线程持有的对象锁）。</li>
+<li><code class="notranslate">sleep()</code>：一旦执行，不会释放同步监视器。</li>
+</ul>
+</li>
+<li><strong>结束阻塞的方式</strong>：
+<ul>
+<li><code class="notranslate">wait()</code>：到达指定时间自动结束阻塞，或者通过被<code class="notranslate">notify()</code>或<code class="notranslate">notifyAll()</code>唤醒，结束阻塞。</li>
+<li><code class="notranslate">sleep()</code>：到达指定时间自动结束阻塞。</li>
+</ul>
+</li>
+</ol>
+<h3>7.5 生产者与消费者问题</h3>
+<p>等待唤醒机制可以解决经典的“生产者与消费者”的问题。生产者与消费者问题（英语：Producer-consumer problem），也称有限缓冲问题（英语：Bounded-buffer problem），是一个多线程同步问题的经典案例。该问题描述了两个（多个）<code class="notranslate">共享固定大小缓冲区的线程</code>——即所谓的“生产者”和“消费者”——在实际运行时会发生的问题。</p>
+<p>生产者的主要作用是生成一定量的数据放到缓冲区中，然后重复此过程。与此同时，消费者也在缓冲区消耗这些数据。<strong>该问题的关键就是要保证生产者不会在缓冲区满时加入数据，消费者也不会在缓冲区中空时消耗数据。</strong></p>
+<p><strong>举例：</strong></p>
+<p>生产者(Productor)将产品交给店员(Clerk)，而消费者(Customer)从店员处取走产品，店员一次只能持有固定数量的产品(比如:20），如果生产者试图生产更多的产品，店员会叫生产者停一下，如果店中有空位放产品了再通知生产者继续生产；如果店中没有产品了，店员会告诉消费者等一下，如果店中有产品了再通知消费者来取走产品。</p>
+<p>类似的场景，比如厨师和服务员等。</p>
+<p><strong>生产者与消费者问题中其实隐含了两个问题：</strong></p>
+<ul>
+<li>线程安全问题：因为生产者与消费者共享数据缓冲区，产生安全问题。不过这个问题可以使用同步解决。</li>
+<li>线程的协调工作问题：
+<ul>
+<li>要解决该问题，就必须让生产者线程在缓冲区满时等待(wait)，暂停进入阻塞状态，等到下次消费者消耗了缓冲区中的数据的时候，通知(notify)正在等待的线程恢复到就绪状态，重新开始往缓冲区添加数据。同样，也可以让消费者线程在缓冲区空时进入等待(wait)，暂停进入阻塞状态，等到生产者往缓冲区添加数据之后，再通知(notify)正在等待的线程恢复到就绪状态。通过这样的通信机制来解决此类问题。</li>
+</ul>
+</li>
+</ul>
+<p><strong>代码实现：</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ConsumerProducerTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span> = <span class="pl-k">new</span> <span class="pl-smi">Clerk</span>();
+        <span class="pl-smi">Producer</span> <span class="pl-s1">p1</span> = <span class="pl-k">new</span> <span class="pl-smi">Producer</span>(<span class="pl-s1">clerk</span>);
+        
+        <span class="pl-smi">Consumer</span> <span class="pl-s1">c1</span> = <span class="pl-k">new</span> <span class="pl-smi">Consumer</span>(<span class="pl-s1">clerk</span>);
+        <span class="pl-smi">Consumer</span> <span class="pl-s1">c2</span> = <span class="pl-k">new</span> <span class="pl-smi">Consumer</span>(<span class="pl-s1">clerk</span>);
+        
+        <span class="pl-s1">p1</span>.<span class="pl-en">setName</span>(<span class="pl-s">"生产者1"</span>);
+        <span class="pl-s1">c1</span>.<span class="pl-en">setName</span>(<span class="pl-s">"消费者1"</span>);
+        <span class="pl-s1">c2</span>.<span class="pl-en">setName</span>(<span class="pl-s">"消费者2"</span>);
+        
+        <span class="pl-s1">p1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">c1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">c2</span>.<span class="pl-en">start</span>();
+    }
+}
+
+<span class="pl-c">//生产者</span>
+<span class="pl-k">class</span> <span class="pl-smi">Producer</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span>;
+    
+    <span class="pl-k">public</span> <span class="pl-smi">Producer</span>(<span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span>){
+        <span class="pl-smi">this</span>.<span class="pl-s1">clerk</span> = <span class="pl-s1">clerk</span>;
+    }
+    
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"=========生产者开始生产产品========"</span>);
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
+            
+            <span class="pl-k">try</span> {
+                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">40</span>);
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+            }
+            
+            <span class="pl-c">//要求clerk去增加产品</span>
+            <span class="pl-s1">clerk</span>.<span class="pl-en">addProduct</span>();
+        }
+    }
+}
+
+<span class="pl-c">//消费者</span>
+<span class="pl-k">class</span> <span class="pl-smi">Consumer</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span>;
+    
+    <span class="pl-k">public</span> <span class="pl-smi">Consumer</span>(<span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span>){
+        <span class="pl-smi">this</span>.<span class="pl-s1">clerk</span> = <span class="pl-s1">clerk</span>;
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"=========消费者开始消费产品========"</span>);
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
+            
+            <span class="pl-k">try</span> {
+                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">90</span>);
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+            }
+            
+            <span class="pl-c">//要求clerk去减少产品</span>
+            <span class="pl-s1">clerk</span>.<span class="pl-en">minusProduct</span>();
+        }
+    }
+}
+
+<span class="pl-c">//资源类</span>
+<span class="pl-k">class</span> <span class="pl-smi">Clerk</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">productNum</span> = <span class="pl-c1">0</span>;<span class="pl-c">//产品数量</span>
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">int</span> <span class="pl-c1">MAX_PRODUCT</span> = <span class="pl-c1">20</span>;
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">int</span> <span class="pl-c1">MIN_PRODUCT</span> = <span class="pl-c1">1</span>;
+    
+    <span class="pl-c">//增加产品</span>
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">addProduct</span>() {
+        <span class="pl-k">if</span>(<span class="pl-s1">productNum</span> &lt; <span class="pl-c1">MAX_PRODUCT</span>){
+            <span class="pl-s1">productNum</span>++;
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + 
+                    <span class="pl-s">"生产了第"</span> + <span class="pl-s1">productNum</span> + <span class="pl-s">"个产品"</span>);
+            <span class="pl-c">//唤醒消费者</span>
+            <span class="pl-smi">this</span>.<span class="pl-en">notifyAll</span>();
+        }<span class="pl-k">else</span>{
+            
+            <span class="pl-k">try</span> {
+                <span class="pl-smi">this</span>.<span class="pl-en">wait</span>();
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+            }
+        }
+    }
+
+    <span class="pl-c">//减少产品</span>
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">minusProduct</span>() {
+        <span class="pl-k">if</span>(<span class="pl-s1">productNum</span> &gt;= <span class="pl-c1">MIN_PRODUCT</span>){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + 
+                    <span class="pl-s">"消费了第"</span> + <span class="pl-s1">productNum</span> + <span class="pl-s">"个产品"</span>);
+            <span class="pl-s1">productNum</span>--;
+            
+            <span class="pl-c">//唤醒生产者</span>
+            <span class="pl-smi">this</span>.<span class="pl-en">notifyAll</span>();
+        }<span class="pl-k">else</span>{
+            
+            <span class="pl-k">try</span> {
+                <span class="pl-smi">this</span>.<span class="pl-en">wait</span>();
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+            }
+        }
+    }
+    
+}</pre></div>
+<h3>7.6 面试题：区分sleep()和wait()</h3>
+<p>相同点：一旦执行，都会使得当前线程结束执行状态，进入阻塞状态。</p>
+<p>不同点：</p>
+<p>① 定义方法所属的类：sleep():Thread中定义。  wait():Object中定义</p>
+<p>② 使用范围的不同：sleep()可以在任何需要使用的位置被调用； wait():必须使用在同步代码块或同步方法中</p>
+<p>③ 都在同步结构中使用的时候，是否释放同步监视器的操作不同：sleep():不会释放同步监视器 ;wait():会释放同步监视器</p>
+<p>④ 结束等待的方式不同：sleep()：指定时间一到就结束阻塞。 wait():可以指定时间也可以无限等待直到notify或notifyAll。</p>
+<p>sleep 在哪个线程里调用的就在哪里执行，与前面的对象无关</p>
+<h3>7.7 是否释放锁的操作</h3>
+<p>任何线程进入同步代码块、同步方法之前，必须先获得对同步监视器的锁定，那么何时会释放对同步监视器的锁定呢？</p>
+<h4>7.7.1 释放锁的操作</h4>
+<p>当前线程的同步方法、同步代码块执行结束。</p>
+<p>当前线程在同步代码块、同步方法中遇到break、return终止了该代码块、该方法的继续执行。</p>
+<p>当前线程在同步代码块、同步方法中出现了未处理的Error或Exception，导致当前线程异常结束。</p>
+<p>当前线程在同步代码块、同步方法中执行了锁对象的wait()方法，当前线程被挂起，并释放锁。</p>
+<h4>7.7.2 不会释放锁的操作</h4>
+<p>线程执行同步代码块或同步方法时，程序调用Thread.sleep()、Thread.yield()方法暂停当前线程的执行。</p>
+<p>线程执行同步代码块时，其他线程调用了该线程的suspend()方法将该该线程挂起，该线程不会释放锁（同步监视器）。</p>
+<ul>
+<li>应尽量避免使用suspend()和resume()这样的过时来控制线程。</li>
+</ul>
+<h2>8. JDK5.0新增线程创建方式</h2>
+<p>创建多线程的方式三:实现callable(jdk5.0新增的)<br>
+1， 与之前的方式的对比:与Runnable方式的对比的好处</p>
+<blockquote>
+<p>call()可以有返回值，更灵活<br>
+call()可以使用throws的方式处理异常，更灵活<br>
+Callable使用了泛型参数，可以指明具体的call()的返回值类型，更灵活<br>
+有缺点吗?如果在主线程中需要获取分线程call()的返回值，则此时的主线程是阻塞状态的。</p>
+</blockquote>
+<p>2.创建多线程的方式四:使用线程池</p>
+<p>此方式的好处:</p>
+<p>提高了程序执行的效率。(因为线程已经提前创建好了)</p>
+<p>提高了资源的复用率。(因为执行完的线程并未销毁，而是可以继续执行其他的任务)</p>
+<p>可以设置相关的参数，对线程池中的线程的使用进行管理</p>
+<h2>8.1 新增方式一：实现Callable接口</h2>
+<ul>
+<li>与使用Runnable相比， Callable功能更强大些
+<ul>
+<li>相比run()方法，可以有返回值</li>
+<li>方法可以抛出异常</li>
+<li>支持泛型的返回值（需要借助FutureTask类，获取返回结果）</li>
+</ul>
+</li>
+<li>Future接口（了解）
+<ul>
+<li>可以对具体Runnable、Callable任务的执行结果进行取消、查询是否完成、获取结果等。</li>
+<li>FutureTask是Futrue接口的唯一的实现类</li>
+<li>FutureTask 同时实现了Runnable, Future接口。它既可以作为Runnable被线程执行，又可以作为Future得到Callable的返回值</li>
+</ul>
+</li>
+<li>缺点：在获取分线程执行结果的时候，当前线程（或是主线程）受阻塞，效率较低。</li>
+<li>代码举例</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/*</span>
+<span class="pl-c"> * 创建多线程的方式三：实现Callable （jdk5.0新增的）</span>
+<span class="pl-c"> */</span>
+<span class="pl-c">//1.创建一个实现Callable的实现类</span>
+<span class="pl-k">class</span> <span class="pl-smi">NumThread</span> <span class="pl-k">implements</span> <span class="pl-smi">Callable</span> {
+    <span class="pl-c">//2.实现call方法，将此线程需要执行的操作声明在call()中</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">call</span>() <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-smi">int</span> <span class="pl-s1">sum</span> = <span class="pl-c1">0</span>;
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-k">if</span> (<span class="pl-s1">i</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);
+                <span class="pl-s1">sum</span> += <span class="pl-s1">i</span>;
+            }
+        }
+        <span class="pl-k">return</span> <span class="pl-s1">sum</span>;
+    }
+}
+
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">CallableTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">//3.创建Callable接口实现类的对象</span>
+        <span class="pl-smi">NumThread</span> <span class="pl-s1">numThread</span> = <span class="pl-k">new</span> <span class="pl-smi">NumThread</span>();
+
+        <span class="pl-c">//4.将此Callable接口实现类的对象作为传递到FutureTask构造器中，创建FutureTask的对象</span>
+        <span class="pl-smi">FutureTask</span> <span class="pl-s1">futureTask</span> = <span class="pl-k">new</span> <span class="pl-smi">FutureTask</span>(<span class="pl-s1">numThread</span>);
+        <span class="pl-c">//5.将FutureTask的对象作为参数传递到Thread类的构造器中，创建Thread对象，并调用start()</span>
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">futureTask</span>).<span class="pl-en">start</span>();
+
+
+<span class="pl-c">//      接收返回值</span>
+        <span class="pl-k">try</span> {
+            <span class="pl-c">//6.获取Callable中call方法的返回值</span>
+            <span class="pl-c">//get()返回值即为FutureTask构造器参数Callable实现类重写的call()的返回值。</span>
+            <span class="pl-smi">Object</span> <span class="pl-s1">sum</span> = <span class="pl-s1">futureTask</span>.<span class="pl-en">get</span>();
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"总和为："</span> + <span class="pl-s1">sum</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">ExecutionException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        }
+    }
+
+}</pre></div>
+<h3>8.2 新增方式二：使用线程池</h3>
+<p><strong>现有问题：</strong></p>
+<p>如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。</p>
+<p>那么有没有一种办法使得线程可以复用，即执行完一个任务，并不被销毁，而是可以继续执行其他的任务？</p>
+<p>**思路：**提前创建好多个线程，放入线程池中，使用时直接获取，使用完放回池中。可以避免频繁创建销毁、实现重复利用。类似生活中的公共交通工具。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%90%86%E8%A7%A3.jpg"><img src="images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%90%86%E8%A7%A3.jpg" alt="" style="max-width: 100%;"></a></p>
+<p><strong>好处：</strong></p>
+<ul>
+<li>提高响应速度（减少了创建新线程的时间）</li>
+<li>降低资源消耗（重复利用线程池中线程，不需要每次都创建）</li>
+<li>便于线程管理
+<ul>
+<li>corePoolSize：核心池的大小</li>
+<li>maximumPoolSize：最大线程数</li>
+<li>keepAliveTime：线程没有任务时最多保持多长时间后会终止</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<p><strong>线程池相关API</strong></p>
+<ul>
+<li>JDK5.0之前，我们必须手动自定义线程池。从JDK5.0开始，Java内置线程池相关的API。在java.util.concurrent包下提供了线程池相关API：<code class="notranslate">ExecutorService</code> 和 <code class="notranslate">Executors</code>。</li>
+<li><code class="notranslate">ExecutorService</code>：真正的线程池接口。常见子类ThreadPoolExecutor
+<ul>
+<li><code class="notranslate">void execute(Runnable command)</code> ：执行任务/命令，没有返回值，一般用来执行Runnable</li>
+<li><code class="notranslate">&lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task)</code>：执行任务，有返回值，一般又来执行Callable</li>
+<li><code class="notranslate">void shutdown()</code> ：关闭连接池</li>
+</ul>
+</li>
+<li><code class="notranslate">Executors</code>：一个线程池的工厂类，通过此类的静态工厂方法可以创建多种类型的线程池对象。
+<ul>
+<li><code class="notranslate">Executors.newCachedThreadPool()</code>：创建一个可根据需要创建新线程的线程池</li>
+<li><code class="notranslate">Executors.newFixedThreadPool(int nThreads)</code>; 创建一个可重用固定线程数的线程池</li>
+<li><code class="notranslate">Executors.newSingleThreadExecutor()</code> ：创建一个只有一个线程的线程池</li>
+<li><code class="notranslate">Executors.newScheduledThreadPool(int corePoolSize)</code>：创建一个线程池，它可安排在给定延迟后运行命令或者定期地执行。</li>
+</ul>
+</li>
+</ul>
+<p><strong>代码举例：</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">NumberThread</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">for</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>;<span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>;<span class="pl-s1">i</span>++){
+            <span class="pl-k">if</span>(<span class="pl-s1">i</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span>){
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">": "</span> + <span class="pl-s1">i</span>);
+            }
+        }
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">NumberThread1</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">for</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>;<span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>;<span class="pl-s1">i</span>++){
+            <span class="pl-k">if</span>(<span class="pl-s1">i</span> % <span class="pl-c1">2</span> != <span class="pl-c1">0</span>){
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">": "</span> + <span class="pl-s1">i</span>);
+            }
+        }
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">NumberThread2</span> <span class="pl-k">implements</span> <span class="pl-smi">Callable</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">call</span>() <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-smi">int</span> <span class="pl-s1">evenSum</span> = <span class="pl-c1">0</span>;<span class="pl-c">//记录偶数的和</span>
+        <span class="pl-k">for</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>;<span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>;<span class="pl-s1">i</span>++){
+            <span class="pl-k">if</span>(<span class="pl-s1">i</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span>){
+                <span class="pl-s1">evenSum</span> += <span class="pl-s1">i</span>;
+            }
+        }
+        <span class="pl-k">return</span> <span class="pl-s1">evenSum</span>;
+    }
+
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ThreadPoolTest</span> {
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">//1. 提供指定线程数量的线程池</span>
+        <span class="pl-smi">ExecutorService</span> <span class="pl-s1">service</span> = <span class="pl-smi">Executors</span>.<span class="pl-en">newFixedThreadPool</span>(<span class="pl-c1">10</span>);
+        <span class="pl-smi">ThreadPoolExecutor</span> <span class="pl-s1">service1</span> = (<span class="pl-smi">ThreadPoolExecutor</span>) <span class="pl-s1">service</span>;
+<span class="pl-c">//        //设置线程池的属性</span>
+<span class="pl-c">//        System.out.println(service.getClass());//ThreadPoolExecutor</span>
+        <span class="pl-s1">service1</span>.<span class="pl-en">setMaximumPoolSize</span>(<span class="pl-c1">50</span>); <span class="pl-c">//设置线程池中线程数的上限</span>
+
+        <span class="pl-c">//2.执行指定的线程的操作。需要提供实现Runnable接口或Callable接口实现类的对象</span>
+        <span class="pl-s1">service</span>.<span class="pl-en">execute</span>(<span class="pl-k">new</span> <span class="pl-smi">NumberThread</span>());<span class="pl-c">//适合适用于Runnable</span>
+        <span class="pl-s1">service</span>.<span class="pl-en">execute</span>(<span class="pl-k">new</span> <span class="pl-smi">NumberThread1</span>());<span class="pl-c">//适合适用于Runnable</span>
+
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Future</span> <span class="pl-s1">future</span> = <span class="pl-s1">service</span>.<span class="pl-en">submit</span>(<span class="pl-k">new</span> <span class="pl-smi">NumberThread2</span>());<span class="pl-c">//适合使用于Callable</span>
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"总和为："</span> + <span class="pl-s1">future</span>.<span class="pl-en">get</span>());
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        }
+        <span class="pl-c">//3.关闭连接池</span>
+        <span class="pl-s1">service</span>.<span class="pl-en">shutdown</span>();
+    }
+
+}</pre></div></div>
+<div style="font-size:small;margin-top:8px;float:right;">注意：转载请注明出处<br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script>
+
+</html>
