@@ -3939,7 +3939,612 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 “a graduated student”<br>
 “a student”<br>
 “a person”</p>
-<p><strong>练习3</strong>：定义三个类，父类GeometricObject代表几何形状，子类Circle代表圆形，MyRectangle代表矩形。定义一个测试类GeometricTest，编写equalsArea方法测试两个对象的面积是否相等（注意方法的参数类型，利用动态绑定技术），编写displayGeometricObject方法显示对象的面积（注意方法的参数类型，利用动态绑定技术）。</p></div>
+<p><strong>练习3</strong>：定义三个类，父类GeometricObject代表几何形状，子类Circle代表圆形，MyRectangle代表矩形。定义一个测试类GeometricTest，编写equalsArea方法测试两个对象的面积是否相等（注意方法的参数类型，利用动态绑定技术），编写displayGeometricObject方法显示对象的面积（注意方法的参数类型，利用动态绑定技术）。</p>
+<h2>Object 类</h2>
+<h4>默认的父类</h4>
+<p>Java 中声明的类，如果没有显示的声明其父类时，则默认继承 java.lang.Object</p>
+<p>任何一个Java类(除0bject类)都直接或间接的继承于0bject类</p>
+<p>Object类称为java类的根父类</p>
+<h4>Object类中声明的结构(属性、方法等)就具有通用性</h4>
+<blockquote>
+<p>0bject类中没有声明属性</p>
+</blockquote>
+<blockquote>
+<p>0bject类提供了一个空参的构造器</p>
+</blockquote>
+<blockquote>
+<p>重点关注:0bject类中声明的方法</p>
+</blockquote>
+<h4>方法</h4>
+<p>重点方法 equals() toString()</p>
+<p>了解方法 clone() finalsize()</p>
+<p>目前不需要关注 getClass() hashCode()</p>
+<p>notifyAll() wait() wait(xx) wait(xx,yy)</p>
+<p>clone 复制的是内容不是地址，如果使用==判断结果为 false</p>
+<p>其它：finalsize()调用时出现的划线表示为过时（JDK8 中可用，从 9 开始），不建议使用</p>
+<h4>面试题 final finally finalize 的区别</h4>
+<p>在Java编程语言中，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;final&lt;/font&gt;</code>、<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;finally&lt;/font&gt;</code>和<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;finalize()&lt;/font&gt;</code>是三个完全不同的概念，它们各自有不同的用途和含义：</p>
+<ol>
+<li><strong>final关键字</strong>：
+<ul>
+<li><strong>变量</strong>：当用<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;final&lt;/font&gt;</code>修饰一个变量时，表示这个变量的值一旦被初始化后就不能被改变。例如，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;final int number = 10;&lt;/font&gt;</code>，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;number&lt;/font&gt;</code>的值就不能被修改。</li>
+<li><strong>方法</strong>：当用<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;final&lt;/font&gt;</code>修饰一个方法时，表示这个方法不能被子类重写。</li>
+<li><strong>类</strong>：当用<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;final&lt;/font&gt;</code>修饰一个类时，表示这个类不能被继承。</li>
+</ul>
+</li>
+<li><strong>finally块</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;finally&lt;/font&gt;</code>是Java异常处理结构的一部分，与<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;try&lt;/font&gt;</code>和<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;catch&lt;/font&gt;</code>一起使用。它是一个代码块，位于<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;try&lt;/font&gt;</code>和<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;catch&lt;/font&gt;</code>块之后，用于执行清理工作，比如关闭文件流、释放数据库连接等。无论是否发生异常，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;finally&lt;/font&gt;</code>块中的代码都会被执行。</li>
+</ul>
+</li>
+<li><strong>finalize()方法</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;finalize()&lt;/font&gt;</code>是一个在<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;java.lang.Object&lt;/font&gt;</code>类中定义的方法，Java虚拟机（JVM）在对象被垃圾回收之前调用这个方法。这个方法可以被子类重写，用于在对象被回收前执行一些清理工作。然而，由于垃圾回收机制的不确定性，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;finalize()&lt;/font&gt;</code>方法的调用时机是不可预测的，因此它的使用并不推荐，更推荐使用<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;try-with-resources&lt;/font&gt;</code>语句或自动资源管理来管理资源。</li>
+</ul>
+</li>
+</ol>
+<p>总结来说，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;final&lt;/font&gt;</code>用于声明不可变的对象、方法和类，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;finally&lt;/font&gt;</code>用于异常处理中的资源清理，而<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;finalize()&lt;/font&gt;</code>是一个对象被垃圾回收前调用的方法，用于资源释放和清理工作。</p>
+<h3>如何理解根父类</h3>
+<p>类 <code class="notranslate">java.lang.Object</code>是类层次结构的根类，即所有其它类的父类。每个类都使用 <code class="notranslate">Object</code> 作为超类。</p>
+<ul>
+<li>Object类型的变量与除Object以外的任意引用数据类型的对象都存在多态引用</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-en">method</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>){…} <span class="pl-c">//可以接收任何类作为其参数</span>
+
+<span class="pl-smi">Person</span> <span class="pl-s1">o</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>();  
+<span class="pl-en">method</span>(<span class="pl-s1">o</span>);</pre></div>
+<ul>
+<li>所有对象（包括数组）都实现这个类的方法。</li>
+<li>如果一个类没有特别指定父类，那么默认则继承自Object类。例如：</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Person</span> {
+    ...
+}
+<span class="pl-c">//等价于：</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Person</span> <span class="pl-k">extends</span> <span class="pl-smi">Object</span> {
+    ...
+}</pre></div>
+<h3>Object类的方法</h3>
+<p>根据JDK源代码及Object类的API文档，Object类当中包含的方法有11个。这里我们主要关注其中的6个：</p>
+<h4>1、(重点)equals()</h4>
+<p>equals 的适用性：任何引用类型都能使用</p>
+<p><strong>equals 重写的例子</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserTest</span> {
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">User</span> <span class="pl-s1">user</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"adouzi"</span>, <span class="pl-c1">18</span>);
+        <span class="pl-smi">User</span> <span class="pl-s1">user2</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"adouzi"</span>, <span class="pl-c1">18</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">user</span>.<span class="pl-en">equals</span>(<span class="pl-s1">user2</span>));
+        <span class="pl-c">// 输出结果为false</span>
+
+        <span class="pl-c">/*</span>
+<span class="pl-c">         * public boolean equals(Object obj) {</span>
+<span class="pl-c">         * return (this == obj);</span>
+<span class="pl-c">         * }</span>
+<span class="pl-c">         */</span>
+
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"adouzi"</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"adouzi"</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">str2</span>));
+        <span class="pl-c">// 输出结果为true</span>
+
+        <span class="pl-c">/*</span>
+<span class="pl-c">         * </span>
+<span class="pl-c">         * public boolean equals(Object anObject) {</span>
+<span class="pl-c">         * if (this == anObject) {</span>
+<span class="pl-c">         * return true;</span>
+<span class="pl-c">         * }</span>
+<span class="pl-c">         * return (anObject instanceof String aString)</span>
+<span class="pl-c">         * &amp;&amp; (!COMPACT_STRINGS || this.coder == aString.coder)</span>
+<span class="pl-c">         * &amp;&amp; StringLatin1.equals(value, aString.value);</span>
+<span class="pl-c">         * }</span>
+<span class="pl-c">         */</span>
+
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">User</span> {
+    <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">User</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    }
+
+}</pre></div>
+<p><strong>我们使用 ctrl 键来看看 java.lang.Object 类中 equals()的定义</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-s1">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
+        <span class="pl-k">return</span> (<span class="pl-smi">this</span> == <span class="pl-s1">obj</span>);
+}</pre></div>
+<p><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;this == obj&lt;/font&gt;</code>是一个比较操作，它检查当前对象的内存地址是否与传入参数对象的内存地址相同。如果相同，意味着它们是同一个对象，因此返回<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;true&lt;/font&gt;</code>；如果不同，意味着它们是不同的对象，因此返回<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;false&lt;/font&gt;</code>。</p>
+<p></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"adouzi"</span>);
+<span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"adouzi"</span>);
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">str2</span>));
+         <span class="pl-c">//输出结果为true</span></pre></div>
+<p></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-s1">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">anObject</span>) {
+        <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">anObject</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+        }
+        <span class="pl-k">return</span> (<span class="pl-s1">anObject</span> <span class="pl-k">instanceof</span> <span class="pl-smi">String</span> <span class="pl-s1">aString</span>)
+                &amp;&amp; (!<span class="pl-c1">COMPACT_STRINGS</span> || <span class="pl-smi">this</span>.<span class="pl-s1">coder</span> == <span class="pl-s1">aString</span>.<span class="pl-s1">coder</span>)
+                &amp;&amp; <span class="pl-smi">StringLatin1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">value</span>, <span class="pl-s1">aString</span>.<span class="pl-s1">value</span>);
+    }</pre></div>
+<p>子类使用说明:</p>
+<p>自定义的类在没有重写0bject中equals()方法的情况下，调用的就是0bject类中声明的equals()，比较两个对象的引用地址是否相同。(或比较两个对象是否指向了堆空间中的同一个对象实体)</p>
+<p>对于像String、File、Date和包装类等，它们都重写了0bject类中的equals()方法，用于比较两个对象的实体内容是否相等。</p>
+<p>重写 equals</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//重写equals方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-s1">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
+        <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">obj</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+        }
+        <span class="pl-k">if</span> (<span class="pl-s1">obj</span> <span class="pl-k">instanceof</span> <span class="pl-smi">User</span>) {
+            <span class="pl-smi">User</span> <span class="pl-s1">user</span> = (<span class="pl-smi">User</span>) <span class="pl-s1">obj</span>;
+            <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-s1">name</span>.<span class="pl-en">equals</span>(<span class="pl-s1">user</span>.<span class="pl-s1">name</span>);
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        
+    }</pre></div>
+<p>示例代码：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserTest</span> {
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">User</span> <span class="pl-s1">user</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"adouzi"</span>, <span class="pl-c1">18</span>);
+        <span class="pl-smi">User</span> <span class="pl-s1">user2</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"adouzi"</span>, <span class="pl-c1">18</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">user</span>.<span class="pl-en">equals</span>(<span class="pl-s1">user2</span>));
+        <span class="pl-c">// 输出结果为false</span>
+        <span class="pl-c">//重写后输出结果为true</span>
+
+        <span class="pl-c">/*</span>
+<span class="pl-c">         * public boolean equals(Object obj) {</span>
+<span class="pl-c">         * return (this == obj);</span>
+<span class="pl-c">         * }</span>
+<span class="pl-c">         */</span>
+
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"adouzi"</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"adouzi"</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">str2</span>));
+        <span class="pl-c">// 输出结果为true</span>
+
+        <span class="pl-c">/*</span>
+<span class="pl-c">         * </span>
+<span class="pl-c">         * public boolean equals(Object anObject) {</span>
+<span class="pl-c">         * if (this == anObject) {</span>
+<span class="pl-c">         * return true;</span>
+<span class="pl-c">         * }</span>
+<span class="pl-c">         * return (anObject instanceof String aString)</span>
+<span class="pl-c">         * &amp;&amp; (!COMPACT_STRINGS || this.coder == aString.coder)</span>
+<span class="pl-c">         * &amp;&amp; StringLatin1.equals(value, aString.value);</span>
+<span class="pl-c">         * }</span>
+<span class="pl-c">         */</span>
+
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">User</span> {
+    <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">User</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    }
+
+    <span class="pl-c">//重写equals方法</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
+        <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">obj</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+        }
+        <span class="pl-k">if</span> (<span class="pl-s1">obj</span> <span class="pl-k">instanceof</span> <span class="pl-smi">User</span>) {
+            <span class="pl-smi">User</span> <span class="pl-s1">user</span> = (<span class="pl-smi">User</span>) <span class="pl-s1">obj</span>;
+            <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-s1">name</span>.<span class="pl-en">equals</span>(<span class="pl-s1">user</span>.<span class="pl-s1">name</span>);
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        
+    }
+
+}</pre></div>
+<p>输出为</p>
+<blockquote>
+<p>true</p>
+<p>true</p>
+</blockquote>
+<p>在 idea 中能自动重写，使用 alt insert</p>
+<p>开发中使用说明</p>
+<p>在实际开发中，针对于自定义的类，常常会判断两个对象是否 equals() 而此时主要是判断两个对象的属性是否相等</p>
+<p>所以我们要重写 equals()方法（推荐使用 idea 自动生成 手动实现比较麻烦）</p>
+<p><strong>面试 区分== 和 equals()</strong></p>
+<p>在Java中，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code> 和 <code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code> 是两个用于比较对象的运算符和方法，但它们在比较对象时的行为和用途有所不同：</p>
+<ol>
+<li><code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code>（双等号）：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code> 是一个运算符，用于比较两个引用是否指向同一个对象（即它们是否具有相同的内存地址）。</li>
+<li>对于基本数据类型（如int、double等），<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code> 比较的是值是否相等。</li>
+<li>对于对象引用，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code> 比较的是两个引用是否指向堆内存中的同一个对象实例。</li>
+<li>示例：</li>
+</ul>
+</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"Hello"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"Hello"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"Hello"</span>);
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>); <span class="pl-c">// true，因为s1和s2指向JVM字符串常量池中的同一个对象</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s3</span>); <span class="pl-c">// false，因为s1指向字符串常量池中的对象，而s3指向堆中的新对象</span></pre></div>
+<ol start="2">
+<li><code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code> 方法：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code> 是一个方法，定义在<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;Object&lt;/font&gt;</code>类中，用于比较对象的内容是否相等。</li>
+<li>默认情况下，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code> 方法的行为与<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code>相同，即比较对象的内存地址。</li>
+<li>但是，<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code> 方法可以被重写，以提供更复杂的比较逻辑，比如比较对象的属性值是否相等。</li>
+<li>对于字符串（<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;String&lt;/font&gt;</code>类）和其他一些类（如<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;Integer&lt;/font&gt;</code>、<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;Double&lt;/font&gt;</code>等），<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code> 方法已经被重写，以比较对象的内容。</li>
+<li>示例：</li>
+</ul>
+</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"Hello"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"Hello"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"Hello"</span>);
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">s2</span>)); <span class="pl-c">// true，因为equals()比较的是字符串的内容</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">s3</span>)); <span class="pl-c">// true，因为equals()比较的是字符串的内容</span></pre></div>
+<p>区分<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code>和<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code>的关键点在于：</p>
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code> 比较的是对象的引用是否相同，即是否指向内存中的同一个位置。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code> 默认比较的是对象的引用，但可以被重写来比较对象的属性或状态是否相等。</li>
+</ul>
+<p>因此，当你需要比较两个对象是否逻辑上相等（即它们的属性值是否相同），你应该使用<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;equals()&lt;/font&gt;</code>方法。而当你需要检查两个引用是否指向同一个对象时，你应该使用<code class="notranslate">&lt;font style="background-color:#FCE75A;"&gt;==&lt;/font&gt;</code>运算符。</p>
+<p><strong>= =：</strong></p>
+<ul>
+<li>基本类型比较值:只要两个变量的值相等，即为true。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">a</span>=<span class="pl-c1">5</span>; 
+<span class="pl-k">if</span>(<span class="pl-s1">a</span>==<span class="pl-c1">6</span>){…}</pre></div>
+<ul>
+<li>引用类型比较引用(是否指向同一个对象)：只有指向同一个对象时，==才返回true。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Person</span> <span class="pl-s1">p1</span>=<span class="pl-k">new</span> <span class="pl-smi">Person</span>();  	    
+<span class="pl-smi">Person</span> <span class="pl-s1">p2</span>=<span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+<span class="pl-k">if</span> (<span class="pl-s1">p1</span>==<span class="pl-s1">p2</span>){…}</pre></div>
+<pre class="notranslate"><code class="notranslate">- 用“==”进行比较时，符号两边的`数据类型必须兼容`(可自动转换的基本数据类型除外)，否则编译出错
+</code></pre>
+<p>**equals()：**所有类都继承了Object，也就获得了equals()方法。还可以重写。</p>
+<ul>
+<li>只能比较引用类型，Object类源码中equals()的作用与“==”相同：比较是否指向同一个对象。</li>
+<li>格式:obj1.equals(obj2)</li>
+<li>特例：当用equals()方法进行比较时，对类File、String、Date及包装类（Wrapper Class）来说，是比较类型及内容而不考虑引用的是否是同一个对象；
+<ul>
+<li>原因：在这些类中重写了Object类的equals()方法。</li>
+</ul>
+</li>
+<li>当自定义使用equals()时，可以重写。用于比较两个对象的“内容”是否都相等</li>
+<li>重写equals()方法的原则
+<ul>
+<li><code class="notranslate">对称性</code>：如果x.equals(y)返回是“true”，那么y.equals(x)也应该返回是“true”。</li>
+<li><code class="notranslate">自反性</code>：x.equals(x)必须返回是“true”。</li>
+<li><code class="notranslate">传递性</code>：如果x.equals(y)返回是“true”，而且y.equals(z)返回是“true”，那么z.equals(x)也应该返回是“true”。</li>
+<li><code class="notranslate">一致性</code>：如果x.equals(y)返回是“true”，只要x和y内容一直不变，不管你重复x.equals(y)多少次，返回都是“true”。</li>
+<li>任何情况下，x.equals(null)，永远返回是“false”；    x.equals(和x不同类型的对象)永远返回是“false”。</li>
+</ul>
+</li>
+<li>重写举例：</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">User</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">host</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">username</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">password</span>;
+    <span class="pl-k">public</span> <span class="pl-smi">User</span>(<span class="pl-smi">String</span> <span class="pl-s1">host</span>, <span class="pl-smi">String</span> <span class="pl-s1">username</span>, <span class="pl-smi">String</span> <span class="pl-s1">password</span>) {
+        <span class="pl-en">super</span>();
+        <span class="pl-smi">this</span>.<span class="pl-s1">host</span> = <span class="pl-s1">host</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">username</span> = <span class="pl-s1">username</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">password</span> = <span class="pl-s1">password</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">User</span>() {
+        <span class="pl-en">super</span>();
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getHost</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">host</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setHost</span>(<span class="pl-smi">String</span> <span class="pl-s1">host</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">host</span> = <span class="pl-s1">host</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getUsername</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">username</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setUsername</span>(<span class="pl-smi">String</span> <span class="pl-s1">username</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">username</span> = <span class="pl-s1">username</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getPassword</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">password</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setPassword</span>(<span class="pl-smi">String</span> <span class="pl-s1">password</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">password</span> = <span class="pl-s1">password</span>;
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"User [host="</span> + <span class="pl-s1">host</span> + <span class="pl-s">", username="</span> + <span class="pl-s1">username</span> + <span class="pl-s">", password="</span> + <span class="pl-s1">password</span> + <span class="pl-s">"]"</span>;
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
+        <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">obj</span>)
+            <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+        <span class="pl-k">if</span> (<span class="pl-s1">obj</span> == <span class="pl-c1">null</span>)
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        <span class="pl-k">if</span> (<span class="pl-en">getClass</span>() != <span class="pl-s1">obj</span>.<span class="pl-en">getClass</span>())
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        <span class="pl-smi">User</span> <span class="pl-s1">other</span> = (<span class="pl-smi">User</span>) <span class="pl-s1">obj</span>;
+        <span class="pl-k">if</span> (<span class="pl-s1">host</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-k">if</span> (<span class="pl-s1">other</span>.<span class="pl-s1">host</span> != <span class="pl-c1">null</span>)
+                <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        } <span class="pl-k">else</span> <span class="pl-k">if</span> (!<span class="pl-s1">host</span>.<span class="pl-en">equals</span>(<span class="pl-s1">other</span>.<span class="pl-s1">host</span>))
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        <span class="pl-k">if</span> (<span class="pl-s1">password</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-k">if</span> (<span class="pl-s1">other</span>.<span class="pl-s1">password</span> != <span class="pl-c1">null</span>)
+                <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        } <span class="pl-k">else</span> <span class="pl-k">if</span> (!<span class="pl-s1">password</span>.<span class="pl-en">equals</span>(<span class="pl-s1">other</span>.<span class="pl-s1">password</span>))
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        <span class="pl-k">if</span> (<span class="pl-s1">username</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-k">if</span> (<span class="pl-s1">other</span>.<span class="pl-s1">username</span> != <span class="pl-c1">null</span>)
+                <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        } <span class="pl-k">else</span> <span class="pl-k">if</span> (!<span class="pl-s1">username</span>.<span class="pl-en">equals</span>(<span class="pl-s1">other</span>.<span class="pl-s1">username</span>))
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+    
+}</pre></div>
+<p><strong>面试题：</strong>==和equals的区别</p>
+<blockquote>
+<p>从我面试的反馈，85%的求职者“理直气壮”的回答错误…</p>
+</blockquote>
+<ul>
+<li>== 既可以比较基本类型也可以比较引用类型。对于基本类型就是比较值，对于引用类型就是比较内存地址</li>
+<li>equals的话，它是属于java.lang.Object类里面的方法，如果该方法没有被重写过默认也是==;我们可以看到String等类的equals方法是被重写过的，而且String类在日常开发中用的比较多，久而久之，形成了equals是比较值的错误观点。</li>
+<li>具体要看自定义类里有没有重写Object的equals方法来判断。</li>
+<li>通常情况下，重写equals方法，会比较类中的相应属性是否都相等。</li>
+</ul>
+<p><strong>练习1：</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">it</span> = <span class="pl-c1">65</span>;
+<span class="pl-smi">float</span> <span class="pl-s1">fl</span> = <span class="pl-c1">65.0f</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(“<span class="pl-c1">65</span>和<span class="pl-c1">65.0f</span>是否相等？” + (<span class="pl-s1">it</span> == <span class="pl-s1">fl</span>)); <span class="pl-c">//</span>
+
+<span class="pl-smi">char</span> <span class="pl-s1">ch1</span> = <span class="pl-s">'A'</span>; <span class="pl-smi">char</span> <span class="pl-s1">ch2</span> = <span class="pl-c1">12</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"65和'A'是否相等？"</span> + (<span class="pl-s1">it</span> == <span class="pl-s1">ch1</span>));<span class="pl-c">//</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"12和ch2是否相等？"</span> + (<span class="pl-c1">12</span> == <span class="pl-s1">ch2</span>));<span class="pl-c">//</span>
+
+<span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"hello"</span>);
+<span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"hello"</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"str1和str2是否相等？"</span>+ (<span class="pl-s1">str1</span> == <span class="pl-s1">str2</span>));<span class="pl-c">//</span>
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"str1是否equals str2？"</span>+(<span class="pl-s1">str1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">str2</span>)));<span class="pl-c">//</span>
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(“<span class="pl-s1">hello</span>” == <span class="pl-k">new</span> <span class="pl-smi">java</span>.<span class="pl-smi">util</span>.<span class="pl-smi">Date</span>()); <span class="pl-c">//</span></pre></div>
+<p><strong>练习2：</strong></p>
+<p>编写Order类，有int型的orderId，String型的orderName，相应的getter()和setter()方法，两个参数的构造器，重写父类的equals()方法：public boolean equals(Object obj)，并判断测试类中创建的两个对象是否相等。</p>
+<p><strong>练习3：</strong></p>
+<p>请根据以下代码自行定义能满足需要的MyDate类,在MyDate类中覆盖equals方法，使其判断当两个MyDate类型对象的年月日都相同时，结果为true，否则为false。  public boolean equals(Object o)</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EqualsTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">MyDate</span> <span class="pl-s1">m1</span> = <span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">14</span>, <span class="pl-c1">3</span>, <span class="pl-c1">1976</span>);
+        <span class="pl-smi">MyDate</span> <span class="pl-s1">m2</span> = <span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">14</span>, <span class="pl-c1">3</span>, <span class="pl-c1">1976</span>);
+        <span class="pl-k">if</span> (<span class="pl-s1">m1</span> == <span class="pl-s1">m2</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"m1==m2"</span>);
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"m1!=m2"</span>); <span class="pl-c">// m1 != m2</span>
+        }
+
+        <span class="pl-k">if</span> (<span class="pl-s1">m1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">m2</span>)) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"m1 is equal to m2"</span>);<span class="pl-c">// m1 is equal to m2</span>
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"m1 is not equal to m2"</span>);
+        }
+    }
+}</pre></div>
+<h4>2、(重点)toString()</h4>
+<p>0bject类中tostring()的定义:</p>
+<p>public string tostring(){</p>
+<p>return getclass().getName()+ "@"+ Integer.toHexString(hashCode());</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ToStringTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">User</span> <span class="pl-s1">user</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"张三"</span>, <span class="pl-c1">20</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">user</span>.<span class="pl-en">toString</span>());
+    }
+    
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">User</span> {
+    <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">User</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    }
+
+    <span class="pl-c">// @Override</span>
+    <span class="pl-c">// public String toString() {</span>
+    <span class="pl-c">//     return "User{name='" + name + "', age=" + age + "}";</span>
+    <span class="pl-c">// }</span>
+}</pre></div>
+<blockquote>
+<p>User@5caf905d</p>
+</blockquote>
+<p>开发中的使用场景</p>
+<blockquote>
+<p>平时我们在调用System.out.println()打印对象引用变量时，其实就调用了对象的toString()</p>
+</blockquote>
+<p>子类使用说明:</p>
+<p>自定义的类，在没有重写0bject类的tostring()的情况下，默认返回的是当前对象的地址值。</p>
+<p>像String、File、Date或包装类等0bject的子类，它们都重写了0bject类的toString()，在调用tostring()时返回当前对象的实体内容。</p>
+<p>开发中使用说明:</p>
+<blockquote>
+<p>习惯上，开发中对于自定义的类在调用toString()时，也希望显示其对象的实体内容，而非地址值。这时候，就需要重写0bject</p>
+</blockquote>
+<p>类中的tostring().</p>
+<p>方法签名：public String toString()</p>
+<p>① 默认情况下，toString()返回的是“对象的运行时类型 @ 对象的hashCode值的十六进制形式"</p>
+<p>② 在进行String与其它类型数据的连接操作时，自动调用toString()方法</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Date</span> <span class="pl-s1">now</span>=<span class="pl-k">new</span> <span class="pl-smi">Date</span>();
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(“<span class="pl-s1">now</span>=”+<span class="pl-s1">now</span>);  <span class="pl-c">//相当于</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(“<span class="pl-s1">now</span>=”+<span class="pl-s1">now</span>.<span class="pl-en">toString</span>()); </pre></div>
+<p>③ 如果我们直接System.out.println(对象)，默认会自动调用这个对象的toString()</p>
+<blockquote>
+<p>因为Java的引用数据类型的变量中存储的实际上时对象的内存地址，但是Java对程序员隐藏内存地址信息，所以不能直接将内存地址显示出来，所以当你打印对象时，JVM帮你调用了对象的toString()。</p>
+</blockquote>
+<p>④ 可以根据需要在用户自定义类型中重写toString()方法<br>
+如String 类重写了toString()方法，返回字符串的值。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-s1">s1</span>=<span class="pl-s">"hello"</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);<span class="pl-c">//相当于System.out.println(s1.toString());</span></pre></div>
+<p>例如自定义的Person类：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Person</span> {  
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"Person{"</span> + <span class="pl-s">"name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> + <span class="pl-s">", age="</span> + <span class="pl-s1">age</span> + <span class="pl-s">'}'</span>;
+    }
+}</pre></div>
+<p><strong>练习</strong>：定义两个类，父类GeometricObject代表几何形状，子类Circle代表圆形。</p>
+<h4>3、clone()</h4>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//Object类的clone()的使用</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">CloneTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Animal</span> <span class="pl-s1">a1</span> = <span class="pl-k">new</span> <span class="pl-smi">Animal</span>(<span class="pl-s">"花花"</span>);
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Animal</span> <span class="pl-s1">a2</span> = (<span class="pl-smi">Animal</span>) <span class="pl-s1">a1</span>.<span class="pl-en">clone</span>();
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"原始对象："</span> + <span class="pl-s1">a1</span>);
+            <span class="pl-s1">a2</span>.<span class="pl-en">setName</span>(<span class="pl-s">"毛毛"</span>);
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"clone之后的对象："</span> + <span class="pl-s1">a2</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">CloneNotSupportedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        }
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">Animal</span> <span class="pl-k">implements</span> <span class="pl-smi">Cloneable</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">Animal</span>() {
+        <span class="pl-en">super</span>();
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">Animal</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+        <span class="pl-en">super</span>();
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"Animal [name="</span> + <span class="pl-s1">name</span> + <span class="pl-s">"]"</span>;
+    }
+    
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">Object</span> <span class="pl-en">clone</span>() <span class="pl-k">throws</span> <span class="pl-smi">CloneNotSupportedException</span> {
+        <span class="pl-c">// TODO Auto-generated method stub</span>
+        <span class="pl-k">return</span> <span class="pl-en">super</span>.<span class="pl-en">clone</span>();
+    }
+    
+}</pre></div>
+<h4>不那么重要的一些方法</h4>
+<h4>4、finalize()</h4>
+<ul>
+<li>当对象被回收时，系统自动调用该对象的 finalize() 方法。（不是垃圾回收器调用的，是本类对象调用的）
+<ul>
+<li>永远不要主动调用某个对象的finalize方法，应该交给垃圾回收机制调用。</li>
+</ul>
+</li>
+<li>什么时候被回收：当某个对象没有任何引用时，JVM就认为这个对象是垃圾对象，就会在之后不确定的时间使用垃圾回收机制来销毁该对象，在销毁该对象前，会先调用 finalize()方法。</li>
+<li>子类可以重写该方法，目的是在对象被清理之前执行必要的清理操作。比如，在方法内断开相关连接资源。
+<ul>
+<li>如果重写该方法，让一个新的引用变量重新引用该对象，则会重新激活对象。</li>
+</ul>
+</li>
+<li>在JDK 9中此方法已经被<code class="notranslate">标记为过时</code>的。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">FinalizeTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Person</span> <span class="pl-s1">p</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s">"Peter"</span>, <span class="pl-c1">12</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">p</span>);
+        <span class="pl-s1">p</span> = <span class="pl-c1">null</span>;<span class="pl-c">//此时对象实体就是垃圾对象，等待被回收。但时间不确定。</span>
+        <span class="pl-smi">System</span>.<span class="pl-en">gc</span>();<span class="pl-c">//强制性释放空间</span>
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">Person</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">Person</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+        <span class="pl-en">super</span>();
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getAge</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">age</span>;
+    }
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setAge</span>(<span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    }
+    <span class="pl-c">//子类重写此方法，可在释放对象前进行某些操作</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">finalize</span>() <span class="pl-k">throws</span> <span class="pl-smi">Throwable</span> {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"对象被释放---&gt;"</span> + <span class="pl-smi">this</span>);
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"Person [name="</span> + <span class="pl-s1">name</span> + <span class="pl-s">", age="</span> + <span class="pl-s1">age</span> + <span class="pl-s">"]"</span>;
+    }
+    
+}</pre></div>
+<h4>5、getClass()</h4>
+<p>public final Class&lt;?&gt; getClass()：获取对象的运行时类型</p>
+<blockquote>
+<p>因为Java有多态现象，所以一个引用数据类型的变量的编译时类型与运行时类型可能不一致，因此如果需要查看这个变量实际指向的对象的类型，需要用getClass()方法</p>
+</blockquote>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+    <span class="pl-smi">Object</span> <span class="pl-s1">obj</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj</span>.<span class="pl-en">getClass</span>());<span class="pl-c">//运行时类型</span>
+}</pre></div>
+<p>结果：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">java</span>.<span class="pl-s1">Person</span></pre></div>
+<h4>6、hashCode()</h4>
+<p>public int hashCode()：返回每个对象的hash值。(后续在集合框架章节重点讲解)</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"AA"</span>.<span class="pl-en">hashCode</span>());<span class="pl-c">//2080</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"BB"</span>.<span class="pl-en">hashCode</span>());<span class="pl-c">//2112</span>
+}</pre></div>
+<h3>8.3 native关键字的理解</h3>
+<p>使用native关键字说明这个方法是原生函数，也就是这个方法是用<code class="notranslate">C/C++</code>等非Java语言实现的，并且<code class="notranslate">被编译成了DLL</code>，由Java去调用。</p>
+<ul>
+<li>本地方法是有方法体的，用c语言编写。由于本地方法的方法体源码没有对我们开源，所以我们看不到方法体</li>
+<li>在Java中定义一个native方法时，并不提供实现体。</li>
+</ul>
+<p><strong>1. 为什么要用native方法</strong></p>
+<p>Java使用起来非常方便，然而有些层次的任务用java实现起来不容易，或者我们对程序的效率很在意时，例如：Java需要与一些底层操作系统或某些硬件交换信息时的情况。native方法正是这样一种交流机制：它为我们提供了一个非常简洁的接口，而且我们无需去了解Java应用之外的繁琐的细节。</p>
+<p><strong>2. native声明的方法，对于调用者，可以当做和其他Java方法一样使用</strong></p>
+<p>native method的存在并不会对其他类调用这些本地方法产生任何影响，实际上调用这些方法的其他类甚至不知道它所调用的是一个本地方法。JVM将控制调用本地方法的所有细节。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;">注意：转载请注明出处<br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

@@ -4469,4 +4469,760 @@ class Graduate extends Student{
 
 **练习3**：定义三个类，父类GeometricObject代表几何形状，子类Circle代表圆形，MyRectangle代表矩形。定义一个测试类GeometricTest，编写equalsArea方法测试两个对象的面积是否相等（注意方法的参数类型，利用动态绑定技术），编写displayGeometricObject方法显示对象的面积（注意方法的参数类型，利用动态绑定技术）。
 
+##  Object 类
+
+
+#### 默认的父类 
+Java 中声明的类，如果没有显示的声明其父类时，则默认继承 java.lang.Object
+
+
+
+任何一个Java类(除0bject类)都直接或间接的继承于0bject类
+
+Object类称为java类的根父类
+
+
+
+#### Object类中声明的结构(属性、方法等)就具有通用性
+> 0bject类中没有声明属性
+
+> 0bject类提供了一个空参的构造器
+
+>重点关注:0bject类中声明的方法
+
+
+
+#### 方法
+重点方法 equals() toString()
+
+了解方法 clone() finalsize()
+
+目前不需要关注 getClass() hashCode()
+
+notifyAll() wait() wait(xx) wait(xx,yy)
+
+
+
+clone 复制的是内容不是地址，如果使用==判断结果为 false
+
+其它：finalsize()调用时出现的划线表示为过时（JDK8 中可用，从 9 开始），不建议使用
+
+
+
+#### 面试题 final finally finalize 的区别
+
+
+<font style="background-color:#FCE75A;">在Java编程语言中，</font>`<font style="background-color:#FCE75A;">final</font>`<font style="background-color:#FCE75A;">、</font>`<font style="background-color:#FCE75A;">finally</font>`<font style="background-color:#FCE75A;">和</font>`<font style="background-color:#FCE75A;">finalize()</font>`<font style="background-color:#FCE75A;">是三个完全不同的概念，它们各自有不同的用途和含义：</font>
+
+1. **<font style="background-color:#FCE75A;">final关键字</font>**<font style="background-color:#FCE75A;">：</font>
+    - **<font style="background-color:#FCE75A;">变量</font>**<font style="background-color:#FCE75A;">：当用</font>`<font style="background-color:#FCE75A;">final</font>`<font style="background-color:#FCE75A;">修饰一个变量时，表示这个变量的值一旦被初始化后就不能被改变。例如，</font>`<font style="background-color:#FCE75A;">final int number = 10;</font>`<font style="background-color:#FCE75A;">，</font>`<font style="background-color:#FCE75A;">number</font>`<font style="background-color:#FCE75A;">的值就不能被修改。</font>
+    - **<font style="background-color:#FCE75A;">方法</font>**<font style="background-color:#FCE75A;">：当用</font>`<font style="background-color:#FCE75A;">final</font>`<font style="background-color:#FCE75A;">修饰一个方法时，表示这个方法不能被子类重写。</font>
+    - **<font style="background-color:#FCE75A;">类</font>**<font style="background-color:#FCE75A;">：当用</font>`<font style="background-color:#FCE75A;">final</font>`<font style="background-color:#FCE75A;">修饰一个类时，表示这个类不能被继承。</font>
+2. **<font style="background-color:#FCE75A;">finally块</font>**<font style="background-color:#FCE75A;">：</font>
+    - `<font style="background-color:#FCE75A;">finally</font>`<font style="background-color:#FCE75A;">是Java异常处理结构的一部分，与</font>`<font style="background-color:#FCE75A;">try</font>`<font style="background-color:#FCE75A;">和</font>`<font style="background-color:#FCE75A;">catch</font>`<font style="background-color:#FCE75A;">一起使用。它是一个代码块，位于</font>`<font style="background-color:#FCE75A;">try</font>`<font style="background-color:#FCE75A;">和</font>`<font style="background-color:#FCE75A;">catch</font>`<font style="background-color:#FCE75A;">块之后，用于执行清理工作，比如关闭文件流、释放数据库连接等。无论是否发生异常，</font>`<font style="background-color:#FCE75A;">finally</font>`<font style="background-color:#FCE75A;">块中的代码都会被执行。</font>
+3. **<font style="background-color:#FCE75A;">finalize()方法</font>**<font style="background-color:#FCE75A;">：</font>
+    - `<font style="background-color:#FCE75A;">finalize()</font>`<font style="background-color:#FCE75A;">是一个在</font>`<font style="background-color:#FCE75A;">java.lang.Object</font>`<font style="background-color:#FCE75A;">类中定义的方法，Java虚拟机（JVM）在对象被垃圾回收之前调用这个方法。这个方法可以被子类重写，用于在对象被回收前执行一些清理工作。然而，由于垃圾回收机制的不确定性，</font>`<font style="background-color:#FCE75A;">finalize()</font>`<font style="background-color:#FCE75A;">方法的调用时机是不可预测的，因此它的使用并不推荐，更推荐使用</font>`<font style="background-color:#FCE75A;">try-with-resources</font>`<font style="background-color:#FCE75A;">语句或自动资源管理来管理资源。</font>
+
+<font style="background-color:#FCE75A;">总结来说，</font>`<font style="background-color:#FCE75A;">final</font>`<font style="background-color:#FCE75A;">用于声明不可变的对象、方法和类，</font>`<font style="background-color:#FCE75A;">finally</font>`<font style="background-color:#FCE75A;">用于异常处理中的资源清理，而</font>`<font style="background-color:#FCE75A;">finalize()</font>`<font style="background-color:#FCE75A;">是一个对象被垃圾回收前调用的方法，用于资源释放和清理工作。</font>
+
+### 如何理解根父类
+类 `java.lang.Object`是类层次结构的根类，即所有其它类的父类。每个类都使用 `Object` 作为超类。
+
++ Object类型的变量与除Object以外的任意引用数据类型的对象都存在多态引用
+
+```java
+method(Object obj){…} //可以接收任何类作为其参数
+
+Person o = new Person();  
+method(o);
+
+```
+
++ 所有对象（包括数组）都实现这个类的方法。
++ 如果一个类没有特别指定父类，那么默认则继承自Object类。例如：
+
+```java
+public class Person {
+    ...
+}
+//等价于：
+public class Person extends Object {
+    ...
+}
+```
+
+### Object类的方法
+根据JDK源代码及Object类的API文档，Object类当中包含的方法有11个。这里我们主要关注其中的6个：
+
+#### 1、(重点)equals()
+
+
+equals 的适用性：任何引用类型都能使用
+
+
+
+**equals 重写的例子**
+
+```java
+public class UserTest {
+
+    public static void main(String[] args) {
+        User user = new User("adouzi", 18);
+        User user2 = new User("adouzi", 18);
+
+        System.out.println(user.equals(user2));
+        // 输出结果为false
+
+        /*
+         * public boolean equals(Object obj) {
+         * return (this == obj);
+         * }
+         */
+
+        String str1 = new String("adouzi");
+        String str2 = new String("adouzi");
+
+        System.out.println(str1.equals(str2));
+        // 输出结果为true
+
+        /*
+         * 
+         * public boolean equals(Object anObject) {
+         * if (this == anObject) {
+         * return true;
+         * }
+         * return (anObject instanceof String aString)
+         * && (!COMPACT_STRINGS || this.coder == aString.coder)
+         * && StringLatin1.equals(value, aString.value);
+         * }
+         */
+
+    }
+}
+
+class User {
+    String name;
+    int age;
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+}
+```
+
+**我们使用 ctrl 键来看看 java.lang.Object 类中 equals()的定义**
+
+```java
+public boolean equals(Object obj) {
+        return (this == obj);
+}
+```
+
+`<font style="color:rgb(6, 6, 7);">this == obj</font>`<font style="color:rgb(6, 6, 7);">是一个比较操作，它检查当前对象的内存地址是否与传入参数对象的内存地址相同。如果相同，意味着它们是同一个对象，因此返回</font>`<font style="color:rgb(6, 6, 7);">true</font>`<font style="color:rgb(6, 6, 7);">；如果不同，意味着它们是不同的对象，因此返回</font>`<font style="color:rgb(6, 6, 7);">false</font>`<font style="color:rgb(6, 6, 7);">。</font>
+
+<font style="color:rgb(6, 6, 7);"></font>
+
+```java
+String str1 = new String("adouzi");
+String str2 = new String("adouzi");
+
+System.out.println(str1.equals(str2));
+         //输出结果为true
+```
+
+<font style="color:rgb(6, 6, 7);"></font>
+
+```java
+public boolean equals(Object anObject) {
+        if (this == anObject) {
+            return true;
+        }
+        return (anObject instanceof String aString)
+                && (!COMPACT_STRINGS || this.coder == aString.coder)
+                && StringLatin1.equals(value, aString.value);
+    }
+```
+
+ 子类使用说明:
+
+自定义的类在没有重写0bject中equals()方法的情况下，调用的就是0bject类中声明的equals()，比较两个对象的引用地址是否相同。(或比较两个对象是否指向了堆空间中的同一个对象实体)
+
+对于像String、File、Date和包装类等，它们都重写了0bject类中的equals()方法，用于比较两个对象的实体内容是否相等。
+
+
+
+重写 equals
+
+```java
+//重写equals方法
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof User) {
+            User user = (User) obj;
+            return this.name.equals(user.name);
+        }
+        return false;
+        
+    }
+```
+
+示例代码：
+
+```java
+public class UserTest {
+
+    public static void main(String[] args) {
+        User user = new User("adouzi", 18);
+        User user2 = new User("adouzi", 18);
+
+        System.out.println(user.equals(user2));
+        // 输出结果为false
+        //重写后输出结果为true
+
+        /*
+         * public boolean equals(Object obj) {
+         * return (this == obj);
+         * }
+         */
+
+        String str1 = new String("adouzi");
+        String str2 = new String("adouzi");
+
+        System.out.println(str1.equals(str2));
+        // 输出结果为true
+
+        /*
+         * 
+         * public boolean equals(Object anObject) {
+         * if (this == anObject) {
+         * return true;
+         * }
+         * return (anObject instanceof String aString)
+         * && (!COMPACT_STRINGS || this.coder == aString.coder)
+         * && StringLatin1.equals(value, aString.value);
+         * }
+         */
+
+    }
+}
+
+class User {
+    String name;
+    int age;
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    //重写equals方法
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof User) {
+            User user = (User) obj;
+            return this.name.equals(user.name);
+        }
+        return false;
+        
+    }
+
+}
+```
+
+输出为 
+
+> true
+>
+> true
+>
+
+
+
+在 idea 中能自动重写，使用 alt insert
+
+
+
+开发中使用说明
+
+在实际开发中，针对于自定义的类，常常会判断两个对象是否 equals() 而此时主要是判断两个对象的属性是否相等
+
+所以我们要重写 equals()方法（推荐使用 idea 自动生成 手动实现比较麻烦）
+
+
+
+**面试 区分== 和 equals()**
+
+<font style="background-color:#FCE75A;">在Java中，</font>`<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;"> 和 </font>`<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;"> 是两个用于比较对象的运算符和方法，但它们在比较对象时的行为和用途有所不同：</font>
+
+1. `<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;">（双等号）：</font>
+    - `<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;"> 是一个运算符，用于比较两个引用是否指向同一个对象（即它们是否具有相同的内存地址）。</font>
+    - <font style="background-color:#FCE75A;">对于基本数据类型（如int、double等），</font>`<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;"> 比较的是值是否相等。</font>
+    - <font style="background-color:#FCE75A;">对于对象引用，</font>`<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;"> 比较的是两个引用是否指向堆内存中的同一个对象实例。</font>
+    - <font style="background-color:#FCE75A;">示例：</font>
+
+```java
+String s1 = "Hello";
+String s2 = "Hello";
+String s3 = new String("Hello");
+
+System.out.println(s1 == s2); // true，因为s1和s2指向JVM字符串常量池中的同一个对象
+System.out.println(s1 == s3); // false，因为s1指向字符串常量池中的对象，而s3指向堆中的新对象
+```
+
+2. `<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;"> 方法：</font>
+    - `<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;"> 是一个方法，定义在</font>`<font style="background-color:#FCE75A;">Object</font>`<font style="background-color:#FCE75A;">类中，用于比较对象的内容是否相等。</font>
+    - <font style="background-color:#FCE75A;">默认情况下，</font>`<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;"> 方法的行为与</font>`<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;">相同，即比较对象的内存地址。</font>
+    - <font style="background-color:#FCE75A;">但是，</font>`<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;"> 方法可以被重写，以提供更复杂的比较逻辑，比如比较对象的属性值是否相等。</font>
+    - <font style="background-color:#FCE75A;">对于字符串（</font>`<font style="background-color:#FCE75A;">String</font>`<font style="background-color:#FCE75A;">类）和其他一些类（如</font>`<font style="background-color:#FCE75A;">Integer</font>`<font style="background-color:#FCE75A;">、</font>`<font style="background-color:#FCE75A;">Double</font>`<font style="background-color:#FCE75A;">等），</font>`<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;"> 方法已经被重写，以比较对象的内容。</font>
+    - <font style="background-color:#FCE75A;">示例：</font>
+
+```java
+String s1 = "Hello";
+String s2 = "Hello";
+String s3 = new String("Hello");
+
+System.out.println(s1.equals(s2)); // true，因为equals()比较的是字符串的内容
+System.out.println(s1.equals(s3)); // true，因为equals()比较的是字符串的内容
+```
+
+<font style="background-color:#FCE75A;">区分</font>`<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;">和</font>`<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;">的关键点在于：</font>
+
++ `<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;"> 比较的是对象的引用是否相同，即是否指向内存中的同一个位置。</font>
++ `<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;"> 默认比较的是对象的引用，但可以被重写来比较对象的属性或状态是否相等。</font>
+
+<font style="background-color:#FCE75A;">因此，当你需要比较两个对象是否逻辑上相等（即它们的属性值是否相同），你应该使用</font>`<font style="background-color:#FCE75A;">equals()</font>`<font style="background-color:#FCE75A;">方法。而当你需要检查两个引用是否指向同一个对象时，你应该使用</font>`<font style="background-color:#FCE75A;">==</font>`<font style="background-color:#FCE75A;">运算符。</font>
+
+
+
+
+
+**= =：** 
+
++ 基本类型比较值:只要两个变量的值相等，即为true。
+
+```java
+int a=5; 
+if(a==6){…}
+```
+
++ 引用类型比较引用(是否指向同一个对象)：只有指向同一个对象时，==才返回true。
+
+```java
+Person p1=new Person();  	    
+Person p2=new Person();
+if (p1==p2){…}
+```
+
+    - 用“==”进行比较时，符号两边的`数据类型必须兼容`(可自动转换的基本数据类型除外)，否则编译出错
+
+**equals()：**所有类都继承了Object，也就获得了equals()方法。还可以重写。
+
++ 只能比较引用类型，Object类源码中equals()的作用与“==”相同：比较是否指向同一个对象。	 
++ 格式:obj1.equals(obj2)
++ 特例：当用equals()方法进行比较时，对类File、String、Date及包装类（Wrapper Class）来说，是比较类型及内容而不考虑引用的是否是同一个对象；
+    - 原因：在这些类中重写了Object类的equals()方法。
++ 当自定义使用equals()时，可以重写。用于比较两个对象的“内容”是否都相等
++ 重写equals()方法的原则
+    - `对称性`：如果x.equals(y)返回是“true”，那么y.equals(x)也应该返回是“true”。
+    - `自反性`：x.equals(x)必须返回是“true”。
+    - `传递性`：如果x.equals(y)返回是“true”，而且y.equals(z)返回是“true”，那么z.equals(x)也应该返回是“true”。
+    - `一致性`：如果x.equals(y)返回是“true”，只要x和y内容一直不变，不管你重复x.equals(y)多少次，返回都是“true”。
+    - 任何情况下，x.equals(null)，永远返回是“false”；    x.equals(和x不同类型的对象)永远返回是“false”。
++ 重写举例：
+
+```java
+class User{
+    private String host;
+    private String username;
+    private String password;
+    public User(String host, String username, String password) {
+        super();
+        this.host = host;
+        this.username = username;
+        this.password = password;
+    }
+    public User() {
+        super();
+    }
+    public String getHost() {
+        return host;
+    }
+    public void setHost(String host) {
+        this.host = host;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "User [host=" + host + ", username=" + username + ", password=" + password + "]";
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        if (host == null) {
+            if (other.host != null)
+                return false;
+        } else if (!host.equals(other.host))
+            return false;
+        if (password == null) {
+            if (other.password != null)
+                return false;
+        } else if (!password.equals(other.password))
+            return false;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!username.equals(other.username))
+            return false;
+        return true;
+    }
+    
+}
+```
+
+**面试题：**==和equals的区别
+
+> 从我面试的反馈，85%的求职者“理直气壮”的回答错误…
+>
+
++ == 既可以比较基本类型也可以比较引用类型。对于基本类型就是比较值，对于引用类型就是比较内存地址
++ equals的话，它是属于java.lang.Object类里面的方法，如果该方法没有被重写过默认也是==;我们可以看到String等类的equals方法是被重写过的，而且String类在日常开发中用的比较多，久而久之，形成了equals是比较值的错误观点。
++ 具体要看自定义类里有没有重写Object的equals方法来判断。
++ 通常情况下，重写equals方法，会比较类中的相应属性是否都相等。
+
+**练习1：**
+
+```java
+int it = 65;
+float fl = 65.0f;
+System.out.println(“65和65.0f是否相等？” + (it == fl)); //
+
+char ch1 = 'A'; char ch2 = 12;
+System.out.println("65和'A'是否相等？" + (it == ch1));//
+System.out.println("12和ch2是否相等？" + (12 == ch2));//
+
+String str1 = new String("hello");
+String str2 = new String("hello");
+System.out.println("str1和str2是否相等？"+ (str1 == str2));//
+
+System.out.println("str1是否equals str2？"+(str1.equals(str2)));//
+
+System.out.println(“hello” == new java.util.Date()); //
+
+```
+
+**练习2：**
+
+编写Order类，有int型的orderId，String型的orderName，相应的getter()和setter()方法，两个参数的构造器，重写父类的equals()方法：public boolean equals(Object obj)，并判断测试类中创建的两个对象是否相等。
+
+**练习3：**
+
+请根据以下代码自行定义能满足需要的MyDate类,在MyDate类中覆盖equals方法，使其判断当两个MyDate类型对象的年月日都相同时，结果为true，否则为false。  public boolean equals(Object o)
+
+```java
+public class EqualsTest {
+    public static void main(String[] args) {
+        MyDate m1 = new MyDate(14, 3, 1976);
+        MyDate m2 = new MyDate(14, 3, 1976);
+        if (m1 == m2) {
+            System.out.println("m1==m2");
+        } else {
+            System.out.println("m1!=m2"); // m1 != m2
+        }
+
+        if (m1.equals(m2)) {
+            System.out.println("m1 is equal to m2");// m1 is equal to m2
+        } else {
+            System.out.println("m1 is not equal to m2");
+        }
+    }
+}
+
+```
+
+
+
+
+
+
+
+#### 2、(重点)toString()
+
+
+0bject类中tostring()的定义:
+
+public string tostring(){
+
+return getclass().getName()+ "@"+ Integer.toHexString(hashCode());
+
+```java
+public class ToStringTest {
+    public static void main(String[] args) {
+        User user = new User("张三", 20);
+        System.out.println(user.toString());
+    }
+    
+}
+
+class User {
+    String name;
+    int age;
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // @Override
+    // public String toString() {
+    //     return "User{name='" + name + "', age=" + age + "}";
+    // }
+}
+```
+
+> User@5caf905d
+>
+
+
+
+开发中的使用场景
+
+>平时我们在调用System.out.println()打印对象引用变量时，其实就调用了对象的toString()
+
+子类使用说明:
+
+自定义的类，在没有重写0bject类的tostring()的情况下，默认返回的是当前对象的地址值。
+
+像String、File、Date或包装类等0bject的子类，它们都重写了0bject类的toString()，在调用tostring()时返回当前对象的实体内容。
+
+开发中使用说明:
+
+>习惯上，开发中对于自定义的类在调用toString()时，也希望显示其对象的实体内容，而非地址值。这时候，就需要重写0bject
+
+类中的tostring().
+
+
+
+
+
+方法签名：public String toString()
+
+① 默认情况下，toString()返回的是“对象的运行时类型 @ 对象的hashCode值的十六进制形式"
+
+② 在进行String与其它类型数据的连接操作时，自动调用toString()方法
+
+```java
+Date now=new Date();
+System.out.println(“now=”+now);  //相当于
+System.out.println(“now=”+now.toString()); 
+```
+
+③ 如果我们直接System.out.println(对象)，默认会自动调用这个对象的toString()
+
+> 因为Java的引用数据类型的变量中存储的实际上时对象的内存地址，但是Java对程序员隐藏内存地址信息，所以不能直接将内存地址显示出来，所以当你打印对象时，JVM帮你调用了对象的toString()。
+>
+
+④ 可以根据需要在用户自定义类型中重写toString()方法  
+    如String 类重写了toString()方法，返回字符串的值。
+
+```java
+s1="hello";
+System.out.println(s1);//相当于System.out.println(s1.toString());
+```
+
+例如自定义的Person类：
+
+```java
+public class Person {  
+    private String name;
+    private int age;
+
+    @Override
+    public String toString() {
+        return "Person{" + "name='" + name + '\'' + ", age=" + age + '}';
+    }
+}
+```
+
+**练习**：定义两个类，父类GeometricObject代表几何形状，子类Circle代表圆形。
+
+#### 3、clone()
+```java
+//Object类的clone()的使用
+public class CloneTest {
+    public static void main(String[] args) {
+        Animal a1 = new Animal("花花");
+        try {
+            Animal a2 = (Animal) a1.clone();
+            System.out.println("原始对象：" + a1);
+            a2.setName("毛毛");
+            System.out.println("clone之后的对象：" + a2);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Animal implements Cloneable{
+    private String name;
+
+    public Animal() {
+        super();
+    }
+
+    public Animal(String name) {
+        super();
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal [name=" + name + "]";
+    }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        // TODO Auto-generated method stub
+        return super.clone();
+    }
+    
+}
+```
+
+
+
+#### 不那么重要的一些方法
+#### 4、finalize()
++ 当对象被回收时，系统自动调用该对象的 finalize() 方法。（不是垃圾回收器调用的，是本类对象调用的）
+    - 永远不要主动调用某个对象的finalize方法，应该交给垃圾回收机制调用。
++ 什么时候被回收：当某个对象没有任何引用时，JVM就认为这个对象是垃圾对象，就会在之后不确定的时间使用垃圾回收机制来销毁该对象，在销毁该对象前，会先调用 finalize()方法。 
++ 子类可以重写该方法，目的是在对象被清理之前执行必要的清理操作。比如，在方法内断开相关连接资源。
+    - 如果重写该方法，让一个新的引用变量重新引用该对象，则会重新激活对象。
++ 在JDK 9中此方法已经被`标记为过时`的。
+
+```java
+public class FinalizeTest {
+    public static void main(String[] args) {
+        Person p = new Person("Peter", 12);
+        System.out.println(p);
+        p = null;//此时对象实体就是垃圾对象，等待被回收。但时间不确定。
+        System.gc();//强制性释放空间
+    }
+}
+
+class Person{
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        super();
+        this.name = name;
+        this.age = age;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    //子类重写此方法，可在释放对象前进行某些操作
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("对象被释放--->" + this);
+    }
+    @Override
+    public String toString() {
+        return "Person [name=" + name + ", age=" + age + "]";
+    }
+    
+}
+```
+
+#### 5、getClass()
+public final Class<?> getClass()：获取对象的运行时类型
+
+> 因为Java有多态现象，所以一个引用数据类型的变量的编译时类型与运行时类型可能不一致，因此如果需要查看这个变量实际指向的对象的类型，需要用getClass()方法
+>
+
+```java
+public static void main(String[] args) {
+    Object obj = new Person();
+    System.out.println(obj.getClass());//运行时类型
+}
+```
+
+结果：
+
+```java
+class com.atguigu.java.Person
+```
+
+#### 6、hashCode()
+public int hashCode()：返回每个对象的hash值。(后续在集合框架章节重点讲解)
+
+```java
+public static void main(String[] args) {
+    System.out.println("AA".hashCode());//2080
+    System.out.println("BB".hashCode());//2112
+}
+```
+
+### 8.3 native关键字的理解
+使用native关键字说明这个方法是原生函数，也就是这个方法是用`C/C++`等非Java语言实现的，并且`被编译成了DLL`，由Java去调用。
+
++ 本地方法是有方法体的，用c语言编写。由于本地方法的方法体源码没有对我们开源，所以我们看不到方法体
++ 在Java中定义一个native方法时，并不提供实现体。
+
+**1. 为什么要用native方法**
+
+Java使用起来非常方便，然而有些层次的任务用java实现起来不容易，或者我们对程序的效率很在意时，例如：Java需要与一些底层操作系统或某些硬件交换信息时的情况。native方法正是这样一种交流机制：它为我们提供了一个非常简洁的接口，而且我们无需去了解Java应用之外的繁琐的细节。
+
+**2. native声明的方法，对于调用者，可以当做和其他Java方法一样使用**
+
+native method的存在并不会对其他类调用这些本地方法产生任何影响，实际上调用这些方法的其他类甚至不知道它所调用的是一个本地方法。JVM将控制调用本地方法的所有细节。
+
+
+
+
+
+
+
+
+
 
