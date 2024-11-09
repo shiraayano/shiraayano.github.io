@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="
+### 2.2 StringBuilder、StringBuffer的API
+StringBuilder、StringBuffer的API是完全一致的，并且很多方法与String相同。">
+<meta property="og:title" content="Java 学习笔记 基础篇 008">
+<meta property="og:description" content="
+### 2.2 StringBuilder、StringBuffer的API
+StringBuilder、StringBuffer的API是完全一致的，并且很多方法与String相同。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/18.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java 学习笔记 基础篇 008</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java 学习笔记 基础篇 008</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/18" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h3>2.2 StringBuilder、StringBuffer的API</h3>
+<p>StringBuilder、StringBuffer的API是完全一致的，并且很多方法与String相同。</p>
+<p><strong>1、常用API</strong></p>
+<p>（1）StringBuffer append(xx)：提供了很多的append()方法，用于进行字符串追加的方式拼接<br>
+（2）StringBuffer delete(int start, int end)：删除[start,end)之间字符<br>
+（3）StringBuffer deleteCharAt(int index)：删除[index]位置字符<br>
+（4）StringBuffer replace(int start, int end, String str)：替换[start,end)范围的字符序列为str<br>
+（5）void setCharAt(int index, char c)：替换[index]位置字符<br>
+（6）char charAt(int index)：查找指定index位置上的字符<br>
+（7）StringBuffer insert(int index, xx)：在[index]位置插入xx<br>
+（8）int length()：返回存储的字符数据的长度<br>
+（9）StringBuffer reverse()：反转</p>
+<blockquote>
+<ul>
+<li>当append和insert时，如果原来value数组长度不够，可扩容。</li>
+<li>如上(1)(2)(3)(4)(9)这些方法支持<code class="notranslate">方法链操作</code>。原理： <a target="_blank" rel="noopener noreferrer" href="images/image-20220405223542750.png"><img src="images/image-20220405223542750.png" alt="" style="max-width: 100%;"></a></li>
+</ul>
+</blockquote>
+<p><strong>2、其它API</strong></p>
+<p>（1）int indexOf(String str)：在当前字符序列中查询str的第一次出现下标<br>
+（2）int indexOf(String str, int fromIndex)：在当前字符序列[fromIndex,最后]中查询str的第一次出现下标<br>
+（3）int lastIndexOf(String str)：在当前字符序列中查询str的最后一次出现下标<br>
+（4）int lastIndexOf(String str, int fromIndex)：在当前字符序列[fromIndex,最后]中查询str的最后一次出现下标<br>
+（5）String substring(int start)：截取当前字符序列[start,最后]<br>
+（6）String substring(int start, int end)：截取当前字符序列[start,end)<br>
+（7）String toString()：返回此序列中数据的字符串表示形式<br>
+（8）void setLength(int newLength) ：设置当前字符序列长度为newLength</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
+    <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s">"hello"</span>).<span class="pl-en">append</span>(<span class="pl-c1">true</span>).<span class="pl-en">append</span>(<span class="pl-s">'a'</span>).<span class="pl-en">append</span>(<span class="pl-c1">12</span>).<span class="pl-en">append</span>(<span class="pl-s">"atguigu"</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>.<span class="pl-en">length</span>());
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test2</span>(){
+    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
+    <span class="pl-s1">s</span>.<span class="pl-en">insert</span>(<span class="pl-c1">5</span>, <span class="pl-s">"java"</span>);
+    <span class="pl-s1">s</span>.<span class="pl-en">insert</span>(<span class="pl-c1">5</span>, <span class="pl-s">"chailinyan"</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test3</span>(){
+    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
+    <span class="pl-s1">s</span>.<span class="pl-en">delete</span>(<span class="pl-c1">1</span>, <span class="pl-c1">3</span>);
+    <span class="pl-s1">s</span>.<span class="pl-en">deleteCharAt</span>(<span class="pl-c1">4</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+}
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test4</span>(){
+    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
+    <span class="pl-s1">s</span>.<span class="pl-en">reverse</span>();
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test5</span>(){
+    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
+    <span class="pl-s1">s</span>.<span class="pl-en">setCharAt</span>(<span class="pl-c1">2</span>, <span class="pl-s">'a'</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test6</span>(){
+    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
+    <span class="pl-s1">s</span>.<span class="pl-en">setLength</span>(<span class="pl-c1">30</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+}</pre></div>
+<h3>2.3 效率测试</h3>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//初始设置</span>
+<span class="pl-smi">long</span> <span class="pl-s1">startTime</span> = <span class="pl-c1">0L</span>;
+<span class="pl-smi">long</span> <span class="pl-s1">endTime</span> = <span class="pl-c1">0L</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">text</span> = <span class="pl-s">""</span>;
+<span class="pl-smi">StringBuffer</span> <span class="pl-s1">buffer</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s">""</span>);
+<span class="pl-smi">StringBuilder</span> <span class="pl-s1">builder</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">""</span>);
+
+<span class="pl-c">//开始对比</span>
+<span class="pl-s1">startTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
+<span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">20000</span>; <span class="pl-s1">i</span>++) {
+    <span class="pl-s1">buffer</span>.<span class="pl-en">append</span>(<span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">i</span>));
+}
+<span class="pl-s1">endTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"StringBuffer的执行时间："</span> + (<span class="pl-s1">endTime</span> - <span class="pl-s1">startTime</span>));
+
+<span class="pl-s1">startTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
+<span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">20000</span>; <span class="pl-s1">i</span>++) {
+    <span class="pl-s1">builder</span>.<span class="pl-en">append</span>(<span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">i</span>));
+}
+<span class="pl-s1">endTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"StringBuilder的执行时间："</span> + (<span class="pl-s1">endTime</span> - <span class="pl-s1">startTime</span>));
+
+<span class="pl-s1">startTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
+<span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">20000</span>; <span class="pl-s1">i</span>++) {
+    <span class="pl-s1">text</span> = <span class="pl-s1">text</span> + <span class="pl-s1">i</span>;
+}
+<span class="pl-s1">endTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"String的执行时间："</span> + (<span class="pl-s1">endTime</span> - <span class="pl-s1">startTime</span>));</pre></div>
+<h3>2.4 练习</h3>
+<p>笔试题：程序输出：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-c1">null</span>;
+<span class="pl-smi">StringBuffer</span> <span class="pl-s1">sb</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>();
+<span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s1">str</span>);
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sb</span>.<span class="pl-en">length</span>());<span class="pl-c">//</span>
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sb</span>);<span class="pl-c">//</span>
+
+<span class="pl-smi">StringBuffer</span> <span class="pl-s1">sb1</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s1">str</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sb1</span>);<span class="pl-c">//</span></pre></div>
+<h2>3. JDK8之前：日期时间API</h2>
+<p>在Java中，<code class="notranslate">Date</code> 类是 <code class="notranslate">java.util</code> 包中的一个类，用于表示特定的瞬间，精确到毫秒。这个类是抽象的，它提供了一些方法来操作日期和时间。以下是 <code class="notranslate">Date</code> 类的一些关键点：</p>
+<ol>
+<li><strong>构造方法</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date()&lt;/font&gt;</code>：创建一个当前日期和时间的 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象。</li>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date(long date)&lt;/font&gt;</code>：创建一个表示自1970年1月1日00:00:00 GMT以来指定毫秒数的 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象。</li>
+</ul>
+</li>
+<li><strong>时间获取</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;long getTime()&lt;/font&gt;</code>：返回自1970年1月1日00:00:00 GMT以来此 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象表示的毫秒数。</li>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;long getYear()&lt;/font&gt;</code>, <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;getMonth()&lt;/font&gt;</code>, <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;getDay()&lt;/font&gt;</code> 等：这些方法返回日期的特定字段，但它们已经过时，不建议使用。</li>
+</ul>
+</li>
+<li><strong>设置时间</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;void setTime(long time)&lt;/font&gt;</code>：设置此 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象来表示自1970年1月1日00:00:00 GMT以来指定毫秒数的瞬间。</li>
+</ul>
+</li>
+<li><strong>比较日期</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;boolean before(Date when)&lt;/font&gt;</code>：测试此 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象是否早于指定的 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象。</li>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;boolean after(Date when)&lt;/font&gt;</code>：测试此 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象是否晚于指定的 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象。</li>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;boolean equals(Object obj)&lt;/font&gt;</code>：测试此 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象是否与指定的对象相等。</li>
+</ul>
+</li>
+<li><strong>格式化和解析</strong>：
+<ul>
+<li>虽然 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 类本身没有提供格式化和解析日期的方法，但它可以与 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;SimpleDateFormat&lt;/font&gt;</code> 类一起使用，后者是 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;java.text&lt;/font&gt;</code> 包的一部分，用于将 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象格式化为字符串，以及将字符串解析为 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 对象。</li>
+</ul>
+</li>
+<li><strong>时区处理</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 类本身不包含时区信息，它只表示一个特定的瞬间。时区的处理通常需要结合 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code> 类或者 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;java.time&lt;/font&gt;</code> 包中的类（Java 8 引入的新日期时间API）。</li>
+</ul>
+</li>
+<li><strong>过时的方法</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 类中的一些方法，如 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;getYear()&lt;/font&gt;</code>, <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;getMonth()&lt;/font&gt;</code>, <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;getDate()&lt;/font&gt;</code> 等，已经被标记为过时，因为它们不推荐使用，可能会导致混淆（例如，月份是从0开始的，0表示一月）。建议使用 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code> 类或者 Java 8 中的 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;java.time&lt;/font&gt;</code> 包。</li>
+</ul>
+</li>
+</ol>
+<p><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Date&lt;/font&gt;</code> 类是Java早期版本中处理日期和时间的主要方式，但由于它的一些限制和不足，如线程安全问题和对时区的处理不足，Java 8 引入了新的日期时间API，即 <code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;java.time&lt;/font&gt;</code> 包，提供了更加全面和灵活的日期时间处理能力。在新的代码中，推荐使用 Java 8 的日期时间API。</p>
+<p></p>
+<ul>
+<li>Calendar：日历类</li>
+<li>① 实例化：由于Calendar是一个抽象类，所以我们需要创建其子类的实例。这里我们通过Calendar的静态方法getInstance()即可获取实例。</li>
+<li>② 常用方法：
+<ul>
+<li>get(int field)：获取指定字段的值。</li>
+<li>set(int field, int value)：设置指定字段的值。</li>
+<li>add(int field, int amount)：在指定字段上增加或减少指定的量。</li>
+<li>getTime()：返回表示Calendar时间值的Date对象。</li>
+<li>setTime(Date date)：将Calendar的值设置为指定的Date对象。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Calendar</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">text</span>.<span class="pl-s1">SimpleDateFormat</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">CalendarExample</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">// 实例化Calendar对象</span>
+        <span class="pl-smi">Calendar</span> <span class="pl-s1">calendar</span> = <span class="pl-smi">Calendar</span>.<span class="pl-en">getInstance</span>();
+        
+        <span class="pl-c">// 设置Calendar的字段</span>
+        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">YEAR</span>, <span class="pl-c1">2024</span>);
+        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>, <span class="pl-smi">Calendar</span>.<span class="pl-c1">NOVEMBER</span>); <span class="pl-c">// 注意：月份是从0开始的，所以11月是Calendar.NOVEMBER</span>
+        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DAY_OF_MONTH</span>, <span class="pl-c1">8</span>);
+        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">HOUR_OF_DAY</span>, <span class="pl-c1">14</span>);
+        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MINUTE</span>, <span class="pl-c1">30</span>);
+        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">SECOND</span>, <span class="pl-c1">0</span>);
+        
+        <span class="pl-c">// 获取并打印当前Calendar时间</span>
+        <span class="pl-smi">SimpleDateFormat</span> <span class="pl-s1">dateFormat</span> = <span class="pl-k">new</span> <span class="pl-smi">SimpleDateFormat</span>(<span class="pl-s">"yyyy-MM-dd HH:mm:ss"</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">strDate</span> = <span class="pl-s1">dateFormat</span>.<span class="pl-en">format</span>(<span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前设置的日期和时间: "</span> + <span class="pl-s1">strDate</span>);
+        
+        <span class="pl-c">// 增加一天</span>
+        <span class="pl-s1">calendar</span>.<span class="pl-en">add</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DATE</span>, <span class="pl-c1">1</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">strDateTomorrow</span> = <span class="pl-s1">dateFormat</span>.<span class="pl-en">format</span>(<span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"明天的日期和时间: "</span> + <span class="pl-s1">strDateTomorrow</span>);
+        
+        <span class="pl-c">// 获取当前的年份</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">year</span> = <span class="pl-s1">calendar</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">YEAR</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前年份: "</span> + <span class="pl-s1">year</span>);
+        
+        <span class="pl-c">// 获取当前的月份（注意：月份是从0开始的）</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">month</span> = <span class="pl-s1">calendar</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前月份: "</span> + (<span class="pl-s1">month</span> + <span class="pl-c1">1</span>)); <span class="pl-c">// 加1是因为Calendar月份从0开始计数</span>
+        
+        <span class="pl-c">// 获取当前的日期</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">day</span> = <span class="pl-s1">calendar</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DAY_OF_MONTH</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前日期: "</span> + <span class="pl-s1">day</span>);
+    }
+}</pre></div>
+<p>在这个例子中，我们首先导入了<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code>和<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;SimpleDateFormat&lt;/font&gt;</code>类。<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code>类用于操作日期和时间，而<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;SimpleDateFormat&lt;/font&gt;</code>类用于将日期时间格式化为易读的字符串格式。</p>
+<p>我们创建了一个<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code>实例，并设置了年份、月份、日期、小时、分钟和秒。然后，我们使用<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;SimpleDateFormat&lt;/font&gt;</code>将<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code>的时间转换为字符串，并打印出来。接着，我们通过<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;add&lt;/font&gt;</code>方法给日期增加了一天，并再次打印新的日期时间。最后，我们分别获取并打印了当前的年份、月份和日期。</p>
+<p></p>
+<p>//得到java.util.Date</p>
+<p>Date datel= sdf.parse(pattern);</p>
+<p>//转换为java.sql.Date</p>
+<p>java.sql.Date date2 = new java.sql.Date(date1.getTime());</p>
+<p>System.out.println(date2);</p>
+<p>一些问题</p>
+<p>可变性:像日期和时间这样的类应该是不可变的。</p>
+<p>编移性:Date中的年份是从1900开始的，而月份部从0开始。</p>
+<p>格式化:格式化只对Date有用，Calendar则不行。</p>
+<p>此外，它们也不是线程安全士，不能处理闰秒等。</p>
+<h3>3.1 java.lang.System类的方法</h3>
+<ul>
+<li>System类提供的public static long currentTimeMillis()：用来返回当前时间与1970年1月1日0时0分0秒之间以毫秒为单位的时间差。
+<ul>
+<li>此方法适于计算时间差。</li>
+</ul>
+</li>
+<li>计算世界时间的主要标准有：</li>
+</ul>
+<blockquote>
+<p>在国际无线电通信场合，为了统一起见，使用一个统一的时间，称为通用协调时(UTC, Universal Time Coordinated)。UTC与格林尼治平均时(GMT, Greenwich Mean Time)一样，都与英国伦敦的本地时相同。这里，UTC与GMT含义完全相同。</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">- UTC(Coordinated Universal Time)
+- GMT(Greenwich Mean Time)
+- CST(Central Standard Time)
+</code></pre>
+<h3>3.2 java.util.Date</h3>
+<p>表示特定的瞬间，精确到毫秒。</p>
+<ul>
+<li>构造器：
+<ul>
+<li>Date()：使用无参构造器创建的对象可以获取本地当前时间。</li>
+<li>Date(long 毫秒数)：把该毫秒值换算成日期时间对象</li>
+</ul>
+</li>
+<li>常用方法
+<ul>
+<li>getTime(): 返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。</li>
+<li>toString(): 把此 Date 对象转换为以下形式的 String： dow mon dd hh:mm:ss zzz yyyy 其中： dow 是一周中的某一天 (Sun, Mon, Tue, Wed, Thu, Fri, Sat)，zzz是时间标准。</li>
+<li>其它很多方法都过时了。</li>
+</ul>
+</li>
+<li>举例：</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>();
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>);
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test2</span>(){
+    <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">time</span>);<span class="pl-c">//1559806982971</span>
+    <span class="pl-c">//当前系统时间距离1970-1-1 0:0:0 0毫秒的时间差，毫秒为单位</span>
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test3</span>(){
+    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>();
+    <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-s1">d</span>.<span class="pl-en">getTime</span>();
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">time</span>);<span class="pl-c">//1559807047979</span>
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test4</span>(){
+    <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-c1">1559807047979L</span>;
+    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>(<span class="pl-s1">time</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>);
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test5</span>(){
+    <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-smi">Long</span>.<span class="pl-c1">MAX_VALUE</span>;
+    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>(<span class="pl-s1">time</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>);
+}</pre></div>
+<h3>3.3 java.text.SimpleDateFormat</h3>
+<ul>
+<li>java.text.SimpleDateFormat类是一个不与语言环境有关的方式来格式化和解析日期的具体类。</li>
+<li>可以进行格式化：日期 --&gt; 文本</li>
+<li>可以进行解析：文本 --&gt; 日期</li>
+<li><strong>构造器：</strong>
+<ul>
+<li>SimpleDateFormat() ：默认的模式和语言环境创建对象</li>
+<li>public SimpleDateFormat(String pattern)：该构造方法可以用参数pattern指定的格式创建一个对象</li>
+</ul>
+</li>
+<li><strong>格式化：</strong>
+<ul>
+<li>public String format(Date date)：方法格式化时间对象date</li>
+</ul>
+</li>
+<li><strong>解析：</strong>
+<ul>
+<li>public Date parse(String source)：从给定字符串的开始解析文本，以生成一个日期。</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1572599023197.png"><img src="images/1572599023197.png" alt="" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//格式化</span>
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>();
+
+    <span class="pl-smi">SimpleDateFormat</span> <span class="pl-s1">sf</span> = <span class="pl-k">new</span> <span class="pl-smi">SimpleDateFormat</span>(<span class="pl-s">"yyyy年MM月dd日 HH时mm分ss秒 SSS毫秒  E Z"</span>);
+    <span class="pl-c">//把Date日期转成字符串，按照指定的格式转</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s1">sf</span>.<span class="pl-en">format</span>(<span class="pl-s1">d</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>);
+}
+<span class="pl-c">//解析</span>
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test2</span>() <span class="pl-k">throws</span> <span class="pl-s1">ParseException</span>{
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"2022年06月06日 16时03分14秒 545毫秒  星期四 +0800"</span>;
+    <span class="pl-smi">SimpleDateFormat</span> <span class="pl-s1">sf</span> = <span class="pl-k">new</span> <span class="pl-smi">SimpleDateFormat</span>(<span class="pl-s">"yyyy年MM月dd日 HH时mm分ss秒 SSS毫秒  E Z"</span>);
+    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-s1">sf</span>.<span class="pl-en">parse</span>(<span class="pl-s1">str</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>);
+}</pre></div>
+<h3>3.4 java.util.Calendar(日历)</h3>
+<ul>
+<li>Date类的API大部分被废弃了，替换为Calendar。</li>
+<li><code class="notranslate">Calendar</code> 类是一个抽象类，主用用于完成日期字段之间相互操作的功能。</li>
+<li>获取Calendar实例的方法
+<ul>
+<li>使用<code class="notranslate">Calendar.getInstance()</code>方法<a target="_blank" rel="noopener noreferrer" href="images/image-20220123184906903.png"><img src="images/image-20220123184906903.png" alt="" style="max-width: 100%;"></a></li>
+<li>调用它的子类GregorianCalendar（公历）的构造器。<a target="_blank" rel="noopener noreferrer" href="images/image-20220405225828816.png"><img src="images/image-20220405225828816.png" alt="" style="max-width: 100%;"></a></li>
+</ul>
+</li>
+<li>一个Calendar的实例是系统时间的抽象表示，可以修改或获取 YEAR、MONTH、DAY_OF_WEEK、HOUR_OF_DAY 、MINUTE、SECOND等 <code class="notranslate">日历字段</code>对应的时间值。
+<ul>
+<li>public int get(int field)：返回给定日历字段的值</li>
+<li>public void set(int field,int value) ：将给定的日历字段设置为指定的值</li>
+<li>public void add(int field,int amount)：根据日历的规则，为给定的日历字段添加或者减去指定的时间量</li>
+<li>public final Date getTime()：将Calendar转成Date对象</li>
+<li>public final void setTime(Date date)：使用指定的Date对象重置Calendar的时间</li>
+</ul>
+</li>
+<li>常用字段<a target="_blank" rel="noopener noreferrer" href="images/1620277709044.png"><img src="images/1620277709044.png" alt="" style="max-width: 100%;"></a></li>
+<li>注意：
+<ul>
+<li>获取月份时：一月是0，二月是1，以此类推，12月是11</li>
+<li>获取星期时：周日是1，周二是2 ， 。。。。周六是7</li>
+</ul>
+</li>
+<li>示例代码：</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Calendar</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">TimeZone</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestCalendar</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
+        <span class="pl-smi">Calendar</span> <span class="pl-s1">c</span> = <span class="pl-smi">Calendar</span>.<span class="pl-en">getInstance</span>();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">c</span>);
+
+        <span class="pl-smi">int</span> <span class="pl-s1">year</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">YEAR</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">month</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>)+<span class="pl-c1">1</span>;
+        <span class="pl-smi">int</span> <span class="pl-s1">day</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DATE</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">hour</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">HOUR_OF_DAY</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">minute</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MINUTE</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">year</span> + <span class="pl-s">"-"</span> + <span class="pl-s1">month</span> + <span class="pl-s">"-"</span> + <span class="pl-s1">day</span> + <span class="pl-s">" "</span> + <span class="pl-s1">hour</span> + <span class="pl-s">":"</span> + <span class="pl-s1">minute</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
+        <span class="pl-smi">TimeZone</span> <span class="pl-s1">t</span> = <span class="pl-smi">TimeZone</span>.<span class="pl-en">getTimeZone</span>(<span class="pl-s">"America/Los_Angeles"</span>);
+        <span class="pl-smi">Calendar</span> <span class="pl-s1">c</span> = <span class="pl-smi">Calendar</span>.<span class="pl-en">getInstance</span>(<span class="pl-s1">t</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">year</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">YEAR</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">month</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>)+<span class="pl-c1">1</span>;
+        <span class="pl-smi">int</span> <span class="pl-s1">day</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DATE</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">hour</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">HOUR_OF_DAY</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">minute</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MINUTE</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">year</span> + <span class="pl-s">"-"</span> + <span class="pl-s1">month</span> + <span class="pl-s">"-"</span> + <span class="pl-s1">day</span> + <span class="pl-s">" "</span> + <span class="pl-s1">hour</span> + <span class="pl-s">":"</span> + <span class="pl-s1">minute</span>);
+    }
+    
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test3</span>(){
+        <span class="pl-smi">Calendar</span> <span class="pl-s1">calendar</span> = <span class="pl-smi">Calendar</span>.<span class="pl-en">getInstance</span>();
+        <span class="pl-c">// 从一个 Calendar 对象中获取 Date 对象</span>
+        <span class="pl-smi">Date</span> <span class="pl-s1">date</span> = <span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>();
+        
+        <span class="pl-c">// 使用给定的 Date 设置此 Calendar 的时间</span>
+        <span class="pl-s1">date</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>(<span class="pl-c1">234234235235L</span>);
+        <span class="pl-s1">calendar</span>.<span class="pl-en">setTime</span>(<span class="pl-s1">date</span>);
+        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DAY_OF_MONTH</span>, <span class="pl-c1">8</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前时间日设置为8后,时间是:"</span> + <span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());
+        
+        <span class="pl-s1">calendar</span>.<span class="pl-en">add</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">HOUR</span>, <span class="pl-c1">2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前时间加2小时后,时间是:"</span> + <span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());
+        
+        <span class="pl-s1">calendar</span>.<span class="pl-en">add</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>, -<span class="pl-c1">2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前日期减2个月后,时间是:"</span> + <span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());  
+    }
+}</pre></div>
+<h3>3.5 练习</h3>
+<p>输入年份和月份，输出该月日历。</p>
+<p>闰年计算公式：年份可以被4整除但不能被100整除，或者可以被400整除。</p>
+<h2>4. JDK8：新的日期时间API</h2>
+<p>如果我们可以跟别人说：“我们在1502643933071见面，别晚了！”那么就再简单不过了。但是我们希望时间与昼夜和四季有关，于是事情就变复杂了。JDK 1.0中包含了一个java.util.Date类，但是它的大多数方法已经在JDK 1.1引入Calendar类之后被弃用了。而Calendar并不比Date好多少。它们面临的问题是：</p>
+<ul>
+<li>可变性：像日期和时间这样的类应该是不可变的。</li>
+<li>偏移性：Date中的年份是从1900开始的，而月份都从0开始。</li>
+<li>格式化：格式化只对Date有用，Calendar则不行。</li>
+<li>此外，它们也不是线程安全的；不能处理闰秒等。</li>
+</ul>
+<blockquote>
+<p>闰秒，是指为保持协调世界时接近于世界时时刻，由国际计量局统一规定在年底或年中（也可能在季末）对协调世界时增加或减少1秒的调整。由于地球自转的不均匀性和长期变慢性（主要由潮汐摩擦引起的），会使世界时（民用时）和原子时之间相差超过到±0.9秒时，就把协调世界时向前拨1秒（负闰秒，最后一分钟为59秒）或向后拨1秒（正闰秒，最后一分钟为61秒）； 闰秒一般加在公历年末或公历六月末。</p>
+<p>目前，全球已经进行了27次闰秒，均为正闰秒。</p>
+</blockquote>
+<p>总结：<code class="notranslate">对日期和时间的操作一直是Java程序员最痛苦的地方之一</code>。</p>
+<p>第三次引入的API是成功的，并且Java 8中引入的java.time API 已经纠正了过去的缺陷，将来很长一段时间内它都会为我们服务。</p>
+<p>Java 8 以一个新的开始为 Java 创建优秀的 API。新的日期时间API包含：</p>
+<ul>
+<li><code class="notranslate">java.time</code> – 包含值对象的基础包</li>
+<li><code class="notranslate">java.time.chrono</code> – 提供对不同的日历系统的访问。</li>
+<li><code class="notranslate">java.time.format</code> – 格式化和解析时间和日期</li>
+<li><code class="notranslate">java.time.temporal</code> – 包括底层框架和扩展特性</li>
+<li><code class="notranslate">java.time.zone</code> – 包含时区支持的类</li>
+</ul>
+<p>说明：新的 java.time 中包含了所有关于时钟（Clock），本地日期（LocalDate）、本地时间（LocalTime）、本地日期时间（LocalDateTime）、时区（ZonedDateTime）和持续时间（Duration）的类。</p>
+<p>尽管有68个新的公开类型，但是大多数开发者只会用到基础包和format包，大概占总数的三分之一。</p>
+<h3>4.1 本地日期时间：LocalDate、LocalTime、LocalDateTime</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>方法</th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">now() </code>/ now(ZoneId zone)</td>
+<td>静态方法，根据当前时间创建对象/指定时区的对象</td>
+</tr>
+<tr>
+<td><code class="notranslate">of(xx,xx,xx,xx,xx,xxx)</code></td>
+<td>静态方法，根据指定日期/时间创建对象</td>
+</tr>
+<tr>
+<td>getDayOfMonth()/getDayOfYear()</td>
+<td>获得月份天数(1-31) /获得年份天数(1-366)</td>
+</tr>
+<tr>
+<td>getDayOfWeek()</td>
+<td>获得星期几(返回一个 DayOfWeek 枚举值)</td>
+</tr>
+<tr>
+<td>getMonth()</td>
+<td>获得月份, 返回一个 Month 枚举值</td>
+</tr>
+<tr>
+<td>getMonthValue() / getYear()</td>
+<td>获得月份(1-12) /获得年份</td>
+</tr>
+<tr>
+<td>getHours()/getMinute()/getSecond()</td>
+<td>获得当前对象对应的小时、分钟、秒</td>
+</tr>
+<tr>
+<td>withDayOfMonth()/withDayOfYear()/withMonth()/withYear()</td>
+<td>将月份天数、年份天数、月份、年份修改为指定的值并返回新的对象</td>
+</tr>
+<tr>
+<td>with(TemporalAdjuster  t)</td>
+<td>将当前日期时间设置为校对器指定的日期时间</td>
+</tr>
+<tr>
+<td>plusDays(), plusWeeks(), plusMonths(), plusYears(),plusHours()</td>
+<td>向当前对象添加几天、几周、几个月、几年、几小时</td>
+</tr>
+<tr>
+<td>minusMonths() / minusWeeks()/minusDays()/minusYears()/minusHours()</td>
+<td>从当前对象减去几月、几周、几天、几年、几小时</td>
+</tr>
+<tr>
+<td>plus(TemporalAmount t)/minus(TemporalAmount t)</td>
+<td>添加或减少一个 Duration 或 Period</td>
+</tr>
+<tr>
+<td>isBefore()/isAfter()</td>
+<td>比较两个 LocalDate</td>
+</tr>
+<tr>
+<td>isLeapYear()</td>
+<td>判断是否是闰年（在LocalDate类中声明）</td>
+</tr>
+<tr>
+<td>format(DateTimeFormatter  t)</td>
+<td>格式化本地日期、时间，返回一个字符串</td>
+</tr>
+<tr>
+<td>parse(Charsequence text)</td>
+<td>将指定格式的字符串解析为日期、时间</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDate</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDateTime</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalTime</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestLocalDateTime</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">now</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">now</span>);
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-smi">LocalTime</span> <span class="pl-s1">now</span> = <span class="pl-smi">LocalTime</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">now</span>);
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">now</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">now</span>);
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test04</span>(){
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">lai</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2019</span>, <span class="pl-c1">5</span>, <span class="pl-c1">13</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">lai</span>);
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test05</span>(){
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">lai</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2019</span>, <span class="pl-c1">5</span>, <span class="pl-c1">13</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">lai</span>.<span class="pl-en">getDayOfYear</span>());
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test06</span>(){
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">lai</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2019</span>, <span class="pl-c1">5</span>, <span class="pl-c1">13</span>);
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">go</span> = <span class="pl-s1">lai</span>.<span class="pl-en">plusDays</span>(<span class="pl-c1">160</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">go</span>);<span class="pl-c">//2019-10-20</span>
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test7</span>(){
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">now</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">before</span> = <span class="pl-s1">now</span>.<span class="pl-en">minusDays</span>(<span class="pl-c1">100</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">before</span>);<span class="pl-c">//2019-02-26</span>
+    }   
+}</pre></div>
+<h3>4.2 瞬时：Instant</h3>
+<ul>
+<li>Instant：时间线上的一个瞬时点。 这可能被用来记录应用程序中的事件时间戳。
+<ul>
+<li>时间戳是指格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。</li>
+</ul>
+</li>
+<li><code class="notranslate">java.time.Instant</code>表示时间线上的一点，而不需要任何上下文信息，例如，时区。概念上讲，<code class="notranslate">它只是简单的表示自1970年1月1日0时0分0秒（UTC）开始的秒数。</code></li>
+</ul>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th><strong>方法</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">now()</code></td>
+<td>静态方法，返回默认UTC时区的Instant类的对象</td>
+</tr>
+<tr>
+<td><code class="notranslate">ofEpochMilli(long epochMilli)</code></td>
+<td>静态方法，返回在1970-01-01 00:00:00基础上加上指定毫秒数之后的Instant类的对象</td>
+</tr>
+<tr>
+<td>atOffset(ZoneOffset offset)</td>
+<td>结合即时的偏移来创建一个 OffsetDateTime</td>
+</tr>
+<tr>
+<td><code class="notranslate">toEpochMilli()</code></td>
+<td>返回1970-01-01 00:00:00到当前时间的毫秒数，即为时间戳</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<blockquote>
+<p>中国大陆、中国香港、中国澳门、中国台湾、蒙古国、新加坡、马来西亚、菲律宾、西澳大利亚州的时间与UTC的时差均为+8，也就是UTC+8。</p>
+<p>instant.atOffset(ZoneOffset.ofHours(8));</p>
+</blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220406000442908.png"><img src="images/image-20220406000442908.png" alt="" style="max-width: 100%;"></a></p>
+<blockquote>
+<p>整个地球分为二十四时区，每个时区都有自己的本地时间。北京时区是东八区，领先UTC八个小时，在电子邮件信头的Date域记为+0800。如果在电子邮件的信头中有这么一行：</p>
+<p>Date: Fri, 08 Nov 2002 09:42:22 +0800</p>
+<p>说明信件的发送地的地方时间是二○○二年十一月八号，星期五，早上九点四十二分（二十二秒），这个地方的本地时领先UTC八个小时(+0800， 就是东八区时间)。电子邮件信头的Date域使用二十四小时的时钟，而不使用AM和PM来标记上下午。</p>
+</blockquote>
+<h3>4.3 日期时间格式化：DateTimeFormatter</h3>
+<p>该类提供了三种格式化方法：</p>
+<ul>
+<li>(了解)预定义的标准格式。如：ISO_LOCAL_DATE_TIME、ISO_LOCAL_DATE、ISO_LOCAL_TIME</li>
+<li>(了解)本地化相关的格式。如：ofLocalizedDate(FormatStyle.LONG)</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 本地化相关的格式。如：ofLocalizedDateTime()</span>
+<span class="pl-c">// FormatStyle.MEDIUM / FormatStyle.SHORT :适用于LocalDateTime</span>
+                
+<span class="pl-c">// 本地化相关的格式。如：ofLocalizedDate()</span>
+<span class="pl-c">// FormatStyle.FULL / FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT : 适用于LocalDate</span></pre></div>
+<ul>
+<li>自定义的格式。如：ofPattern(“yyyy-MM-dd hh:mm:ss”)</li>
+</ul>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th><strong>方</strong>   <strong>法</strong></th>
+<th><strong>描</strong>   <strong>述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ofPattern(String</strong>  <strong>pattern)</strong></td>
+<td>静态方法，返回一个指定字符串格式的DateTimeFormatter</td>
+</tr>
+<tr>
+<td><strong>format(TemporalAccessor</strong> <strong>t)</strong></td>
+<td>格式化一个日期、时间，返回字符串</td>
+</tr>
+<tr>
+<td><strong>parse(CharSequence</strong>  <strong>text)</strong></td>
+<td>将指定格式的字符序列解析为一个日期、时间</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>举例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDateTime</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">ZoneId</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">format</span>.<span class="pl-s1">DateTimeFormatter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">format</span>.<span class="pl-s1">FormatStyle</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestDatetimeFormatter</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
+        <span class="pl-c">// 方式一：预定义的标准格式。如：ISO_LOCAL_DATE_TIME;ISO_LOCAL_DATE;ISO_LOCAL_TIME</span>
+        <span class="pl-smi">DateTimeFormatter</span> <span class="pl-s1">formatter</span> = <span class="pl-smi">DateTimeFormatter</span>.<span class="pl-c1">ISO_LOCAL_DATE_TIME</span>;
+        <span class="pl-c">// 格式化:日期--&gt;字符串</span>
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s1">formatter</span>.<span class="pl-en">format</span>(<span class="pl-s1">localDateTime</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">localDateTime</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>);<span class="pl-c">//2022-12-04T21:02:14.808</span>
+
+        <span class="pl-c">// 解析：字符串 --&gt;日期</span>
+        <span class="pl-smi">TemporalAccessor</span> <span class="pl-s1">parse</span> = <span class="pl-s1">formatter</span>.<span class="pl-en">parse</span>(<span class="pl-s">"2022-12-04T21:02:14.808"</span>);
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">dateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">from</span>(<span class="pl-s1">parse</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">dateTime</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>();
+        <span class="pl-c">// 方式二：</span>
+        <span class="pl-c">// 本地化相关的格式。如：ofLocalizedDateTime()</span>
+        <span class="pl-c">// FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT :适用于LocalDateTime</span>
+        <span class="pl-smi">DateTimeFormatter</span> <span class="pl-s1">formatter1</span> = <span class="pl-smi">DateTimeFormatter</span>.<span class="pl-en">ofLocalizedDateTime</span>(<span class="pl-smi">FormatStyle</span>.<span class="pl-c1">LONG</span>);
+        
+        <span class="pl-c">// 格式化</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s1">formatter1</span>.<span class="pl-en">format</span>(<span class="pl-s1">localDateTime</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str2</span>);<span class="pl-c">// 2022年12月4日 下午09时03分55秒</span>
+
+        <span class="pl-c">// 本地化相关的格式。如：ofLocalizedDate()</span>
+        <span class="pl-c">// FormatStyle.FULL / FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT : 适用于LocalDate</span>
+        <span class="pl-smi">DateTimeFormatter</span> <span class="pl-s1">formatter2</span> = <span class="pl-smi">DateTimeFormatter</span>.<span class="pl-en">ofLocalizedDate</span>(<span class="pl-smi">FormatStyle</span>.<span class="pl-c1">FULL</span>);
+        <span class="pl-c">// 格式化</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str3</span> = <span class="pl-s1">formatter2</span>.<span class="pl-en">format</span>(<span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str3</span>);<span class="pl-c">// 2022年12月4日 星期日</span>
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test3</span>(){
+        <span class="pl-c">//方式三：自定义的方式（关注、重点）</span>
+        <span class="pl-smi">DateTimeFormatter</span> <span class="pl-s1">dateTimeFormatter</span> = <span class="pl-smi">DateTimeFormatter</span>.<span class="pl-en">ofPattern</span>(<span class="pl-s">"yyyy/MM/dd HH:mm:ss"</span>);
+        <span class="pl-c">//格式化</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">strDateTime</span> = <span class="pl-s1">dateTimeFormatter</span>.<span class="pl-en">format</span>(<span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">strDateTime</span>); <span class="pl-c">//2022/12/04 21:05:42</span>
+        <span class="pl-c">//解析</span>
+        <span class="pl-smi">TemporalAccessor</span> <span class="pl-s1">accessor</span> = <span class="pl-s1">dateTimeFormatter</span>.<span class="pl-en">parse</span>(<span class="pl-s">"2022/12/04 21:05:42"</span>);
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">from</span>(<span class="pl-s1">accessor</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">localDateTime</span>); <span class="pl-c">//2022-12-04T21:05:42</span>
+    }
+}</pre></div>
+<h3>4.4 其它API</h3>
+<p><strong>1、指定时区日期时间：ZondId和ZonedDateTime</strong></p>
+<ul>
+<li>ZoneId：该类中包含了所有的时区信息，一个时区的ID，如 Europe/Paris</li>
+<li>ZonedDateTime：一个在ISO-8601日历系统时区的日期时间，如 2007-12-03T10:15:30+01:00 Europe/Paris。
+<ul>
+<li>其中每个时区都对应着ID，地区ID都为“{区域}/{城市}”的格式，例如：Asia/Shanghai等</li>
+</ul>
+</li>
+<li>常见时区ID：</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-s1">Asia</span>/<span class="pl-smi">Shanghai</span>
+<span class="pl-c1">UTC</span>
+<span class="pl-s1">America</span>/<span class="pl-s1">New_York</span></pre></div>
+<ul>
+<li>可以通过ZondId获取所有可用的时区ID：</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">ZoneId</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">ZonedDateTime</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Set</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestZone</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>() {
+        <span class="pl-c">//需要知道一些时区的id</span>
+        <span class="pl-c">//Set&lt;String&gt;是一个集合，容器</span>
+        <span class="pl-smi">Set</span>&lt;<span class="pl-smi">String</span>&gt; <span class="pl-s1">availableZoneIds</span> = <span class="pl-smi">ZoneId</span>.<span class="pl-en">getAvailableZoneIds</span>();
+        <span class="pl-c">//快捷模板iter</span>
+        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">availableZoneId</span> : <span class="pl-s1">availableZoneIds</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">availableZoneId</span>);
+        }
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-smi">ZonedDateTime</span> <span class="pl-s1">t1</span> = <span class="pl-smi">ZonedDateTime</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">t1</span>);
+
+        <span class="pl-smi">ZonedDateTime</span> <span class="pl-s1">t2</span> = <span class="pl-smi">ZonedDateTime</span>.<span class="pl-en">now</span>(<span class="pl-smi">ZoneId</span>.<span class="pl-en">of</span>(<span class="pl-s">"America/New_York"</span>));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">t2</span>);
+    }
+}</pre></div>
+<p><strong>2、持续日期/时间：Period和Duration</strong></p>
+<ul>
+<li>持续时间：Duration，用于计算两个“时间”间隔</li>
+<li>日期间隔：Period，用于计算两个“日期”间隔</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">Duration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDate</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDateTime</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">Period</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestPeriodDuration</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">t1</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">t2</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2018</span>, <span class="pl-c1">12</span>, <span class="pl-c1">31</span>);
+        <span class="pl-smi">Period</span> <span class="pl-s1">between</span> = <span class="pl-smi">Period</span>.<span class="pl-en">between</span>(<span class="pl-s1">t1</span>, <span class="pl-s1">t2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">between</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的年数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getYears</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的月数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getMonths</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的天数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getDays</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toTotalMonths</span>());
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">t1</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">t2</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">of</span>(<span class="pl-c1">2017</span>, <span class="pl-c1">8</span>, <span class="pl-c1">29</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>);
+        <span class="pl-smi">Duration</span> <span class="pl-s1">between</span> = <span class="pl-smi">Duration</span>.<span class="pl-en">between</span>(<span class="pl-s1">t1</span>, <span class="pl-s1">t2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">between</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总天数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toDays</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总小时数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toHours</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总分钟数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toMinutes</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总秒数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getSeconds</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总毫秒数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toMillis</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总纳秒数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toNanos</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"不够一秒的纳秒数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getNano</span>());
+    }
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-c">//Duration:用于计算两个“时间”间隔，以秒和纳秒为基准</span>
+        <span class="pl-smi">LocalTime</span> <span class="pl-s1">localTime</span> = <span class="pl-smi">LocalTime</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">LocalTime</span> <span class="pl-s1">localTime1</span> = <span class="pl-smi">LocalTime</span>.<span class="pl-en">of</span>(<span class="pl-c1">15</span>, <span class="pl-c1">23</span>, <span class="pl-c1">32</span>);
+        <span class="pl-c">//between():静态方法，返回Duration对象，表示两个时间的间隔</span>
+        <span class="pl-smi">Duration</span> <span class="pl-s1">duration</span> = <span class="pl-smi">Duration</span>.<span class="pl-en">between</span>(<span class="pl-s1">localTime1</span>, <span class="pl-s1">localTime</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">duration</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">duration</span>.<span class="pl-en">getSeconds</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">duration</span>.<span class="pl-en">getNano</span>());
+
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">of</span>(<span class="pl-c1">2016</span>, <span class="pl-c1">6</span>, <span class="pl-c1">12</span>, <span class="pl-c1">15</span>, <span class="pl-c1">23</span>, <span class="pl-c1">32</span>);
+        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime1</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">of</span>(<span class="pl-c1">2017</span>, <span class="pl-c1">6</span>, <span class="pl-c1">12</span>, <span class="pl-c1">15</span>, <span class="pl-c1">23</span>, <span class="pl-c1">32</span>);
+
+        <span class="pl-smi">Duration</span> <span class="pl-s1">duration1</span> = <span class="pl-smi">Duration</span>.<span class="pl-en">between</span>(<span class="pl-s1">localDateTime1</span>, <span class="pl-s1">localDateTime</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">duration1</span>.<span class="pl-en">toDays</span>());
+    }
+    
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test4</span>(){
+        <span class="pl-c">//Period:用于计算两个“日期”间隔，以年、月、日衡量</span>
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">localDate</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>();
+        <span class="pl-smi">LocalDate</span> <span class="pl-s1">localDate1</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2028</span>, <span class="pl-c1">3</span>, <span class="pl-c1">18</span>);
+
+        <span class="pl-smi">Period</span> <span class="pl-s1">period</span> = <span class="pl-smi">Period</span>.<span class="pl-en">between</span>(<span class="pl-s1">localDate</span>, <span class="pl-s1">localDate1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period</span>.<span class="pl-en">getYears</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period</span>.<span class="pl-en">getMonths</span>());
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period</span>.<span class="pl-en">getDays</span>());
+
+        <span class="pl-smi">Period</span> <span class="pl-s1">period1</span> = <span class="pl-s1">period</span>.<span class="pl-en">withYears</span>(<span class="pl-c1">2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period1</span>);
+
+    }
+}</pre></div>
+<p>3、Clock：使用时区提供对当前即时、日期和时间的访问的时钟。</p>
+<p>4、</p>
+<p>TemporalAdjuster : 时间校正器。有时我们可能需要获取例如：将日期调整到“下一个工作日”等操作。<br>
+TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/nextXxx())提供了大量的常用 TemporalAdjuster 的实现。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+    <span class="pl-c">// TemporalAdjuster:时间校正器</span>
+    <span class="pl-c">// 获取当前日期的下一个周日是哪天？</span>
+    <span class="pl-smi">TemporalAdjuster</span> <span class="pl-s1">temporalAdjuster</span> = <span class="pl-smi">TemporalAdjusters</span>.<span class="pl-en">next</span>(<span class="pl-smi">DayOfWeek</span>.<span class="pl-c1">SUNDAY</span>);
+    <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>().<span class="pl-en">with</span>(<span class="pl-s1">temporalAdjuster</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">localDateTime</span>);
+    <span class="pl-c">// 获取下一个工作日是哪天？</span>
+    <span class="pl-smi">LocalDate</span> <span class="pl-s1">localDate</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>().<span class="pl-en">with</span>(<span class="pl-k">new</span> <span class="pl-smi">TemporalAdjuster</span>() {
+        	<span class="pl-c1">@</span><span class="pl-c1">Override</span>
+        	<span class="pl-k">public</span> <span class="pl-smi">Temporal</span> <span class="pl-en">adjustInto</span>(<span class="pl-smi">Temporal</span> <span class="pl-s1">temporal</span>) {
+            <span class="pl-smi">LocalDate</span> <span class="pl-s1">date</span> = (<span class="pl-smi">LocalDate</span>) <span class="pl-s1">temporal</span>;
+           	<span class="pl-k">if</span> (<span class="pl-s1">date</span>.<span class="pl-en">getDayOfWeek</span>().<span class="pl-en">equals</span>(<span class="pl-smi">DayOfWeek</span>.<span class="pl-c1">FRIDAY</span>)) {
+                   <span class="pl-k">return</span> <span class="pl-s1">date</span>.<span class="pl-en">plusDays</span>(<span class="pl-c1">3</span>);
+            } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">date</span>.<span class="pl-en">getDayOfWeek</span>().<span class="pl-en">equals</span>(<span class="pl-smi">DayOfWeek</span>.<span class="pl-c1">SATURDAY</span>)) {
+                <span class="pl-k">return</span> <span class="pl-s1">date</span>.<span class="pl-en">plusDays</span>(<span class="pl-c1">2</span>);
+            } <span class="pl-k">else</span> {
+                <span class="pl-k">return</span> <span class="pl-s1">date</span>.<span class="pl-en">plusDays</span>(<span class="pl-c1">1</span>);
+            }
+        }
+    });
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"下一个工作日是："</span> + <span class="pl-s1">localDate</span>);
+
+}</pre></div>
+<h3>4.5 与传统日期处理的转换</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th><strong>类</strong></th>
+<th><strong>To</strong> <strong>遗留类</strong></th>
+<th><strong>From</strong> <strong>遗留类</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>java.time.Instant与java.util.Date</strong></td>
+<td>Date.from(instant)</td>
+<td>date.toInstant()</td>
+</tr>
+<tr>
+<td><strong>java.time.Instant与java.sql.Timestamp</strong></td>
+<td>Timestamp.from(instant)</td>
+<td>timestamp.toInstant()</td>
+</tr>
+<tr>
+<td><strong>java.time.ZonedDateTime与java.util.GregorianCalendar</strong></td>
+<td>GregorianCalendar.from(zonedDateTime)</td>
+<td>cal.toZonedDateTime()</td>
+</tr>
+<tr>
+<td><strong>java.time.LocalDate与java.sql.Time</strong></td>
+<td>Date.valueOf(localDate)</td>
+<td>date.toLocalDate()</td>
+</tr>
+<tr>
+<td><strong>java.time.LocalTime与java.sql.Time</strong></td>
+<td>Date.valueOf(localDate)</td>
+<td>date.toLocalTime()</td>
+</tr>
+<tr>
+<td><strong>java.time.LocalDateTime与java.sql.Timestamp</strong></td>
+<td>Timestamp.valueOf(localDateTime)</td>
+<td>timestamp.toLocalDateTime()</td>
+</tr>
+<tr>
+<td><strong>java.time.ZoneId与java.util.TimeZone</strong></td>
+<td>Timezone.getTimeZone(id)</td>
+<td>timeZone.toZoneId()</td>
+</tr>
+<tr>
+<td><strong>java.time.format.DateTimeFormatter与java.text.DateFormat</strong></td>
+<td>formatter.toFormat()</td>
+<td>无</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>5. Java比较器</h2>
+<p>我们知道基本数据类型的数据（除boolean类型外）需要比较大小的话，之间使用比较运算符即可，但是引用数据类型是不能直接使用比较运算符来比较大小的。那么，如何解决这个问题呢？</p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220406001726285.png"><img src="images/image-20220406001726285.png" alt="" style="max-width: 100%;"></a></p>
+<ul>
+<li>在Java中经常会涉及到对象数组的排序问题，那么就涉及到对象之间的比较问题。</li>
+<li>Java实现对象排序的方式有两种：
+<ul>
+<li>自然排序：java.lang.Comparable</li>
+<li>定制排序：java.util.Comparator</li>
+</ul>
+</li>
+</ul>
+<h3>5.1 自然排序：java.lang.Comparable</h3>
+<ul>
+<li>Comparable接口强行对实现它的每个类的对象进行整体排序。这种排序被称为类的自然排序。</li>
+<li>实现 Comparable 的类必须实现 <code class="notranslate">compareTo(Object obj) </code>方法，两个对象即通过 compareTo(Object obj) 方法的返回值来比较大小。如果当前对象this大于形参对象obj，则返回正整数，如果当前对象this小于形参对象obj，则返回负整数，如果当前对象this等于形参对象obj，则返回零。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">Comparable</span>{
+    <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>);
+}</pre></div>
+<ul>
+<li>实现Comparable接口的对象列表（和数组）可以通过 Collections.sort 或 Arrays.sort进行自动排序。实现此接口的对象可以用作有序映射中的键或有序集合中的元素，无需指定比较器。</li>
+<li>对于类 C 的每一个 e1 和 e2 来说，当且仅当 e1.compareTo(e2) == 0 与 e1.equals(e2) 具有相同的 boolean 值时，类 C 的自然排序才叫做与 equals 一致。建议（虽然不是必需的）<code class="notranslate">最好使自然排序与 equals 一致</code>。</li>
+<li>Comparable 的典型实现：(<code class="notranslate">默认都是从小到大排列的</code>)
+<ul>
+<li>String：按照字符串中字符的Unicode值进行比较</li>
+<li>Character：按照字符的Unicode值来进行比较</li>
+<li>数值类型对应的包装类以及BigInteger、BigDecimal：按照它们对应的数值大小进行比较</li>
+<li>Boolean：true 对应的包装类实例大于 false 对应的包装类实例</li>
+<li>Date、Time等：后面的日期时间比前面的日期时间大</li>
+</ul>
+</li>
+</ul>
+<p>方式一:实现Comparable接口的方式</p>
+<p>实现步骤:</p>
+<p>① 具体的类A实现Comparable接口</p>
+<p>② 重写Comparable接口中的compareTo(0bject obj)方法，在此方法中指明比较类A的对象的大小的标准</p>
+<p>③ 创建类A的多个实例，进行大小的比较或排序。</p>
+<p>方式二:实现Comparator接口的方式</p>
+<p>实现步骤:</p>
+<p>1， 创建一个实现了cGmparator接口的实现类A</p>
+<p>2 ， 实现类A要求重写comparator接口中的抽象方法compare(0bjecto1,0bject o2)，在此方法中 3，  指明比较大小的对象的大小关系。(比如，String类、Product类)</p>
+<p>创建此实现类A的对象，并将此对象传入到相关方法的参数位置即可。(比如:Arrays.sort(..,类A的实例))</p>
+<p>对比两种方式:</p>
+<p>角度一:</p>
+<p>自然排序:单一的，唯一的</p>
+<p>定制排序:灵活的，多样的</p>
+<p>角度二:</p>
+<p>自然排序:一劳永逸的</p>
+<p>定制排序:临时的</p>
+<p>角度三:细节</p>
+<p>自然排序:对应的接口是Comparable，对应的抽象方法compareTo(0bject obj)</p>
+<p>定制排序:对应的接口是Comparator，对应的抽象方法compare(0bject obj1,0bject obj2)</p>
+<p>使用<code class="notranslate">Comparable</code>接口对商品菜单列表进行排序。在这个例子中，我们将创建一个<code class="notranslate">Product</code>类，它实现了<code class="notranslate">Comparable</code>接口，并根据商品的价格进行排序。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collections</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">List</span>;
+
+<span class="pl-c">// 商品类，实现Comparable接口</span>
+<span class="pl-k">class</span> <span class="pl-smi">Product</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>&lt;<span class="pl-smi">Product</span>&gt; {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>; <span class="pl-c">// 商品名称</span>
+    <span class="pl-k">private</span> <span class="pl-smi">double</span> <span class="pl-s1">price</span>; <span class="pl-c">// 商品价格</span>
+
+    <span class="pl-k">public</span> <span class="pl-smi">Product</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">double</span> <span class="pl-s1">price</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">price</span> = <span class="pl-s1">price</span>;
+    }
+
+    <span class="pl-c">// 获取商品名称</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-c">// 获取商品价格</span>
+    <span class="pl-k">public</span> <span class="pl-smi">double</span> <span class="pl-en">getPrice</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">price</span>;
+    }
+
+    <span class="pl-c">// 实现Comparable接口的compareTo方法，根据价格排序</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Product</span> <span class="pl-s1">other</span>) {
+        <span class="pl-k">return</span> <span class="pl-smi">Double</span>.<span class="pl-en">compare</span>(<span class="pl-smi">this</span>.<span class="pl-s1">price</span>, <span class="pl-s1">other</span>.<span class="pl-s1">price</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"Product{name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> + <span class="pl-s">", price="</span> + <span class="pl-s1">price</span> + <span class="pl-s">'}'</span>;
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ProductMenuExample</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">// 创建商品列表</span>
+        <span class="pl-smi">List</span>&lt;<span class="pl-smi">Product</span>&gt; <span class="pl-s1">products</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
+        <span class="pl-s1">products</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Product</span>(<span class="pl-s">"苹果"</span>, <span class="pl-c1">3.5</span>));
+        <span class="pl-s1">products</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Product</span>(<span class="pl-s">"香蕉"</span>, <span class="pl-c1">2.0</span>));
+        <span class="pl-s1">products</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Product</span>(<span class="pl-s">"橙子"</span>, <span class="pl-c1">4.0</span>));
+        <span class="pl-s1">products</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Product</span>(<span class="pl-s">"西瓜"</span>, <span class="pl-c1">1.5</span>));
+
+        <span class="pl-c">// 使用Collections.sort()方法对商品列表进行排序</span>
+        <span class="pl-smi">Collections</span>.<span class="pl-en">sort</span>(<span class="pl-s1">products</span>);
+
+        <span class="pl-c">// 打印排序后的商品列表</span>
+        <span class="pl-k">for</span> (<span class="pl-smi">Product</span> <span class="pl-s1">product</span> : <span class="pl-s1">products</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">product</span>);
+        }
+    }
+}</pre></div>
+<p>在这个例子中，<code class="notranslate">Product</code>类有两个属性：<code class="notranslate">name</code>（商品名称）和<code class="notranslate">price</code>（商品价格）。<code class="notranslate">Product</code>类实现了<code class="notranslate">Comparable</code>接口，并重写了<code class="notranslate">compareTo</code>方法，该方法接受另一个<code class="notranslate">Product</code>对象作为参数，并根据商品的价格进行比较。这里使用了<code class="notranslate">Double.compare</code>方法来比较两个商品的价格。</p>
+<p>在<code class="notranslate">ProductMenuExample</code>类的<code class="notranslate">main</code>方法中，我们创建了一个<code class="notranslate">ArrayList</code>来存储<code class="notranslate">Product</code>对象，并添加了一些商品。然后，我们使用<code class="notranslate">Collections.sort</code>方法对商品列表进行排序。由于<code class="notranslate">Product</code>类实现了<code class="notranslate">Comparable</code>接口，<code class="notranslate">Collections.sort</code>方法可以自动根据商品的价格进行排序。</p>
+<p>最后，我们遍历并打印排序后的商品列表。在这个例子中，商品将按照价格升序排序。</p>
+<ul>
+<li>代码示例：</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Student</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">id</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">score</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">Student</span>(<span class="pl-smi">int</span> <span class="pl-s1">id</span>, <span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">score</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">id</span> = <span class="pl-s1">id</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">score</span> = <span class="pl-s1">score</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getId</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">id</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setId</span>(<span class="pl-smi">int</span> <span class="pl-s1">id</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">id</span> = <span class="pl-s1">id</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getScore</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">score</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setScore</span>(<span class="pl-smi">int</span> <span class="pl-s1">score</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">score</span> = <span class="pl-s1">score</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getAge</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">age</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setAge</span>(<span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"Student{"</span> +
+                <span class="pl-s">"id="</span> + <span class="pl-s1">id</span> +
+                <span class="pl-s">", name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
+                <span class="pl-s">", score="</span> + <span class="pl-s1">score</span> +
+                <span class="pl-s">", age="</span> + <span class="pl-s1">age</span> +
+                <span class="pl-s">'}'</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
+        <span class="pl-c">//这些需要强制，将o对象向下转型为Student类型的变量，才能调用Student类中的属性</span>
+        <span class="pl-c">//默认按照学号比较大小</span>
+        <span class="pl-smi">Student</span> <span class="pl-s1">stu</span> = (<span class="pl-smi">Student</span>) <span class="pl-s1">o</span>;
+        <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-s1">id</span> - <span class="pl-s1">stu</span>.<span class="pl-s1">id</span>;
+    }
+}</pre></div>
+<p>测试类</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestStudent</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Student</span>[] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>[<span class="pl-c1">5</span>];
+        <span class="pl-s1">arr</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">3</span>,<span class="pl-s">"张三"</span>,<span class="pl-c1">90</span>,<span class="pl-c1">23</span>);
+        <span class="pl-s1">arr</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">1</span>,<span class="pl-s">"熊大"</span>,<span class="pl-c1">100</span>,<span class="pl-c1">22</span>);
+        <span class="pl-s1">arr</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">5</span>,<span class="pl-s">"王五"</span>,<span class="pl-c1">75</span>,<span class="pl-c1">25</span>);
+        <span class="pl-s1">arr</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">4</span>,<span class="pl-s">"李四"</span>,<span class="pl-c1">85</span>,<span class="pl-c1">24</span>);
+        <span class="pl-s1">arr</span>[<span class="pl-c1">4</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">2</span>,<span class="pl-s">"熊二"</span>,<span class="pl-c1">85</span>,<span class="pl-c1">18</span>);
+
+        <span class="pl-c">//单独比较两个对象</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">0</span>].<span class="pl-en">compareTo</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">1</span>]));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">1</span>].<span class="pl-en">compareTo</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">2</span>]));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">2</span>].<span class="pl-en">compareTo</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">2</span>]));
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"所有学生："</span>);
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        }
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"按照学号排序："</span>);
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">j</span> = <span class="pl-c1">0</span>; <span class="pl-s1">j</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>-<span class="pl-s1">i</span>; <span class="pl-s1">j</span>++) {
+                <span class="pl-k">if</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">j</span>].<span class="pl-en">compareTo</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">j</span>+<span class="pl-c1">1</span>])&gt;<span class="pl-c1">0</span>){
+                    <span class="pl-smi">Student</span> <span class="pl-s1">temp</span> = <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>];
+                    <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>] = <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>+<span class="pl-c1">1</span>];
+                    <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>+<span class="pl-c1">1</span>] = <span class="pl-s1">temp</span>;
+                }
+            }
+        }
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        }
+    }
+}</pre></div>
+<p>再举例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Student</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">score</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">Student</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">score</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">score</span> = <span class="pl-s1">score</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getScore</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">score</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setScore</span>(<span class="pl-smi">int</span> <span class="pl-s1">score</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">score</span> = <span class="pl-s1">score</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"Student{"</span> +
+                <span class="pl-s">"name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
+                <span class="pl-s">", score="</span> + <span class="pl-s1">score</span> +
+                <span class="pl-s">'}'</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
+        <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-s1">score</span> - ((<span class="pl-smi">Student</span>)<span class="pl-s1">o</span>).<span class="pl-s1">score</span>;
+    }
+}</pre></div>
+<p>测试：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>() {
+    <span class="pl-smi">Student</span>[] <span class="pl-s1">students</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>[<span class="pl-c1">3</span>];
+    <span class="pl-s1">students</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-s">"张三"</span>, <span class="pl-c1">96</span>);
+    <span class="pl-s1">students</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-s">"李四"</span>, <span class="pl-c1">85</span>);
+    <span class="pl-s1">students</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-s">"王五"</span>, <span class="pl-c1">98</span>);
+
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">students</span>));
+    <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">students</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">students</span>));
+}</pre></div>
+<p>再举例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">Goods</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">double</span> <span class="pl-s1">price</span>;
+
+    <span class="pl-c">//按照价格，比较商品的大小</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
+        <span class="pl-k">if</span>(<span class="pl-s1">o</span> <span class="pl-k">instanceof</span> <span class="pl-smi">Goods</span>) {
+            <span class="pl-smi">Goods</span> <span class="pl-s1">other</span> = (<span class="pl-smi">Goods</span>) <span class="pl-s1">o</span>;
+            <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-s1">price</span> &gt; <span class="pl-s1">other</span>.<span class="pl-s1">price</span>) {
+                <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+            } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-s1">price</span> &lt; <span class="pl-s1">other</span>.<span class="pl-s1">price</span>) {
+                <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
+            }
+            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+        }
+        <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"输入的数据类型不一致"</span>);
+    }
+    <span class="pl-c">//构造器、getter、setter、toString()方法略</span>
+}
+</pre></div>
+<p>测试：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ComparableTest</span>{
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+
+        <span class="pl-smi">Goods</span>[] <span class="pl-s1">all</span> = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>[<span class="pl-c1">4</span>];
+        <span class="pl-s1">all</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"《红楼梦》"</span>, <span class="pl-c1">100</span>);
+        <span class="pl-s1">all</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"《西游记》"</span>, <span class="pl-c1">80</span>);
+        <span class="pl-s1">all</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"《三国演义》"</span>, <span class="pl-c1">140</span>);
+        <span class="pl-s1">all</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"《水浒传》"</span>, <span class="pl-c1">120</span>);
+
+        <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">all</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">all</span>));
+
+    }
+
+}</pre></div>
+<h3>5.2 定制排序：java.util.Comparator</h3>
+<ul>
+<li>思考
+<ul>
+<li>当元素的类型没有实现java.lang.Comparable接口而又不方便修改代码（例如：一些第三方的类，你只有.class文件，没有源文件）</li>
+<li>如果一个类，实现了Comparable接口，也指定了两个对象的比较大小的规则，但是此时此刻我不想按照它预定义的方法比较大小，但是我又不能随意修改，因为会影响其他地方的使用，怎么办？</li>
+</ul>
+</li>
+<li>JDK在设计类库之初，也考虑到这种情况，所以又增加了一个java.util.Comparator接口。强行对多个对象进行整体排序的比较。
+<ul>
+<li>重写compare(Object o1,Object o2)方法，比较o1和o2的大小：如果方法返回正整数，则表示o1大于o2；如果返回0，表示相等；返回负整数，表示o1小于o2。</li>
+<li>可以将 Comparator 传递给 sort 方法（如 Collections.sort 或 Arrays.sort），从而允许在排序顺序上实现精确控制。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">Comparator</span>{
+    <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>,<span class="pl-smi">Object</span> <span class="pl-s1">o2</span>);
+}</pre></div>
+<p>举例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Comparator</span>;
+<span class="pl-c">//定义定制比较器类</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">StudentScoreComparator</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparator</span> { 
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>, <span class="pl-smi">Object</span> <span class="pl-s1">o2</span>) {
+        <span class="pl-smi">Student</span> <span class="pl-s1">s1</span> = (<span class="pl-smi">Student</span>) <span class="pl-s1">o1</span>;
+        <span class="pl-smi">Student</span> <span class="pl-s1">s2</span> = (<span class="pl-smi">Student</span>) <span class="pl-s1">o2</span>;
+        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-s1">s1</span>.<span class="pl-en">getScore</span>() - <span class="pl-s1">s2</span>.<span class="pl-en">getScore</span>();
+        <span class="pl-k">return</span> <span class="pl-s1">result</span> != <span class="pl-c1">0</span> ? <span class="pl-s1">result</span> : <span class="pl-s1">s1</span>.<span class="pl-en">getId</span>() - <span class="pl-s1">s2</span>.<span class="pl-en">getId</span>();
+    }
+}</pre></div>
+<p>测试类</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestStudent</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Student</span>[] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>[<span class="pl-c1">5</span>];
+        <span class="pl-s1">arr</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">3</span>, <span class="pl-s">"张三"</span>, <span class="pl-c1">90</span>, <span class="pl-c1">23</span>);
+        <span class="pl-s1">arr</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">1</span>, <span class="pl-s">"熊大"</span>, <span class="pl-c1">100</span>, <span class="pl-c1">22</span>);
+        <span class="pl-s1">arr</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">5</span>, <span class="pl-s">"王五"</span>, <span class="pl-c1">75</span>, <span class="pl-c1">25</span>);
+        <span class="pl-s1">arr</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">4</span>, <span class="pl-s">"李四"</span>, <span class="pl-c1">85</span>, <span class="pl-c1">24</span>);
+        <span class="pl-s1">arr</span>[<span class="pl-c1">4</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">2</span>, <span class="pl-s">"熊二"</span>, <span class="pl-c1">85</span>, <span class="pl-c1">18</span>);
+
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"所有学生："</span>);
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        }
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"按照成绩排序"</span>);
+        <span class="pl-smi">StudentScoreComparator</span> <span class="pl-s1">sc</span> = <span class="pl-k">new</span> <span class="pl-smi">StudentScoreComparator</span>();
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">j</span> = <span class="pl-c1">0</span>; <span class="pl-s1">j</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span> - <span class="pl-s1">i</span>; <span class="pl-s1">j</span>++) {
+                <span class="pl-k">if</span> (<span class="pl-s1">sc</span>.<span class="pl-en">compare</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">j</span>], <span class="pl-s1">arr</span>[<span class="pl-s1">j</span> + <span class="pl-c1">1</span>]) &gt; <span class="pl-c1">0</span>) {
+                    <span class="pl-smi">Student</span> <span class="pl-s1">temp</span> = <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>];
+                    <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>] = <span class="pl-s1">arr</span>[<span class="pl-s1">j</span> + <span class="pl-c1">1</span>];
+                    <span class="pl-s1">arr</span>[<span class="pl-s1">j</span> + <span class="pl-c1">1</span>] = <span class="pl-s1">temp</span>;
+                }
+            }
+        }
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        }
+    }
+}</pre></div>
+<p>再举例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>() {
+    <span class="pl-smi">Student</span>[] <span class="pl-s1">students</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>[<span class="pl-c1">5</span>];
+    <span class="pl-s1">students</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">3</span>, <span class="pl-s">"张三"</span>, <span class="pl-c1">90</span>, <span class="pl-c1">23</span>);
+    <span class="pl-s1">students</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">1</span>, <span class="pl-s">"熊大"</span>, <span class="pl-c1">100</span>, <span class="pl-c1">22</span>);
+    <span class="pl-s1">students</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">5</span>, <span class="pl-s">"王五"</span>, <span class="pl-c1">75</span>, <span class="pl-c1">25</span>);
+    <span class="pl-s1">students</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">4</span>, <span class="pl-s">"李四"</span>, <span class="pl-c1">85</span>, <span class="pl-c1">24</span>);
+    <span class="pl-s1">students</span>[<span class="pl-c1">4</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">2</span>, <span class="pl-s">"熊二"</span>, <span class="pl-c1">85</span>, <span class="pl-c1">18</span>);
+
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">students</span>));
+    <span class="pl-c">//定制排序</span>
+    <span class="pl-smi">StudentScoreComparator</span> <span class="pl-s1">sc</span> = <span class="pl-k">new</span> <span class="pl-smi">StudentScoreComparator</span>();
+    <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">students</span>, <span class="pl-s1">sc</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"排序之后："</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">students</span>));
+}</pre></div>
+<p>再举例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Goods</span>[] <span class="pl-s1">all</span> = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>[<span class="pl-c1">4</span>];
+<span class="pl-s1">all</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"War and Peace"</span>, <span class="pl-c1">100</span>);
+<span class="pl-s1">all</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"Childhood"</span>, <span class="pl-c1">80</span>);
+<span class="pl-s1">all</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"Scarlet and Black"</span>, <span class="pl-c1">140</span>);
+<span class="pl-s1">all</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"Notre Dame de Paris"</span>, <span class="pl-c1">120</span>);
+
+<span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">all</span>, <span class="pl-k">new</span> <span class="pl-smi">Comparator</span>() {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>, <span class="pl-smi">Object</span> <span class="pl-s1">o2</span>) {
+        <span class="pl-smi">Goods</span> <span class="pl-s1">g1</span> = (<span class="pl-smi">Goods</span>) <span class="pl-s1">o1</span>;
+        <span class="pl-smi">Goods</span> <span class="pl-s1">g2</span> = (<span class="pl-smi">Goods</span>) <span class="pl-s1">o2</span>;
+
+        <span class="pl-k">return</span> <span class="pl-s1">g1</span>.<span class="pl-en">getName</span>().<span class="pl-en">compareTo</span>(<span class="pl-s1">g2</span>.<span class="pl-en">getName</span>());
+    }
+});
+
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">all</span>));</pre></div>
+<p>三个类的对比 String StringBuffer StringBuilder</p>
+<p>String 不可变的字符序列 （jdk8 以前使用 char[] jdk9 以后使用 byte[]）</p>
+<p>StringBuffer 可变的字符序列 线程安全 效率低（jdk8 以前使用 char[] jdk9 以后使用 byte[]）</p>
+<p>StringBuilder 可变的字符序列 线程不安全 效率高（jdk8 以前使用 char[] jdk9 以后使用 byte[]）</p>
+<p>针对于StringBuilder来说： 内部的属性有： char[] value; // 存储字符序列 int count; // 实际存储的字符的个数</p>
+<p>StringBuilder sBuffer1 = new StringBuilder(); // char[] value = new char[16]; StringBuilder sBuffer1 = new StringBuilder("abc"); // char[] value = new char[16 + "abc".length]; sBuffer1.append("ac"); // value[0] = 'a'; value[1] = 'c'; sBuffer1.append("b"); // value[2] = 'b';</p>
+<p>...不断的添加，一旦count要超过value.length时，就需要扩容：默认扩容为原有容量的2倍+2。 并将原有value数组中的元素复制到新的数组中。</p>
+<p></p>
+<p>源码启示：</p>
+<p>如果在开发中需要频繁地对字符串进行增、删、改等操作，建议使用<code class="notranslate">StringBuffer</code>或<code class="notranslate">StringBuilder</code>替换<code class="notranslate">String</code>。因为使用<code class="notranslate">String</code>效率低。</p>
+<p>如果在开发中不涉及到线程安全问题，建议使用<code class="notranslate">StringBuilder</code>替换<code class="notranslate">StringBuffer</code>。因为使用<code class="notranslate">StringBuilder</code>效率高。</p>
+<p>如果在开发中大体确定要操作的字符的个数，建议使用带<code class="notranslate">int capacity</code>参数的构造器。因为这样可以避免底层多次扩容操作，性能更好。</p>
+<p>这些建议是基于<code class="notranslate">String</code>、<code class="notranslate">StringBuffer</code>和<code class="notranslate">StringBuilder</code>的内部实现机制。<code class="notranslate">String</code>对象是不可变的，每次对字符串的修改都会生成一个新的<code class="notranslate">String</code>对象，这会导致频繁的内存分配和垃圾回收，影响性能。而<code class="notranslate">StringBuffer</code>和<code class="notranslate">StringBuilder</code>都是可变的，它们内部使用字符数组来存储字符串，当字符数组容量不足以容纳新的字符时，会进行扩容操作。<code class="notranslate">StringBuffer</code>是线程安全的，而<code class="notranslate">StringBuilder</code>不是，因此在不需要线程安全的情况下，使用<code class="notranslate">StringBuilder</code>可以获得更好的性能。如果能够预估将要处理的字符串的大小，通过指定初始容量可以减少扩容的次数，从而提高性能。</p>
+<p></p>
+<p>StringBuffer和StringBuilder中的常用方法</p>
+<p>增:</p>
+<p>append(xx)</p>
+<p>删:</p>
+<p>delete(int start, int end)</p>
+<p>deleteCharAt(int index)</p>
+<p>改:</p>
+<p>replace(int start, int end, string str)</p>
+<p>setCharAt(int index,char c)</p>
+<p>查:</p>
+<p>charAt(int index)</p>
+<p>插:</p>
+<p>insert(int index,xx)</p>
+<p>长度:</p>
+<p>length()</p>
+<p></p>
+<p>效率从高到低排列:</p>
+<p>StringBuilder &gt;StringBuffer &gt; String</p>
+<p></p>
+<ol>
+<li><strong>不可变性</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;String&lt;/font&gt;</code>：字符串是不可变的，这意味着一旦创建，它的值就不能被改变。任何修改都会生成一个新的字符串对象。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuffer&lt;/font&gt;</code> 和 <code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuilder&lt;/font&gt;</code>：字符串是可变的，可以在不创建新对象的情况下修改字符串的内容。</li>
+</ul>
+</li>
+<li><strong>线程安全</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;String&lt;/font&gt;</code>：线程安全的，因为它的不可变性意味着不需要额外的同步。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuffer&lt;/font&gt;</code>：线程安全的，因为它的方法是同步的，可以被多个线程安全地使用。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuilder&lt;/font&gt;</code>：非线程安全的，因为它的方法不是同步的，但在单线程环境下性能更好。</li>
+</ul>
+</li>
+<li><strong>性能</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;String&lt;/font&gt;</code>：由于不可变性，每次修改都会创建新的字符串对象，所以频繁的修改操作会导致性能问题。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuffer&lt;/font&gt;</code>：由于同步机制，性能比<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuilder&lt;/font&gt;</code>稍差，但在多线程环境下是安全的。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuilder&lt;/font&gt;</code>：性能最好，因为它是非线程安全的，没有同步开销。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;String&lt;/font&gt;</code>：适用于字符串内容一旦创建后不需要修改的场景。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuffer&lt;/font&gt;</code>：适用于多线程环境下需要频繁修改字符串的场景。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuilder&lt;/font&gt;</code>：适用于单线程环境下需要频繁修改字符串的场景。</li>
+</ul>
+</li>
+<li><strong>方法</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;String&lt;/font&gt;</code>：提供基本的字符串操作，如<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;substring&lt;/font&gt;</code>、<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;concat&lt;/font&gt;</code>、<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;replace&lt;/font&gt;</code>等。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuffer&lt;/font&gt;</code> 和 <code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuilder&lt;/font&gt;</code>：除了<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;String&lt;/font&gt;</code>提供的方法外，还提供了<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;append&lt;/font&gt;</code>、<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;insert&lt;/font&gt;</code>、<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;delete&lt;/font&gt;</code>、<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;reverse&lt;/font&gt;</code>等方法，用于修改字符串。</li>
+</ul>
+</li>
+<li><strong>内部实现</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;String&lt;/font&gt;</code>：使用字符数组（<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;char[]&lt;/font&gt;</code>）存储字符串。</li>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuffer&lt;/font&gt;</code> 和 <code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuilder&lt;/font&gt;</code>：使用可扩展的字节数组（<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;byte[]&lt;/font&gt;</code>）存储字符串，这意味着它们可以在不创建新数组的情况下增长。</li>
+</ul>
+</li>
+<li><strong>API</strong>：
+<ul>
+<li><code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuffer&lt;/font&gt;</code> 和 <code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuilder&lt;/font&gt;</code> 提供了类似的API，但<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;StringBuffer&lt;/font&gt;</code>的每个方法都是同步的。</li>
+</ul>
+</li>
+</ol>
+<p></p>
+<h2>6. 系统相关类</h2>
+<h3>6.1 java.lang.System类</h3>
+<ul>
+<li>System类代表系统，系统级的很多属性和控制方法都放置在该类的内部。该类位于<code class="notranslate">java.lang包</code>。</li>
+<li>由于该类的构造器是private的，所以无法创建该类的对象。其内部的成员变量和成员方法都是<code class="notranslate">static的</code>，所以也可以很方便的进行调用。</li>
+<li>成员变量   Scanner scan = new Scanner(System.in);
+<ul>
+<li>System类内部包含<code class="notranslate">in</code>、<code class="notranslate">out</code>和<code class="notranslate">err</code>三个成员变量，分别代表标准输入流(键盘输入)，标准输出流(显示器)和标准错误输出流(显示器)。</li>
+</ul>
+</li>
+<li>成员方法
+<ul>
+<li><code class="notranslate">native long currentTimeMillis()</code>：<br>
+该方法的作用是返回当前的计算机时间，时间的表达格式为当前计算机时间和GMT时间(格林威治时间)1970年1月1号0时0分0秒所差的毫秒数。</li>
+<li><code class="notranslate">void exit(int status)</code>：<br>
+该方法的作用是退出程序。其中status的值为0代表正常退出，非零代表异常退出。使用该方法可以在图形界面编程中实现程序的退出功能等。</li>
+<li><code class="notranslate">void gc()</code>：<br>
+该方法的作用是请求系统进行垃圾回收。至于系统是否立刻回收，则取决于系统中垃圾回收算法的实现以及系统执行时的情况。</li>
+<li><code class="notranslate">String getProperty(String key)</code>：<br>
+该方法的作用是获得系统中属性名为key的属性对应的值。系统中常见的属性名以及属性的作用如下表所示：<a target="_blank" rel="noopener noreferrer" href="images/image-20220406003340258.png"><img src="images/image-20220406003340258.png" alt="" style="max-width: 100%;"></a></li>
+</ul>
+</li>
+<li>举例</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestSystem</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"现在的系统时间距离1970年1月1日凌晨："</span> + <span class="pl-s1">time</span> + <span class="pl-s">"毫秒"</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-en">exit</span>(<span class="pl-c1">0</span>);
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"over"</span>);<span class="pl-c">//不会执行</span>
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-smi">String</span> <span class="pl-s1">javaVersion</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"java.version"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"java的version:"</span> + <span class="pl-s1">javaVersion</span>);
+
+        <span class="pl-smi">String</span> <span class="pl-s1">javaHome</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"java.home"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"java的home:"</span> + <span class="pl-s1">javaHome</span>);
+
+        <span class="pl-smi">String</span> <span class="pl-s1">osName</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"os.name"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"os的name:"</span> + <span class="pl-s1">osName</span>);
+
+        <span class="pl-smi">String</span> <span class="pl-s1">osVersion</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"os.version"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"os的version:"</span> + <span class="pl-s1">osVersion</span>);
+
+        <span class="pl-smi">String</span> <span class="pl-s1">userName</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"user.name"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"user的name:"</span> + <span class="pl-s1">userName</span>);
+
+        <span class="pl-smi">String</span> <span class="pl-s1">userHome</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"user.home"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"user的home:"</span> + <span class="pl-s1">userHome</span>);
+
+        <span class="pl-smi">String</span> <span class="pl-s1">userDir</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"user.dir"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"user的dir:"</span> + <span class="pl-s1">userDir</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>() <span class="pl-k">throws</span> <span class="pl-smi">InterruptedException</span> {
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span>=<span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt;=<span class="pl-c1">10</span>; <span class="pl-s1">i</span>++){
+            <span class="pl-smi">MyDemo</span> <span class="pl-s1">my</span> = <span class="pl-k">new</span> <span class="pl-smi">MyDemo</span>(<span class="pl-s1">i</span>);
+            <span class="pl-c">//每一次循环my就会指向新的对象，那么上次的对象就没有变量引用它了，就成垃圾对象</span>
+        }
+
+        <span class="pl-c">//为了看到垃圾回收器工作，我要加下面的代码，让main方法不那么快结束，因为main结束就会导致JVM退出，GC也会跟着结束。</span>
+        <span class="pl-smi">System</span>.<span class="pl-en">gc</span>();<span class="pl-c">//如果不调用这句代码，GC可能不工作，因为当前内存很充足，GC就觉得不着急回收垃圾对象。</span>
+                    <span class="pl-c">//调用这句代码，会让GC尽快来工作。</span>
+        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">5000</span>);
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-smi">MyDemo</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">value</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">MyDemo</span>(<span class="pl-smi">int</span> <span class="pl-s1">value</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">value</span> = <span class="pl-s1">value</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"MyDemo{"</span> + <span class="pl-s">"value="</span> + <span class="pl-s1">value</span> + <span class="pl-s">'}'</span>;
+    }
+
+    <span class="pl-c">//重写finalize方法，让大家看一下它的调用效果</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">finalize</span>() <span class="pl-k">throws</span> <span class="pl-smi">Throwable</span> {
+<span class="pl-c">//        正常重写，这里是编写清理系统内存的代码</span>
+<span class="pl-c">//        这里写输出语句是为了看到finalize()方法被调用的效果</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">this</span>+ <span class="pl-s">"轻轻的我走了，不带走一段代码...."</span>);
+    }
+}</pre></div>
+<ul>
+<li><code class="notranslate">static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)</code>： 从指定源数组中复制一个数组，复制从指定的位置开始，到目标数组的指定位置结束。常用于数组的插入和删除</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Arrays</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestSystemArrayCopy</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-smi">int</span>[] <span class="pl-s1">arr1</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>};
+        <span class="pl-smi">int</span>[] <span class="pl-s1">arr2</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">10</span>];
+        <span class="pl-smi">System</span>.<span class="pl-en">arraycopy</span>(<span class="pl-s1">arr1</span>,<span class="pl-c1">0</span>,<span class="pl-s1">arr2</span>,<span class="pl-c1">3</span>,<span class="pl-s1">arr1</span>.<span class="pl-s1">length</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">arr1</span>));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">arr2</span>));
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>};
+        <span class="pl-smi">System</span>.<span class="pl-en">arraycopy</span>(<span class="pl-s1">arr</span>,<span class="pl-c1">0</span>,<span class="pl-s1">arr</span>,<span class="pl-c1">1</span>,<span class="pl-s1">arr</span>.<span class="pl-s1">length</span>-<span class="pl-c1">1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">arr</span>));
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>};
+        <span class="pl-smi">System</span>.<span class="pl-en">arraycopy</span>(<span class="pl-s1">arr</span>,<span class="pl-c1">1</span>,<span class="pl-s1">arr</span>,<span class="pl-c1">0</span>,<span class="pl-s1">arr</span>.<span class="pl-s1">length</span>-<span class="pl-c1">1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">arr</span>));
+    }
+}</pre></div>
+<h3>6.2 java.lang.Runtime类</h3>
+<p>每个 Java 应用程序都有一个 <code class="notranslate">Runtime</code> 类实例，使应用程序能够与其运行的环境相连接。</p>
+<p><code class="notranslate">public static Runtime getRuntime()</code>： 返回与当前 Java 应用程序相关的运行时对象。应用程序不能创建自己的 Runtime 类实例。</p>
+<p><code class="notranslate">public long totalMemory()</code>：返回 Java 虚拟机中初始化时的内存总量。此方法返回的值可能随时间的推移而变化，这取决于主机环境。默认为物理电脑内存的1/64。</p>
+<p><code class="notranslate">public long maxMemory()</code>：返回 Java 虚拟机中最大程度能使用的内存总量。默认为物理电脑内存的1/4。</p>
+<p><code class="notranslate">public long freeMemory()</code>：回 Java 虚拟机中的空闲内存量。调用 gc 方法可能导致 freeMemory 返回值的增加。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">system</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestRuntime</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Runtime</span> <span class="pl-s1">runtime</span> = <span class="pl-smi">Runtime</span>.<span class="pl-en">getRuntime</span>();
+        <span class="pl-smi">long</span> <span class="pl-s1">initialMemory</span> = <span class="pl-s1">runtime</span>.<span class="pl-en">totalMemory</span>(); <span class="pl-c">//获取虚拟机初始化时堆内存总量</span>
+        <span class="pl-smi">long</span> <span class="pl-s1">maxMemory</span> = <span class="pl-s1">runtime</span>.<span class="pl-en">maxMemory</span>(); <span class="pl-c">//获取虚拟机最大堆内存总量</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">""</span>;
+        <span class="pl-c">//模拟占用内存</span>
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10000</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">str</span> += <span class="pl-s1">i</span>;
+        }
+        <span class="pl-smi">long</span> <span class="pl-s1">freeMemory</span> = <span class="pl-s1">runtime</span>.<span class="pl-en">freeMemory</span>(); <span class="pl-c">//获取空闲堆内存总量</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"总内存："</span> + <span class="pl-s1">initialMemory</span> / <span class="pl-c1">1024</span> / <span class="pl-c1">1024</span> * <span class="pl-c1">64</span> + <span class="pl-s">"MB"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"总内存："</span> + <span class="pl-s1">maxMemory</span> / <span class="pl-c1">1024</span> / <span class="pl-c1">1024</span> * <span class="pl-c1">4</span> + <span class="pl-s">"MB"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"空闲内存："</span> + <span class="pl-s1">freeMemory</span> / <span class="pl-c1">1024</span> / <span class="pl-c1">1024</span> + <span class="pl-s">"MB"</span>) ;
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"已用内存："</span> + (<span class="pl-s1">initialMemory</span>-<span class="pl-s1">freeMemory</span>) / <span class="pl-c1">1024</span> / <span class="pl-c1">1024</span> + <span class="pl-s">"MB"</span>);
+    }
+}</pre></div>
+<h2>7. 和数学相关的类</h2>
+<h3>7.1 java.lang.Math</h3>
+<p><code class="notranslate">java.lang.Math</code> 类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。类似这样的工具类，其所有方法均为静态方法，并且不会创建对象，调用起来非常简单。</p>
+<ul>
+<li><code class="notranslate">public static double abs(double a) </code> ：返回 double 值的绝对值。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">d1</span> = <span class="pl-smi">Math</span>.<span class="pl-en">abs</span>(-<span class="pl-c1">5</span>); <span class="pl-c">//d1的值为5</span>
+<span class="pl-smi">double</span> <span class="pl-s1">d2</span> = <span class="pl-smi">Math</span>.<span class="pl-en">abs</span>(<span class="pl-c1">5</span>); <span class="pl-c">//d2的值为5</span></pre></div>
+<ul>
+<li><code class="notranslate">public static double ceil(double a)</code> ：返回大于等于参数的最小的整数。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">d1</span> = <span class="pl-smi">Math</span>.<span class="pl-en">ceil</span>(<span class="pl-c1">3.3</span>); <span class="pl-c">//d1的值为 4.0</span>
+<span class="pl-smi">double</span> <span class="pl-s1">d2</span> = <span class="pl-smi">Math</span>.<span class="pl-en">ceil</span>(-<span class="pl-c1">3.3</span>); <span class="pl-c">//d2的值为 -3.0</span>
+<span class="pl-smi">double</span> <span class="pl-s1">d3</span> = <span class="pl-smi">Math</span>.<span class="pl-en">ceil</span>(<span class="pl-c1">5.1</span>); <span class="pl-c">//d3的值为 6.0</span></pre></div>
+<ul>
+<li><code class="notranslate">public static double floor(double a) </code> ：返回小于等于参数最大的整数。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">d1</span> = <span class="pl-smi">Math</span>.<span class="pl-en">floor</span>(<span class="pl-c1">3.3</span>); <span class="pl-c">//d1的值为3.0</span>
+<span class="pl-smi">double</span> <span class="pl-s1">d2</span> = <span class="pl-smi">Math</span>.<span class="pl-en">floor</span>(-<span class="pl-c1">3.3</span>); <span class="pl-c">//d2的值为-4.0</span>
+<span class="pl-smi">double</span> <span class="pl-s1">d3</span> = <span class="pl-smi">Math</span>.<span class="pl-en">floor</span>(<span class="pl-c1">5.1</span>); <span class="pl-c">//d3的值为 5.0</span></pre></div>
+<ul>
+<li><code class="notranslate">public static long round(double a)</code> ：返回最接近参数的 long。(相当于四舍五入方法)</li>
+</ul>
+<p>技巧 x + 0.5 再向下取整</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">long</span> <span class="pl-s1">d1</span> = <span class="pl-smi">Math</span>.<span class="pl-en">round</span>(<span class="pl-c1">5.5</span>); <span class="pl-c">//d1的值为6</span>
+<span class="pl-smi">long</span> <span class="pl-s1">d2</span> = <span class="pl-smi">Math</span>.<span class="pl-en">round</span>(<span class="pl-c1">5.4</span>); <span class="pl-c">//d2的值为5</span>
+<span class="pl-smi">long</span> <span class="pl-s1">d3</span> = <span class="pl-smi">Math</span>.<span class="pl-en">round</span>(-<span class="pl-c1">3.3</span>); <span class="pl-c">//d3的值为-3</span>
+<span class="pl-smi">long</span> <span class="pl-s1">d4</span> = <span class="pl-smi">Math</span>.<span class="pl-en">round</span>(-<span class="pl-c1">3.8</span>); <span class="pl-c">//d4的值为-4</span></pre></div>
+<ul>
+<li>public static double pow(double a,double b)：返回a的b幂次方法</li>
+<li>public static double sqrt(double a)：返回a的平方根</li>
+<li><code class="notranslate">public static double random()</code>：返回[0,1)的随机值</li>
+<li>public static final double PI：返回圆周率</li>
+<li>public static double max(double x, double y)：返回x,y中的最大值</li>
+<li>public static double min(double x, double y)：返回x,y中的最小值</li>
+<li>其它：acos,asin,atan,cos,sin,tan 三角函数</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">result</span> = <span class="pl-smi">Math</span>.<span class="pl-en">pow</span>(<span class="pl-c1">2</span>,<span class="pl-c1">31</span>);
+<span class="pl-smi">double</span> <span class="pl-s1">sqrt</span> = <span class="pl-smi">Math</span>.<span class="pl-en">sqrt</span>(<span class="pl-c1">256</span>);
+<span class="pl-smi">double</span> <span class="pl-s1">rand</span> = <span class="pl-smi">Math</span>.<span class="pl-en">random</span>();
+<span class="pl-smi">double</span> <span class="pl-s1">pi</span> = <span class="pl-smi">Math</span>.<span class="pl-c1">PI</span>;</pre></div>
+<h3>7.2 java.math包</h3>
+<h4>7.2.1 BigInteger</h4>
+<ul>
+<li>Integer类作为int的包装类，能存储的最大整型值为2<sup>31-1，Long类也是有限的，最大为2</sup>63-1。如果要表示再大的整数，不管是基本数据类型还是他们的包装类都无能为力，更不用说进行运算了。</li>
+<li>java.math包的BigInteger可以表示<code class="notranslate">不可变的任意精度的整数</code>。BigInteger 提供所有 Java 的基本整数操作符的对应物，并提供 java.lang.Math 的所有相关方法。另外，BigInteger 还提供以下运算：模算术、GCD 计算、质数测试、素数生成、位操作以及一些其他操作。</li>
+<li>构造器
+<ul>
+<li>BigInteger(String val)：根据字符串构建BigInteger对象</li>
+</ul>
+</li>
+<li>方法
+<ul>
+<li>public BigInteger <code class="notranslate">abs</code>()：返回此 BigInteger 的绝对值的 BigInteger。</li>
+<li>BigInteger <code class="notranslate">add</code>(BigInteger val) ：返回其值为 (this + val) 的 BigInteger</li>
+<li>BigInteger <code class="notranslate">subtract</code>(BigInteger val) ：返回其值为 (this - val) 的 BigInteger</li>
+<li>BigInteger <code class="notranslate">multiply</code>(BigInteger val) ：返回其值为 (this * val) 的 BigInteger</li>
+<li>BigInteger <code class="notranslate">divide</code>(BigInteger val) ：返回其值为 (this / val) 的 BigInteger。整数相除只保留整数部分。</li>
+<li>BigInteger <code class="notranslate">remainder</code>(BigInteger val) ：返回其值为 (this % val) 的 BigInteger。</li>
+<li>BigInteger[] <code class="notranslate">divideAndRemainder</code>(BigInteger val)：返回包含 (this / val) 后跟 (this % val) 的两个 BigInteger 的数组。</li>
+<li>BigInteger <code class="notranslate">pow</code>(int exponent) ：返回其值为 (this^exponent) 的 BigInteger。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+    <span class="pl-c">//long bigNum = 123456789123456789123456789L;</span>
+
+    <span class="pl-smi">BigInteger</span> <span class="pl-s1">b1</span> = <span class="pl-k">new</span> <span class="pl-smi">BigInteger</span>(<span class="pl-s">"12345678912345678912345678"</span>);
+    <span class="pl-smi">BigInteger</span> <span class="pl-s1">b2</span> = <span class="pl-k">new</span> <span class="pl-smi">BigInteger</span>(<span class="pl-s">"78923456789123456789123456789"</span>);
+
+    <span class="pl-c">//System.out.println("和：" + (b1+b2));//错误的，无法直接使用+进行求和</span>
+
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"和："</span> + <span class="pl-s1">b1</span>.<span class="pl-en">add</span>(<span class="pl-s1">b2</span>));
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"减："</span> + <span class="pl-s1">b1</span>.<span class="pl-en">subtract</span>(<span class="pl-s1">b2</span>));
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"乘："</span> + <span class="pl-s1">b1</span>.<span class="pl-en">multiply</span>(<span class="pl-s1">b2</span>));
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"除："</span> + <span class="pl-s1">b2</span>.<span class="pl-en">divide</span>(<span class="pl-s1">b1</span>));
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"余："</span> + <span class="pl-s1">b2</span>.<span class="pl-en">remainder</span>(<span class="pl-s1">b1</span>));
+}</pre></div>
+<h4>7.2.2 BigDecimal</h4>
+<ul>
+<li>一般的Float类和Double类可以用来做科学计算或工程计算，但在<strong>商业计算中，要求数字精度比较高，故用到java.math.BigDecimal类。</strong></li>
+<li>BigDecimal类支持不可变的、任意精度的有符号十进制定点数。</li>
+<li>构造器
+<ul>
+<li>public BigDecimal(double val)</li>
+<li>public BigDecimal(String val) --&gt; 推荐</li>
+</ul>
+</li>
+<li>常用方法
+<ul>
+<li>public BigDecimal <code class="notranslate">add</code>(BigDecimal augend)</li>
+<li>public BigDecimal <code class="notranslate">subtract</code>(BigDecimal subtrahend)</li>
+<li>public BigDecimal <code class="notranslate">multiply</code>(BigDecimal multiplicand)</li>
+<li>public BigDecimal <code class="notranslate">divide</code>(BigDecimal divisor, int scale, int roundingMode)：divisor是除数，scale指明保留几位小数，roundingMode指明舍入模式（ROUND_UP :向上加1、ROUND_DOWN :直接舍去、ROUND_HALF_UP:四舍五入）</li>
+</ul>
+</li>
+<li>举例</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test03</span>(){
+    <span class="pl-smi">BigInteger</span> <span class="pl-s1">bi</span> = <span class="pl-k">new</span> <span class="pl-smi">BigInteger</span>(<span class="pl-s">"12433241123"</span>);
+    <span class="pl-smi">BigDecimal</span> <span class="pl-s1">bd</span> = <span class="pl-k">new</span> <span class="pl-smi">BigDecimal</span>(<span class="pl-s">"12435.351"</span>);
+    <span class="pl-smi">BigDecimal</span> <span class="pl-s1">bd2</span> = <span class="pl-k">new</span> <span class="pl-smi">BigDecimal</span>(<span class="pl-s">"11"</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">bi</span>);
+    <span class="pl-c">// System.out.println(bd.divide(bd2));</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">bd</span>.<span class="pl-en">divide</span>(<span class="pl-s1">bd2</span>, <span class="pl-smi">BigDecimal</span>.<span class="pl-c1">ROUND_HALF_UP</span>));
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">bd</span>.<span class="pl-en">divide</span>(<span class="pl-s1">bd2</span>, <span class="pl-c1">15</span>, <span class="pl-smi">BigDecimal</span>.<span class="pl-c1">ROUND_HALF_UP</span>));
+}</pre></div>
+<h3>7.3 java.util.Random</h3>
+<p>用于产生随机数</p>
+<ul>
+<li><code class="notranslate">boolean nextBoolean()</code>:返回下一个伪随机数，它是取自此随机数生成器序列的均匀分布的 boolean 值。</li>
+<li><code class="notranslate">void nextBytes(byte[] bytes)</code>:生成随机字节并将其置于用户提供的 byte 数组中。</li>
+<li><code class="notranslate">double nextDouble()</code>:返回下一个伪随机数，它是取自此随机数生成器序列的、在 0.0 和 1.0 之间均匀分布的 double 值。</li>
+<li><code class="notranslate">float nextFloat()</code>:返回下一个伪随机数，它是取自此随机数生成器序列的、在 0.0 和 1.0 之间均匀分布的 float 值。</li>
+<li><code class="notranslate">double nextGaussian()</code>:返回下一个伪随机数，它是取自此随机数生成器序列的、呈高斯（“正态”）分布的 double 值，其平均值是 0.0，标准差是 1.0。</li>
+<li><code class="notranslate">int nextInt()</code>:返回下一个伪随机数，它是此随机数生成器的序列中均匀分布的 int 值。</li>
+<li><code class="notranslate">int nextInt(int n)</code>:返回一个伪随机数，它是取自此随机数生成器序列的、在 0（包括）和指定值（不包括）之间均匀分布的 int 值。</li>
+<li><code class="notranslate">long nextLong()</code>:返回下一个伪随机数，它是取自此随机数生成器序列的均匀分布的 long 值。</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test04</span>(){
+    <span class="pl-smi">Random</span> <span class="pl-s1">r</span> = <span class="pl-k">new</span> <span class="pl-smi">Random</span>();
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"随机整数："</span> + <span class="pl-s1">r</span>.<span class="pl-en">nextInt</span>());
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"随机小数："</span> + <span class="pl-s1">r</span>.<span class="pl-en">nextDouble</span>());
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"随机布尔值："</span> + <span class="pl-s1">r</span>.<span class="pl-en">nextBoolean</span>());
+}</pre></div>
+<h1></h1></div>
+<div style="font-size:small;margin-top:8px;float:right;">注意：转载请注明出处<br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script>
+
+</html>
