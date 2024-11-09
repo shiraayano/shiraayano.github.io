@@ -1,4 +1,3 @@
-
 ## 1. 关键字：static
 
 
@@ -2152,6 +2151,2035 @@ c1[1]=new Officer("Bob","0002",19,90.5);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+## 7. 接口(interface)
+
+
+1，接口的理解:接口的本质是契约、标准、规范，就像我们的法律一样。制定好后大家都要遵守。  
+2.定义接口的关键字:interface  
+3.接口内部结构的说明:
+
+> 可以声明:  
+属性:必须使用public static final修饰  
+方法:jdk8之前:声明抽象方法，修饰为public abstract  
+idk8:声明静态方法、默认方法  
+jdk9:声明私有方法
+>
+> 
+>
+> 不可以声明构造器 代码块等
+>
+
+```java
+public class InterfaceTest {
+    public static void main(String[] args) {
+
+        System.out.println(Flyable.MIN_SPEED);
+        System.out.println(Flyable.MAX_SPEED);
+        System.out.println(Flyable.MAX_SPEED2);
+        // MAX_SPEED2 = 1000;//报错 不能更改
+        // System.out.println(Flyable.MAX_SPEED2);
+    }
+
+}
+
+interface Flyable {
+    // 全局变量
+    public static final int MIN_SPEED = 10;
+    public static final int MAX_SPEED = 100;
+
+    // 可以省略public static final
+    int MAX_SPEED2 = 100;
+
+    // 抽象方法
+    public abstract void fly();
+
+    // 可以简写
+    void fly2();
+
+}
+```
+
+接口与类的关系，实现关系
+
+格式 class A implements B,C{ }
+
+A 相较于 SuperA 来讲叫做子类
+
+A 相较于 B，C 来讲 叫做实现类
+
+
+
+满足此关系之后，说明:
+
+类可以实现多个接口。
+
+类针对于接口的多实现，一定程度上就弥补了类的单继承的局限性。
+
+类必须将实现接口中的所有方法都重写（或实现），方可实例化。否则，此实现类必须声明为抽象类
+
+
+
+接口与接口间的关系：继承关系，且可以多继承
+
+接口的多态性 ： 接口名 变量名 = new 实现类对象;
+
+
+
+面试题 区分抽象类和接口
+
+ 
+
+共性 都可以声明抽象方法 都不能实例化
+
+
+
+不同
+
+> 抽象类一定有构造器 接口没有构造器
+>
+> 类与类之间继承关系 类与接口之间时实现关系 接口与接口之间时多继承关系
+>
+
+
+
+ 
+
+
+
+### 7.1 类比
+生活中大家每天都在用USB接口，那么USB接口与我们今天要学习的接口有什么相同点呢？
+
+```plain
+ USB，（Universal Serial Bus，通用串行总线）是Intel公司开发的总线架构，使得在计算机上添加串行设备（鼠标、键盘、打印机、扫描仪、摄像头、充电器、MP3机、手机、数码相机、移动硬盘等）非常容易。
+```
+
+其实，不管是电脑上的USB插口，还是其他设备上的USB插口都只是`遵循了USB规范`的一种具体设备而已。
+
+![](images/bbcc80f541000c71b81650cfaa770c86.png)
+
+只要设备遵循USB规范的，那么就可以与电脑互联，并正常通信。至于这个设备、电脑是哪个厂家制造的，内部是如何实现的，我们都无需关心。
+
+Java的软件系统会有很多模块组成，那么各个模块之间也应该采用这种`面向接口`的`低耦合`，为系统提供更好的可扩展性和可维护性。
+
+### 7.2 概述
+接口就是规范，定义的是一组规则，体现了现实世界中“如果你是/要...则必须能...”的思想。继承是一个"是不是"的is-a关系，而接口实现则是 "能不能"的`has-a`关系。
+
++ 例如：电脑都预留了可以插入USB设备的USB接口，USB接口具备基本的数据传输的开启功能和关闭功能。你能不能用USB进行连接，或是否具备USB通信功能，就看你能否遵循USB接口规范
++ 例如：Java程序是否能够连接使用某种数据库产品，那么要看该数据库产品能否实现Java设计的JDBC规范
+
+> 接口的本质是契约、标准、规范，就像我们的法律一样。制定好后大家都要遵守。
+>
+
+### 7.3 定义格式
+接口的定义，它与定义类方式相似，但是使用 `interface` 关键字。它也会被编译成.class文件，但一定要明确它并不是类，而是另外一种引用数据类型。
+
+> 引用数据类型：数组，类，枚举，接口，注解。
+>
+
+#### 7.3.1 接口的声明格式
+```java
+[修饰符] interface 接口名{
+    //接口的成员列表：
+    // 公共的静态常量
+    // 公共的抽象方法
+    
+    // 公共的默认方法（JDK1.8以上）
+    // 公共的静态方法（JDK1.8以上）
+    // 私有方法（JDK1.9以上）
+}
+```
+
+示例代码：
+
+```java
+package com.atguigu.interfacetype;
+
+public interface USB3{
+    //静态常量
+    long MAX_SPEED = 500*1024*1024;//500MB/s
+
+    //抽象方法
+    void in();
+    void out();
+
+    //默认方法
+    default void start(){
+        System.out.println("开始");
+    }
+    default void stop(){
+        System.out.println("结束");
+    }
+
+    //静态方法
+    static void show(){
+        System.out.println("USB 3.0可以同步全速地进行读写操作");
+    }
+}
+```
+
+#### 7.3.2 接口的成员说明
+**在JDK8.0 之前**，接口中只允许出现：
+
+（1）公共的静态的常量：其中`public static final`可以省略
+
+（2）公共的抽象的方法：其中`public abstract`可以省略
+
+> 理解：接口是从多个相似类中抽象出来的规范，不需要提供具体实现
+>
+
+**在JDK8.0 时**，接口中允许声明`默认方法`和`静态方法`：
+
+（3）公共的默认的方法：其中public 可以省略，建议保留，但是default不能省略
+
+（4）公共的静态的方法：其中public 可以省略，建议保留，但是static不能省略
+
+**在JDK9.0 时**，接口又增加了：
+
+（5）私有方法
+
+除此之外，接口中没有构造器，没有初始化块，因为接口中没有成员变量需要动态初始化。
+
+### 7.4 接口的使用规则
+**1、类实现接口（implements）**
+
+接口**不能创建对象**，但是可以被类实现（`implements` ，类似于被继承）。
+
+类与接口的关系为实现关系，即**类实现接口**，该类可以称为接口的实现类。实现的动作类似继承，格式相仿，只是关键字不同，实现使用 ` implements`关键字。
+
+```java
+【修饰符】 class 实现类  implements 接口{
+    // 重写接口中抽象方法【必须】，当然如果实现类是抽象类，那么可以不重写
+      // 重写接口中默认方法【可选】
+}
+
+【修饰符】 class 实现类 extends 父类 implements 接口{
+    // 重写接口中抽象方法【必须】，当然如果实现类是抽象类，那么可以不重写
+      // 重写接口中默认方法【可选】
+}
+```
+
+注意：
+
+1. 如果接口的实现类是非抽象类，那么必须`重写接口中所有抽象方法`。
+2. 默认方法可以选择保留，也可以重写。
+
+> 重写时，default单词就不要再写了，它只用于在接口中表示默认方法，到类中就没有默认方法的概念了
+>
+
+3. 接口中的静态方法不能被继承也不能被重写
+
+举例：
+
+```java
+interface USB{		// 
+    public void start() ;
+    public void stop() ;	
+}
+class Computer{
+    public static void show(USB usb){	
+        usb.start() ;
+        System.out.println("=========== USB 设备工作 ========") ;
+        usb.stop() ;
+    }
+};
+class Flash implements USB{
+    public void start(){	// 重写方法
+        System.out.println("U盘开始工作。") ;
+    }
+    public void stop(){		// 重写方法
+        System.out.println("U盘停止工作。") ;
+    }
+};
+class Print implements USB{
+    public void start(){	// 重写方法
+        System.out.println("打印机开始工作。") ;
+    }
+    public void stop(){		// 重写方法
+        System.out.println("打印机停止工作。") ;
+    }
+};
+public class InterfaceDemo{
+    public static void main(String args[]){
+        Computer.show(new Flash()) ;
+        Computer.show(new Print()) ;
+
+        c.show(new USB(){
+            public void start(){
+                System.out.println("移动硬盘开始运行");
+            }
+            public void stop(){
+                System.out.println("移动硬盘停止运行");
+            }
+        });
+    }
+};
+```
+
+**2、接口的多实现（implements）**
+
+之前学过，在继承体系中，一个类只能继承一个父类。而对于接口而言，一个类是可以实现多个接口的，这叫做接口的`多实现`。并且，一个类能继承一个父类，同时实现多个接口。
+
+实现格式：
+
+```java
+【修饰符】 class 实现类  implements 接口1，接口2，接口3。。。{
+    // 重写接口中所有抽象方法【必须】，当然如果实现类是抽象类，那么可以不重写
+      // 重写接口中默认方法【可选】
+}
+
+【修饰符】 class 实现类 extends 父类 implements 接口1，接口2，接口3。。。{
+    // 重写接口中所有抽象方法【必须】，当然如果实现类是抽象类，那么可以不重写
+      // 重写接口中默认方法【可选】
+}
+```
+
+> 接口中，有多个抽象方法时，实现类必须重写所有抽象方法。**如果抽象方法有重名的，只需要重写一次**。
+>
+
+举例：
+
+![](images/1562216188519.png)
+
+定义多个接口：
+
+```java
+package com.atguigu.interfacetype;
+
+public interface A {
+    void showA();
+}
+```
+
+```java
+package com.atguigu.interfacetype;
+
+public interface B {
+    void showB();
+}
+```
+
+定义实现类：
+
+```java
+package com.atguigu.interfacetype;
+
+public class C implements A,B {
+    @Override
+    public void showA() {
+        System.out.println("showA");
+    }
+
+    @Override
+    public void showB() {
+        System.out.println("showB");
+    }
+}
+
+```
+
+测试类
+
+```java
+package com.atguigu.interfacetype;
+
+public class TestC {
+    public static void main(String[] args) {
+        C c = new C();
+        c.showA();
+        c.showB();
+    }
+}
+```
+
+**3、接口的多继承(extends)**
+
+一个接口能继承另一个或者多个接口，接口的继承也使用 `extends` 关键字，子接口继承父接口的方法。
+
+定义父接口：
+
+```java
+package com.atguigu.interfacetype;
+
+public interface Chargeable {
+    void charge();
+    void in();
+    void out();
+}
+```
+
+定义子接口：
+
+```java
+package com.atguigu.interfacetype;
+
+public interface UsbC extends Chargeable,USB3 {
+    void reverse();
+}
+```
+
+定义子接口的实现类：
+
+```java
+package com.atguigu.interfacetype;
+
+public class TypeCConverter implements UsbC {
+    @Override
+    public void reverse() {
+        System.out.println("正反面都支持");
+    }
+
+    @Override
+    public void charge() {
+        System.out.println("可充电");
+    }
+
+    @Override
+    public void in() {
+        System.out.println("接收数据");
+    }
+
+    @Override
+    public void out() {
+        System.out.println("输出数据");
+    }
+}
+```
+
+> 所有父接口的抽象方法都有重写。
+>
+> 方法签名相同的抽象方法只需要实现一次。
+>
+
+**4、接口与实现类对象构成多态引用**
+
+实现类实现接口，类似于子类继承父类，因此，接口类型的变量与实现类的对象之间，也可以构成多态引用。通过接口类型的变量调用方法，最终执行的是你new的实现类对象实现的方法体。
+
+接口的不同实现类：
+
+```java
+package com.atguigu.interfacetype;
+
+public class Mouse implements USB3 {
+    @Override
+    public void out() {
+        System.out.println("发送脉冲信号");
+    }
+
+    @Override
+    public void in() {
+        System.out.println("不接收信号");
+    }
+}
+```
+
+```java
+package com.atguigu.interfacetype;
+
+public class KeyBoard implements USB3{
+    @Override
+    public void in() {
+        System.out.println("不接收信号");
+    }
+
+    @Override
+    public void out() {
+        System.out.println("发送按键信号");
+    }
+}
+
+```
+
+测试类
+
+```java
+package com.atguigu.interfacetype;
+
+public class TestComputer {
+    public static void main(String[] args) {
+        Computer computer = new Computer();
+        USB3 usb = new Mouse();
+        computer.setUsb(usb);
+        usb.start();
+        usb.out();
+        usb.in();
+        usb.stop();
+        System.out.println("--------------------------");
+
+        usb = new KeyBoard();
+        computer.setUsb(usb);
+        usb.start();
+        usb.out();
+        usb.in();
+        usb.stop();
+        System.out.println("--------------------------");
+
+        usb = new MobileHDD();
+        computer.setUsb(usb);
+        usb.start();
+        usb.out();
+        usb.in();
+        usb.stop();
+    }
+}
+```
+
+**5、使用接口的静态成员**
+
+接口不能直接创建对象，但是可以通过接口名直接调用接口的静态方法和静态常量。
+
+```java
+package com.atguigu.interfacetype;
+
+public class TestUSB3 {
+    public static void main(String[] args) {
+        //通过“接口名.”调用接口的静态方法 (JDK8.0才能开始使用)
+        USB3.show();
+        //通过“接口名.”直接使用接口的静态常量
+        System.out.println(USB3.MAX_SPEED);
+    }
+}
+```
+
+**6、使用接口的非静态方法**
+
++ 对于接口的静态方法，直接使用“`接口名.`”进行调用即可
+    - 也只能使用“接口名."进行调用，不能通过实现类的对象进行调用
++ 对于接口的抽象方法、默认方法，只能通过实现类对象才可以调用
+    - 接口不能直接创建对象，只能创建实现类的对象
+
+```java
+package com.atguigu.interfacetype;
+
+public class TestMobileHDD {
+    public static void main(String[] args) {
+        //创建实现类对象
+        MobileHDD b = new MobileHDD();
+
+        //通过实现类对象调用重写的抽象方法，以及接口的默认方法，如果实现类重写了就执行重写的默认方法，如果没有重写，就执行接口中的默认方法
+        b.start();
+        b.in();
+        b.stop();
+
+        //通过接口名调用接口的静态方法
+//        MobileHDD.show();
+//        b.show();
+        Usb3.show();
+    }
+}
+```
+
+```java
+public class Test {
+
+    //在JDK8以前，接口中只能定义全局常量和抽象方法
+    //JDK8以后，接口中可以定义静态方法和默认方法
+    public static void main(String[] args) {
+        //接口中的静态方法只能通过接口名调用
+        MyInterface1.method1();
+        //接口中的默认方法可以通过实现类对象调用，也可以通过接口名调用
+        MyInterface1.method2();
+                new MyInterface1Impl().method2();
+            }
+        
+        }
+        interface MyInterface1{
+            //全局常量
+            public static final int NUM = 10;
+            //抽象方法
+            public abstract void method();
+            //静态方法
+            public static void method1(){
+                System.out.println("静态方法");
+            }
+            //默认方法
+            public static void method2(){
+        System.out.println("默认方法");
+    }
+
+}
+class MyInterface1Impl implements MyInterface1{
+
+    @Override
+    public void method() {
+        System.out.println("抽象方法");
+    }
+    public void method2(){
+        System.out.println("实现类重写的默认方法");
+    }
+
+}
+//接口中的静态方法只能通过接口名调用，不能通过实现类对象调用
+//接口中的默认方法可以通过实现类对象调用，也可以通过接口名调用
+//接口中声明的默认方法可以实现类继承，实现类在没有重写的情况下，默认使用接口中的默认方法,如果实现类重写了此方法，则使用实现类重写的方法
+//类实现了两个接口，而两个接口中都有默认方法，则类必须重写此方法，否则编译报错
+```
+
+### 7.5 JDK8中相关冲突问题
+#### 7.5.1 默认方法冲突问题
+**（1）类优先原则**
+
+当一个类，既继承一个父类，又实现若干个接口时，父类中的成员方法与接口中的抽象方法重名，子类就近选择执行父类的成员方法。代码如下：
+
+定义接口：
+
+```java
+package com.atguigu.interfacetype;
+
+public interface Friend {
+    default void date(){//约会
+        System.out.println("吃喝玩乐");
+    }
+}
+```
+
+定义父类：
+
+```java
+package com.atguigu.interfacetype;
+
+public class Father {
+    public void date(){//约会
+        System.out.println("爸爸约吃饭");
+    }
+}
+```
+
+定义子类：
+
+```java
+package com.atguigu.interfacetype;
+
+public class Son extends Father implements Friend {
+    @Override
+    public void date() {
+        //(1)不重写默认保留父类的
+        //(2)调用父类被重写的
+//        super.date();
+        //(3)保留父接口的
+//        Friend.super.date();
+        //(4)完全重写
+        System.out.println("跟康师傅学Java");
+    }
+}
+```
+
+定义测试类：
+
+```java
+package com.atguigu.interfacetype;
+
+public class TestSon {
+    public static void main(String[] args) {
+        Son s = new Son();
+        s.date();
+    }
+}
+```
+
+**（2）接口冲突（左右为难）**
+
++ 当一个类同时实现了多个父接口，而多个父接口中包含方法签名相同的默认方法时，怎么办呢？
+
+![](images/选择困难.jpg)
+
+无论你多难抉择，最终都是要做出选择的。
+
+声明接口：
+
+```java
+package com.atguigu.interfacetype;
+
+public interface BoyFriend {
+    default void date(){//约会
+        System.out.println("神秘约会");
+    }
+}
+```
+
+选择保留其中一个，通过“`接口名.super.方法名`"的方法选择保留哪个接口的默认方法。
+
+```java
+package com.atguigu.interfacetype;
+
+public class Girl implements Friend,BoyFriend{
+
+    @Override
+    public void date() {
+        //(1)保留其中一个父接口的
+//        Friend.super.date();
+//        BoyFriend.super.date();
+        //(2)完全重写
+        System.out.println("跟康师傅学Java");
+    }
+
+}
+```
+
+测试类
+
+```java
+package com.atguigu.interfacetype;
+
+public class TestGirl {
+    public static void main(String[] args) {
+        Girl girl = new Girl();
+        girl.date();
+    }
+}
+```
+
++ 当一个子接口同时继承了多个接口，而多个父接口中包含方法签名相同的默认方法时，怎么办呢？
+
+另一个父接口：
+
+```java
+package com.atguigu.interfacetype;
+
+public interface USB2 {
+    //静态常量
+    long MAX_SPEED = 60*1024*1024;//60MB/s
+
+    //抽象方法
+    void in();
+    void out();
+
+    //默认方法
+    public default void start(){
+        System.out.println("开始");
+    }
+    public default void stop(){
+        System.out.println("结束");
+    }
+
+    //静态方法
+    public static void show(){
+        System.out.println("USB 2.0可以高速地进行读写操作");
+    }
+}
+```
+
+子接口：
+
+```java
+package com.atguigu.interfacetype;
+
+public interface USB extends USB2,USB3 {
+    @Override
+    default void start() {
+        System.out.println("Usb.start");
+    }
+
+    @Override
+    default void stop() {
+        System.out.println("Usb.stop");
+    }
+}
+
+```
+
+> 小贴士：
+>
+> 子接口重写默认方法时，default关键字可以保留。
+>
+> 子类重写默认方法时，default关键字不可以保留。
+>
+
+#### 7.5.2 常量冲突问题
++ 当子类继承父类又实现父接口，而父类中存在与父接口常量同名的成员变量，并且该成员变量名在子类中仍然可见。
++ 当子类同时实现多个接口，而多个接口存在相同同名常量。
+
+此时在子类中想要引用父类或父接口的同名的常量或成员变量时，就会有冲突问题。
+
+父类和父接口：
+
+```java
+package com.atguigu.interfacetype;
+
+public class SuperClass {
+    int x = 1;
+}
+```
+
+```java
+package com.atguigu.interfacetype;
+
+public interface SuperInterface {
+    int x = 2;
+    int y = 2;
+}
+```
+
+```java
+package com.atguigu.interfacetype;
+
+public interface MotherInterface {
+    int x = 3;
+}
+```
+
+子类：
+
+```java
+package com.atguigu.interfacetype;
+
+public class SubClass extends SuperClass implements SuperInterface,MotherInterface {
+    public void method(){
+//        System.out.println("x = " + x);//模糊不清
+        System.out.println("super.x = " + super.x);
+        System.out.println("SuperInterface.x = " + SuperInterface.x);
+        System.out.println("MotherInterface.x = " + MotherInterface.x);
+        System.out.println("y = " + y);//没有重名问题，可以直接访问
+    }
+}
+```
+
+### 7.6 接口的总结与面试题
++ 接口本身不能创建对象，只能创建接口的实现类对象，接口类型的变量可以与实现类对象构成多态引用。
++ 声明接口用interface，接口的成员声明有限制：
+    - （1）公共的静态常量
+    - （2）公共的抽象方法
+    - （3）公共的默认方法（JDK8.0 及以上）
+    - （4）公共的静态方法（JDK8.0 及以上）
+    - （5）私有方法（JDK9.0 及以上）
++ 类可以实现接口，关键字是implements，而且支持多实现。如果实现类不是抽象类，就必须实现接口中所有的抽象方法。如果实现类既要继承父类又要实现父接口，那么继承（extends）在前，实现（implements）在后。
++ 接口可以继承接口，关键字是extends，而且支持多继承。
++ 接口的默认方法可以选择重写或不重写。如果有冲突问题，另行处理。子类重写父接口的默认方法，要去掉default，子接口重写父接口的默认方法，不要去掉default。
++ 接口的静态方法不能被继承，也不能被重写。接口的静态方法只能通过“接口名.静态方法名”进行调用。
+
+**面试题**
+
+**1、为什么接口中只能声明公共的静态的常量？**
+
+因为接口是标准规范，那么在规范中需要声明一些底线边界值，当实现者在实现这些规范时，不能去随意修改和触碰这些底线，否则就有“危险”。
+
+例如：USB1.0规范中规定最大传输速率是1.5Mbps，最大输出电流是5V/500mA
+
+           USB3.0规范中规定最大传输速率是5Gbps(500MB/s)，最大输出电流是5V/900mA
+
+例如：尚硅谷学生行为规范中规定学员，早上8:25之前进班，晚上21:30之后离开等等。
+
+**2、为什么JDK8.0 之后允许接口定义静态方法和默认方法呢？因为它违反了接口作为一个抽象标准定义的概念。**
+
+`静态方法`：因为之前的标准类库设计中，有很多Collection/Colletions或者Path/Paths这样成对的接口和类，后面的类中都是静态方法，而这些静态方法都是为前面的接口服务的，那么这样设计一对API，不如把静态方法直接定义到接口中使用和维护更方便。
+
+`默认方法`：（1）我们要在已有的老版接口中提供新方法时，如果添加抽象方法，就会涉及到原来使用这些接口的类就会有问题，那么为了保持与旧版本代码的兼容性，只能允许在接口中定义默认方法实现。比如：Java8中对Collection、List、Comparator等接口提供了丰富的默认方法。（2）当我们接口的某个抽象方法，在很多实现类中的实现代码是一样的，此时将这个抽象方法设计为默认方法更为合适，那么实现类就可以选择重写，也可以选择不重写。
+
+**3、为什么JDK1.9要允许接口定义私有方法呢？因为我们说接口是规范，规范是需要公开让大家遵守的。**
+
+**私有方法**：因为有了默认方法和静态方法这样具有具体实现的方法，那么就可能出现多个方法由共同的代码可以抽取，而这些共同的代码抽取出来的方法又只希望在接口内部使用，所以就增加了私有方法。
+
+### 7.7 接口与抽象类之间的对比
+![](images/image-20220328002053452.png)
+
+> 在开发中，常看到一个类不是去继承一个已经实现好的类，而是要么继承抽象类，要么实现接口。
+>
+
+### 7.8 练习
+**笔试题：**排错
+
+```java
+interface A {
+    int x = 0;
+}
+class B {
+    int x = 1;
+}
+class C extends B implements A {
+    public void pX() {
+        System.out.println(x);
+    }
+    public static void main(String[] args) {
+        new C().pX();
+    }
+}
+
+```
+
+**笔试题：**排错
+
+```java
+interface Playable {
+    void play();
+}
+
+interface Bounceable {
+    void play();
+}
+
+interface Rollable extends Playable, Bounceable {
+    Ball ball = new Ball("PingPang");
+
+}
+
+class Ball implements Rollable {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public Ball(String name) {
+        this.name = name;
+    }
+
+    public void play() {
+        ball = new Ball("Football");
+        System.out.println(ball.getName());
+    }
+}
+
+```
+
+**练习1：**
+
+定义一个接口用来实现两个对象的比较。
+
+```java
+interface CompareObject{
+    //若返回值是 0 , 代表相等; 若为正数，代表当前对象大；负数代表当前对象小
+    public int compareTo(Object o);  
+}
+```
+
+定义一个Circle类，声明redius属性，提供getter和setter方法
+
+定义一个ComparableCircle类，继承Circle类并且实现CompareObject接口。在ComparableCircle类中给出接口中方法compareTo的实现体，用来比较两个圆的半径大小。
+
+定义一个测试类InterfaceTest，创建两个ComparableCircle对象，调用compareTo方法比较两个类的半径大小。
+
+思考：参照上述做法定义矩形类Rectangle和ComparableRectangle类，在ComparableRectangle类中给出compareTo方法的实现，比较两个矩形的面积大小。
+
+**练习2：交通工具案例**
+
+阿里的一个工程师，声明的属性和方法如下：
+
+![](images/image-20220504172547709.png)
+
+其中，有一个乘坐交通工具的方法takingVehicle()，在此方法中调用交通工具的run()。为了出行方便，他买了一辆捷安特自行车、一辆雅迪电动车和一辆奔驰轿车。这里涉及到的相关类及接口关系如下：
+
+![](images/image-20220504172918861.png)
+
+其中，电动车增加动力的方式是充电，轿车增加动力的方式是加油。在具体交通工具的run()中调用其所在类的相关属性信息。
+
+请编写相关代码，并测试。
+
+提示：创建Vehicle[]数组，保存阿里工程师的三辆交通工具，并分别在工程师的takingVehicle()中调用。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 8. 内部类（InnerClass)
+### 8.1 概述
+
+
+内部类举例
+
+thread 类声明了 State 类 ，表示线程生命周期
+
+SashMap 类声明了 Node 类 表示封装 key 和 value
+
+
+
+4.内部类的分类:(参考变量的分类)  
+成员内部类:直接声明在外部类的里面。  
+使用static修饰的:静态的成员内部类
+
+> 不使用static修饰的:非静态的成员内部类  
+局部内部类:声明在方法内、构造器内、代码块内的内部类  
+匿名的局部内部类  
+非匿名的局部内部类
+>
+
+内部类这节要讲的知识:
+
+> 成员内部类的理解
+>
+
+> 如何创建成员内部类的实例
+>
+
+> 如何在成员内部类中调用外部类的结构
+>
+
+> 局部内部类的基本使用
+>
+
+
+
+关于成员内部类的理解
+
+> 从类的角度看:  
+内部可以声明属性、方法、构造器、代码块、内部类等结构  
+此内部类可以声明父类，可以实现接口  
+可以使用final修饰  
+可以使用abstract修饰
+>
+
+> 从外部类的成员的角度看:  
+在内部可以调用外部类的结构。比如:属性、方法等  
+除了使用public、缺省权限修饰之外，还可以使用private、protected修饰  
+可以使用static修饰
+>
+
+```java
+public class OutherClassTest {
+    public static void main(String[] args) {
+        SubA subA = new SubA();
+        subA.method();
+
+        // 其它写法
+
+        //方法1 提供接口 匿名实现类的对象
+        A a = new A() {
+            @Override
+            public void method() {
+                System.out.println("匿名实现类的方法");
+            }
+        };
+        a.method(); // 调用匿名内部类的方法
+
+        //方法2
+        new SubA(){
+            public void method(){
+                System.out.println("匿名实现类的方法");
+            }
+        }
+        .method(); // 调用匿名内部类的方法
+    }
+}
+
+interface A {
+    void method();
+}
+
+class SubA implements A {
+    @Override
+    public void method() {
+        System.out.println("SubA");
+    }
+}
+```
+
+### 8.1.1 什么是内部类
+```java
+public class OutherClassTest {
+    public static void main(String[] args) {
+        SubA subA = new SubA();
+        subA.method();
+
+        // 其它写法
+
+        //方法1 提供接口 匿名实现类的对象
+        A a = new A() {
+            @Override
+            public void method() {
+                System.out.println("匿名实现类的方法");
+            }
+        };
+        a.method(); // 调用匿名内部类的方法
+
+        //方法2
+        new SubA(){
+            @Override
+            public void method(){
+                System.out.println("匿名实现类的方法");
+            }
+        }
+        .method(); // 调用匿名内部类的方法
+
+        //方法3
+        C s1 = new C();
+        s1.method();
+
+        //方法4 提供了继承于抽象类的匿名子类的对象
+        B b = new B(){
+            @Override
+            public void method() {
+                System.out.println("继承于抽象类的子类调用的方法");
+            }
+        };
+
+        b.method();
+
+        //方法5  
+        new B(){
+            @Override
+            public void method() {
+                System.out.println("继承于抽象类的子类调用的方法");
+            }
+        }
+        .method(); // 调用匿名内部类的方法
+
+        //方法6
+        D d = new D();
+        d.method();
+
+        //方法7
+        D f = new D(){
+            
+        };
+        f.method();
+        System.out.println(f.getClass());
+        System.out.println(f.getClass().getSuperclass());
+
+        D f2 = new D(){
+            @Override
+            public void method() {
+                System.out.println("继承于抽象类的子类调用的方法");
+            }
+        };
+        f2.method();
+    }
+    
+}
+
+interface A {
+    void method();
+}
+
+class SubA implements A {
+    @Override
+    public void method() {
+        System.out.println("SubA");
+    }
+}
+
+abstract class B {
+    public abstract void method();
+    //抽象类
+    
+}
+
+class C extends B {
+    @Override
+    public void method() {
+        System.out.println("C");
+    }
+}
+
+class D {
+    public void method() {
+        System.out.println("D");
+    }
+}
+```
+
+
+
+将一个类A定义在另一个类B里面，里面的那个类A就称为`内部类（InnerClass）`，类B则称为`外部类（OuterClass）`。
+
+#### 8.1.2 为什么要声明内部类呢
+具体来说，当一个事物A的内部，还有一个部分需要一个完整的结构B进行描述，而这个内部的完整的结构B又只为外部事物A提供服务，不在其他地方单独使用，那么整个内部的完整结构B最好使用内部类。
+
+总的来说，遵循`高内聚、低耦合`的面向对象开发原则。
+
+#### 8.1.3 内部类的分类
+根据内部类声明的位置（如同变量的分类），我们可以分为：
+
+![](images/image-20221124223912529.png)
+
+### 8.2 成员内部类
+#### 8.2.1 概述
+如果成员内部类中不使用外部类的非静态成员，那么通常将内部类声明为静态内部类，否则声明为非静态内部类。
+
+**语法格式：**
+
+```java
+[修饰符] class 外部类{
+    [其他修饰符] [static] class 内部类{
+    }
+}
+```
+
+**成员内部类的使用特征，概括来讲有如下两种角色：**
+
++ 成员内部类作为`类的成员的角色`：
+    - 和外部类不同，Inner class还可以声明为private或protected；
+    - 可以调用外部类的结构。（注意：在静态内部类中不能使用外部类的非静态成员）
+    - Inner class 可以声明为static的，但此时就不能再使用外层类的非static的成员变量；
++ 成员内部类作为`类的角色`：
+    - 可以在内部定义属性、方法、构造器等结构
+    - 可以继承自己的想要继承的父类，实现自己想要实现的父接口们，和外部类的父类和父接口无关
+    - 可以声明为abstract类 ，因此可以被其它的内部类继承
+    - 可以声明为final的，表示不能被继承
+    - 编译以后生成OuterClass$InnerClass.class字节码文件（也适用于局部内部类）
+
+注意点：
+
+2. 外部类访问成员内部类的成员，需要“内部类.成员”或“内部类对象.成员”的方式
+3. 成员内部类可以直接使用外部类的所有成员，包括私有的数据
+4. 当想要在外部类的静态成员部分使用内部类时，可以考虑内部类声明为静态的
+
+#### 8.2.2 创建成员内部类对象
++ 实例化静态内部类
+
+```plain
+外部类名.静态内部类名 变量 = 外部类名.静态内部类名();
+变量.非静态方法();
+```
+
++ 实例化非静态内部类
+
+```plain
+外部类名 变量1 = new 外部类();
+外部类名.非静态内部类名 变量2 = 变量1.new 非静态内部类名();
+变量2.非静态方法();
+```
+
+#### 8.2.3 举例
+```java
+public class TestMemberInnerClass {
+    public static void main(String[] args) {
+        //创建静态内部类实例，并调用方法
+        Outer.StaticInner inner = new Outer.StaticInner();
+        inner.inFun();
+        //调用静态内部类静态方法
+        Outer.StaticInner.inMethod();
+
+        System.out.println("*****************************");
+        
+        //创建非静态内部类实例（方式1），并调用方法
+        Outer outer = new Outer();
+        Outer.NoStaticInner inner1 = outer.new NoStaticInner();
+        inner1.inFun();
+
+        //创建非静态内部类实例（方式2）
+        Outer.NoStaticInner inner2 = outer.getNoStaticInner();
+        inner1.inFun();
+    }
+}
+class Outer{
+    private static String a = "外部类的静态a";
+    private static String b  = "外部类的静态b";
+    private String c = "外部类对象的非静态c";
+    private String d = "外部类对象的非静态d";
+
+    static class StaticInner{
+        private static String a ="静态内部类的静态a";
+        private String c = "静态内部类对象的非静态c";
+        public static void inMethod(){
+            System.out.println("Inner.a = " + a);
+            System.out.println("Outer.a = " + Outer.a);
+            System.out.println("b = " + b);
+        }
+        public void inFun(){
+            System.out.println("Inner.inFun");
+            System.out.println("Outer.a = " + Outer.a);
+            System.out.println("Inner.a = " + a);
+            System.out.println("b = " + b);
+            System.out.println("c = " + c);
+//            System.out.println("d = " + d);//不能访问外部类的非静态成员
+        }
+    }
+
+    class NoStaticInner{
+        private String a = "非静态内部类对象的非静态a";
+        private String c = "非静态内部类对象的非静态c";
+
+        public void inFun(){
+            System.out.println("NoStaticInner.inFun");
+            System.out.println("Outer.a = " + Outer.a);
+            System.out.println("a = " + a);
+            System.out.println("b = " + b);
+            System.out.println("Outer.c = " + Outer.this.c);
+            System.out.println("c = " + c);
+            System.out.println("d = " + d);
+        }
+    }
+
+
+    public NoStaticInner getNoStaticInner(){
+        return new NoStaticInner();
+    }
+}
+```
+
+### 8.3 局部内部类
+#### 8.3.1 非匿名局部内部类
+语法格式：
+
+```java
+[修饰符] class 外部类{
+    [修饰符] 返回值类型  方法名(形参列表){
+            [final/abstract] class 内部类{
+        }
+    }    
+}
+```
+
++ 编译后有自己的独立的字节码文件，只不过在内部类名前面冠以外部类名、$符号、编号。
+    - 这里有编号是因为同一个外部类中，不同的方法中存在相同名称的局部内部类
++ 和成员内部类不同的是，它前面不能有权限修饰符等
++ 局部内部类如同局部变量一样，有作用域
++ 局部内部类中是否能访问外部类的非静态的成员，取决于所在的方法
+
+举例：
+
+```java
+/**
+ * ClassName: TestLocalInner
+ * @Author 尚硅谷-宋红康
+ * @Create 17:19
+ * @Version 1.0
+ */
+public class TestLocalInner {
+    public static void main(String[] args) {
+        Outer.outMethod();
+        System.out.println("-------------------");
+
+        Outer out = new Outer();
+        out.outTest();
+        System.out.println("-------------------");
+
+        Runner runner = Outer.getRunner();
+        runner.run();
+
+    }
+}
+class Outer{
+
+    public static void outMethod(){
+        System.out.println("Outer.outMethod");
+        final String c = "局部变量c";
+        class Inner{
+            public void inMethod(){
+                System.out.println("Inner.inMethod");
+                System.out.println(c);
+            }
+        }
+
+        Inner in = new Inner();
+        in.inMethod();
+    }
+
+    public void outTest(){
+        class Inner{
+            public void inMethod1(){
+                System.out.println("Inner.inMethod1");
+            }
+        }
+
+        Inner in = new Inner();
+        in.inMethod1();
+    }
+
+    public static Runner getRunner(){
+        class LocalRunner implements Runner{
+            @Override
+            public void run() {
+                System.out.println("LocalRunner.run");
+            }
+        }
+        return new LocalRunner();
+    }
+
+}
+interface Runner{
+    void run();
+}
+```
+
+#### 8.3.2 匿名内部类
+因为考虑到这个子类或实现类是一次性的，那么我们“费尽心机”的给它取名字，就显得多余。那么我们完全可以使用匿名内部类的方式来实现，避免给类命名的问题。
+
+```java
+new 父类([实参列表]){
+    重写方法...
+}
+```
+
+```java
+new 父接口(){
+    重写方法...
+}
+```
+
+举例1：使用匿名内部类的对象直接调用方法：
+
+```java
+interface A{
+    void a();
+}
+public class Test{
+    public static void main(String[] args){
+        new A(){
+            @Override
+            public void a() {
+                System.out.println("aaaa");
+            }
+        }.a();
+    }
+}
+```
+
+举例2：通过父类或父接口的变量多态引用匿名内部类的对象
+
+```java
+interface A{
+    void a();
+}
+public class Test{
+    public static void main(String[] args){
+        A obj = new A(){
+            @Override
+            public void a() {
+                System.out.println("aaaa");
+            }
+        };
+        obj.a();
+    }
+}
+```
+
+举例3：匿名内部类的对象作为实参
+
+```java
+interface A{
+    void method();
+}
+public class Test{
+    public static void test(A a){
+        a.method();
+    }
+    
+    public static void main(String[] args){
+        test(new A(){
+
+            @Override
+            public void method() {
+                System.out.println("aaaa");
+            }
+        });
+    }   
+}
+```
+
+### 8.4 练习
+练习：判断输出结果为何？
+
+```java
+public class Test {
+    public Test() {
+        Inner s1 = new Inner();
+        s1.a = 10;
+        Inner s2 = new Inner();
+        s2.a = 20;
+        Test.Inner s3 = new Test.Inner();
+        System.out.println(s3.a);
+    }
+    class Inner {
+        public int a = 5;
+    }
+    public static void main(String[] args) {
+        Test t = new Test();
+        Inner r = t.new Inner();
+        System.out.println(r.a);
+    }
+}
+
+```
+
+练习2：
+
+编写一个匿名内部类，它继承Object，并在匿名内部类中，声明一个方法public void test()打印尚硅谷。
+
+请编写代码调用这个方法。
+
+```java
+package com.atguigu.test01;
+
+public class Test01 {
+    public static void main(String[] args) {
+        new Object(){
+            public void test(){
+                System.out.println("尚硅谷");
+            }
+        }.test();
+    }
+}
+
+```
+
+## 9. 枚举类
+```java
+public class SeasonTest {
+    //枚举类
+    public static void main(String[] args) {
+        Season spring = Season.SPRING;
+        System.out.println(spring);
+        System.out.println(Season.SPRING.getSeasonName());
+        System.out.println(Season.SPRING.getSeasonDesc());
+
+    }
+}
+
+enum Season {
+    SPRING("春天", "春暖花开"),
+    SUMMER("夏天", "夏日炎炎"),
+    AUTUMN("秋天", "秋高气爽"),
+    WINTER("冬天", "冰天雪地");
+
+    private String seasonName;
+    private String seasonDesc;
+
+    private Season(String seasonName, String seasonDesc) {
+        this.seasonName = seasonName;
+        this.seasonDesc = seasonDesc;
+    }
+
+    public String getSeasonName() {
+        return seasonName;
+    }
+
+    public String getSeasonDesc() {
+        return seasonDesc;
+    }
+
+    @Override   
+    public String toString() {
+        return "Season{" +
+                "seasonName='" + seasonName + '\'' +
+                ", seasonDesc='" + seasonDesc + '\'' +
+                '}';
+    }
+}
+
+//枚举类
+//枚举类是一种特殊的类，它用于表示一组常量。在Java中，枚举类使用关键字enum来定义。
+//枚举类中的每个常量都是一个枚举类型的实例，它们都是public static final的，可以直接通过枚举类名来访问。
+//枚举类可以包含构造方法、成员变量、成员方法和静态方法等。
+```
+
+### 9.1 概述
++ 枚举类型本质上也是一种类，只不过是这个类的对象是有限的、固定的几个，不能让用户随意创建。
++ 枚举类的例子举不胜举：
+    - `星期`：Monday(星期一)......Sunday(星期天)
+    - `性别`：Man(男)、Woman(女)
+    - `月份`：January(1月)......December(12月)
+    - `季节`：Spring(春节)......Winter(冬天)
+    - `三原色`：red(红色)、green(绿色)、blue(蓝色)
+    - `支付方式`：Cash（现金）、WeChatPay（微信）、Alipay(支付宝)、BankCard(银行卡)、CreditCard(信用卡)
+    - `就职状态`：Busy(忙碌)、Free(空闲)、Vocation(休假)、Dimission(离职)
+    - `订单状态`：Nonpayment（未付款）、Paid（已付款）、Fulfilled（已配货）、Delivered（已发货）、Checked（已确认收货）、Return（退货）、Exchange（换货）、Cancel（取消）
+    - `线程状态`：创建、就绪、运行、阻塞、死亡
++ **若枚举只有一个对象, 则可以作为一种单例模式的实现方式。**
++ 枚举类的实现：
+    - 在JDK5.0 之前，需要程序员自定义枚举类型。
+    - 在JDK5.0 之后，Java支持`enum`关键字来快速定义枚举类型。
+
+
+
+开发中，如果针对某个类其实例是确定个数的，则推荐使用枚举类
+
+如果枚举类的实例只有一个，则可以看作是单类的形式
+
+
+
+### 9.2 定义枚举类（JDK5.0 之前）
+在JDK5.0 之前如何声明枚举类呢？
+
++ `私有化`类的构造器，保证不能在类的外部创建其对象
++ 在类的内部创建枚举类的实例。声明为：`public static final` ，对外暴露这些常量对象
++ 对象如果有`实例变量`，应该声明为`private final`（建议，不是必须），并在构造器中初始化
+
+示例代码：
+
+```java
+class Season{
+    private final String SEASONNAME;//季节的名称
+    private final String SEASONDESC;//季节的描述
+    private Season(String seasonName,String seasonDesc){
+        this.SEASONNAME = seasonName;
+        this.SEASONDESC = seasonDesc;
+    }
+    public static final Season SPRING = new Season("春天", "春暖花开");
+    public static final Season SUMMER = new Season("夏天", "夏日炎炎");
+    public static final Season AUTUMN = new Season("秋天", "秋高气爽");
+    public static final Season WINTER = new Season("冬天", "白雪皑皑");
+
+    @Override
+    public String toString() {
+        return "Season{" +
+                "SEASONNAME='" + SEASONNAME + '\'' +
+                ", SEASONDESC='" + SEASONDESC + '\'' +
+                '}';
+    }
+}
+class SeasonTest{
+    public static void main(String[] args) {
+        System.out.println(Season.AUTUMN);
+    }
+}
+```
+
+### 9.3 定义枚举类（JDK5.0 之后）
+#### 9.3.1 enum关键字声明枚举
+```java
+【修饰符】 enum 枚举类名{
+    常量对象列表
+}
+
+【修饰符】 enum 枚举类名{
+    常量对象列表;
+    
+    对象的实例变量列表;
+}
+```
+
+举例1：
+
+```java
+package com.atguigu.enumeration;
+
+public enum Week {
+    MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY;
+}
+```
+
+```java
+public class TestEnum {
+    public static void main(String[] args) {
+        Season spring = Season.SPRING;
+        System.out.println(spring);
+    }
+}
+```
+
+
+
+`enum` 关键字用于定义枚举类型。枚举是一种特殊的类，它用于定义一组常量。枚举类型是固定的，一旦定义就不能被修改，这使得枚举类型非常适合用于表示一组有限的、固定的常量集合，比如一周的天数、月份、方向等。
+
+以下是`enum`关键字的一些基本特性和用法：
+
+1. **定义枚举**：  
+使用`enum`关键字来定义一个枚举类型，枚举类型的名称通常以大写字母开头，以区分于类名。
+
+```java
+public enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
+```
+
+2. **枚举成员**：  
+枚举类型的每个常量称为枚举成员，它们是枚举类型的实例。
+3. **构造函数**：  
+枚举可以有自己的构造函数，并且可以传递参数给构造函数。
+
+```java
+public enum Day {
+    MONDAY(1), TUESDAY(2), WEDNESDAY(3), THURSDAY(4), FRIDAY(5), SATURDAY(6), SUNDAY(7);
+    private int dayNumber;
+    private Day(int number) {
+        this.dayNumber = number;
+    }
+}
+```
+
+4. **方法**：  
+枚举可以有自己的方法，包括静态方法和实例方法。
+
+```java
+public enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
+    public boolean isWeekday() {
+        return this != SATURDAY && this != SUNDAY;
+    }
+}
+```
+
+5. **实现接口**：  
+枚举类型可以实现接口。
+
+```java
+public interface Color {
+    boolean isDark();
+}
+public enum Day implements Color {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
+    public boolean isDark() {
+        return this == SATURDAY || this == SUNDAY;
+    }
+}
+```
+
+6. **switch语句**：  
+枚举类型非常适合在`switch`语句中使用。
+
+```java
+Day d
+```
+
+
+
+#### 9.3.2 enum方式定义的要求和特点
++ 枚举类的常量对象列表必须在枚举类的首行，因为是常量，所以建议大写。
++ 列出的实例系统会自动添加 public static final 修饰。
++ 如果常量对象列表后面没有其他代码，那么“；”可以省略，否则不可以省略“；”。
++ 编译器给枚举类默认提供的是private的无参构造，如果枚举类需要的是无参构造，就不需要声明，写常量对象列表时也不用加参数
++ 如果枚举类需要的是有参构造，需要手动定义，有参构造的private可以省略，调用有参构造的方法就是在常量对象名后面加(实参列表)就可以。
++ 枚举类默认继承的是java.lang.Enum类，因此不能再继承其他的类型。
++ JDK5.0 之后switch，提供支持枚举类型，case后面可以写枚举常量名，无需添加枚举类作为限定。
+
+举例2：
+
+```java
+public enum SeasonEnum {
+    SPRING("春天","春风又绿江南岸"),
+    SUMMER("夏天","映日荷花别样红"),
+    AUTUMN("秋天","秋水共长天一色"),
+    WINTER("冬天","窗含西岭千秋雪");
+
+    private final String seasonName;
+    private final String seasonDesc;
+    
+    private SeasonEnum(String seasonName, String seasonDesc) {
+        this.seasonName = seasonName;
+        this.seasonDesc = seasonDesc;
+    }
+    public String getSeasonName() {
+        return seasonName;
+    }
+    public String getSeasonDesc() {
+        return seasonDesc;
+    }
+}
+
+```
+
+举例3：
+
+```java
+package com.atguigu.enumeration;
+
+public enum Week {
+    MONDAY("星期一"),
+    TUESDAY("星期二"),
+    WEDNESDAY("星期三"),
+    THURSDAY("星期四"),
+    FRIDAY("星期五"),
+    SATURDAY("星期六"),
+    SUNDAY("星期日");
+
+    private final String description;
+
+    private Week(String description){
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +":"+ description;
+    }
+}
+```
+
+```java
+package com.atguigu.enumeration;
+
+public class TestWeek {
+    public static void main(String[] args) {
+        Week week = Week.MONDAY;
+        System.out.println(week);
+
+        switch (week){
+            case MONDAY:
+                System.out.println("怀念周末，困意很浓");break;
+            case TUESDAY:
+                System.out.println("进入学习状态");break;
+            case WEDNESDAY:
+                System.out.println("死撑");break;
+            case THURSDAY:
+                System.out.println("小放松");break;
+            case FRIDAY:
+                System.out.println("又信心满满");break;
+            case SATURDAY:
+                System.out.println("开始盼周末，无心学习");break;
+            case SUNDAY:
+                System.out.println("一觉到下午");break;
+        }
+    }
+}
+```
+
+> 经验之谈：
+>
+> 开发中，当需要定义一组常量时，强烈建议使用枚举类。
+>
+
+### 9.4 enum中常用方法
+```plain
+String toString(): 默认返回的是常量名（对象名），可以继续手动重写该方法！
+    
+static 枚举类型[] values():返回枚举类型的对象数组。该方法可以很方便地遍历所有的枚举值，是一个静态方法
+    
+static 枚举类型 valueOf(String name)：可以把一个字符串转为对应的枚举类对象。要求字符串必须是枚举类对象的“名字”。如不是，会有运行时异常：IllegalArgumentException。
+    
+String name():得到当前枚举常量的名称。建议优先使用toString()。
+    
+int ordinal():返回当前枚举常量的次序号，默认从0开始
+
+```
+
+举例：
+
+```java
+package com.atguigu.enumeration;
+
+import java.util.Scanner;
+
+public class TestEnumMethod {
+    public static void main(String[] args) {
+        //values()
+        Week[] values = Week.values();
+        for (int i = 0; i < values.length; i++) {
+            //ordinal()、name()
+            System.out.println((values[i].ordinal()+1) + "->" + values[i].name());
+        }
+        System.out.println("------------------------");
+
+        Scanner input = new Scanner(System.in);
+        System.out.print("请输入星期值：");
+        int weekValue = input.nextInt();
+        Week week = values[weekValue-1];
+        //toString()
+        System.out.println(week);
+
+        System.out.print("请输入星期名：");
+        String weekName = input.next();
+        //valueOf()
+        week = Week.valueOf(weekName);
+        System.out.println(week);
+
+        input.close();
+    }
+}
+```
+
+### 9.5 实现接口的枚举类
++ 和普通 Java 类一样，枚举类可以实现一个或多个接口
++ 若每个枚举值在调用实现的接口方法呈现相同的行为方式，则只要统一实现该方法即可。
++ 若需要每个枚举值在调用实现的接口方法呈现出不同的行为方式，则可以让每个枚举值分别来实现该方法
+
+语法：
+
+```java
+//1、枚举类可以像普通的类一样，实现接口，并且可以多个，但要求必须实现里面所有的抽象方法！
+enum A implements 接口1，接口2{
+    //抽象方法的实现
+}
+
+//2、如果枚举类的常量可以继续重写抽象方法!
+enum A implements 接口1，接口2{
+    常量名1(参数){
+        //抽象方法的实现或重写
+    },
+    常量名2(参数){
+        //抽象方法的实现或重写
+    },
+    //...
+}
+```
+
+举例：
+
+```java
+interface Info{
+    void show();
+}
+
+//使用enum关键字定义枚举类
+enum Season1 implements Info{
+    //1. 创建枚举类中的对象,声明在enum枚举类的首位
+    SPRING("春天","春暖花开"){
+        public void show(){
+            System.out.println("春天在哪里？");
+        }
+    },
+    SUMMER("夏天","夏日炎炎"){
+        public void show(){
+            System.out.println("宁静的夏天");
+        }
+    },
+    AUTUMN("秋天","秋高气爽"){
+        public void show(){
+            System.out.println("秋天是用来分手的季节");
+        }
+    },
+    WINTER("冬天","白雪皑皑"){
+        public void show(){
+            System.out.println("2002年的第一场雪");
+        }
+    };
+    
+    //2. 声明每个对象拥有的属性:private final修饰
+    private final String SEASON_NAME;
+    private final String SEASON_DESC;
+    
+    //3. 私有化类的构造器
+    private Season1(String seasonName,String seasonDesc){
+        this.SEASON_NAME = seasonName;
+        this.SEASON_DESC = seasonDesc;
+    }
+    
+    public String getSEASON_NAME() {
+        return SEASON_NAME;
+    }
+
+    public String getSEASON_DESC() {
+        return SEASON_DESC;
+    }
+}
+```
+
+
+
+#### 注意
+使用 enmu 关键字定义的枚举类，其父类是 java.kang.Enmu 类
+
+使用 enmu 关键字定义的枚举类，不要再显示的定义其父类，否则报错
+
+
+
+#### 熟悉 enmu 常用的方法
+1. **values()**：返回枚举类型的所有值的数组。这是一个静态方法，可以直接通过枚举类型调用，而不需要实例。
+
+```java
+public static E[] values();
+```
+
+2. **valueOf(String name)**：返回一个指定名称的枚举常量。这也是一个静态方法，如果找不到匹配的常量，则抛出`IllegalArgumentException`。
+
+```java
+public static E valueOf(String name);
+```
+
+3. **ordinal()**：返回枚举常量的序号，序号从0开始。这是实例方法。
+
+```java
+public final int ordinal();
+```
+
+4. **name()**：返回枚举常量的名称。这是实例方法。
+
+```java
+public final String name();
+```
+
+5. **compareTo(E o)**：比较两个枚举常量的顺序。如果调用对象的序号小于参数的序号，则返回负数；如果相等，则返回0；如果大于，则返回正数。这是实例方法。
+
+```java
+public final int compareTo(E o);
+```
+
+6. **equals(Object obj)** 和 **hashCode()**：这些方法通常被重写以提供基于枚举常量名称的相等性和哈希码。
+
+```java
+@Override
+public boolean equals(Object obj);
+@Override
+public int hashCode();
+```
+
+7. **toString()**：返回枚举常量的字符串表示，通常就是它的名称。
+
+```java
+@Override
+public String toString();
+```
+
+8. **clone()**：由于枚举是单例的，所以`clone()`方法总是抛出`CloneNotSupportedException`。
+
+```java
+@Override
+protected final Object clone() throws CloneNotSupportedException;
+```
+
+
+
+枚举类接口操作
+
+情况 1： 枚举类实现接口，在枚举类中重写接口中的抽象方法，当通过不同的枚举类对象调用此方法时，执行同一个方法。
+
+情况 2：让枚举类的每一个对象重写接口的抽象方法，当通过不同的枚举类对象调用此方法时，执行的是不同的实现方法
+
+
+
+练习
+
+```java
+public class ColorTest {
+    public static void main(String[] args) {
+        Color color = Color.RED;
+        System.out.println(color);
+    
+    }
+    
+}
+enum Color {
+    RED(255,0,0,"红色"),
+    GREEN(0,255,0,"绿色"),
+    BLUE(0,0,255,"蓝色");
+
+    private int redValue;
+    private int greenValue;
+    private int blueValue;
+    private String colorName;
+
+    private Color(int redValue, int greenValue, int blueValue, String colorName) {
+        this.redValue = redValue;
+        this.greenValue = greenValue;
+        this.blueValue = blueValue;
+        this.colorName = colorName;
+    }
+    public String getColorName() {
+        return colorName;
+    }
+
+    public int getRedValue() {
+        return redValue;
+    }
+
+    public int getGreenValue() {
+        return greenValue;
+    }
+
+    public int getBlueValue() {
+        return blueValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Color{" +
+                "redValue=" + redValue +
+                ", greenValue=" + greenValue +
+                ", blueValue=" + blueValue +
+                ", colorName='" + colorName + '\'' +
+                '}';
+    }
+}
+```
 
 
 
