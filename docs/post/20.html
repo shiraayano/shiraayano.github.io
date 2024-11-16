@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content=" 
+
+### 1. File类的理解
++ **File类**位于`java.io`包下，本章中涉及到的相关流也都声明在`java.io`包下。">
+<meta property="og:title" content="Java 基础 学习笔记 010 IO相关">
+<meta property="og:description" content=" 
+
+### 1. File类的理解
++ **File类**位于`java.io`包下，本章中涉及到的相关流也都声明在`java.io`包下。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/20.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java 基础 学习笔记 010 IO相关</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java 基础 学习笔记 010 IO相关</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/20" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h3>1. File类的理解</h3>
+<ul>
+<li><strong>File类</strong>位于<code class="notranslate">java.io</code>包下，本章中涉及到的相关流也都声明在<code class="notranslate">java.io</code>包下。</li>
+<li><strong>File类</strong>的一个对象，对应于操作系统下的一个文件或一个文件目录（或文件夹）。</li>
+<li><strong>File类</strong>中声明了新建、删除、获取名称、重命名等方法，并没有涉及到文件内容的读写操作。要想实现文件内容的读写，我们就需要使用IO流。</li>
+<li><strong>File类</strong>的对象，通常是作为IO流操作的文件的端点出现的。</li>
+<li>代码层面，将<strong>File类</strong>的对象作为参数传递到IO相关类的构造器中。</li>
+</ul>
+<h3>2. 内部API使用说明</h3>
+<h4>2.1 构造器</h4>
+<ol>
+<li><code class="notranslate">public File(String pathname)</code>：以<code class="notranslate">pathname</code>为路径创建File对象，可以是绝对路径或者相对路径。</li>
+<li><code class="notranslate">public File(String parent, String child)</code>：以<code class="notranslate">parent</code>为父路径，<code class="notranslate">child</code>为子路径创建File对象。</li>
+<li><code class="notranslate">public File(File parent, String child)</code>：根据一个父File对象和子文件路径创建File对象。</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+
+public class FileTest
+{
+    File file1 = new File("C://");
+    File file2 = new File("abc");
+    
+    //在idea中，相对路径是module
+    //main方法相对路径是project
+    File file3 = new File("abc","a.txt");
+    //参数2可以是文件或目录
+}
+
+</code></pre>
+<p>以下是一些常用的<code class="notranslate">File</code>类方法及其功能：</p>
+<p><strong>获取名称</strong>：</p>
+<ol>
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">public String getName()
+</code></pre>
+<p>返回文件或目录的名称。</p>
+<p><strong>获取路径</strong>：</p>
+<ol start="2">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">public String getPath()
+</code></pre>
+<p>返回文件或目录的路径。</p>
+<p><strong>获取绝对路径</strong>：</p>
+<ol start="3">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">public String getAbsolutePath()
+</code></pre>
+<p>返回文件或目录的绝对路径。</p>
+<p><strong>获取绝对路径表示的文件</strong>：</p>
+<ol start="4">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">public File getAbsoluteFile()
+</code></pre>
+<p>返回文件或目录的绝对路径表示的文件对象。</p>
+<p><strong>获取上层文件目录路径</strong>：</p>
+<ol start="5">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">public String getParent()
+</code></pre>
+<p>返回上层文件目录路径。若无，返回null。</p>
+<p><strong>获取文件长度</strong>：</p>
+<ol start="6">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">public long length()
+</code></pre>
+<p>返回文件的长度（即字节数）。不能获取目录的长度。</p>
+<p><strong>获取最后一次的修改时间</strong>：</p>
+<ol start="7">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">public long lastModified()
+</code></pre>
+<p>返回文件最后一次的修改时间，单位为毫秒。</p>
+<p><strong>判断文件或目录是否实际存在</strong>：</p>
+<ul>
+<li>java</li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">public boolean exists()
+</code></pre>
+<p>返回此File表示的文件或目录是否实际存在。</p>
+<p><strong>判断是否为目录</strong>：</p>
+<ul>
+<li>java</li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">public boolean isDirectory()
+</code></pre>
+<p>返回此File表示的是否为目录。</p>
+<p><strong>判断是否为文件</strong>：</p>
+<ul>
+<li>java</li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">public boolean isFile()
+</code></pre>
+<p>返回此File表示的是否为文件。</p>
+<p><strong>判断是否可读</strong>：</p>
+<ul>
+<li>java</li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">public boolean canRead()
+</code></pre>
+<p>返回此File是否可读。</p>
+<p><strong>判断是否可写</strong>：</p>
+<ul>
+<li>java</li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">public boolean canWrite()
+</code></pre>
+<p>返回此File是否可写。</p>
+<p><strong>判断是否隐藏</strong>：</p>
+<ul>
+<li>java</li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">public boolean isHidden()
+</code></pre>
+<p>返回此File是否隐藏。</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import java.io.IOException;
+import org.junit.Test;
+
+public class FileTest {
+
+    @Test
+    public void test6() throws IOException {
+        File file1 = new File("d:\\lio\\hello.txt");
+
+        if (!file1.exists()) {
+            boolean isSuccessed = file1.createNewFile();
+            if (isSuccessed) {
+                System.out.println("创建成功");
+            } else {
+                System.out.println("文件创建失败");
+            }
+        } else {
+            System.out.println("此文件已存在");
+            System.out.println(file1.delete() ? "文件删除成功" : "文件删除失败");
+        }
+    }
+}
+
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import org.junit.Test;
+
+public class FileTest {
+
+    @Test
+    public void test8() {
+        // 前提: d:\\io 文件目录存在，io2 或 io3 目录是不存在的。
+        File file1 = new File("d:\\io\\io2\\i04");
+        System.out.println(file1.mkdir()); // false
+
+        File file2 = new File("d:\\io\\io3\\io5");
+        System.out.println(file2.mkdirs()); // true
+    }
+}
+
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import org.junit.Test;
+
+public class Exer2 {
+    /*
+    * 判断指定目录下是否有后缀名为.jpg的文件，如果有，就输出该文件名称
+    * */
+    @Test
+    public void test1() {
+        File dir = new File("F:\\10-图片");
+        String[] listFiles = dir.list();
+        if (listFiles != null) {
+            for (String s : listFiles) {
+                if (s.endsWith(".jpg")) {
+                    System.out.println(s);
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+
+public class Exer2 {
+    /*
+    * 删除指定目录及其子目录和文件
+    * */
+    public void deleteDirectory(File file) {
+        // 如果file是文件，直接删除
+        if (file.isFile()) {
+            file.delete();
+        } else if (file.isDirectory()) {
+            // 如果file是目录，先把它的下一级干掉，然后删除自己
+            File[] all = file.listFiles();
+            if (all != null) {
+                // 循环删除的是file的下一级
+                for (File f : all) {
+                    // f代表file的每一个下级
+                    deleteDirectory(f);
+                }
+            }
+            // 删除自己
+            file.delete();
+        }
+    }
+}
+
+</code></pre>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b0f7b223a490b513bc4e6e16b23de4d528b68dd900712a7a66cfe31569175525/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313637313939333639342d66663834343536662d653961382d343939342d613562612d3634313761343035376365642e706e67"><img src="https://camo.githubusercontent.com/b0f7b223a490b513bc4e6e16b23de4d528b68dd900712a7a66cfe31569175525/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313637313939333639342d66663834343536662d653961382d343939342d613562612d3634313761343035376365642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731671993694-ff84456f-e9a8-4994-a5ba-6417a4057ced.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b7a557dfe55dc51f2a49dc9e9459ea6ce5424331d1bb268047803397959965e4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313637323136313937312d34343266316130632d633732372d343664662d383630362d3031663038396337333834652e706e67"><img src="https://camo.githubusercontent.com/b7a557dfe55dc51f2a49dc9e9459ea6ce5424331d1bb268047803397959965e4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313637323136313937312d34343266316130632d633732372d343664662d383630362d3031663038396337333834652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731672161971-442f1a0c-c727-46df-8606-01f089c7384e.png" style="max-width: 100%;"></a></p>
+<h3>I/O流的分类</h3>
+<ol>
+<li><strong>流向的不同</strong>:
+<ul>
+<li>输入流 (Input Stream)</li>
+<li>输出流 (Output Stream)</li>
+</ul>
+</li>
+<li><strong>处理单位的不同</strong>:
+<ul>
+<li>字节流 (Byte Stream)</li>
+<li>字符流 (Character Stream)</li>
+</ul>
+</li>
+<li><strong>流的角色的不同</strong>:
+<ul>
+<li>节点流 (Node Stream)</li>
+<li>处理流 (Processing Stream)</li>
+</ul>
+</li>
+</ol>
+<h3>基础I/O流的框架</h3>
+<ol>
+<li><strong>抽象基类</strong>:
+<ul>
+<li><code class="notranslate">InputStream</code></li>
+<li><code class="notranslate">OutputStream</code></li>
+<li><code class="notranslate">Reader</code></li>
+<li><code class="notranslate">Writer</code></li>
+</ul>
+</li>
+<li><strong>4个节点流 (也称为文件流)</strong>:
+<ul>
+<li><code class="notranslate">FileInputStream</code></li>
+<li><code class="notranslate">FileOutputStream</code></li>
+<li><code class="notranslate">FileReader</code></li>
+<li><code class="notranslate">FileWriter</code></li>
+</ul>
+</li>
+</ol>
+<p>PS 本章设计的流有很多，但是使用流来读写是非常规范的</p>
+<h3>FileReader 和 FileWriter 的使用</h3>
+<h4>3.1 执行步骤</h4>
+<ol>
+<li><strong>创建读取或写出的 File 类的对象</strong></li>
+<li><strong>创建输入流或输出流</strong></li>
+<li><strong>具体的读入或写出的过程</strong>
+<ul>
+<li>读入: <code class="notranslate">read(char[] cbuffer)</code></li>
+<li>写出: <code class="notranslate">write(String str)</code> / <code class="notranslate">write(char[] cbuffer, 0, len)</code></li>
+</ul>
+</li>
+<li><strong>关闭流资源，避免内存泄漏</strong></li>
+</ol>
+<h4>3.2 注意点</h4>
+<ol>
+<li>因为涉及到流资源的关闭操作，所以出现异常的话，需要使用 <code class="notranslate">try-catch-finally</code> 的方式来处理异常。</li>
+<li>对于输入流来讲，要求 File 类的对象对应的物理磁盘上的文件必须存在。否则，会报 <code class="notranslate">FileNotFoundException</code>。
+<ul>
+<li>对于输出流来讲，File 类的对象对应的物理磁盘上的文件可以不存在。
+<ul>
+<li>如果此文件不存在，则在输出的过程中，会自动创建此文件，并写出数据到此文件中。</li>
+<li>如果此文件存在，使用 <code class="notranslate">FileWriter(File file)</code> 或 <code class="notranslate">FileWriter(File file, false)</code>：输出数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>Here's a simple example to illustrate the usage of <code class="notranslate">FileReader</code> and <code class="notranslate">FileWriter</code>:</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileReaderWriterExample {
+    public static void main(String[] args) {
+        // 创建 File 类的对象
+        File inputFile = new File("input.txt");
+        File outputFile = new File("output.txt");
+
+        // 创建 FileReader 和 FileWriter 对象
+        try (FileReader fr = new FileReader(inputFile); FileWriter fw = new FileWriter(outputFile)) {
+            // 读入和写出的过程
+            char[] buffer = new char[1024];
+            int length;
+            while ((length = fr.read(buffer)) != -1) {
+                fw.write(buffer, 0, length);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>输入流 读取文件</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class FileRaderWriteTest {
+    public static void main(String[] args) {
+        // 1. 创建File类的对象，对应着hello.txt文件
+        File file = new File("hello.txt");
+
+        // 2. 创建输入型的字符流，用于读取数据
+        try (FileReader fr = new FileReader(file)) {
+            // 3. 读取数据，并显示在控制台上
+            int ch;
+            while ((ch = fr.read()) != -1) {
+                System.out.print((char) ch);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("文件未找到: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("读取文件时发生错误: " + e.getMessage());
+        }
+        //4,流资源的关闭操作（必须关闭，否则会造成内存泄露）
+    }
+}
+</code></pre>
+<p>输出流 写入文件</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">class FileWrite{
+    public static void main(String[] args) {
+        //创建File类对象，指明要写出的文件名称
+        File file = new File("z.txt");
+        //创建输出流
+        try {
+            FileWriter fw = new FileWriter(file);
+            //写出
+            //FileWriter fw = new FileWriter(file,true); 追加
+            fw.write("hello");
+            //关闭
+            fw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class ReaderWriterTest {
+    public static void main(String[] args) {
+        File in = new File("z.txt");
+        File out = new File("z-copy.txt");
+
+        // 创建输入输出流
+        try (FileReader fr = new FileReader(in);
+             FileWriter fw = new FileWriter(out)) {
+
+            // 读取数据并写入
+            int ch;
+            while ((ch = fr.read()) != -1) {
+                fw.write(ch);
+            }
+
+            System.out.println("文件复制成功！");
+        } catch (FileNotFoundException e) {
+            System.out.println("文件未找到: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("读取或写入文件时发生错误: " + e.getMessage());
+        }
+    }
+}
+</code></pre>
+<p>操作图片，视频等文件时不适合使用字符流，应该考虑使用字节流</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">class FileCopy {
+    public static void main(String[] args) {
+        // 1. 创建相关的File类的对象
+        File srcFile = new File("playgirl.jpg");
+        File destFile = new File("playgirl_copy.jpg");
+
+        // 2. 创建相关的字节流
+        try (FileInputStream fis = new FileInputStream(srcFile);
+             FileOutputStream fos = new FileOutputStream(destFile)) {
+
+            // 3. 数据的读入和写出
+            byte[] buffer = new byte[1024]; // 1kb buffer
+            int length;
+            while ((length = fis.read(buffer)) != -1) {
+                fos.write(buffer, 0, length);
+            }
+
+            System.out.println("copy成功!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">class Test3 {
+    public static void main(String[] args) {
+        FileInputStream fis = null;
+        try {
+            // 1. 创建相关的File类的对象
+            File srcFile = new File("hello.txt");
+
+            // 2. 创建相关的字节流
+            fis = new FileInputStream(srcFile);
+
+            // 3. 数据的读入和写出
+            byte[] buffer = new byte[5];
+            int len; // 记录每次读入到buffer中字节的个数
+            while ((len = fis.read(buffer)) != -1) {
+                String str = new String(buffer, 0, len);
+                System.out.print(str);
+            }
+            System.out.println("复制成功");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 4. 关闭流资源，避免内存泄漏
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+<p>输出乱码  hello中��</p>
+<p>原因 总共 19 字节 复制“国”字时不匹配</p>
+<h3>字符流和字节流的注意点</h3>
+<h4>4.2 注意点</h4>
+<ol>
+<li><strong>字符流</strong>:
+<ul>
+<li>只能用来操作文本文件，不能用来处理非文本文件。</li>
+<li>适用于 <code class="notranslate">.txt</code>、<code class="notranslate">.java</code>、<code class="notranslate">.c</code>、<code class="notranslate">.cpp</code>、<code class="notranslate">.py</code> 等文件。</li>
+</ul>
+</li>
+<li><strong>字节流</strong>:
+<ul>
+<li>通常用来处理非文本文件。</li>
+<li>适用于 <code class="notranslate">.doc</code>、<code class="notranslate">.xls</code>、<code class="notranslate">.jpg</code>、<code class="notranslate">.pdf</code>、<code class="notranslate">.mp3</code>、<code class="notranslate">.mp4</code>、<code class="notranslate">.avi</code> 等文件。</li>
+<li>如果涉及到文本文件的复制操作，也可以使用字节流。</li>
+</ul>
+</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileCopyExample {
+    public static void main(String[] args) {
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+        try {
+            // 1. 创建相关的File类的对象
+            File srcFile = new File("hello.txt");
+            File destFile = new File("hello_copy.txt");
+
+            // 2. 创建相关的字节流
+            fis = new FileInputStream(srcFile);
+            fos = new FileOutputStream(destFile);
+
+            // 3. 数据的读入和写出
+            byte[] buffer = new byte[1024]; // 1kb buffer
+            int len;
+            while ((len = fis.read(buffer)) != -1) {
+                fos.write(buffer, 0, len);
+            }
+
+            System.out.println("复制成功");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 4. 关闭流资源，避免内存泄漏
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+<h3>缓冲流的作用</h3>
+<p>缓冲流的主要作用是提升文件读写的效率。以下是4个常用的缓冲流及其使用方法：</p>
+<h4>处理非文本文件的字节流</h4>
+<ol>
+<li><strong>BufferedInputStream</strong>
+<ul>
+<li>用于提高读取字节流的效率。</li>
+<li>使用方法：<code class="notranslate">read(byte[] buffer)</code></li>
+</ul>
+</li>
+<li><strong>BufferedOutputStream</strong>
+<ul>
+<li>用于提高写入字节流的效率。</li>
+<li>使用方法：<code class="notranslate">write(byte[] buffer, 0, len)</code></li>
+</ul>
+</li>
+</ol>
+<h4>处理文本文件的字符流</h4>
+<ol>
+<li><strong>BufferedReader</strong>
+<ul>
+<li>用于提高读取字符流的效率。</li>
+<li>使用方法：<code class="notranslate">read(char[] cbuf)</code></li>
+</ul>
+</li>
+<li><strong>BufferedWriter</strong>
+<ul>
+<li>用于提高写入字符流的效率。</li>
+<li>使用方法：<code class="notranslate">write(char[] cbuf, 0, len)</code></li>
+</ul>
+</li>
+</ol>
+<h3>示例代码</h3>
+<p>以下是使用缓冲流进行文件复制的示例代码：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.*;
+
+public class BufferedStreamExample {
+    public static void main(String[] args) {
+        // 处理非文本文件的字节流
+        try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream("source.jpg"));
+             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("destination.jpg"))) {
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = bis.read(buffer)) != -1) {
+                bos.write(buffer, 0, len);
+            }
+            System.out.println("字节流文件复制成功");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 处理文本文件的字符流
+        try (BufferedReader br = new BufferedReader(new FileReader("source.txt"));
+             BufferedWriter bw = new BufferedWriter(new FileWriter("destination.txt"))) {
+
+            char[] cbuf = new char[1024];
+            int len;
+            while ((len = br.read(cbuf)) != -1) {
+                bw.write(cbuf, 0, len);
+            }
+            System.out.println("字符流文件复制成功");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>关闭资源时先关外层，以及由于外层流的关闭也会关闭内层流，所以内层流关闭操作可以省略</p>
+<p>缓冲流默认 8kb 8*1024</p>
+<p>readLine() 每次返回一行数据，返回的数据不包含换行</p>
+<p>flush() 每次调用时会主动将内存数据写入磁盘，可用于关闭时保留数据或实时写入场景</p>
+<h3>字符编码与解码</h3>
+<p><strong>字符编码</strong>：将字符、字符串、字符数组转换为字节、字节数组（从我们能看得懂的转换为我们看不懂的）。</p>
+<p><strong>字符解码</strong>：将字节、字节数组转换为字符、字符串、字符数组（从我们看不懂的转换为我们能看得懂的）。</p>
+<h3>避免乱码的注意事项</h3>
+<p>为了确保程序在读取文本文件时不出现乱码，需要注意以下几点：</p>
+<ol>
+<li><strong>编码与解码字符集一致</strong>：
+<ul>
+<li>解码时使用的字符集必须与当初编码时使用的字符集相同。例如，如果文件是用UTF-8编码的，那么读取时也必须使用UTF-8解码。</li>
+</ul>
+</li>
+<li><strong>常见字符集</strong>：
+<ul>
+<li>UTF-8：一种变长的字符编码，可以表示所有的Unicode字符，广泛用于网络传输和文件存储。</li>
+<li>ISO-8859-1：一种单字节字符编码，主要用于西欧语言。</li>
+<li>GBK：一种双字节字符编码，主要用于简体中文。</li>
+</ul>
+</li>
+</ol>
+<h3>示例代码</h3>
+<p>以下是一个使用指定字符集进行文件读写的示例代码：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.*;
+
+public class EncodingExample {
+    public static void main(String[] args) {
+        // 写入文件时使用UTF-8编码
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("example.txt"), "UTF-8"))) {
+            writer.write("这是一个测试文本。");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 读取文件时使用UTF-8解码
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("example.txt"), "UTF-8"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+}
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Test4 {
+    public static void main(String[] args) {
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
+        try {
+            // 创建相关的File类的对象
+            File file1 = new File("dbcp_utf-8.txt");
+
+            // 创建相关的字节流
+            fis = new FileInputStream(file1);
+
+            isr = new InputStreamReader(fis);
+            // 使用IDEA默认的UTF-8字符集
+            //isr = new InputStreamReader(fis, "UTF-8");
+
+            // 读入操作
+            char[] cBuffer = new char[1024];
+            int len;
+            while ((len = isr.read(cBuffer)) != -1) {
+                String str = new String(cBuffer, 0, len);
+                System.out.print(str);
+            }
+            System.out.println("读取成功");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭资源，避免内存泄漏
+            if (isr != null) {
+                try {
+                    isr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+<p>更改文件编码</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class EncodingConversionExample {
+    public static void main(String[] args) {
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
+        FileOutputStream fos = null;
+        OutputStreamWriter oos = null;
+        try {
+            // 1. 创建相关的File类的对象
+            File file1 = new File("dbcp_gbk.txt");
+            File file2 = new File("dbcp_gbk_to_utf8.txt");
+
+            // 2. 创建相关的字节流
+            fis = new FileInputStream(file1);
+            // 参数2对应的是解码集，必须与dbcp_gbk.txt的编码集一致。
+            isr = new InputStreamReader(fis, "GBK");
+            fos = new FileOutputStream(file2);
+            // 参数2指明内存中的字符存储到文件中的字节过程中使用的编码集。
+            oos = new OutputStreamWriter(fos, "UTF-8");
+
+            // 3. 读写过程
+            char[] cBuffer = new char[1024];
+            int len;
+            while ((len = isr.read(cBuffer)) != -1) {
+                oos.write(cBuffer, 0, len);
+            }
+            System.out.println("转换成功");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 4. 关闭流资源，避免内存泄漏
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (isr != null) {
+                try {
+                    isr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+<p>在内存中时，无论中英文都是两个字节（Unicode 字符集），在文件中使用其它编码</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4e49adcbd43acb624701dbe74f5a2319a51a9e55f1463c9dfd84820966b649e6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313734343730373435392d30633532316163612d336131392d343963342d623136642d3433616264666666326632642e706e67"><img src="https://camo.githubusercontent.com/4e49adcbd43acb624701dbe74f5a2319a51a9e55f1463c9dfd84820966b649e6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313734343730373435392d30633532316163612d336131392d343963342d623136642d3433616264666666326632642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731744707459-0c521aca-3a19-49c4-b16d-43abdfff2f2d.png" style="max-width: 100%;"></a></p>
+<p>开头为 0 则单字节</p>
+<p>开头为 1 多个连起来</p>
+<p>所以需要多占用字节</p>
+<h3>在存储的文件中的字符</h3>
+<ol>
+<li><strong>ASCII</strong>：
+<ul>
+<li>主要用来存储a、b、c等英文字符和1、2、3、常用的标点符号。</li>
+<li>每个字符占用1个字节。</li>
+</ul>
+</li>
+<li><strong>ISO-8859-1</strong>：
+<ul>
+<li>每个字符占用1个字节。</li>
+<li>向下兼容ASCII。</li>
+</ul>
+</li>
+<li><strong>GBK</strong>：
+<ul>
+<li>用来存储中文简体繁体、a、b、c等英文字符和1、2、3、常用的标点符号等字符。</li>
+<li>中文字符使用2个字节存储。</li>
+<li>向下兼容ASCII，意味着英文字符、1、2、3、标点符号仍使用1个字节。</li>
+</ul>
+</li>
+<li><strong>UTF-8</strong>：
+<ul>
+<li>可以用来存储世界范围内主要的语言的所有字符。</li>
+<li>使用1-4个不等的字节表示一个字符。</li>
+<li>中文字符使用3个字节存储。</li>
+<li>向下兼容ASCII，意味着英文字符、1、2、3、标点符号仍使用1个字节。</li>
+</ul>
+</li>
+</ol>
+<h3>DataOutputStream 和 DataInputStream</h3>
+<p><strong>DataOutputStream</strong>：</p>
+<ul>
+<li>可以将内存中的基本数据类型的变量、String类型的变量写出到具体的文件中。</li>
+</ul>
+<p><strong>DataInputStream</strong>：</p>
+<ul>
+<li>将文件中保存的数据还原为内存中的基本数据类型的变量、String类型的变量。</li>
+</ul>
+<h3>对象流及其作用</h3>
+<h4>2.1 API</h4>
+<ul>
+<li><code class="notranslate">ObjectInputStream</code></li>
+<li><code class="notranslate">ObjectOutputStream</code></li>
+</ul>
+<h4>2.2 作用</h4>
+<ul>
+<li>可以读写基本数据类型的变量、引用数据类型的变量。</li>
+</ul>
+<h3>对象的序列化机制</h3>
+<p><strong>对象序列化机制</strong>允许把内存中的Java对象转换成平台无关的二进制流，从而允许把这种二进制流持久地保存在磁盘上，或通过网络将这种二进制流传输到另一个网络节点。当其它程序获取了这种二进制流，就可以恢复成原来的Java对象。</p>
+<h3>示例代码</h3>
+<p>以下是使用对象流进行对象序列化和反序列化的示例代码：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.*;
+
+class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+
+public class ObjectStreamExample {
+    public static void main(String[] args) {
+        // 序列化对象
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("person.dat"))) {
+            Person person = new Person("Alice", 30);
+            oos.writeObject(person);
+            System.out.println("对象序列化成功");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 反序列化对象
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("person.dat"))) {
+            Person person = (Person) ois.readObject();
+            System.out.println("对象反序列化成功: " + person);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<h3>对象的序列化机制</h3>
+<p><strong>对象序列化机制</strong>允许把内存中的Java对象转换成平台无关的二进制流，从而允许把这种二进制流持久地保存在磁盘上，或通过网络将这种二进制流传输到另一个网络节点。当其它程序获取了这种二进制流，就可以恢复成原来的Java对象。</p>
+<h4>使用的流</h4>
+<ol>
+<li><strong>序列化过程</strong>：
+<ul>
+<li>使用 <code class="notranslate">ObjectOutputStream</code> 流实现。</li>
+<li>将内存中的Java对象保存在文件中或通过网络传输出去。</li>
+</ul>
+</li>
+<li><strong>反序列化过程</strong>：
+<ul>
+<li>使用 <code class="notranslate">ObjectInputStream</code> 流实现。</li>
+<li>将文件中的数据或网络传输过来的数据还原为内存中的Java对象。</li>
+</ul>
+</li>
+</ol>
+<h4>自定义类要想实现序列化机制，需要满足以下条件：</h4>
+<ol>
+<li><strong>实现 <code class="notranslate">Serializable</code> 接口</strong>：
+<ul>
+<li>自定义类必须实现 <code class="notranslate">java.io.Serializable</code> 接口。</li>
+<li>该接口是一个标记接口，不包含任何方法。</li>
+</ul>
+</li>
+<li>**提供一个 **<code class="notranslate">serialVersionUID</code>：
+<ul>
+<li>建议在类中定义一个 <code class="notranslate">serialVersionUID</code> 字段，用于版本控制。</li>
+<li>例如：<code class="notranslate">private static final long serialVersionUID = 1L;</code></li>
+</ul>
+</li>
+</ol>
+<h3>示例代码</h3>
+<p>以下是一个实现对象序列化和反序列化的示例代码：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.*;
+
+class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+
+public class ObjectStreamExample {
+    public static void main(String[] args) {
+        // 序列化对象
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("person.dat"))) {
+            Person person = new Person("Alice", 30);
+            oos.writeObject(person);
+            System.out.println("对象序列化成功");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 反序列化对象
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("person.dat"))) {
+            Person person = (Person) ois.readObject();
+            System.out.println("对象反序列化成功: " + person);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>Serializable 标识对象 标识序列化</p>
+<h3>对象的序列化机制</h3>
+<p><strong>对象序列化机制</strong>允许把内存中的Java对象转换成平台无关的二进制流，从而允许把这种二进制流持久地保存在磁盘上，或通过网络将这种二进制流传输到另一个网络节点。当其它程序获取了这种二进制流，就可以恢复成原来的Java对象。</p>
+<h4>使用的流</h4>
+<ol>
+<li><strong>序列化过程</strong>：
+<ul>
+<li>使用 <code class="notranslate">ObjectOutputStream</code> 流实现。</li>
+<li>将内存中的Java对象保存在文件中或通过网络传输出去。</li>
+</ul>
+</li>
+<li><strong>反序列化过程</strong>：
+<ul>
+<li>使用 <code class="notranslate">ObjectInputStream</code> 流实现。</li>
+<li>将文件中的数据或网络传输过来的数据还原为内存中的Java对象。</li>
+</ul>
+</li>
+</ol>
+<h4>自定义类要想实现序列化机制，需要满足以下条件：</h4>
+<ol>
+<li><strong>实现 <code class="notranslate">Serializable</code> 接口</strong>：
+<ul>
+<li>自定义类必须实现 <code class="notranslate">java.io.Serializable</code> 接口。</li>
+<li>该接口是一个标记接口，不包含任何方法。</li>
+</ul>
+</li>
+<li>**提供一个 **<code class="notranslate">serialVersionUID</code>：
+<ul>
+<li>建议在类中定义一个 <code class="notranslate">serialVersionUID</code> 字段，用于版本控制。</li>
+<li>例如：<code class="notranslate">private static final long serialVersionUID = 1L;</code></li>
+</ul>
+</li>
+</ol>
+<h3>示例代码</h3>
+<p>以下是一个实现对象序列化和反序列化的示例代码：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.*;
+
+class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+
+public class ObjectStreamExample {
+    public static void main(String[] args) {
+        // 序列化对象
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("person.dat"))) {
+            Person person = new Person("Alice", 30);
+            oos.writeObject(person);
+            System.out.println("对象序列化成功");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 反序列化对象
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("person.dat"))) {
+            Person person = (Person) ois.readObject();
+            System.out.println("对象反序列化成功: " + person);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>标准输入输出流</p>
+<p>System.in 标准输入流 从键盘输入</p>
+<p>System.out 标准输出流 从显示器输出</p>
+<p>通过以下方法修改输入流和输出流的位置</p>
+<p>setIn(InputStream is)</p>
+<p>setOut(PrintStream ps)</p>
+<p>引入 jar 包</p>
+<ul>
+<li>jar 包放在 libs 目录下 “Add as Library”</li>
+<li>添加进 Libraries</li>
+<li><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7339990bde5181fe0ef3449d33d60815dab2cab8d98e34c73b5c3ed73458a0dd/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313736343430393734392d33376333363461632d306365302d346430332d386632342d3836396266326165373932342e706e67"><img src="https://camo.githubusercontent.com/7339990bde5181fe0ef3449d33d60815dab2cab8d98e34c73b5c3ed73458a0dd/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313736343430393734392d33376333363461632d306365302d346430332d386632342d3836396266326165373932342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731764409749-37c364ac-0ce0-4d03-8f24-869bf2ae7924.png" style="max-width: 100%;"></a><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a96a221136c4baf98a8d433336a3e3d103cb62ec575392c7d7acb002c4b67ddf/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313736343432383633322d37653731396261652d386235332d343339662d393063372d6534613262366562626664362e706e67"><img src="https://camo.githubusercontent.com/a96a221136c4baf98a8d433336a3e3d103cb62ec575392c7d7acb002c4b67ddf/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313736343432383633322d37653731396261652d386235332d343339662d393063372d6534613262366562626664362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731764428632-7e719bae-8b53-439f-90c7-e4a2b6ebbfd6.png" style="max-width: 100%;"></a></li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
+
+public class FileCopyExample {
+    public void test5() throws IOException {
+        // 赋值一个图片
+        File srcFile = new File("playgirl.jpg");
+        File destFile = new File("playgirl_copy2.jpg");
+
+        // 使用 FileUtils 进行文件复制
+        FileUtils.copyFile(srcFile, destFile);
+        System.out.println("复制成功");
+    }
+}
+
+</code></pre>
+<p>File 类的使用</p>
+<p>File 类的一个实例对应着磁盘上的一个文件或目录 --&gt;万事万物皆对象</p>
+<p>File 的实例化，常用方法</p>
+<p>File 类中只有新建，删除，获取路径等方法，不包含读写文件的方法，此时需要使用 IO 流</p>
+<p>IO 流的概述</p>
+<ul>
+<li>IO 流的分类
+<ul>
+<li>流向 输入流，输出流</li>
+<li>处理数据单位 字节流，字符流</li>
+<li>流的角色 节点流，处理流</li>
+</ul>
+</li>
+<li>IO 的 4 个基类 inputStream 、OutputStrram `、Reader 、Writer</li>
+</ul>
+<p>节点流之 文件流</p>
+<ul>
+<li>FileInputStream 、 FileOutputStream 、 FileRader 、 FileWriter</li>
+<li>（掌握）读写数据的过程
+<ul>
+<li>步骤一 创建 File 类的对象 、 作为读取或写出数据的端点</li>
+<li>步骤二 创建相关流的对象</li>
+<li>读取，写出数据的过程</li>
+<li>关闭流资源</li>
+</ul>
+</li>
+</ul>
+<p>处理流之 缓冲流</p>
+<ul>
+<li>BufferedInputStream 、BufferedOutputStream 、 BuffereRader 、 BufferedWriter</li>
+<li>作用：实现更高效的读写数据的操作</li>
+</ul>
+<p>处理流二 转换流</p>
+<ul>
+<li>层次一 属性转换流的使用
+<ul>
+<li>InputStreamRader 、 OutputStreamWriter</li>
+</ul>
+</li>
+<li>层次二 （掌握） 字符的编码和解码过程，常用字符集
+<ul>
+<li>解决相关问题 读写时字符出现乱码 本质是使用的编码集与解码集不一致</li>
+</ul>
+</li>
+</ul>
+<p>处理流 三 对象流</p>
+<ul>
+<li>层次一 熟悉对象流的使用
+<ul>
+<li>ObjectInputStream 反序列化时需要使用 api</li>
+<li>ObjectOutStream 序列化时需要使用的 api</li>
+</ul>
+</li>
+<li>层次二 对象的序列化机制
+<ul>
+<li>使用场景 不同的进程间通信，客户端与服务器传输数据</li>
+<li>自定义类要想实现序列化机制需要满足的要求及注意点</li>
+</ul>
+</li>
+</ul>
+<p>其它流的使用</p>
+<ul>
+<li>了解 数据流 DataInputStream 、 DataOutputStream</li>
+<li>了解 标准的输入流 、 标准的输出流 、 System.in 、 System.out</li>
+<li>了解 打印流 PrintStream、PrintWriter</li>
+</ul>
+<p>1.谈谈Javal0里面的常用类</p>
+<p>字符流(银*数据)</p>
+<p>学卫玩，</p>
+<p>略</p>
+<p>2.Java 中有几种类型的流?JDK为每种类型的流提供一些抽象类以供继承，请说出他们分别是</p>
+<p>哪些类?(上海“厦<em>联网、极</em>科技)</p>
+<p>InputStream OutputStream \ Reader \ Writer</p>
+<p>3.流一般需不需要关闭?如果关闭的话用什么方法?处理流是怎么关闭的?(银*数据)</p>
+<p>需要。close()</p>
+<p>处理流在关闭过程中，也会关闭内部的流。</p>
+<p>4.0utputstream里面的write()是什么意思?(君*科技)</p>
+<p>数据写出的意思。</p>
+<p>2.2 缓冲流</p>
+<p>1.BufferedReader属于哪种流?他主要是用来做什么的?(国*电网)</p>
+<p>略</p>
+<p>2.什么是缓冲区?有什么作用?(北京中油**)</p>
+<p>内部提供了一个数组，将读取或要写出的数据，现在此数组中缓存。达到一定程度时，</p>
+<p>集中性的写出。</p>
+<p>作用:减少与磁盘的交互，进而提升读写效率。</p>
+<p>2.3 转换流</p>
+<p>1.字节流和字符流是什么?怎么转换?(北京蓝*、<em>海</em>供应链管理)</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fa07465e1c78eec64fa709c45ca10bb12dcba0589a508552701bb81320a35deb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313736343635383834322d39373335656138642d316663332d346233632d613131362d3732346431373433643735312e706e67"><img src="https://camo.githubusercontent.com/fa07465e1c78eec64fa709c45ca10bb12dcba0589a508552701bb81320a35deb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313736343635383834322d39373335656138642d316663332d346233632d613131362d3732346431373433643735312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731764658842-9735ea8d-1fc3-4b3c-a116-724d1743d751.png" style="max-width: 100%;"></a></p>
+<p>2.4 序列化</p>
+<p>1.什么是Java序列化，如何实现(君<em>科技、上海</em>厦物联网)</p>
+<p>对象序列化机制允许把内存中的Java对象转换成平台无关的二进制流，从而允许把这种二进制流持久地保存在磁盘上，</p>
+<p>或通过网络将这种二进制流传输到另一个网络节点。//当其它程序获取了这种二进制流，就可以恢复成原来的Java对象。</p>
+<p>2.Java有些类中为什么需要实现Serializable接口?(阿*校招)</p>
+<p>便于此类的对象实现序列化操作。</p></div>
+<div style="font-size:small;margin-top:8px;float:right;">注意：转载请注明出处<br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script>
+
+</html>
