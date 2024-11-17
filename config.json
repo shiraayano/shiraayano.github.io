@@ -25,7 +25,7 @@
     "indexScript":"<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>(function() { var uid = 2; var script = document.createElement('script'); script.src = 'https://www.xmjc.eu.org/api/api.php?uid=' + uid + '&time=' + Date.now(); document.head.appendChild(script); })(); </script>",
     "showPostSource":1,
     "rssSplit":"sentence",
-    "bottomText":"注意：转载请注明出处<br>转载前请仔细阅读此文章<a href = 'https://blog.adouzi.eu.org/post/21.html'>关于博客文章转载规则以及一些闲聊</a>`<br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org",
+    "bottomText":"<P>注意：转载请注明出处<br>转载前请仔细阅读此文章<a href = 'https://blog.adouzi.eu.org/post/21.html'>关于博客文章转载规则以及一些闲聊</a><br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</p>",
     "ogImage":"https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg",
     "primerCSS":"<link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />",
     "needComment":1
