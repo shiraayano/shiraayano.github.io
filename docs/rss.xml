@@ -1,5 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sun, 17 Nov 2024 08:58:45 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>Java 学习笔记 基础篇 010 IO相关</title><link>https://blog.adouzi.eu.org/post/20.html</link><description> &#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sun, 17 Nov 2024 09:39:18 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>关于博客文章转载规则以及一些闲聊</title><link>https://blog.adouzi.eu.org/post/21.html</link><description>#### 转载请标明原作者&#13;
+#### 转载请标明原作者!&#13;
+#### 转载请标明原作者!&#13;
+重要的事情说三遍&#13;
+&#13;
+&#13;
+以及附上原文链接，注意，原文链接请直接指向本博客的原文地址，而不是带个域名转跳的那种&#13;
+以下为示例 使用```&lt;a&gt;```标签&#13;
+&#13;
+```&#13;
+原作者：shiraayano&#13;
+&lt;a href = 'https://blog.adouzi.eu.org/post/21.html'&gt;原文地址：https://blog.adouzi.eu.org/post/21.html&lt;/a&gt;`&#13;
+```&#13;
+---&#13;
+&#13;
+原作者：shiraayano&#13;
+&lt;a href = 'https://blog.adouzi.eu.org/post/21.html'&gt;原文地址：https://blog.adouzi.eu.org/post/21.html&lt;/a&gt;&#13;
+&#13;
+---&#13;
+&#13;
+这样可以搜索引擎中进行权重传递，如果带域名转跳则在搜索引擎中无法传递权重，可能会造成搜索转载的文章“顶替”原作者的情况&#13;
+还有，笔者希望转载我的文章是基于“借鉴”而不是直接搬过去，我更希望我的文章出现在某篇博客结尾的参考列表或致谢中，而不是照搬全篇，希望有更多原创内容。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/21.html</guid><pubDate>Sun, 17 Nov 2024 09:38:52 +0000</pubDate></item><item><title>Java 学习笔记 基础篇 010 IO相关</title><link>https://blog.adouzi.eu.org/post/20.html</link><description> &#13;
 &#13;
 ### 1. File类的理解&#13;
 + **File类**位于`java.io`包下，本章中涉及到的相关流也都声明在`java.io`包下。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/20.html</guid><pubDate>Sat, 16 Nov 2024 13:49:09 +0000</pubDate></item><item><title>Java 学习笔记 基础篇 009</title><link>https://blog.adouzi.eu.org/post/19.html</link><description>### 数据结构的逻辑关系&#13;
