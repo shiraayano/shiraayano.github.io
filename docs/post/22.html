@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="java
+
+```plain
+public class NormalExample {
+    public void sayHello() {
+        System.out.println('Hello, World!');
+    }
+
+    public static void main(String[] args) {
+        // 正常方式创建对象并调用方法
+        NormalExample example = new NormalExample();
+        example.sayHello();
+    }
+}
+```
+
+### 反射方式
+java
+
+```plain
+import java.lang.reflect.Method;
+
+public class ReflectionExample {
+    public void sayHello() {
+        System.out.println('Hello, World!');
+    }
+
+    public static void main(String[] args) {
+        try {
+            // 反射方式创建对象并调用方法
+            Class<?> clazz = Class.forName('ReflectionExample');
+            Object instance = clazz.getDeclaredConstructor().newInstance();
+            Method method = clazz.getMethod('sayHello');
+            method.invoke(instance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### 说明
+1. **正常方式**：
+    - 直接使用 `new` 关键字创建对象。">
+<meta property="og:title" content="Java  学习笔记 基础篇 011 反射">
+<meta property="og:description" content="java
+
+```plain
+public class NormalExample {
+    public void sayHello() {
+        System.out.println('Hello, World!');
+    }
+
+    public static void main(String[] args) {
+        // 正常方式创建对象并调用方法
+        NormalExample example = new NormalExample();
+        example.sayHello();
+    }
+}
+```
+
+### 反射方式
+java
+
+```plain
+import java.lang.reflect.Method;
+
+public class ReflectionExample {
+    public void sayHello() {
+        System.out.println('Hello, World!');
+    }
+
+    public static void main(String[] args) {
+        try {
+            // 反射方式创建对象并调用方法
+            Class<?> clazz = Class.forName('ReflectionExample');
+            Object instance = clazz.getDeclaredConstructor().newInstance();
+            Method method = clazz.getMethod('sayHello');
+            method.invoke(instance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### 说明
+1. **正常方式**：
+    - 直接使用 `new` 关键字创建对象。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/22.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java  学习笔记 基础篇 011 反射</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java  学习笔记 基础篇 011 反射</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/22" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class NormalExample {
+    public void sayHello() {
+        System.out.println("Hello, World!");
+    }
+
+    public static void main(String[] args) {
+        // 正常方式创建对象并调用方法
+        NormalExample example = new NormalExample();
+        example.sayHello();
+    }
+}
+</code></pre>
+<h3>反射方式</h3>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.lang.reflect.Method;
+
+public class ReflectionExample {
+    public void sayHello() {
+        System.out.println("Hello, World!");
+    }
+
+    public static void main(String[] args) {
+        try {
+            // 反射方式创建对象并调用方法
+            Class&lt;?&gt; clazz = Class.forName("ReflectionExample");
+            Object instance = clazz.getDeclaredConstructor().newInstance();
+            Method method = clazz.getMethod("sayHello");
+            method.invoke(instance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<h3>说明</h3>
+<ol>
+<li><strong>正常方式</strong>：
+<ul>
+<li>直接使用 <code class="notranslate">new</code> 关键字创建对象。</li>
+<li>直接调用对象的方法。</li>
+</ul>
+</li>
+<li><strong>反射方式</strong>：
+<ul>
+<li>使用 <code class="notranslate">Class.forName</code> 获取类的 <code class="notranslate">Class</code> 对象。</li>
+<li>使用 <code class="notranslate">getDeclaredConstructor().newInstance()</code> 创建对象实例。</li>
+<li>使用 <code class="notranslate">getMethod</code> 获取方法对象。</li>
+<li>使用 <code class="notranslate">invoke</code> 调用方法。</li>
+</ul>
+</li>
+</ol>
+<p>反射可以调用类中私有的构造器</p>
+<h3>Person类</h3>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class Person {
+    private String name;
+    private int age;
+
+    private Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+</code></pre>
+<h3>反射调用私有构造器</h3>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.lang.reflect.Constructor;
+
+public class ReflectionTest {
+    @Test
+    public void test3() throws Exception {
+        // 1. 调用私有的构造器，创建Person的实例
+        Class&lt;Person&gt; clazz = Person.class;
+        Constructor&lt;Person&gt; cons = clazz.getDeclaredConstructor(String.class, int.class);
+        cons.setAccessible(true);
+        Person p1 = cons.newInstance("Tom", 12);
+        System.out.println(p1);
+    }
+}
+</code></pre>
+<h3>说明</h3>
+<ol>
+<li><strong>Person类</strong>：
+<ul>
+<li>定义了一个私有的构造器 <code class="notranslate">Person(String name, int age)</code>。</li>
+<li>重写了 <code class="notranslate">toString()</code> 方法以便于输出对象信息。</li>
+</ul>
+</li>
+<li><strong>反射调用私有构造器</strong>：
+<ul>
+<li>使用 <code class="notranslate">Class.getDeclaredConstructor</code> 获取私有构造器。</li>
+<li>使用 <code class="notranslate">setAccessible(true)</code> 使私有构造器可访问。</li>
+<li>使用 <code class="notranslate">newInstance</code> 创建对象实例。</li>
+</ul>
+</li>
+</ol>
+<h3>面向对象中创建对象和调用结构的方式</h3>
+<h4>不使用反射</h4>
+<ul>
+<li><strong>封装性</strong>：需要考虑封装性，不能调用类中私有的结构。</li>
+<li><strong>直接调用</strong>：通过直接创建对象并调用其方法和属性。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>java</li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void sayHello() {
+        System.out.println("Hello, my name is " + name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person person = new Person("Tom", 12);
+        person.sayHello();
+    }
+}
+</code></pre>
+<h4>使用反射</h4>
+<ul>
+<li><strong>动态性</strong>：可以在运行时动态地获取对象所属的类，动态地调用相关的方法和属性，包括私有的结构。</li>
+<li><strong>灵活性</strong>：可以调用运行时类中任意的构造器、属性、方法。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>java</li>
+</ul>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+public class Person {
+    private String name;
+    private int age;
+
+    private Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    private void sayHello() {
+        System.out.println("Hello, my name is " + name);
+    }
+}
+
+public class ReflectionExample {
+    public static void main(String[] args) {
+        try {
+            Class&lt;Person&gt; clazz = Person.class;
+            Constructor&lt;Person&gt; cons = clazz.getDeclaredConstructor(String.class, int.class);
+            cons.setAccessible(true);
+            Person person = cons.newInstance("Tom", 12);
+
+            Method method = clazz.getDeclaredMethod("sayHello");
+            method.setAccessible(true);
+            method.invoke(person);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<h3>使用场景对比</h3>
+<h4>非反射方式</h4>
+<ul>
+<li><strong>常见场景</strong>：日常开发中，完成业务代码时使用非反射方式较多，因为相关的对象、方法的调用都是确定的。</li>
+<li><strong>优点</strong>：代码直观、性能高、易于维护。</li>
+</ul>
+<h4>反射方式</h4>
+<ul>
+<li><strong>常见场景</strong>：设计框架时大量使用反射，因为反射体现了动态性，可以在运行时动态地获取对象所属的类，动态地调用相关的方法。</li>
+<li><strong>优点</strong>：灵活性高，可以处理未知类型和方法。</li>
+<li><strong>缺点</strong>：性能较低，代码复杂度高。</li>
+</ul>
+<h3>框架开发</h3>
+<ul>
+<li><strong>框架 = 注解 + 反射 + 设计模式</strong>：在设计框架时，反射是一个重要的组成部分，结合注解和设计模式，可以实现高度灵活和可扩展的框架。</li>
+</ul>
+<h3>单例模式与反射</h3>
+<h4>单例模式</h4>
+<p>单例模式确保一个类只有一个实例，并提供一个全局访问点。常见的单例模式有两种实现方式：饿汉式和懒汉式。</p>
+<p><strong>饿汉式</strong>：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class Singleton {
+    private static final Singleton instance = new Singleton();
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        return instance;
+    }
+}
+</code></pre>
+<p><strong>懒汉式</strong>：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class Singleton {
+    private static Singleton instance;
+
+    private Singleton() {}
+
+    public static synchronized Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+</code></pre>
+<h4>通过反射创建多个对象</h4>
+<p>通过反射，可以调用类中私有的构造器，从而创建多个实例。这确实会破坏单例模式的约束。</p>
+<p><strong>示例代码</strong>：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.lang.reflect.Constructor;
+
+public class ReflectionSingletonTest {
+    public static void main(String[] args) {
+        try {
+            Class&lt;Singleton&gt; clazz = Singleton.class;
+            Constructor&lt;Singleton&gt; cons = clazz.getDeclaredConstructor();
+            cons.setAccessible(true);
+
+            Singleton instance1 = cons.newInstance();
+            Singleton instance2 = cons.newInstance();
+
+            System.out.println(instance1);
+            System.out.println(instance2);
+            System.out.println(instance1 == instance2); // false
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<h4>封装性与反射</h4>
+<ul>
+<li><strong>封装性</strong>：封装性体现的是是否建议我们调用内部API的问题。比如，<code class="notranslate">private</code>声明的结构，意味着不建议调用。</li>
+<li><strong>反射</strong>：反射体现的是我们能否调用的问题。因为类的完整结构都加载到了内存中，所以我们有能力进行调用。</li>
+</ul>
+<h3>总结</h3>
+<p>反射可以突破封装性，调用类中私有的结构，但这并不意味着Java语言设计存在Bug。封装性和反射是两个不同的概念：</p>
+<ul>
+<li><strong>封装性</strong>：建议不调用内部API。</li>
+<li><strong>反射</strong>：提供了调用的能力。</li>
+</ul>
+<h3>Class类的理解</h3>
+<h4>Java类的加载过程</h4>
+<ol>
+<li><strong>编译</strong>：
+<ul>
+<li>编写好的 <code class="notranslate">.java</code> 源文件通过 <code class="notranslate">javac.exe</code> 编译，会生成一个或多个 <code class="notranslate">.class</code> 字节码文件。</li>
+</ul>
+</li>
+<li><strong>解释运行</strong>：
+<ul>
+<li>使用 <code class="notranslate">java.exe</code> 命令对指定的 <code class="notranslate">.class</code> 文件进行解释运行。</li>
+<li>在解释运行的过程中，需要将 <code class="notranslate">.class</code> 字节码文件加载到内存中（存放在方法区）。</li>
+</ul>
+</li>
+<li><strong>Class实例</strong>：
+<ul>
+<li>加载到内存中的 <code class="notranslate">.class</code> 文件对应的结构即为 <code class="notranslate">Class</code> 的一个实例。</li>
+<li>例如：加载到内存中的 <code class="notranslate">Person</code> 类、<code class="notranslate">String</code> 类或 <code class="notranslate">User</code> 类，都作为 <code class="notranslate">Class</code> 的一个实例。</li>
+</ul>
+</li>
+</ol>
+<h4>示例代码</h4>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">// 获取运行时类的Class实例
+Class clazz1 = Person.class;
+Class clazz2 = String.class;
+Class clazz3 = User.class;
+Class clazz4 = Comparable.class;
+</code></pre>
+<h3>说明</h3>
+<ul>
+<li><strong>Class类</strong>：<code class="notranslate">Class</code> 类是Java反射机制的核心类，它表示正在运行的Java应用程序中的类和接口。</li>
+<li><strong>实例化</strong>：通过 <code class="notranslate">Class</code> 类的实例，可以获取类的详细信息，如类名、方法、构造器、字段等。</li>
+<li><strong>用途</strong>：<code class="notranslate">Class</code> 类的实例在反射机制中非常重要，可以用来动态地创建对象、调用方法、访问字段等。</li>
+</ul>
+<h4>Class的实例可以指向哪些结构</h4>
+<p>Class的实例可以指向所有Java类型，包括：</p>
+<ol>
+<li><strong>class</strong>：外部类、成员（成员内部类、静态内部类）、局部内部类、匿名内部类。</li>
+<li><strong>interface</strong>：接口。</li>
+<li><strong>[]</strong>：数组。</li>
+<li><strong>enum</strong>：枚举。</li>
+<li><strong>annotation</strong>：注解（<code class="notranslate">@interface</code>）。</li>
+<li><strong>primitive type</strong>：基本数据类型。</li>
+<li><strong>void</strong>：空类型。</li>
+</ol>
+<h3>示例代码</h3>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class ReflectionDemo {
+    public static void main(String[] args) throws ClassNotFoundException {
+        // 通过类名
+        Class&lt;Person&gt; clazz1 = Person.class;
+
+        // 通过对象的getClass()方法
+        Person person = new Person();
+        Class&lt;? extends Person&gt; clazz2 = person.getClass();
+
+        // 通过Class.forName()方法
+        Class&lt;?&gt; clazz3 = Class.forName("com.example.Person");
+
+        // 打印Class实例
+        System.out.println(clazz1);
+        System.out.println(clazz2);
+        System.out.println(clazz3);
+    }
+}
+
+class Person {
+    // 类的定义
+}
+</code></pre>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8eb1608d1e2eb0b42cf36e497195424773c6c6e22336840888f4b13bec06766f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313932343730333335362d38623432366331322d373663392d346662632d626239632d6335626437336231373462332e706e67"><img src="https://camo.githubusercontent.com/8eb1608d1e2eb0b42cf36e497195424773c6c6e22336840888f4b13bec06766f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313932343730333335362d38623432366331322d373663392d346662632d626239632d6335626437336231373462332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731924703356-8b426c12-76c9-4fbc-bb9c-c5bd73b174b3.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/66902fb5725a42212730a55d465100d2ec1449dca9308ebe202ded28eb0c124f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313932343639323634382d32373464626136612d396564642d346235302d396238362d3035383937396135646238352e706e67"><img src="https://camo.githubusercontent.com/66902fb5725a42212730a55d465100d2ec1449dca9308ebe202ded28eb0c124f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313932343639323634382d32373464626136612d396564642d346235302d396238362d3035383937396135646238352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731924692648-274dba6a-9edd-4b50-9b86-058979a5db85.png" style="max-width: 100%;"></a></p>
+<p>java 能识别的字节码文件都以 cafebabe 开头</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/297bee554aaebeabf66129b332b532d65c9cce72d5f79a488f1d7a9828eea1a7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313932343835373638352d31663230656431652d636438632d343461662d396438342d3033373533633462363863662e706e67"><img src="https://camo.githubusercontent.com/297bee554aaebeabf66129b332b532d65c9cce72d5f79a488f1d7a9828eea1a7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313932343835373638352d31663230656431652d636438632d343461662d396438342d3033373533633462363863662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731924857685-1f20ed1e-cd8c-44af-9d84-03753c4b68cf.png" style="max-width: 100%;"></a></p>
+<h3>类的加载过程</h3>
+<h4>1. 加载（Loading）</h4>
+<p>将类的 <code class="notranslate">.class</code> 文件读入内存，并为之创建一个 <code class="notranslate">java.lang.Class</code> 对象。此过程由类加载器完成。</p>
+<h4>2. 链接（Linking）</h4>
+<p>链接过程包括三个阶段：</p>
+<ol>
+<li><strong>验证（Verify）</strong>：
+<ul>
+<li>确保加载的类信息符合JVM规范，例如：以 <code class="notranslate">cafebabe</code> 开头，没有安全方面的问题。</li>
+</ul>
+</li>
+<li><strong>准备（Prepare）</strong>：
+<ul>
+<li>正式为类变量（<code class="notranslate">static</code>）分配内存并设置类变量默认初始值的阶段，这些内存都将在方法区中进行分配。</li>
+</ul>
+</li>
+<li><strong>解析（Resolve）</strong>：
+<ul>
+<li>虚拟机常量池内的符号引用（常量名）替换为直接引用（地址）的过程。</li>
+</ul>
+</li>
+</ol>
+<h4>3. 初始化（Initialization）</h4>
+<p>执行类构造器 <code class="notranslate">&lt;clinit&gt;()</code> 方法的过程。类构造器 <code class="notranslate">&lt;clinit&gt;()</code> 方法是由编译期自动收集类中所有类变量的赋值动作和静态代码块中的语句合并产生的。</p>
+<h3>关于类的加载器（以JDK8版本为例）</h3>
+<p>类加载器负责将 <code class="notranslate">.class</code> 文件加载到内存中，并为之创建 <code class="notranslate">java.lang.Class</code> 对象。类加载器的主要类型包括：</p>
+<ol>
+<li><strong>启动类加载器（Bootstrap ClassLoader）</strong>：
+<ul>
+<li>加载核心类库，如 <code class="notranslate">rt.jar</code>。</li>
+</ul>
+</li>
+<li><strong>扩展类加载器（Extension ClassLoader）</strong>：
+<ul>
+<li>加载扩展类库，如 <code class="notranslate">ext</code> 目录下的类库。</li>
+</ul>
+</li>
+<li><strong>应用程序类加载器（Application ClassLoader）</strong>：
+<ul>
+<li>加载应用程序类路径（<code class="notranslate">classpath</code>）下的类库。</li>
+</ul>
+</li>
+</ol>
+<h3>关于类的加载器（以JDK8版本为例）</h3>
+<h4>5.1 作用</h4>
+<p>类加载器负责将类的 <code class="notranslate">.class</code> 文件加载到内存中，并为之创建一个 <code class="notranslate">java.lang.Class</code> 对象。</p>
+<h4>5.2 分类</h4>
+<p>类加载器主要分为两种：</p>
+<ol>
+<li><strong>BootstrapClassLoader（引导类加载器、启动类加载器）</strong>：
+<ul>
+<li>使用C/C++语言编写，不能通过Java代码获取其实例。</li>
+<li>负责加载Java的核心库（如 <code class="notranslate">JAVA_HOME/jre/lib/rt.jar</code> 或 <code class="notranslate">sun.boot.class.path</code> 路径下的内容）。
+<ul>
+<li>rt.jar（runtime 核心类）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>继承于ClassLoader的类加载器</strong>：
+<ul>
+<li><strong>ExtensionClassLoader（扩展类加载器）</strong>：
+<ul>
+<li>负责加载扩展库（如 <code class="notranslate">JAVA_HOME/jre/lib/ext</code> 目录下的内容）。</li>
+</ul>
+</li>
+<li><strong>SystemClassLoader/ApplicationClassLoader（系统类加载器、应用程序类加载器）</strong>：
+<ul>
+<li>负责加载应用程序类路径（<code class="notranslate">classpath</code>）下的类库。</li>
+</ul>
+</li>
+<li><strong>用户自定义类的加载器</strong>：
+<ul>
+<li>用户可以根据需要自定义类加载器，以实现特定的类加载逻辑。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/bb430022075f38888387163e82a5bb9ac4e75548ce9612c4dfd9f0c149d8d4a4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313932353736343232392d35663661613863612d656430392d343964312d613062312d3230326234366665323866342e706e67"><img src="https://camo.githubusercontent.com/bb430022075f38888387163e82a5bb9ac4e75548ce9612c4dfd9f0c149d8d4a4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313932353736343232392d35663661613863612d656430392d343964312d613062312d3230326234366665323866342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731925764229-5f6aa8ca-ed09-49d1-a0b1-202b46fe28f4.png" style="max-width: 100%;"></a></p>
+<p>注意，以上的加载器没有继承关系</p>
+<h3>继承于ClassLoader的类加载器</h3>
+<h4>1. ExtensionClassLoader（扩展类加载器）</h4>
+<ul>
+<li><strong>作用</strong>：负责加载从 <code class="notranslate">java.ext.dirs</code> 系统属性所指定的目录中加载类库，或从JDK的安装目录的 <code class="notranslate">jre/lib/ext</code> 子目录下加载类库。</li>
+</ul>
+<h4>2. SystemClassLoader/ApplicationClassLoader（系统类加载器、应用程序类加载器）</h4>
+<ul>
+<li><strong>作用</strong>：负责加载应用程序类路径（<code class="notranslate">classpath</code>）下的类库。我们自定义的类，默认使用的就是这个类加载器。</li>
+</ul>
+<h4>3. 用户自定义类的加载器</h4>
+<ul>
+<li><strong>作用</strong>：用户可以根据需要自定义类加载器，以实现特定的类加载逻辑，例如实现应用的隔离（同一个类在一个应用程序中可以加载多份）和数据的加密。</li>
+</ul>
+<h3>类加载器的继承关系</h3>
+<p>虽然类加载器之间存在父子关系，但它们并不是通过继承实现的，而是通过组合关系实现的。具体来说，<code class="notranslate">ClassLoader</code> 类中有一个 <code class="notranslate">parent</code> 字段，用于指向父类加载器。</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class ClassLoader {
+    private final ClassLoader parent;
+
+    protected ClassLoader(ClassLoader parent) {
+        this.parent = parent;
+    }
+}
+</code></pre>
+<h3>双亲委派机制</h3>
+<p>双亲委派机制是Java类加载器的一种工作机制，确保类加载的安全性和稳定性。具体来说，当一个类加载器收到类加载请求时，它会将请求传递给它的父类加载器，直到请求到达最顶层的启动类加载器（Bootstrap ClassLoader）。如果父类加载器无法加载该类，才由当前类加载器尝试加载。</p>
+<h3>Java双亲委派机制</h3>
+<p><strong>双亲委派机制</strong>（Parent Delegation Model）是Java类加载器的一种工作机制。它的主要目的是为了保证Java类加载的安全性和稳定性。具体来说，双亲委派机制遵循以下原则：</p>
+<ol>
+<li><strong>类加载请求的传递</strong>：
+<ul>
+<li>当一个类加载器收到类加载请求时，它不会立即尝试加载该类，而是将请求传递给它的父类加载器。</li>
+<li>这个过程会一直向上递归，直到请求到达最顶层的启动类加载器（Bootstrap ClassLoader）。</li>
+</ul>
+</li>
+<li><strong>类加载的执行</strong>：
+<ul>
+<li>启动类加载器尝试加载该类。如果成功，则返回该类的Class对象。</li>
+<li>如果启动类加载器无法加载该类，则将请求传递给它的子类加载器（即扩展类加载器）。</li>
+<li>扩展类加载器重复上述过程，直到请求传递回最初的类加载器。</li>
+</ul>
+</li>
+<li><strong>类加载的结果</strong>：
+<ul>
+<li>如果某个类加载器能够成功加载该类，则返回该类的Class对象。</li>
+<li>如果所有类加载器都无法加载该类，则抛出ClassNotFoundException异常。</li>
+</ul>
+</li>
+</ol>
+<h3>双亲委派机制的优点</h3>
+<ol>
+<li><strong>安全性</strong>：通过双亲委派机制，可以避免重复加载同一个类，确保核心类库的安全性。例如，防止自定义的<code class="notranslate">java.lang.String</code>类替换核心类库中的<code class="notranslate">String</code>类。</li>
+<li><strong>稳定性</strong>：通过统一的类加载机制，可以确保Java应用程序的稳定性，避免类冲突和版本不兼容问题。</li>
+</ol>
+<h3>示例代码</h3>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class ParentDelegationDemo {
+    public static void main(String[] args) {
+        // 获取系统类加载器
+        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+        System.out.println("系统类加载器: " + systemClassLoader);
+
+        // 获取扩展类加载器
+        ClassLoader extClassLoader = systemClassLoader.getParent();
+        System.out.println("扩展类加载器: " + extClassLoader);
+
+        // 获取启动类加载器
+        ClassLoader bootstrapClassLoader = extClassLoader.getParent();
+        System.out.println("启动类加载器: " + bootstrapClassLoader); // 可能为null，因为启动类加载器是用C/C++实现的
+    }
+}
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">import java.lang.reflect.Field;
+
+public class ReflectionTest {
+    public void test2() throws Exception {
+        // 获取Person类的Class对象
+        Class&lt;Person&gt; clazz = Person.class;
+
+        // 创建Person类的实例
+        Person per = (Person) clazz.getDeclaredConstructor().newInstance();
+
+        // 通过Class实例调用getDeclaredField(String fieldName)，获取运行时类指定名的属性
+        Field nameField = clazz.getDeclaredField("name");
+
+        // 确保此属性是可以访问的
+        nameField.setAccessible(true);
+
+        // 通过Field类的实例调用get(Object obj)获取属性值或set(Object obj, Object value)设置属性值
+        nameField.set(per, "Tom");
+        System.out.println(nameField.get(per));
+    }
+
+    public static void main(String[] args) {
+        try {
+            new ReflectionTest().test2();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Person {
+    private String name;
+    private int age;
+
+    public Person() {
+    }
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+</code></pre>
+<h3>说明</h3>
+<ol>
+<li><strong>获取Class对象</strong>：通过 <code class="notranslate">Class&lt;Person&gt; clazz = Person.class</code> 获取 <code class="notranslate">Person</code> 类的 <code class="notranslate">Class</code> 对象。</li>
+<li><strong>创建实例</strong>：通过 <code class="notranslate">clazz.getDeclaredConstructor().newInstance()</code> 创建 <code class="notranslate">Person</code> 类的实例。</li>
+<li><strong>获取字段</strong>：通过 <code class="notranslate">clazz.getDeclaredField("name")</code> 获取 <code class="notranslate">Person</code> 类中名为 <code class="notranslate">name</code> 的字段。</li>
+<li><strong>设置字段可访问</strong>：通过 <code class="notranslate">nameField.setAccessible(true)</code> 设置字段可访问。</li>
+<li><strong>设置字段值</strong>：通过 <code class="notranslate">nameField.set(per, "Tom")</code> 设置字段值。</li>
+<li><strong>获取字段值</strong>：通过 <code class="notranslate">System.out.println(nameField.get(per))</code> 获取并打印字段值。</li>
+</ol>
+<h3>调用指定的方法（步骤）</h3>
+<p><strong>通过Class的实例调用getDeclaredMethod(String methodName, Class&lt;?&gt;... parameterTypes)</strong>：</p>
+<pre class="notranslate"><code class="notranslate">- 获取指定的方法。
+</code></pre>
+<ol>
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">Method method = clazz.getDeclaredMethod("methodName", String.class);
+</code></pre>
+<p><strong>setAccessible(true)</strong>：</p>
+<pre class="notranslate"><code class="notranslate">- 确保此方法是可访问的。
+</code></pre>
+<ol start="2">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">method.setAccessible(true);
+</code></pre>
+<p><strong>通过Method实例调用invoke(Object obj, Object... args)</strong>：</p>
+<pre class="notranslate"><code class="notranslate">- 调用Method对应的方法。
+</code></pre>
+<ol start="3">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">Object returnValue = method.invoke(obj, "argument");
+</code></pre>
+<pre class="notranslate"><code class="notranslate">- 特别的：如果Method对应的方法的返回值类型为void，则invoke()返回值为null
+</code></pre>
+<p>二、企业真题</p>
+<p>2.1 反射概述</p>
+<p>(微*银行)</p>
+<p>1.对反射了解吗?反射有什么好处?为什么需要反射?</p>
+<p>类似问题:</p>
+<blockquote>
+<p>Java反射的作用是什么?(三<em>重工、上海</em>和网络)</p>
+</blockquote>
+<blockquote>
+<p>Java反射机制的作用有什么?(上海明*物联网)</p>
+</blockquote>
+<p>反射的具体用途?(阿**<em>芝</em>信用项目组)</p>
+<blockquote>
+</blockquote>
+<p>2.反射的使用场合和作用、及其优缺点(*软国际)</p>
+<p>类似问题:</p>
+<blockquote>
+<p>反射机制的优缺点(君*科技)</p>
+</blockquote>
+<blockquote>
+<p>Java反射你怎么用的?(吉*航空)</p>
+</blockquote>
+<h3>反射概述</h3>
+<h4>1. 对反射的了解</h4>
+<p>反射是Java语言的一种机制，允许程序在运行时获取有关类的信息，并且可以动态地调用类的方法、访问类的属性和创建类的实例。反射的好处在于它提供了极大的灵活性和动态性，使得程序可以在运行时进行自我检查和修改。</p>
+<h4>反射的好处</h4>
+<ul>
+<li><strong>动态性</strong>：可以在运行时动态地获取类的信息，调用方法和访问属性。</li>
+<li><strong>灵活性</strong>：可以处理未知类型和方法，适用于需要高度灵活性的场景。</li>
+<li><strong>框架设计</strong>：许多Java框架（如Spring、Hibernate）都大量使用反射来实现依赖注入、动态代理等功能。</li>
+</ul>
+<h4>为什么需要反射</h4>
+<ul>
+<li><strong>动态代理</strong>：反射是实现动态代理的基础，可以在运行时创建代理类并调用方法。</li>
+<li><strong>框架设计</strong>：反射使得框架可以在运行时动态地加载和配置类，提供高度的灵活性和可扩展性。</li>
+<li><strong>工具开发</strong>：反射可以用于开发通用的工具和库，如序列化、反序列化、对象拷贝等。</li>
+</ul>
+<h3>反射的使用场合和作用、及其优缺点</h3>
+<h4>使用场合</h4>
+<ul>
+<li><strong>框架设计</strong>：如Spring、Hibernate等框架，通过反射实现依赖注入、动态代理等功能。</li>
+<li><strong>工具开发</strong>：如序列化、反序列化、对象拷贝等通用工具。</li>
+<li><strong>动态代理</strong>：通过反射实现动态代理，增强方法的功能。</li>
+</ul>
+<h4>作用</h4>
+<ul>
+<li><strong>获取类信息</strong>：可以在运行时获取类的构造器、方法、属性等信息。</li>
+<li><strong>调用方法</strong>：可以在运行时调用类的方法，包括私有方法。</li>
+<li><strong>访问属性</strong>：可以在运行时访问类的属性，包括私有属性。</li>
+<li><strong>创建实例</strong>：可以在运行时创建类的实例。</li>
+</ul>
+<h4>优缺点</h4>
+<p><strong>优点</strong>：</p>
+<ul>
+<li><strong>灵活性高</strong>：可以在运行时动态地获取和操作类的信息。</li>
+<li><strong>适用范围广</strong>：适用于框架设计、工具开发、动态代理等场景。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>性能开销</strong>：反射的性能较低，因为它需要在运行时进行类型检查和方法调用。</li>
+<li><strong>安全性问题</strong>：反射可以绕过访问控制，访问私有属性和方法，可能导致安全问题。</li>
+<li><strong>代码复杂度</strong>：反射代码较为复杂，不易阅读和维护。</li>
+</ul>
+<p>3.实现Java反射的类有什么?(君*科技)</p>
+<p>类似问题:</p>
+<blockquote>
+<p>Java反射 API 有几类?(北京*蓝)</p>
+</blockquote>
+<p>问API。</p>
+<p>4.反射是怎么实现的?</p>
+<p>(上海立*网络)</p>
+<p>2.2 Class的理解</p>
+<p>1.Class类的作用?生成class对象的方法有哪些?(顺顺*)</p>
+<p>2.class.forName("全路径")会调用哪些方法? 会调用构造方法吗?加载的类会放在哪?(上*</p>
+<p>银行外包)</p>
+<h3>反射API的几类</h3>
+<h4>反射API的主要类</h4>
+<ol>
+<li><strong>java.lang.Class</strong>：提供了类的元数据。</li>
+<li><strong>java.lang.reflect.Field</strong>：提供了对类的属性的操作。</li>
+<li><strong>java.lang.reflect.Method</strong>：提供了对类的方法的操作。</li>
+<li><strong>java.lang.reflect.Constructor</strong>：提供了对类的构造器的操作。</li>
+<li><strong>java.lang.reflect.Array</strong>：提供了对数组的操作。</li>
+</ol>
+<h3>反射的实现</h3>
+<h4>4. 反射是怎么实现的</h4>
+<p>反射通过Java的反射API实现，主要步骤如下：</p>
+<ol>
+<li><strong>获取Class对象</strong>：通过<code class="notranslate">Class.forName()</code>、<code class="notranslate">类名.class</code>或<code class="notranslate">对象.getClass()</code>获取Class对象。</li>
+<li><strong>获取类的构造器、方法和属性</strong>：通过Class对象的<code class="notranslate">getDeclaredConstructor()</code>、<code class="notranslate">getDeclaredMethod()</code>和<code class="notranslate">getDeclaredField()</code>方法获取类的构造器、方法和属性。</li>
+<li><strong>调用构造器、方法和属性</strong>：通过Constructor、Method和Field对象的<code class="notranslate">newInstance()</code>、<code class="notranslate">invoke()</code>和<code class="notranslate">get()</code>、<code class="notranslate">set()</code>方法调用类的构造器、方法和属性。</li>
+</ol>
+<h3>Class的理解</h3>
+<h4>1. Class类的作用</h4>
+<p>Class类表示类或接口的元数据。它的作用包括：</p>
+<ul>
+<li>获取类的名称、修饰符、父类、接口等信息。</li>
+<li>获取类的构造器、方法和属性。</li>
+<li>创建类的实例。</li>
+</ul>
+<h4>生成Class对象的方法</h4>
+<p><strong>通过类名</strong>：</p>
+<ol>
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">Class&lt;Person&gt; clazz1 = Person.class;
+</code></pre>
+<p><strong>通过对象的getClass()方法</strong>：</p>
+<ol start="2">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">Person person = new Person();
+Class&lt;? extends Person&gt; clazz2 = person.getClass();
+</code></pre>
+<p><strong>通过Class.forName()方法</strong>：</p>
+<ol start="3">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">Class&lt;?&gt; clazz3 = Class.forName("com.example.Person");
+</code></pre>
+<h4>2. class.forName("全路径")会调用哪些方法</h4>
+<ul>
+<li><strong>加载类</strong>：<code class="notranslate">Class.forName("全路径")</code> 会加载指定的类。</li>
+<li><strong>初始化类</strong>：默认情况下，会初始化类，执行静态代码块和静态变量的初始化。</li>
+<li><strong>不调用构造方法</strong>：<code class="notranslate">Class.forName()</code> 不会调用类的构造方法。</li>
+</ul>
+<h4>加载的类会放在哪</h4>
+<ul>
+<li><strong>方法区</strong>：加载的类会放在方法区中，方法区是JVM内存的一部分，用于存储类的元数据、常量、静态变量等</li>
+</ul>
+<p>2.2 Class的理解</p>
+<p>1.Class类的作用?生成class对象的方法有哪些?(顺*)</p>
+<p>反射的源头。 主要有三种。</p>
+<p>2.Class.forName("全路径")会调用哪些方法? 会调用构造方法吗?加载的类会放在哪?(上*</p>
+<p>银行外包)</p>
+<p>Class.forName() 会执行执行类构造器()方法。</p>
+<p>不会调用构造方法</p>
+<p>加载的类放在方法区。</p>
+<p>针对于核心 api，内部的私有的结构在 jdk17 中就不可以通过反射调用了</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"><P>注意：转载请注明出处<br>转载前请仔细阅读此文章<a href = 'https://blog.adouzi.eu.org/post/21.html'>关于博客文章转载规则以及一些闲聊</a><br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</p></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script>
+
+</html>
