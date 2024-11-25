@@ -1,5 +1,4 @@
 
-
 ![IMG_20241125_235339](https://github.com/user-attachments/assets/edae1194-dda4-4994-ba82-25a2e121016f)
 
 ### 接线说明
@@ -103,6 +102,16 @@ class Display:
 D = Display()
 D.run()
 ```
+
+---
+
+笔者由于灯光太暗，老眼昏花，在调试的时候将VCC和GND接反了，然后冒烟了...悲
+三极管时控制屏幕亮暗的，还活着
+电容用电阻档还能测到阻值
+难道是线烧了（？
+下回看看能不能救回来
+
+---
 
 ### 库文件
 - [st7789py_mpy](https://github.com/russhughes/st7789py_mpy/blob/master/romfonts/)
