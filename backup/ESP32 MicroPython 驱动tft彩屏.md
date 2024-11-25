@@ -1,8 +1,8 @@
-### 接线说明
+
 
 ![IMG_20241125_235339](https://github.com/user-attachments/assets/edae1194-dda4-4994-ba82-25a2e121016f)
 
-
+### 接线说明
 - **3V3 (或 5V)** -> VCC 屏幕电源
 - **GND** -> GND 屏幕地线
 - **GPIO13** -> SCL SPI 时钟信号 (SCK)
