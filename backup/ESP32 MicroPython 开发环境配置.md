@@ -77,3 +77,4 @@ Thonny 是一个简单且易用的 Python IDE，适合初学者。下载地址�
 ## 4. 参考资料
 - [MicroPython 官方文档](https://docs.micropython.org/)
 - [ESP32 引脚配置](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/esp32.html)
+- [ESP32 Micropython固件下载](https://micropython.org/download/ESP32_GENERIC/)
