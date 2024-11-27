@@ -1,5 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Mon, 25 Nov 2024 17:49:58 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>ESP32 MicroPython 驱动tft彩屏</title><link>https://blog.adouzi.eu.org/post/30.html</link><description>&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Wed, 27 Nov 2024 15:56:21 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>Java 学习笔记 SSM Maven</title><link>https://blog.adouzi.eu.org/post/31.html</link><description>&#13;
+&#13;
+---&#13;
+&#13;
+# SSM 学习路线&#13;
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732592789529-bd202c5e-aa1b-49a6-a86f-0eae2faad248.png)&#13;
+&#13;
+**课程笔记**：  &#13;
+[https://www.wolai.com/fbnhGx8eE9JfZugFpbCWmC](https://www.wolai.com/fbnhGx8eE9JfZugFpbCWmC)&#13;
+&#13;
+---&#13;
+&#13;
+## Maven简介&#13;
+### 什么是Maven？&#13;
+Maven 是一个基于 Java 的项目管理和构建工具，通过项目对象模型（POM, Project Object Model）描述项目的构建过程，涵盖编译、测试、打包等阶段，提供了丰富的插件和依赖机制，实现对 Java 项目的自动化管理。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/31.html</guid><pubDate>Wed, 27 Nov 2024 15:55:56 +0000</pubDate></item><item><title>ESP32 MicroPython 驱动tft彩屏</title><link>https://blog.adouzi.eu.org/post/30.html</link><description>&#13;
 ![IMG_20241125_235339](https://github.com/user-attachments/assets/edae1194-dda4-4994-ba82-25a2e121016f)&#13;
 &#13;
 ### 接线说明&#13;
