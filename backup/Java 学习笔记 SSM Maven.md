@@ -1,4 +1,3 @@
-
 ---
 
 # SSM 学习路线
@@ -261,14 +260,13 @@ Maven提供一种标准化的项目结构，便于管理依赖、构建、测试
   ![new module](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732610094573-fa1bac7e-f591-4ff1-848a-16ea0b608c37.png)
 - **右键插件快速生成**
   ![右键插件生成](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732610176623-a7c820c0-b090-493e-b11d-91c5ea7128bc.png)
-```
 
 
 
 
 
-## 二、基于IDEA的Maven工程创建
-### 2.1梳理Maven工程GAVP属性
+## 基于IDEA的Maven工程创建
+### 梳理Maven工程GAVP属性
 ```plain
 > Maven工程相对之前的工程，多出一组gavp属性，gav需要我们在创建项目的时指定，p有默认值，后期通过配置文件修改。既然要填写的属性，我们先行了解下这组属性的含义!
 
@@ -307,47 +305,7 @@ Maven 中的 GAVP 是指 GroupId、ArtifactId、Version、Packaging 等四个属
   packaging 属性为 pom，代表不会打包，用来做继承的父工程。
 ```
 
-## 二、基于IDEA的Maven工程创建
-### 2.1梳理Maven工程GAVP属性
-```plain
-> Maven工程相对之前的工程，多出一组gavp属性，gav需要我们在创建项目的时指定，p有默认值，后期通过配置文件修改。既然要填写的属性，我们先行了解下这组属性的含义!
-
-Maven 中的 GAVP 是指 GroupId、ArtifactId、Version、Packaging 等四个属性的缩写，其中前三个是必要的，而 Packaging 属性为可选项。这四个属性主要为每个项目在maven仓库总做一个标识，类似人的《姓-名》。有了具体标识，方便maven软件对项目进行管理和互相引用！
-
-**GAV遵循一下规则：**
-
-  1） **GroupID 格式**：com.{公司/BU }.业务线.[子业务线]，最多 4 级。
-
-    说明：{公司/BU} 例如：alibaba/taobao/tmall/aliexpress 等 BU 一级；子业务线可选。
-
-    正例：com.taobao.tddl 或 com.alibaba.sourcing.multilang  com.atguigu.java
-
-  2） **ArtifactID 格式**：产品线名-模块名。语义不重复不遗漏，先到仓库中心去查证一下。
-
-    正例：tc-client / uic-api / tair-tool / bookstore
-
-  3） **Version版本号格式推荐**：主版本号.次版本号.修订号 1.0.0
-
-    1） 主版本号：当做了不兼容的 API 修改，或者增加了能改变产品方向的新功能。
-
-    2） 次版本号：当做了向下兼容的功能性新增（新增类、接口等）。
-
-    3） 修订号：修复 bug，没有修改方法签名的功能加强，保持 API 兼容性。
-
-    例如： 初始→1.0.0  修改bug → 1.0.1  功能调整 → 1.1.1等
-
-**Packaging定义规则：**
-
-  指示将项目打包为什么类型的文件，idea根据packaging值，识别maven项目类型！
-
-  packaging 属性为 jar（默认值），代表普通的Java工程，打包以后是.jar结尾的文件。
-
-  packaging 属性为 war，代表Java的web工程，打包以后.war结尾的文件。
-
-  packaging 属性为 pom，代表不会打包，用来做继承的父工程。
-```
-
-### 2.2 Idea构建Maven JavaSE工程
+### Idea构建Maven JavaSE工程
 ```plain
 注意：此处省略了version，直接给了一个默认值<version>1.0-SNAPSHOT</version>
 
@@ -356,7 +314,7 @@ Maven 中的 GAVP 是指 GroupId、ArtifactId、Version、Packaging 等四个属
 ![](https://secure2.wostatic.cn/static/oDo2HDrVXHoKqfqRdqLKuV/image.png?auth_key=1732609482-vFAW9GZ7TjCnWxbpk4Rqna-0-39e01048607660175a5858866353701c)
 ```
 
-### 2.3 Idea构建Maven JavaEE工程
+###  Idea构建Maven JavaEE工程
 ```plain
 1. 手动创建
     1. 创建一个javasemaven工程
@@ -402,7 +360,7 @@ Maven 中的 GAVP 是指 GroupId、ArtifactId、Version、Packaging 等四个属
         ![](https://secure2.wostatic.cn/static/vdNw6jnGT7r7CXUji3j7ah/image.png?auth_key=1732609482-uimzhRbUK8hugjqHxzQd1Q-0-ac42aad9c902113970c3147652dead3b)
 ```
 
-### 2.4 Maven工程项目结构说明
+### Maven工程项目结构说明
 ```plain
 Maven 是一个强大的构建工具，它提供一种标准化的项目结构，可以帮助开发者更容易地管理项目的依赖、构建、测试和发布等任务。以下是 Maven Web 程序的文件结构及每个文件的作用：
 ```
@@ -472,7 +430,7 @@ new module
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732610217761-9ccaa41d-3e33-4ad1-b97b-8984b3fe01fc.png)
 
-### 2.2 Idea构建Maven JavaSE工程
+### Idea构建Maven JavaSE工程
 ```plain
 注意：此处省略了version，直接给了一个默认值<version>1.0-SNAPSHOT</version>
 
@@ -481,7 +439,7 @@ new module
 ![](https://secure2.wostatic.cn/static/oDo2HDrVXHoKqfqRdqLKuV/image.png?auth_key=1732609482-vFAW9GZ7TjCnWxbpk4Rqna-0-39e01048607660175a5858866353701c)
 ```
 
-### 2.3 Idea构建Maven JavaEE工程
+### Idea构建Maven JavaEE工程
 ```plain
 1. 手动创建
     1. 创建一个javasemaven工程
@@ -535,7 +493,7 @@ new module
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732609712818-781c6e84-5754-4bd3-aa8f-87469a77da1a.png)
 
-### 2.4 Maven工程项目结构说明
+### Maven工程项目结构说明
 ```plain
 Maven 是一个强大的构建工具，它提供一种标准化的项目结构，可以帮助开发者更容易地管理项目的依赖、构建、测试和发布等任务。以下是 Maven Web 程序的文件结构及每个文件的作用：
 ```
@@ -603,22 +561,22 @@ scr放项目源文件
 
 
 
-## 三、Maven核心功能依赖和构建管理
+## Maven核心功能依赖和构建管理
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732610644717-db73d881-63d5-4d2c-915f-52b01c73bb76.png)
 
 
 
-可以申明变量来管理版本号
+> 可以申明变量来管理版本号
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732610918225-90a78bd9-d2a7-427c-8e7e-2c5a5c423be1.png)
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732610929718-72293aee-98f9-4be1-a94b-3982d404b654.png)
 
-导入第三方依赖方式
+> 导入第三方依赖方式
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732610769332-82f08d67-cf8e-43db-8b4d-5615ef7fa984.png)
 
-使用maven search插件
+> 使用maven search插件
 
 
 
@@ -630,19 +588,18 @@ scr放项目源文件
 
 
 
-可以限制依赖的范围
+> 可以限制依赖的范围
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732611087922-b6a87192-8899-4afa-a82f-736f64b4a0ba.png)
 
 
 
-还有runtime main test不用，只在运行时候使用
-
+> 还有runtime main test不用，只在运行时候使用
 provided main test用 打包运行时不用
 
 
 
-总结:他是一种锦上添花的手段,如果你掌握不好,你就默认值,全部生效,你就一定不会错!!
+> 总结:他是一种锦上添花的手段,如果你掌握不好,你就默认值,全部生效,你就一定不会错!!
 
 ### 3.1 依赖管理和配置
 ```plain
@@ -676,9 +633,7 @@ maven项目信息属性配置和读取：
 
 ```plain
 依赖管理和添加：
-```
 
-```plain
 <!-- 
    通过编写依赖jar包的gav必要属性，引入第三方依赖！
    scope属性是可选的，可以指定依赖生效范围！
@@ -705,9 +660,9 @@ maven项目信息属性配置和读取：
 </dependencies>
 ```
 
-```plain
-依赖版本提取和维护:
-```
+
+> 依赖版本提取和维护:
+
 
 ```plain
 <!--声明版本-->
@@ -729,10 +684,10 @@ maven项目信息属性配置和读取：
 </dependencies>
 ```
 
-### 3.2依赖传递和冲突
+### 依赖传递和冲突
 （依赖传递：只要导入依赖，就会自动导入依赖的依赖）
 
-```plain
+
 **依赖传递**指的是当一个模块或库 A 依赖于另一个模块或库 B，而 B 又依赖于模块或库 C，那么 A 会间接依赖于 C。这种依赖传递结构可以形成一个依赖树。当我们引入一个库或框架时，构建工具（如 Maven、Gradle）会自动解析和加载其所有的直接和间接依赖，确保这些依赖都可用。
 
 依赖传递的作用是：
@@ -752,7 +707,7 @@ maven项目信息属性配置和读取：
   ![](https://secure2.wostatic.cn/static/m8TKvDS5fj34z334a6jPxz/image.png?auth_key=1732592594-c1jkjA6dyHhSiSnbZxL7oX-0-ec4f70629a9917b14bb06d3c173eea1b)
 
   最佳导入：直接可以导入data-bind，自动依赖传递需要的依赖
-```
+
 
 ```plain
 <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
@@ -804,7 +759,7 @@ pom声明：
    B 2.2 
 ```
 
-### 3.3 依赖导入失败场景和解决方案
+### 依赖导入失败场景和解决方案
 ```plain
 在使用 Maven 构建项目时，可能会发生依赖项下载错误的情况，主要原因有以下几种：
 
@@ -847,27 +802,26 @@ set REPOSITORY_PATH=D:\repository  改成你本地仓库地址即可！
 
 
 
-本地仓库被污染
+
+> 本地仓库被污染
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732611847612-dea420b1-0c4f-40e6-b9c8-01aa4fcd0798.png)
 
-如果本地仓库存在lastupdated就不会访问网络仓库
-
-一般是更新中止造成的
-
+> 如果本地仓库存在lastupdated就不会访问网络仓库  
+一般是更新中止造成的  
 这时候我们可以按照路径寻找，然后删除该文件
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732611977290-819350ef-b1fc-4d97-874b-03cf0862fdb1.png)
 
 
 
-可以使用懒人脚本一键删除lastupdated
++ 可以使用懒人脚本一键删除lastupdated
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732612074981-eac529dd-161e-4bdf-9e72-cb460da3b3b6.png)
 
 
 
-### 3.4 扩展构建管理和插件配置
+### 扩展构建管理和插件配置
 ```plain
 **构建概念:**
 
@@ -967,28 +921,26 @@ set REPOSITORY_PATH=D:\repository  改成你本地仓库地址即可！
 
 
 
-mvn compile
-
+> mvn compile   
 编译好后
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732612545601-b06e1e8d-9250-421b-9042-67847bddc8a4.png)
 
 
 
-mvn install
+> mvn install
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732612620141-4d56e45a-707f-4b10-86f5-6c0c960cf4f3.png)
 
 
 
-mvn clean compile test package install （部署操作）
+> mvn clean compile test package install （部署操作）
 
 
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732612996901-bfd775b3-899b-4292-9651-821c29a761fd.png)
 
-mvn clean install（这样就可以）
-
+> mvn clean install（这样就可以）  
 会自动触发compile test package
 
 
@@ -997,21 +949,276 @@ mvn clean install（这样就可以）
 
 
 
-命令有周期
-
-maven将命令分成了三个周期
-
+> 命令有周期   
+maven将命令分成了三个周期   
 最终干活的是插件
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732613104760-d39b3c89-9037-4ab9-821a-9c239e3d2fec.png)
 
-我们其实是使用命令调用插件
+> 我们其实是使用命令调用插件
 
-
-
-遇到插件版本过低时可以自定义导入插件
+> 遇到插件版本过低时可以自定义导入插件
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732613247692-a85e9ac6-2fc2-49ea-8af0-dd5b124aca37.png)
+
+
+## Maven继承和聚合特性
+### Maven工程继承关系
+#### 依赖冲突时
+
+> 思路一 直接在父工程引入依赖
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732636324870-2e18ea47-d186-4e6d-9095-9da81034ada0.png)
+
+
+
+> 思路二 父工程不引入依赖 只做依赖声明
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732636614291-9eae4f26-e7bb-4309-9f59-8356231c0de2.png)
+
+
+- 父工程不打包也不写代码
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732636772645-daf728d9-4c7f-4fce-9a92-dc5edc161a1d.png)
+
+ - 新建子工程
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732636809429-661b018f-c743-4bca-a748-7020f16c1418.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732636835079-c505d11e-5dc5-4b9f-8722-7500a2d04532.png)
+
+ - 子工程中pom文件多了parent
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732636872905-1751b1be-080c-4773-a228-242700283e44.png)
+
+
+
+ - 在父工程中声明版本管理
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732636995047-93265983-6462-4334-a4f4-a12cee059db1.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732637109103-c139f1b2-36fa-43d5-a802-c1f3c989bc73.png)
+
+
+
+ - 在子工程中需要写
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732637148624-d70b56f4-4309-404f-b443-82d5f84268e3.png)
+
+ - 不用写版本
+
+
+
+
+
+
+1. 继承概念
+
+    Maven 继承是指在 Maven 的项目中，让一个项目从另一个项目中继承配置信息的机制。继承可以让我们在多个项目中共享同一配置信息，简化项目的管理和维护工作。
+
+    ![](https://secure2.wostatic.cn/static/ooGfu99ezNBaguhLkwT4Z4/image.png?auth_key=1732611338-aoA4cR1kH2n6Tgx2MESFZs-0-ce62f218ceaa31b9d51ec0784c5ac640)
+2. 继承作用
+
+    作用：在父工程中统一管理项目中的依赖信息,进行统一版本管理!
+
+    它的背景是：
+
+    - 对一个比较大型的项目进行了模块拆分。
+    - 一个 project 下面，创建了很多个 module。
+    - 每一个 module 都需要配置自己的依赖信息。
+
+    它背后的需求是：
+
+    - 多个模块要使用同一个框架，它们应该是同一个版本，所以整个项目中使用的框架版本需要统一管理。
+    - 使用框架时所需要的 jar 包组合（或者说依赖信息组合）需要经过长期摸索和反复调试，最终确定一个可用组合。这个耗费很大精力总结出来的方案不应该在新的项目中重新摸索。
+
+    通过在父工程中为整个项目维护依赖信息的组合既保证了整个项目使用规范、准确的 jar 包；又能够将以往的经验沉淀下来，节约时间和精力。
+3. 继承语法
+    - 父工程
+
+
+```plain
+<groupId>com.atguigu.maven</groupId>
+<artifactId>pro03-maven-parent</artifactId>
+<version>1.0-SNAPSHOT</version>
+<!-- 当前工程作为父工程，它要去管理子工程，所以打包方式必须是 pom -->
+<packaging>pom</packaging>
+
+```
+
+
+    - 子工程
+
+
+```plain
+<!-- 使用parent标签指定当前工程的父工程 -->
+<parent>
+  <!-- 父工程的坐标 -->
+  <groupId>com.atguigu.maven</groupId>
+  <artifactId>pro03-maven-parent</artifactId>
+  <version>1.0-SNAPSHOT</version>
+</parent>
+
+<!-- 子工程的坐标 -->
+<!-- 如果子工程坐标中的groupId和version与父工程一致，那么可以省略 -->
+<!-- <groupId>com.atguigu.maven</groupId> -->
+<artifactId>pro04-maven-module</artifactId>
+<!-- <version>1.0-SNAPSHOT</version> -->
+```
+
+
+4. 父工程依赖统一管理
+    - 父工程声明版本
+
+
+```plain
+<!-- 使用dependencyManagement标签配置对依赖的管理 -->
+<!-- 被管理的依赖并没有真正被引入到工程 -->
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>4.0.0.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>4.0.0.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>4.0.0.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>4.0.0.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>4.0.0.RELEASE</version>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+```
+
+
+    - 子工程引用版本
+
+
+```plain
+<!-- 子工程引用父工程中的依赖信息时，可以把版本号去掉。  -->
+<!-- 把版本号去掉就表示子工程中这个依赖的版本由父工程决定。 -->
+<!-- 具体来说是由父工程的dependencyManagement来决定。 -->
+<dependencies>
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-beans</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-expression</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aop</artifactId>
+  </dependency>
+</dependencies>
+```
+
+###  Maven工程聚合关系
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732637219490-5c444114-75a2-4214-990e-4cc005dbec1c.png)
+
+
+
+在创建子工程时自带继承和聚合
+
+一般情况下继承和聚合时同时存在
+
+我们可以通过修改配置文件单独配置
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732637372787-fe07cce0-e54e-4298-ab10-a502811dc226.png)
+
+
+
+```plain
+1. 聚合概念
+
+    Maven 聚合是指将多个项目组织到一个父级项目中，通过触发父工程的构建,统一按顺序触发子工程构建的过程!!
+2. 聚合作用
+    1. 统一管理子项目构建：通过聚合，可以将多个子项目组织在一起，方便管理和维护。
+    2. 优化构建顺序：通过聚合，可以对多个项目进行顺序控制，避免出现构建依赖混乱导致构建失败的情况。
+3. 聚合语法
+
+    父项目中包含的子项目列表。
+```
+
+```plain
+<project>
+  <groupId>com.example</groupId>
+  <artifactId>parent-project</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0</version>
+  <modules>
+    <module>child-project1</module>
+    <module>child-project2</module>
+  </modules>
+</project>
+```
+
+```plain
+4. 聚合演示
+
+    通过触发父工程构建命令、引发所有子模块构建！产生反应堆！
+
+    ![](https://secure2.wostatic.cn/static/weyQ7odFa3amf3NTtCgyjQ/image.png?auth_key=1732610488-sVyt3LW3B9qEnmdLQGgQBa-0-97274a203dde13729b0462f204b80169)
+```
+
+## 实战 创建项目例子
+
+
+
++ 父工程配置![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732637887317-7f8aa0a6-a348-4464-87d7-fcc640d00a84.png)
++ 子工程![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732637989125-b0a10b2c-392e-40a3-84f4-60ac00ca72c5.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638247736-ccd889ce-eaa7-4fbc-9de9-a3896ceaa3a6.png)
++ ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638688047-0da41f4d-5db0-4033-9357-5296ee136db8.png)
++ 子工程![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638297767-63f806d9-6a55-4720-b310-f1280a002fc7.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638247736-ccd889ce-eaa7-4fbc-9de9-a3896ceaa3a6.png)
++ ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638744367-2772419d-d58d-4119-a89e-0023ee4ab85a.png)
++ 子工程![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638328765-14b280e5-2e73-494a-bb41-a855e0365742.png)
++ ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638247736-ccd889ce-eaa7-4fbc-9de9-a3896ceaa3a6.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638247736-ccd889ce-eaa7-4fbc-9de9-a3896ceaa3a6.png)
++ ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638771249-5ed01710-40e0-4909-acc4-217f53f33ae5.png)
+
+
+
++ 父工程
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638385154-d4edde6b-7825-4a5c-a22d-54ca621c67be.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638586636-46647ba7-1bc2-48bd-bc85-4cff1498dfcd.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638636500-b8410b94-b3e8-4f3a-a4b8-955794e0535e.png)
+
+
+
++ 最后 install
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732638875419-dba35d6a-acbf-4360-893c-b911e6a9528d.png)
+
+
 
 
 
