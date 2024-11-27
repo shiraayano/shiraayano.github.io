@@ -21,7 +21,7 @@
     "urlMode":"issue",
     "style":"",
     "script":"<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script>",
-    "indexStyle":"",
+    "indexStyle":"img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}",
     "indexScript":"<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>(function() { var uid = 2; var script = document.createElement('script'); script.src = 'https://www.xmjc.eu.org/api/api.php?uid=' + uid + '&time=' + Date.now(); document.head.appendChild(script); })(); </script>",
     "showPostSource":1,
     "rssSplit":"sentence",
