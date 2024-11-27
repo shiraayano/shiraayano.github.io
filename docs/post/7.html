@@ -341,6 +341,6 @@ function iFrameLoading(){
 
 
 </script>
-<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'><script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script>
+<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){const t=document.title,h=['不来看看咱喵~？','喵喵喵~？'];document.title=document.visibilityState==='hidden'?h[Math.floor(Math.random()*h.length)]:'欢迎回来喵~';if(document.visibilityState==='visible')setTimeout(()=>{document.title=t},1000);});</script>
 
 </html>
