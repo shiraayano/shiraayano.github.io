@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="### 陆续整理电子制作工艺的笔记了，与其在笔记软件里头吃灰，为什么不整理出来复习一遍呢~？
+#### 格式有点乱，后期可能会有所调整
+
+---
+
+第一章
+
+
+
+电路小白;尽量别碰市电220V~
+
+人体安全电压:交流电压36V，交流电流10mA
+
+在家做实验最好买一个直流稳压电源
+
+另外注意，电压不可怕，可怕的是电流流过身体
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731946924006-e9f68347-16c9-48f0-a533-f0937dbe1a1d.png)
+
+非要用手使用手背碰
+
+因为被电手会收缩
+
+
+
+不要用双手，![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947009141-78de5303-a4be-4e0b-9985-9a60ec2e4d26.png)
+
+尽量用右手(偏心)
+
+
+
+
+2 欧姆定律
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947372045-e1b4e505-24af-4413-9022-1fbeb98f3d81.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947739204-f0b54b02-39fe-4d5f-8fd1-1b4e21416d2b.png)
+
+com 参考端 一般接黑
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947936015-3dd8536a-dee1-496a-beee-24ef021ff820.png)
+
+万用表也有电阻，可能会影响测量值
+
+
+
+
+
+
+3 电阻阻值识别
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948052621-bbd4e44a-84bd-4c0e-ac52-334bdbce2dd0.png)
+
+现实中买到的都是非理想元器件，不可能完全准确
+
+
+
+色环、插件电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948124735-29be7046-e481-41f0-b472-a0e9921618bc.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948144604-16de1494-0d9b-4e11-82fa-d8e9ca493f26.png)
+
+
+
+前面表示阻值大小 最后一位表示精度
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948286352-2b3463fe-1016-43d7-9127-87a563083f25.png)
+
+
+
+
+
+贴片电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948416721-0bdb6eaa-3987-49ef-a6a3-a55359e98b61.png)
+
+
+
+最后一位是10的n次方
+
+
+
+
+
+30R9 -> 30.9欧
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948467421-6cbff3e7-015a-4f78-a8f1-b63d18f4d96d.png)
+
+
+
+
+
+5 电阻的功率
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948556087-e77c42e1-0662-4b24-ae43-e3c1d9ae9b06.png)
+
+
+
+
+
+点亮一颗电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948680059-cb48164b-1627-4235-b9c9-c640fff820a2.png)
+
+
+
+电阻设计的功率不能超过额定功率
+
+
+
+
+
+5 电阻的限流作用
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948925090-497e561e-d16b-45ba-a34a-f856218a2c15.png)
+
+供电电压大于负载电压时，可以使用电阻限流
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731949187223-a18caa4a-b7f7-4bf1-95a6-e86f75321499.png)
+
+
+
+计算技巧
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731949287012-db8c9962-92f0-45f8-9f13-107eff41416e.png)
+
+v/mA = k欧
+
+v/MA = M 欧
+
+
+
+
+
+6 电阻分流
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986750255-31a14a02-ac09-4d92-b317-c2280787a087.png)
+
+
+
+拿电阻限流（不推荐）
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986910697-7741df0c-e794-4245-a89a-4af027118679.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986936202-a4d50e73-d304-487d-acdf-337aa90572f3.png)
+
+计算完后总电阻阻值不能变
+
+
+
+P= UI（计算需要分的功率）
+
+P/每个电阻额定功率 = 需要并联的电阻个数
+
+
+
+如果是拿10欧电阻计算的，那么并联之后电阻总阻值也应该为10欧
+
+
+
+7 电阻分压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987320395-81ca612a-a1cb-48ae-93d5-2c321d46d79a.png)
+
+使用多个电阻，每个电阻的功率很小
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987375522-a09628d5-1243-45c4-80a9-fa3b3217ed46.png)
+
+
+
+中学时学的电路默认V2为0
+
+现实中很多时候并不为0
+
+
+
+
+
+8 电容
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987604338-e2defdf4-999c-4915-a246-c52e0a174cd9.png)
+
+上节课的错误，时R2不是R1
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987667083-214bc230-042d-460e-a709-e4d20ca677e7.png)
+
+
+
+用电解液浸泡后的绝缘材料
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987746340-baaed619-c72c-4b72-8524-82262be35c99.png)
+
+
+
+电解电容接反会炸
+
+当反向电压达到一定值时，电流会快速增大
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987883361-ea85789a-66e7-402b-82b8-dae6501346cc.png)
+
+里面发生了化学反应
+
+
+
+如果是反向低压则是慢慢发生化学反应换掉
+
+
+
+总结
+
+上电前注意是否反接
+
+是否超过额定电压
+
+
+
+8 常见电容特性
+
+
+
+cbb电容
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988092556-6a244eac-cd30-4125-b4fb-04c42957e7c1.png)
+
+耐压高，不分正反，高频好
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988139777-ad35ceaa-ca3a-4915-b060-8c2b8dc3d2c7.png)
+
+ESL低高频特性好
+
+
+
+点解电容电解液会挥发，温度越高寿命越短
+
+
+
+
+
+9  电容两端的电压不能突变
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988273901-dd6b4591-5a9f-4641-96b5-de3aa59bb364.png)
+
+想改变电容两端的电压就必须要充放电 
+
+而充电/放电需要时间
+
+
+
+但是两端可以同时突变
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732005936413-b1bd2d33-a5a7-4743-8b4e-8106e71689ae.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732006131994-970c841a-121b-4285-84fb-4d5a82edd2bc.png)
+
+。">
+<meta property="og:title" content="电子工程师学习笔记 01">
+<meta property="og:description" content="### 陆续整理电子制作工艺的笔记了，与其在笔记软件里头吃灰，为什么不整理出来复习一遍呢~？
+#### 格式有点乱，后期可能会有所调整
+
+---
+
+第一章
+
+
+
+电路小白;尽量别碰市电220V~
+
+人体安全电压:交流电压36V，交流电流10mA
+
+在家做实验最好买一个直流稳压电源
+
+另外注意，电压不可怕，可怕的是电流流过身体
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731946924006-e9f68347-16c9-48f0-a533-f0937dbe1a1d.png)
+
+非要用手使用手背碰
+
+因为被电手会收缩
+
+
+
+不要用双手，![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947009141-78de5303-a4be-4e0b-9985-9a60ec2e4d26.png)
+
+尽量用右手(偏心)
+
+
+
+
+2 欧姆定律
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947372045-e1b4e505-24af-4413-9022-1fbeb98f3d81.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947739204-f0b54b02-39fe-4d5f-8fd1-1b4e21416d2b.png)
+
+com 参考端 一般接黑
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947936015-3dd8536a-dee1-496a-beee-24ef021ff820.png)
+
+万用表也有电阻，可能会影响测量值
+
+
+
+
+
+
+3 电阻阻值识别
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948052621-bbd4e44a-84bd-4c0e-ac52-334bdbce2dd0.png)
+
+现实中买到的都是非理想元器件，不可能完全准确
+
+
+
+色环、插件电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948124735-29be7046-e481-41f0-b472-a0e9921618bc.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948144604-16de1494-0d9b-4e11-82fa-d8e9ca493f26.png)
+
+
+
+前面表示阻值大小 最后一位表示精度
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948286352-2b3463fe-1016-43d7-9127-87a563083f25.png)
+
+
+
+
+
+贴片电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948416721-0bdb6eaa-3987-49ef-a6a3-a55359e98b61.png)
+
+
+
+最后一位是10的n次方
+
+
+
+
+
+30R9 -> 30.9欧
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948467421-6cbff3e7-015a-4f78-a8f1-b63d18f4d96d.png)
+
+
+
+
+
+5 电阻的功率
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948556087-e77c42e1-0662-4b24-ae43-e3c1d9ae9b06.png)
+
+
+
+
+
+点亮一颗电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948680059-cb48164b-1627-4235-b9c9-c640fff820a2.png)
+
+
+
+电阻设计的功率不能超过额定功率
+
+
+
+
+
+5 电阻的限流作用
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948925090-497e561e-d16b-45ba-a34a-f856218a2c15.png)
+
+供电电压大于负载电压时，可以使用电阻限流
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731949187223-a18caa4a-b7f7-4bf1-95a6-e86f75321499.png)
+
+
+
+计算技巧
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731949287012-db8c9962-92f0-45f8-9f13-107eff41416e.png)
+
+v/mA = k欧
+
+v/MA = M 欧
+
+
+
+
+
+6 电阻分流
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986750255-31a14a02-ac09-4d92-b317-c2280787a087.png)
+
+
+
+拿电阻限流（不推荐）
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986910697-7741df0c-e794-4245-a89a-4af027118679.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986936202-a4d50e73-d304-487d-acdf-337aa90572f3.png)
+
+计算完后总电阻阻值不能变
+
+
+
+P= UI（计算需要分的功率）
+
+P/每个电阻额定功率 = 需要并联的电阻个数
+
+
+
+如果是拿10欧电阻计算的，那么并联之后电阻总阻值也应该为10欧
+
+
+
+7 电阻分压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987320395-81ca612a-a1cb-48ae-93d5-2c321d46d79a.png)
+
+使用多个电阻，每个电阻的功率很小
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987375522-a09628d5-1243-45c4-80a9-fa3b3217ed46.png)
+
+
+
+中学时学的电路默认V2为0
+
+现实中很多时候并不为0
+
+
+
+
+
+8 电容
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987604338-e2defdf4-999c-4915-a246-c52e0a174cd9.png)
+
+上节课的错误，时R2不是R1
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987667083-214bc230-042d-460e-a709-e4d20ca677e7.png)
+
+
+
+用电解液浸泡后的绝缘材料
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987746340-baaed619-c72c-4b72-8524-82262be35c99.png)
+
+
+
+电解电容接反会炸
+
+当反向电压达到一定值时，电流会快速增大
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987883361-ea85789a-66e7-402b-82b8-dae6501346cc.png)
+
+里面发生了化学反应
+
+
+
+如果是反向低压则是慢慢发生化学反应换掉
+
+
+
+总结
+
+上电前注意是否反接
+
+是否超过额定电压
+
+
+
+8 常见电容特性
+
+
+
+cbb电容
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988092556-6a244eac-cd30-4125-b4fb-04c42957e7c1.png)
+
+耐压高，不分正反，高频好
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988139777-ad35ceaa-ca3a-4915-b060-8c2b8dc3d2c7.png)
+
+ESL低高频特性好
+
+
+
+点解电容电解液会挥发，温度越高寿命越短
+
+
+
+
+
+9  电容两端的电压不能突变
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988273901-dd6b4591-5a9f-4641-96b5-de3aa59bb364.png)
+
+想改变电容两端的电压就必须要充放电 
+
+而充电/放电需要时间
+
+
+
+但是两端可以同时突变
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732005936413-b1bd2d33-a5a7-4743-8b4e-8106e71689ae.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732006131994-970c841a-121b-4285-84fb-4d5a82edd2bc.png)
+
+。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/32.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>电子工程师学习笔记 01</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">电子工程师学习笔记 01</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/32" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h3>陆续整理电子制作工艺的笔记了，与其在笔记软件里头吃灰，为什么不整理出来复习一遍呢~？</h3>
+<h4>格式有点乱，后期可能会有所调整</h4>
+<hr>
+<p>第一章</p>
+<p>电路小白;尽量别碰市电220V~</p>
+<p>人体安全电压:交流电压36V，交流电流10mA</p>
+<p>在家做实验最好买一个直流稳压电源</p>
+<p>另外注意，电压不可怕，可怕的是电流流过身体</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/15db816f22a74446d3a1983b542bdac94295fb0ba8827f66224756b89cc74c76/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934363932343030362d65396636383334372d313663392d343866302d613533332d6630393337646265316131642e706e67"><img src="https://camo.githubusercontent.com/15db816f22a74446d3a1983b542bdac94295fb0ba8827f66224756b89cc74c76/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934363932343030362d65396636383334372d313663392d343866302d613533332d6630393337646265316131642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731946924006-e9f68347-16c9-48f0-a533-f0937dbe1a1d.png" style="max-width: 100%;"></a></p>
+<p>非要用手使用手背碰</p>
+<p>因为被电手会收缩</p>
+<p>不要用双手，<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8c7fc475ea116db3e8c24040c13f03a489e88633d884bb0246cc2991064e7ffc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934373030393134312d37386465353330332d613462652d346530622d393938352d3961363065633265346432362e706e67"><img src="https://camo.githubusercontent.com/8c7fc475ea116db3e8c24040c13f03a489e88633d884bb0246cc2991064e7ffc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934373030393134312d37386465353330332d613462652d346530622d393938352d3961363065633265346432362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947009141-78de5303-a4be-4e0b-9985-9a60ec2e4d26.png" style="max-width: 100%;"></a></p>
+<p>尽量用右手(偏心)</p>
+<p>2 欧姆定律</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/30326d2b5303c586870a40d8ebc2f0ac66e82df3d35a0728d4200969498a9716/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934373337323034352d65316234653530352d323461662d343431332d393032322d3166626562393866336438312e706e67"><img src="https://camo.githubusercontent.com/30326d2b5303c586870a40d8ebc2f0ac66e82df3d35a0728d4200969498a9716/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934373337323034352d65316234653530352d323461662d343431332d393032322d3166626562393866336438312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947372045-e1b4e505-24af-4413-9022-1fbeb98f3d81.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b9965e166f8e8b6841c08fde53e5f4e6a8215d7257a333eeaa3d7156e51873a2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934373733393230342d66306235346230322d333966652d346435662d386664312d3162346532313431366432622e706e67"><img src="https://camo.githubusercontent.com/b9965e166f8e8b6841c08fde53e5f4e6a8215d7257a333eeaa3d7156e51873a2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934373733393230342d66306235346230322d333966652d346435662d386664312d3162346532313431366432622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947739204-f0b54b02-39fe-4d5f-8fd1-1b4e21416d2b.png" style="max-width: 100%;"></a></p>
+<p>com 参考端 一般接黑</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/806850befd42986be89e5da2ab7c49de296fd55eef2103086dba68d54d00e743/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934373933363031352d33646438353336612d646565312d343936612d626565652d3234656630323166663832302e706e67"><img src="https://camo.githubusercontent.com/806850befd42986be89e5da2ab7c49de296fd55eef2103086dba68d54d00e743/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934373933363031352d33646438353336612d646565312d343936612d626565652d3234656630323166663832302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731947936015-3dd8536a-dee1-496a-beee-24ef021ff820.png" style="max-width: 100%;"></a></p>
+<p>万用表也有电阻，可能会影响测量值</p>
+<p>3 电阻阻值识别</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7c1bc4166b9ea046bd09944f8f75859d2a6d2f517fb3825ddf91e4fb0c6a5a4c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383035323632312d62626434653434612d383462642d346330652d616335322d3333346264626365326464302e706e67"><img src="https://camo.githubusercontent.com/7c1bc4166b9ea046bd09944f8f75859d2a6d2f517fb3825ddf91e4fb0c6a5a4c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383035323632312d62626434653434612d383462642d346330652d616335322d3333346264626365326464302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948052621-bbd4e44a-84bd-4c0e-ac52-334bdbce2dd0.png" style="max-width: 100%;"></a></p>
+<p>现实中买到的都是非理想元器件，不可能完全准确</p>
+<p>色环、插件电阻</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0a3d5f135a1f773aec7c73765b8cf13d787797e2e29021ab1cdcd05fa82a9d6e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383132343733352d32396265373034362d653438312d343166302d623437322d6130653939323136313862632e706e67"><img src="https://camo.githubusercontent.com/0a3d5f135a1f773aec7c73765b8cf13d787797e2e29021ab1cdcd05fa82a9d6e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383132343733352d32396265373034362d653438312d343166302d623437322d6130653939323136313862632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948124735-29be7046-e481-41f0-b472-a0e9921618bc.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4a7ae3aa948cbf58bc3c38c382b5dcf785c5a27ace7f67d4dd46f98d8c62acf0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383134343630342d31366465313439342d306439622d346531312d383266612d6438653963613439336632362e706e67"><img src="https://camo.githubusercontent.com/4a7ae3aa948cbf58bc3c38c382b5dcf785c5a27ace7f67d4dd46f98d8c62acf0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383134343630342d31366465313439342d306439622d346531312d383266612d6438653963613439336632362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948144604-16de1494-0d9b-4e11-82fa-d8e9ca493f26.png" style="max-width: 100%;"></a></p>
+<p>前面表示阻值大小 最后一位表示精度</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4a584713e519c72bef75bd6b15e256443fa3860a0e9cee32559da9fe92616b9f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383238363335322d32623334363366652d313031362d343364372d393132372d3837613536333038336632352e706e67"><img src="https://camo.githubusercontent.com/4a584713e519c72bef75bd6b15e256443fa3860a0e9cee32559da9fe92616b9f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383238363335322d32623334363366652d313031362d343364372d393132372d3837613536333038336632352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948286352-2b3463fe-1016-43d7-9127-87a563083f25.png" style="max-width: 100%;"></a></p>
+<p>贴片电阻</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/185e2f4897647b298292c468ca2009a2d223daaabe8cacac2460c3ff539e31e7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383431363732312d30626462366561612d333938372d343965662d613661332d6135353335396539386236312e706e67"><img src="https://camo.githubusercontent.com/185e2f4897647b298292c468ca2009a2d223daaabe8cacac2460c3ff539e31e7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383431363732312d30626462366561612d333938372d343965662d613661332d6135353335396539386236312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948416721-0bdb6eaa-3987-49ef-a6a3-a55359e98b61.png" style="max-width: 100%;"></a></p>
+<p>最后一位是10的n次方</p>
+<p>30R9 -&gt; 30.9欧</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/adfa8287aea01b937a11752f7669e168bd0b59d5ce348507303c4bda236ed660/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383436373432312d36636266663365372d303135612d346637382d613866312d6236336431386634643936642e706e67"><img src="https://camo.githubusercontent.com/adfa8287aea01b937a11752f7669e168bd0b59d5ce348507303c4bda236ed660/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383436373432312d36636266663365372d303135612d346637382d613866312d6236336431386634643936642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948467421-6cbff3e7-015a-4f78-a8f1-b63d18f4d96d.png" style="max-width: 100%;"></a></p>
+<p>5 电阻的功率</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fb7eadbb458297a61c586ea1fe3bca884d5a9c1c45e1619333f3d51f1d341aca/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383535363038372d65373763343265312d303636322d346232342d616534332d6533633164396165396230362e706e67"><img src="https://camo.githubusercontent.com/fb7eadbb458297a61c586ea1fe3bca884d5a9c1c45e1619333f3d51f1d341aca/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383535363038372d65373763343265312d303636322d346232342d616534332d6533633164396165396230362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948556087-e77c42e1-0662-4b24-ae43-e3c1d9ae9b06.png" style="max-width: 100%;"></a></p>
+<p>点亮一颗电阻</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/99403b4779b4a047b11af90a70d7d3b1ca86105dde30eb35de5ce4c6f620cdfa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383638303035392d63623438313634622d313632372d343233352d623963392d6336343066666638323061322e706e67"><img src="https://camo.githubusercontent.com/99403b4779b4a047b11af90a70d7d3b1ca86105dde30eb35de5ce4c6f620cdfa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383638303035392d63623438313634622d313632372d343233352d623963392d6336343066666638323061322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948680059-cb48164b-1627-4235-b9c9-c640fff820a2.png" style="max-width: 100%;"></a></p>
+<p>电阻设计的功率不能超过额定功率</p>
+<p>5 电阻的限流作用</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2938d31374cef821b6f3d07b8058670b0487b4c11d2e9e3c1f25e7873cf671c5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383932353039302d34393765353631652d643136622d343562612d613334612d6638353632313861326331352e706e67"><img src="https://camo.githubusercontent.com/2938d31374cef821b6f3d07b8058670b0487b4c11d2e9e3c1f25e7873cf671c5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934383932353039302d34393765353631652d643136622d343562612d613334612d6638353632313861326331352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731948925090-497e561e-d16b-45ba-a34a-f856218a2c15.png" style="max-width: 100%;"></a></p>
+<p>供电电压大于负载电压时，可以使用电阻限流</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/641215ad5d01a19d6ff8d44312fd0a3ee62573d5898719dcef56397d49dad312/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934393138373232332d61313863616134612d623766372d346266312d393561362d6538366637353332313439392e706e67"><img src="https://camo.githubusercontent.com/641215ad5d01a19d6ff8d44312fd0a3ee62573d5898719dcef56397d49dad312/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934393138373232332d61313863616134612d623766372d346266312d393561362d6538366637353332313439392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731949187223-a18caa4a-b7f7-4bf1-95a6-e86f75321499.png" style="max-width: 100%;"></a></p>
+<p>计算技巧</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c370091a1f19e19e9a48d8c81cd7a89d98c4388ddb0b53895a4de654834c2b78/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934393238373031322d64623863393936322d393266302d343566382d396631332d3130376566663431343136652e706e67"><img src="https://camo.githubusercontent.com/c370091a1f19e19e9a48d8c81cd7a89d98c4388ddb0b53895a4de654834c2b78/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313934393238373031322d64623863393936322d393266302d343566382d396631332d3130376566663431343136652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731949287012-db8c9962-92f0-45f8-9f13-107eff41416e.png" style="max-width: 100%;"></a></p>
+<p>v/mA = k欧</p>
+<p>v/MA = M 欧</p>
+<p>6 电阻分流</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ff31f610051322c5b5b3d2ce2d8b0079f2898c1c4421589e7fb2b006b50cc2f1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938363735303235352d33316131346130322d616330392d346439322d623331372d6332323830373837613038372e706e67"><img src="https://camo.githubusercontent.com/ff31f610051322c5b5b3d2ce2d8b0079f2898c1c4421589e7fb2b006b50cc2f1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938363735303235352d33316131346130322d616330392d346439322d623331372d6332323830373837613038372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986750255-31a14a02-ac09-4d92-b317-c2280787a087.png" style="max-width: 100%;"></a></p>
+<p>拿电阻限流（不推荐）</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b40e879cbbb17c8cb85275c16613e2ddfc0ed5b2d2da4ea840a925b8bd6ba5d1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938363931303639372d37373431646630632d653739342d343234352d613839612d3461663032373131383637392e706e67"><img src="https://camo.githubusercontent.com/b40e879cbbb17c8cb85275c16613e2ddfc0ed5b2d2da4ea840a925b8bd6ba5d1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938363931303639372d37373431646630632d653739342d343234352d613839612d3461663032373131383637392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986910697-7741df0c-e794-4245-a89a-4af027118679.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/39add84a8756e2693a81f1e0e9fa8d6810ec3639066390b1022657b9b08ed5e9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938363933363230322d61346435306537332d643330342d343837642d616364662d3333376161393035373266332e706e67"><img src="https://camo.githubusercontent.com/39add84a8756e2693a81f1e0e9fa8d6810ec3639066390b1022657b9b08ed5e9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938363933363230322d61346435306537332d643330342d343837642d616364662d3333376161393035373266332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731986936202-a4d50e73-d304-487d-acdf-337aa90572f3.png" style="max-width: 100%;"></a></p>
+<p>计算完后总电阻阻值不能变</p>
+<p>P= UI（计算需要分的功率）</p>
+<p>P/每个电阻额定功率 = 需要并联的电阻个数</p>
+<p>如果是拿10欧电阻计算的，那么并联之后电阻总阻值也应该为10欧</p>
+<p>7 电阻分压</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c94804952f67067b0441160cb41d46fc9266a25f492671187e4d5cd3e6ac550b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373332303339352d38316361363132612d613163622d343861652d393364352d3263333231643436643739612e706e67"><img src="https://camo.githubusercontent.com/c94804952f67067b0441160cb41d46fc9266a25f492671187e4d5cd3e6ac550b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373332303339352d38316361363132612d613163622d343861652d393364352d3263333231643436643739612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987320395-81ca612a-a1cb-48ae-93d5-2c321d46d79a.png" style="max-width: 100%;"></a></p>
+<p>使用多个电阻，每个电阻的功率很小</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0fe65e9a3d5cf747bece794bef5fd858e3caf16595c02cf2ef78a176b3ca3deb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373337353532322d61303936323864352d313234332d343563342d383061392d6661336233323137656434362e706e67"><img src="https://camo.githubusercontent.com/0fe65e9a3d5cf747bece794bef5fd858e3caf16595c02cf2ef78a176b3ca3deb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373337353532322d61303936323864352d313234332d343563342d383061392d6661336233323137656434362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987375522-a09628d5-1243-45c4-80a9-fa3b3217ed46.png" style="max-width: 100%;"></a></p>
+<p>中学时学的电路默认V2为0</p>
+<p>现实中很多时候并不为0</p>
+<p>8 电容</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b87ed07cb97282a3f4f6a02f9bbb8f70f072613941ab86d5e0752153a8fd28c2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373630343333382d65326465666466342d393939632d343931352d613234362d6335326530613137346364392e706e67"><img src="https://camo.githubusercontent.com/b87ed07cb97282a3f4f6a02f9bbb8f70f072613941ab86d5e0752153a8fd28c2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373630343333382d65326465666466342d393939632d343931352d613234362d6335326530613137346364392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987604338-e2defdf4-999c-4915-a246-c52e0a174cd9.png" style="max-width: 100%;"></a></p>
+<p>上节课的错误，时R2不是R1</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6f3e44bdd5c9017a868d62422e9d94a90cb09f7207a4df034b1647b35b8ca1e8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373636373038332d32313462633233302d303432642d343630652d613730392d6534643230636136373765372e706e67"><img src="https://camo.githubusercontent.com/6f3e44bdd5c9017a868d62422e9d94a90cb09f7207a4df034b1647b35b8ca1e8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373636373038332d32313462633233302d303432642d343630652d613730392d6534643230636136373765372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987667083-214bc230-042d-460e-a709-e4d20ca677e7.png" style="max-width: 100%;"></a></p>
+<p>用电解液浸泡后的绝缘材料</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6c3fdf4d29968537d320d78bc6fec31ee8f0841a46fadf8a4ce3f829908fbdc6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373734363334302d62616165643631392d633732632d346237322d383532342d3832323632626533356339392e706e67"><img src="https://camo.githubusercontent.com/6c3fdf4d29968537d320d78bc6fec31ee8f0841a46fadf8a4ce3f829908fbdc6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373734363334302d62616165643631392d633732632d346237322d383532342d3832323632626533356339392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987746340-baaed619-c72c-4b72-8524-82262be35c99.png" style="max-width: 100%;"></a></p>
+<p>电解电容接反会炸</p>
+<p>当反向电压达到一定值时，电流会快速增大</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e153cbbda475a472a6aea7429860c3b0875478c06a4c3b9df701445dc3a63679/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373838333336312d65613835373839612d363665372d343032622d383262382d6461653635303133343663632e706e67"><img src="https://camo.githubusercontent.com/e153cbbda475a472a6aea7429860c3b0875478c06a4c3b9df701445dc3a63679/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938373838333336312d65613835373839612d363665372d343032622d383262382d6461653635303133343663632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731987883361-ea85789a-66e7-402b-82b8-dae6501346cc.png" style="max-width: 100%;"></a></p>
+<p>里面发生了化学反应</p>
+<p>如果是反向低压则是慢慢发生化学反应换掉</p>
+<p>总结</p>
+<p>上电前注意是否反接</p>
+<p>是否超过额定电压</p>
+<p>8 常见电容特性</p>
+<p>cbb电容</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3d8be839033f7bbfd09eef7d61855fba9b2338e3011d5a77df2a109521726f53/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938383039323535362d36613234346561632d636433302d343132352d623466622d3034633432393537653763312e706e67"><img src="https://camo.githubusercontent.com/3d8be839033f7bbfd09eef7d61855fba9b2338e3011d5a77df2a109521726f53/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938383039323535362d36613234346561632d636433302d343132352d623466622d3034633432393537653763312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988092556-6a244eac-cd30-4125-b4fb-04c42957e7c1.png" style="max-width: 100%;"></a></p>
+<p>耐压高，不分正反，高频好</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2d285e23a7eeffd0e8d3e6020789b0d0975f84e91edc5dbf76956b2e3dd74375/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938383133393737372d61643335636561612d636133612d343931352d623036302d3863326238646333643263372e706e67"><img src="https://camo.githubusercontent.com/2d285e23a7eeffd0e8d3e6020789b0d0975f84e91edc5dbf76956b2e3dd74375/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938383133393737372d61643335636561612d636133612d343931352d623036302d3863326238646333643263372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988139777-ad35ceaa-ca3a-4915-b060-8c2b8dc3d2c7.png" style="max-width: 100%;"></a></p>
+<p>ESL低高频特性好</p>
+<p>点解电容电解液会挥发，温度越高寿命越短</p>
+<p>9  电容两端的电压不能突变</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ef2350e8631ba6d50ce1c45fbf72f947ecb4fbe1ff335b0bf50ef1e382d457c1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938383237333930312d64643662343539312d356139662d343634312d393662352d6465336161353962623336342e706e67"><img src="https://camo.githubusercontent.com/ef2350e8631ba6d50ce1c45fbf72f947ecb4fbe1ff335b0bf50ef1e382d457c1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733313938383237333930312d64643662343539312d356139662d343634312d393662352d6465336161353962623336342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1731988273901-dd6b4591-5a9f-4641-96b5-de3aa59bb364.png" style="max-width: 100%;"></a></p>
+<p>想改变电容两端的电压就必须要充放电</p>
+<p>而充电/放电需要时间</p>
+<p>但是两端可以同时突变</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5d504c20cacf824c4589753e8d797d48e8cb71cc69336a0cb8fb1b06aa35e112/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323030353933363431332d62316264326433332d613561372d343734332d386234652d3831303665373136383961652e706e67"><img src="https://camo.githubusercontent.com/5d504c20cacf824c4589753e8d797d48e8cb71cc69336a0cb8fb1b06aa35e112/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323030353933363431332d62316264326433332d613561372d343734332d386234652d3831303665373136383961652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732005936413-b1bd2d33-a5a7-4743-8b4e-8106e71689ae.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/10438c5b8bbd730239c8370899df04dc4dac5863e7ff5eb2a31ab33ec513326f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323030363133313939342d39373063383431612d313231622d343238352d383466622d3464356138326564643262632e706e67"><img src="https://camo.githubusercontent.com/10438c5b8bbd730239c8370899df04dc4dac5863e7ff5eb2a31ab33ec513326f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323030363133313939342d39373063383431612d313231622d343238352d383466622d3464356138326564643262632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732006131994-970c841a-121b-4285-84fb-4d5a82edd2bc.png" style="max-width: 100%;"></a></p></div>
+<div style="font-size:small;margin-top:8px;float:right;"><P>注意：转载请注明出处<br>转载前请仔细阅读此文章<br><a href = 'https://blog.adouzi.eu.org/post/21.html'>关于博客文章转载规则以及一些闲聊</a><br>个人主页<a href='https://adouzi.eu.org'>https://adouzi.eu.org</a><br>email：shiraayano@adouzi.eu.org</p><br></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+<script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
