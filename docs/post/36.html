@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="31 全波整流工作原理 
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732456771043-3170ecc3-3230-455e-b9d1-b462b4bd950d.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732456888448-f5f23005-737e-4f8a-b1d4-5b2ad7f34988.png)
+
+可以加入（滤波）电容稳压
+
+
+
+
+
+32 二极管的限位功能
+
+
+
+二极管只要导通了，那么它的电压就是基本不变的
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732457077939-7593e655-e5f9-4d50-ba70-13e7378d9ab7.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463249297-7f33d6f4-c655-437f-bb7a-290dcb583e5a.png)
+
+使用二极管钳位的前置条件
+
+电阻的分压要大于二极管的压降
+
+
+
+可以当作电路保护
+
+
+
+33 二极管控制电路电流流向
+
+反接保护
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463601772-624744b8-36ad-44d7-ac6b-4ecd1e6f878a.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463714859-7daace46-9309-4612-bcc8-1e126b5de302.png)
+
+
+
+另外
+
+一般不建议将二极管放到GND
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463826720-00e55ff1-59e3-45d2-b431-00a3a0fb56c0.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463844310-6f87ceb1-19c9-4740-8d8d-a96746ffdaa2.png)
+
+一般接到电源
+
+如果接到GND，那对地有0.7V
+
+34 二极管的最大反向耐压
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535069579-f776cfd3-adee-405f-8ee0-be56355a8226.png)
+
+30V额定电压，可能到35V会有微弱电流
+
+此时二极管还未损坏
+
+若继续增大电压，二极管有可能会被击穿
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535088937-354ed8e9-2fdc-497b-acac-94fed666b028.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535099018-5d5e748c-3197-4dab-989b-85664f62c79e.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535261186-c5ba7835-c7ba-4909-9caf-1f3337fff0ce.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535281836-48ad5d27-2241-4216-9756-d8024c306110.png)
+
+35 稳压二极管的基本功能
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535348333-a5623c58-f1a0-449d-ad80-70e0014d0e00.png)
+
+
+
+ ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535608483-4e43b215-4466-4ee7-ad3a-fc6399d9b6d5.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535711128-b6b23851-808b-4a6a-a7ce-705d664d9f18.png)
+
+电压稳定在5.6V左右
+
+
+
+36 三极管的基本结构
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535824871-69907dce-44e6-4333-9df5-432e0f891303.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535865203-664e309b-1acb-426d-8866-f15f2c701db6.png)
+
+三极管可以看作两个背靠背的二极管组成
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536070683-945bb948-982b-412e-b3ca-35979b728333.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535937040-cbb98cfb-74bc-4550-a070-3fa721bc979f.png)
+
+NPN PNP
+
+
+
+基级 b
+
+集电极 c
+
+发射极 e
+
+
+
+
+37 三极管的开关功能
+
+
+
+我们想让mcu控制元器件工作时，就必须在电路中添加电子开关（三极管）
+
+
+
+ZZ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536273932-fadcc367-a042-4cf8-a435-c34a2d116391.png)
+
+
+
+当mcu输出高电平时
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536308693-c9987fcc-9585-4519-90af-9a724662846e.png)
+
+三极管ce导通
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536383372-d3961f93-7318-4b76-bcec-a74a837fe761.png)
+
+
+
+三极管还可以放大小信号
+
+
+
+
+38 三极管开关功能需要注意
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732557790891-7d65b1f9-9cad-47e8-8cbd-951880111ce6.png)
+
+当负载电流小于100ma
+
+一般来讲限流电阻选1k 10k似乎都问题不大
+
+
+
+大于100ma时，会炸
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732557920281-56a227a8-38e8-4b14-be08-7c81bcba7b9e.png)
+
+
+
+三极管进入放大状态
+
+不能带大负载，发热会很严重
+
+
+
+三极管作为开关使用时，Rb一定不能乱取
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558097820-99414398-f59f-43ca-9b38-53d52bf991e2.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558140912-3e1c33f0-ea28-4d89-be5d-3511d9f1a220.png)
+
+电阻值计算
+
+Ib乘上三极管电流放大倍数大于Ic就可以
+
+首先 找出Ic最大值 （负载的电流）
+
+电流放大倍数默认100就可
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558396260-abc2e739-8c4a-491f-9595-02ea7d561500.png)
+
+39 P型三极管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558527981-ee06ed72-0265-47cc-8172-c8551c543951.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732559108037-70e5a924-1481-47ac-8303-e972573e69e1.png)
+
+Vbe存在0.7V压降 ce之间有比较大的压差 发热会非常严重
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732559181416-002dfd3b-b21d-4a3b-9bc6-1427432df785.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558680737-a8bd9456-7ced-4f55-bd1e-9444bb2e4cf3.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558762410-84b8f09c-3cf2-48c1-94fa-4271582ac19b.png)
+
+P管可以当负载电源开关
+
+N管控制电源负极 GND
+
+40 P型三极管开关电路设计注意事项
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589054752-2a7c5d70-fc1a-4243-9d06-db1408f5a509.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589076869-29522a32-b6c2-43b6-b563-ed216bc5f9fc.png)
+
+41 N型三极管和P型三极管的特性对比
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589199721-f7d9c927-cc5d-4973-a5c0-cbacd9e43ada.png)
+
+42 三极管的输出反相功能
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624261031-65bc7f57-6c64-47a8-a764-2839e9c02662.png)
+
+当输入0时，三极管不导通，输出为1
+
+当输入1时，三级管导通，输出0
+
+
+
+使用P管能直接实现
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624404687-850ea076-7329-4650-8fb2-a297d6f15cf2.png)
+
+
+
+也可以用两个N管实现
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624485695-daabe24a-df2d-4a6c-8281-3f1f88261900.png)
+
+一个N管（小电流场景）
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624541289-1e1bd434-3e5d-470c-8075-7d20d5b0f4f3.png)
+
+43 三极管基极下拉电阻的重要性
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624663217-c95d3de2-dacb-43f9-ace3-9e3b77f5c4c2.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624712356-10295514-53a2-4813-bb23-194754ce5c43.png)
+
+
+
+（加入一个接地电阻就能解决）
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624767988-98d6338b-b917-4dc8-9050-861c14c16f2b.png)
+
+
+
+人体感应的电荷被接地端释放了
+
+
+
+只要用三极管作为开关，底部就要有上/下拉电阻（！
+
+N下P上
+
+
+
+p管的上拉电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624866353-17207023-1c79-4493-a787-49e735c3b39e.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624901110-4ef45a30-c1f0-492c-b3ae-b546a819a49f.png)
+
+44 三极管的最大耐压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624952566-bc9b9631-ad5a-4e1e-9056-0e81ec9d3aa5.png)
+
+
+
+一般vbe反向耐压最小
+
+vce耐压其次
+
+vcb耐压最大
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625234640-8f93f582-cb18-4694-a867-330569debccc.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625160359-b5aa0af8-0b51-426e-ac55-084f96c3f6c0.png)
+
+
+
+三极管并不是一个理想开关
+
+它有最大耐压值
+
+
+
+
+45 自动出水水龙头工作原理
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625296981-26a77398-ecb4-42d3-a6cd-1e04c46ea939.png)
+
+利用红外发射接收模块判断前面是否有物体
+
+
+
+比较器
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625350164-1fef6655-3d83-4b27-b581-0929772585f1.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625386650-58ed872b-41ff-4297-a9dd-ca3dc3f08cf2.png)
+
+
+
+V+ > V- -> 1
+
+V+ < V- -> 0
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625499792-17b078ba-86e0-4ab9-8ac6-c643c1bfd35e.png)
+
+
+
+
+
+
+46 自动出水水龙头工作原理2
+
+
+
+当红外接收二极管没收到任何信号时断开
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625615143-b4679469-3a7b-4158-ab51-4d3327f0d428.png)
+
+否则导通
+
+
+
+接收的光越亮，流过的电流越大
+
+如图例
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625846398-63a93d1c-8109-4ac0-af41-9716dcba2427.png)
+
+有红外时，V=5-1=4V
+
+没红外时5V
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625936649-cc506ec8-eace-44c0-99e4-20ab5bd33f2e.png)
+
+
+
+火也可以发出红外光
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626121430-8e1f7d16-9cff-4ec8-bc5a-0d39605f8a43.png)
+
+可以检测火
+
+也可以用红外遥控器控制
+
+47 自动出水水龙头电路设计注意事项
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626244865-a424c2cb-d0b8-42e1-a2bd-323645099f63.png)
+
+电源5V 在切断电源时感应出了18v（还可能更高）
+
+因为电机是电感性负载，切断电源时电感会感应出一个很高的电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626398063-befc2f2a-abd7-4d30-b46f-d9412328808e.png)
+
+我们可以加入一个续流二极管
+
+48 比较器为什么要加上上拉电阻
+
+
+
+一个接到Vcc，一个接到GND的我们称之为推挽输出
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626718044-7e7807a2-c816-42e8-8f37-59fa2719dd84.png)
+
+但是有一些比较器不是推挽输出
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626745384-98296d29-c428-4cfb-83c1-0ba1763d2f21.png)
+
+开漏输出/开集输出
+
+这时需要添加上拉电阻，将电压拉到VCC
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626803616-c46305c8-b1ed-4eee-bea4-d7b29cf69ca9.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626847921-74546dba-2d4c-4e7f-8e9d-77ff55879a90.png)
+
+
+
+
+
+49 温控风扇工作原理
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627145817-3727c871-9a92-4cc5-987c-599b39cad6a6.png)
+
+当温度达到某一值时驱动电机
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627367652-fe77ab38-d6e4-4283-b7f9-c4d8bd0de642.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627530819-dbfc25cb-a24e-402a-8614-e09283639764.png)
+
+50 人体感应灯原理
+
+当它接收到红外光时，会感应出微软的电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627625712-0393a0eb-a5e3-4686-9c74-fbabc6a2f54d.png)
+
+经过MOS管放大
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627673015-b8b10b61-d8ed-4157-9631-a58f8a30a109.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627945393-4a641095-9084-43b6-8a00-9258b43eeca4.png)
+
+模块只能识别移动的热物体
+
+
+
+用P管实现
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627849382-c4bfc1eb-7294-45a2-8fa1-a8084474fcc7.png)
+
+
+
+用N管实现
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627901639-219073ea-53ed-4dcc-b85e-779c99b9551e.png)
+
+51 光控灯工作原理
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628158183-422fe260-053d-45a5-ad65-fdd48c67ac32.png)
+
+光敏电阻
+
+当光很暗的时候，阻值11k，V+于2.5 输出1
+
+很亮 V+对地小于2.5 比较器输出0
+
+
+
+
+
+52 MOS管的基本结构
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628417445-4f1da5cc-46ff-4d62-9e6f-ca4eb20267a8.png)
+
+MOS管由四部分组成
+
+S源极
+
+G栅极
+
+D漏极
+
+P衬底
+
+
+
+可以认为MOS管的四个部分互相绝缘
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628461793-a280a7b9-e2e9-4bb3-849b-4aad50141e0d.png)
+
+所以它们互相之间存在寄生电容
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628493982-e479d030-b9fe-47b1-b143-6a1f493660a9.png)
+
+它源极漏极由N组成，衬底由P组成，所以可以看作存在两个二极管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628646411-e49d1c8a-3c8e-410c-9ce9-06c6baf54742.png)
+
+部分MOS管会将源极和衬底连在一起
+
+二极管会被短路
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628701472-c98e6aea-2fa8-460a-a352-837009e1ef62.png)
+
+最后S-D之间会形成寄生二极管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628785957-b452cfc8-2756-4a4c-8ed6-c3d86e5d1ea6.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628827450-08bf2553-9b8f-47fa-ad7c-b362c7d98eec.png)
+
+53 MOS管的导通条件
+
+
+
+Nmos
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628973779-ae4e75c9-b12a-4f43-8d9f-d673d8b68e02.png)
+
+
+
+Pmos
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629028091-c06dc9dd-55b2-453b-a18f-d2d5fb5cb22f.png)
+
+注意：
+
+Pmos管数据手册中导通电压一般为负值
+
+Vth=Vg - Vs
+
+所以Vg一般要小于Vs
+
+54 MOS开关电路的设计方法
+
+（和三极管非常相似）
+
+
+
+Nmos
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629256902-436ca69c-a1b6-4695-b443-893e3881cf86.png)
+
+
+
+Pmos
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629329141-7e53b746-05af-4287-8714-84ef3e05e74c.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629359863-d4b91f78-64fa-4e67-9405-92aacd85cdb4.png)
+
+
+
+
+
+
+
+上电
+
+MOS管时电压控制器件
+
+可以不加电阻，三极管不行
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629476140-bac02811-2ac8-4946-a02f-da0bb2978f7e.png)
+
+大部分低功耗芯片会使用MOS管的结构
+
+
+
+55 mos的寄生电容问题
+
+因为mos存在寄生电容
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675405218-7f1f4325-7a25-4ed6-a461-9ae11ba9018b.png)
+
+当开关闭合时，led任然会亮
+
+gs之间存在寄生电容
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675477778-9d6adf2c-c844-4290-b07a-01b0fba5916d.png)
+
+
+
+使用三极管就没有这个问题
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675592052-c1a67398-86c6-40a2-99c8-9fd0aa305573.png)
+
+
+
+解决方案，在gs之间加颗大电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675631740-71971268-b410-4734-aeff-f76a25e51806.png)
+
+
+
+
+
+56 mos寄生二极管不能忽略
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675849552-f8ebcc09-9622-4301-a81a-7045bf8705d7.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675932660-498d3c3f-1570-4611-bd01-e6e62108d1d4.png)
+
+在这个电路中，电流可能会通过寄生二极管给电池充电
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676025328-41a66602-8c0a-4eed-9cae-222f802982ff.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676062919-1b6042b1-4d56-46d4-a155-4a5794e2f61d.png)
+
+57 mos做开关的注意事项
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676398448-06a1c51c-19dd-41c6-8cb1-0342567a58ae.png)
+
+如图，当S极没有接地时，最终会变成放大状态
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676506710-91912cd3-9697-4217-a1e9-87eb661e8efb.png)
+
+
+
+MOS管作为开关使用时，S极不接地很容易变成放大状态 发热很严重
+
+
+
+方案一 我们可以增大输入电压 例如把输入电压加到6.5V 那么它不会进入放大状态（拿一个比负载还高的电压）
+
+方案二 利用电容两端电压不能突变的特性
+
+
+
+自举电路 利用电容抬高电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676961587-af00b232-5e54-487a-9939-c8fc3bf3b51f.png)
+
+58 Pmos的开关电路设计方法
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732796818609-f9bc29fe-05f1-4d25-8094-43195b37efe9.png)
+
+Pmos适合做开关
+
+大功率场景不适合使用
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732796853955-b13e0d7f-6075-41da-bc9a-1912c60515a8.png)
+
+一般是使用单片机控制
+
+59 Pmos防反接电路的工作原理
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797001971-95a91282-f960-4760-967a-7a6cff4335cc.png)
+
+
+
+如果没有mos管，mcu将承受反向12V
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797044756-2a5ea985-331b-4302-8695-df3a742db96c.png)
+
+60 Mos管DS之间可以双向流通
+
+正常情况下我们是不希望使用双向流通的特性
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797874846-1faff77a-9ef7-40cc-bb68-5406165beb21.png)
+
+因为mos管中存在寄生二极管，它有压降
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798237631-b2729166-3cb5-4dc3-b638-05d6a01063ec.png)
+
+
+
+只要满足导通条件，电子就可以在沟道中移动
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797999988-2cf3e2d3-6631-4feb-a18e-106c137ac3f0.png)
+
+
+
+电路一
+
+注意，此电路即使开关没有闭合，也可以通过寄生二极管供电
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798071907-4b5cb4e5-9b44-4c87-ba3c-64f0b22b29ac.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798253153-1e85cf23-88bf-4e4a-8f07-c1a5279e97f1.png)
+
+
+
+
+
+电路二 
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798298341-c1ef04a1-2b07-414e-845c-430ac60cb0a6.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798181591-4233aba1-81de-470b-ab35-9609a3b8eaf7.png)
+
+
+
+
+
+
+
+可以增加一个反向mos管来抵消寄生二极管的影响
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798340134-76873300-e013-44e4-9d08-78e1d6085849.png)
+
+
+
+（模拟开关芯片当中电流可以双向流通就是利用了mos管）
+
+。">
+<meta property="og:title" content="电子工程师 学习笔记 二">
+<meta property="og:description" content="31 全波整流工作原理 
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732456771043-3170ecc3-3230-455e-b9d1-b462b4bd950d.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732456888448-f5f23005-737e-4f8a-b1d4-5b2ad7f34988.png)
+
+可以加入（滤波）电容稳压
+
+
+
+
+
+32 二极管的限位功能
+
+
+
+二极管只要导通了，那么它的电压就是基本不变的
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732457077939-7593e655-e5f9-4d50-ba70-13e7378d9ab7.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463249297-7f33d6f4-c655-437f-bb7a-290dcb583e5a.png)
+
+使用二极管钳位的前置条件
+
+电阻的分压要大于二极管的压降
+
+
+
+可以当作电路保护
+
+
+
+33 二极管控制电路电流流向
+
+反接保护
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463601772-624744b8-36ad-44d7-ac6b-4ecd1e6f878a.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463714859-7daace46-9309-4612-bcc8-1e126b5de302.png)
+
+
+
+另外
+
+一般不建议将二极管放到GND
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463826720-00e55ff1-59e3-45d2-b431-00a3a0fb56c0.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463844310-6f87ceb1-19c9-4740-8d8d-a96746ffdaa2.png)
+
+一般接到电源
+
+如果接到GND，那对地有0.7V
+
+34 二极管的最大反向耐压
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535069579-f776cfd3-adee-405f-8ee0-be56355a8226.png)
+
+30V额定电压，可能到35V会有微弱电流
+
+此时二极管还未损坏
+
+若继续增大电压，二极管有可能会被击穿
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535088937-354ed8e9-2fdc-497b-acac-94fed666b028.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535099018-5d5e748c-3197-4dab-989b-85664f62c79e.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535261186-c5ba7835-c7ba-4909-9caf-1f3337fff0ce.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535281836-48ad5d27-2241-4216-9756-d8024c306110.png)
+
+35 稳压二极管的基本功能
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535348333-a5623c58-f1a0-449d-ad80-70e0014d0e00.png)
+
+
+
+ ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535608483-4e43b215-4466-4ee7-ad3a-fc6399d9b6d5.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535711128-b6b23851-808b-4a6a-a7ce-705d664d9f18.png)
+
+电压稳定在5.6V左右
+
+
+
+36 三极管的基本结构
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535824871-69907dce-44e6-4333-9df5-432e0f891303.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535865203-664e309b-1acb-426d-8866-f15f2c701db6.png)
+
+三极管可以看作两个背靠背的二极管组成
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536070683-945bb948-982b-412e-b3ca-35979b728333.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535937040-cbb98cfb-74bc-4550-a070-3fa721bc979f.png)
+
+NPN PNP
+
+
+
+基级 b
+
+集电极 c
+
+发射极 e
+
+
+
+
+37 三极管的开关功能
+
+
+
+我们想让mcu控制元器件工作时，就必须在电路中添加电子开关（三极管）
+
+
+
+ZZ![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536273932-fadcc367-a042-4cf8-a435-c34a2d116391.png)
+
+
+
+当mcu输出高电平时
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536308693-c9987fcc-9585-4519-90af-9a724662846e.png)
+
+三极管ce导通
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536383372-d3961f93-7318-4b76-bcec-a74a837fe761.png)
+
+
+
+三极管还可以放大小信号
+
+
+
+
+38 三极管开关功能需要注意
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732557790891-7d65b1f9-9cad-47e8-8cbd-951880111ce6.png)
+
+当负载电流小于100ma
+
+一般来讲限流电阻选1k 10k似乎都问题不大
+
+
+
+大于100ma时，会炸
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732557920281-56a227a8-38e8-4b14-be08-7c81bcba7b9e.png)
+
+
+
+三极管进入放大状态
+
+不能带大负载，发热会很严重
+
+
+
+三极管作为开关使用时，Rb一定不能乱取
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558097820-99414398-f59f-43ca-9b38-53d52bf991e2.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558140912-3e1c33f0-ea28-4d89-be5d-3511d9f1a220.png)
+
+电阻值计算
+
+Ib乘上三极管电流放大倍数大于Ic就可以
+
+首先 找出Ic最大值 （负载的电流）
+
+电流放大倍数默认100就可
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558396260-abc2e739-8c4a-491f-9595-02ea7d561500.png)
+
+39 P型三极管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558527981-ee06ed72-0265-47cc-8172-c8551c543951.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732559108037-70e5a924-1481-47ac-8303-e972573e69e1.png)
+
+Vbe存在0.7V压降 ce之间有比较大的压差 发热会非常严重
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732559181416-002dfd3b-b21d-4a3b-9bc6-1427432df785.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558680737-a8bd9456-7ced-4f55-bd1e-9444bb2e4cf3.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558762410-84b8f09c-3cf2-48c1-94fa-4271582ac19b.png)
+
+P管可以当负载电源开关
+
+N管控制电源负极 GND
+
+40 P型三极管开关电路设计注意事项
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589054752-2a7c5d70-fc1a-4243-9d06-db1408f5a509.png)![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589076869-29522a32-b6c2-43b6-b563-ed216bc5f9fc.png)
+
+41 N型三极管和P型三极管的特性对比
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589199721-f7d9c927-cc5d-4973-a5c0-cbacd9e43ada.png)
+
+42 三极管的输出反相功能
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624261031-65bc7f57-6c64-47a8-a764-2839e9c02662.png)
+
+当输入0时，三极管不导通，输出为1
+
+当输入1时，三级管导通，输出0
+
+
+
+使用P管能直接实现
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624404687-850ea076-7329-4650-8fb2-a297d6f15cf2.png)
+
+
+
+也可以用两个N管实现
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624485695-daabe24a-df2d-4a6c-8281-3f1f88261900.png)
+
+一个N管（小电流场景）
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624541289-1e1bd434-3e5d-470c-8075-7d20d5b0f4f3.png)
+
+43 三极管基极下拉电阻的重要性
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624663217-c95d3de2-dacb-43f9-ace3-9e3b77f5c4c2.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624712356-10295514-53a2-4813-bb23-194754ce5c43.png)
+
+
+
+（加入一个接地电阻就能解决）
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624767988-98d6338b-b917-4dc8-9050-861c14c16f2b.png)
+
+
+
+人体感应的电荷被接地端释放了
+
+
+
+只要用三极管作为开关，底部就要有上/下拉电阻（！
+
+N下P上
+
+
+
+p管的上拉电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624866353-17207023-1c79-4493-a787-49e735c3b39e.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624901110-4ef45a30-c1f0-492c-b3ae-b546a819a49f.png)
+
+44 三极管的最大耐压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624952566-bc9b9631-ad5a-4e1e-9056-0e81ec9d3aa5.png)
+
+
+
+一般vbe反向耐压最小
+
+vce耐压其次
+
+vcb耐压最大
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625234640-8f93f582-cb18-4694-a867-330569debccc.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625160359-b5aa0af8-0b51-426e-ac55-084f96c3f6c0.png)
+
+
+
+三极管并不是一个理想开关
+
+它有最大耐压值
+
+
+
+
+45 自动出水水龙头工作原理
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625296981-26a77398-ecb4-42d3-a6cd-1e04c46ea939.png)
+
+利用红外发射接收模块判断前面是否有物体
+
+
+
+比较器
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625350164-1fef6655-3d83-4b27-b581-0929772585f1.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625386650-58ed872b-41ff-4297-a9dd-ca3dc3f08cf2.png)
+
+
+
+V+ > V- -> 1
+
+V+ < V- -> 0
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625499792-17b078ba-86e0-4ab9-8ac6-c643c1bfd35e.png)
+
+
+
+
+
+
+46 自动出水水龙头工作原理2
+
+
+
+当红外接收二极管没收到任何信号时断开
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625615143-b4679469-3a7b-4158-ab51-4d3327f0d428.png)
+
+否则导通
+
+
+
+接收的光越亮，流过的电流越大
+
+如图例
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625846398-63a93d1c-8109-4ac0-af41-9716dcba2427.png)
+
+有红外时，V=5-1=4V
+
+没红外时5V
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625936649-cc506ec8-eace-44c0-99e4-20ab5bd33f2e.png)
+
+
+
+火也可以发出红外光
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626121430-8e1f7d16-9cff-4ec8-bc5a-0d39605f8a43.png)
+
+可以检测火
+
+也可以用红外遥控器控制
+
+47 自动出水水龙头电路设计注意事项
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626244865-a424c2cb-d0b8-42e1-a2bd-323645099f63.png)
+
+电源5V 在切断电源时感应出了18v（还可能更高）
+
+因为电机是电感性负载，切断电源时电感会感应出一个很高的电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626398063-befc2f2a-abd7-4d30-b46f-d9412328808e.png)
+
+我们可以加入一个续流二极管
+
+48 比较器为什么要加上上拉电阻
+
+
+
+一个接到Vcc，一个接到GND的我们称之为推挽输出
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626718044-7e7807a2-c816-42e8-8f37-59fa2719dd84.png)
+
+但是有一些比较器不是推挽输出
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626745384-98296d29-c428-4cfb-83c1-0ba1763d2f21.png)
+
+开漏输出/开集输出
+
+这时需要添加上拉电阻，将电压拉到VCC
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626803616-c46305c8-b1ed-4eee-bea4-d7b29cf69ca9.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626847921-74546dba-2d4c-4e7f-8e9d-77ff55879a90.png)
+
+
+
+
+
+49 温控风扇工作原理
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627145817-3727c871-9a92-4cc5-987c-599b39cad6a6.png)
+
+当温度达到某一值时驱动电机
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627367652-fe77ab38-d6e4-4283-b7f9-c4d8bd0de642.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627530819-dbfc25cb-a24e-402a-8614-e09283639764.png)
+
+50 人体感应灯原理
+
+当它接收到红外光时，会感应出微软的电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627625712-0393a0eb-a5e3-4686-9c74-fbabc6a2f54d.png)
+
+经过MOS管放大
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627673015-b8b10b61-d8ed-4157-9631-a58f8a30a109.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627945393-4a641095-9084-43b6-8a00-9258b43eeca4.png)
+
+模块只能识别移动的热物体
+
+
+
+用P管实现
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627849382-c4bfc1eb-7294-45a2-8fa1-a8084474fcc7.png)
+
+
+
+用N管实现
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627901639-219073ea-53ed-4dcc-b85e-779c99b9551e.png)
+
+51 光控灯工作原理
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628158183-422fe260-053d-45a5-ad65-fdd48c67ac32.png)
+
+光敏电阻
+
+当光很暗的时候，阻值11k，V+于2.5 输出1
+
+很亮 V+对地小于2.5 比较器输出0
+
+
+
+
+
+52 MOS管的基本结构
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628417445-4f1da5cc-46ff-4d62-9e6f-ca4eb20267a8.png)
+
+MOS管由四部分组成
+
+S源极
+
+G栅极
+
+D漏极
+
+P衬底
+
+
+
+可以认为MOS管的四个部分互相绝缘
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628461793-a280a7b9-e2e9-4bb3-849b-4aad50141e0d.png)
+
+所以它们互相之间存在寄生电容
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628493982-e479d030-b9fe-47b1-b143-6a1f493660a9.png)
+
+它源极漏极由N组成，衬底由P组成，所以可以看作存在两个二极管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628646411-e49d1c8a-3c8e-410c-9ce9-06c6baf54742.png)
+
+部分MOS管会将源极和衬底连在一起
+
+二极管会被短路
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628701472-c98e6aea-2fa8-460a-a352-837009e1ef62.png)
+
+最后S-D之间会形成寄生二极管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628785957-b452cfc8-2756-4a4c-8ed6-c3d86e5d1ea6.png)
+
+
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628827450-08bf2553-9b8f-47fa-ad7c-b362c7d98eec.png)
+
+53 MOS管的导通条件
+
+
+
+Nmos
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628973779-ae4e75c9-b12a-4f43-8d9f-d673d8b68e02.png)
+
+
+
+Pmos
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629028091-c06dc9dd-55b2-453b-a18f-d2d5fb5cb22f.png)
+
+注意：
+
+Pmos管数据手册中导通电压一般为负值
+
+Vth=Vg - Vs
+
+所以Vg一般要小于Vs
+
+54 MOS开关电路的设计方法
+
+（和三极管非常相似）
+
+
+
+Nmos
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629256902-436ca69c-a1b6-4695-b443-893e3881cf86.png)
+
+
+
+Pmos
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629329141-7e53b746-05af-4287-8714-84ef3e05e74c.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629359863-d4b91f78-64fa-4e67-9405-92aacd85cdb4.png)
+
+
+
+
+
+
+
+上电
+
+MOS管时电压控制器件
+
+可以不加电阻，三极管不行
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629476140-bac02811-2ac8-4946-a02f-da0bb2978f7e.png)
+
+大部分低功耗芯片会使用MOS管的结构
+
+
+
+55 mos的寄生电容问题
+
+因为mos存在寄生电容
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675405218-7f1f4325-7a25-4ed6-a461-9ae11ba9018b.png)
+
+当开关闭合时，led任然会亮
+
+gs之间存在寄生电容
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675477778-9d6adf2c-c844-4290-b07a-01b0fba5916d.png)
+
+
+
+使用三极管就没有这个问题
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675592052-c1a67398-86c6-40a2-99c8-9fd0aa305573.png)
+
+
+
+解决方案，在gs之间加颗大电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675631740-71971268-b410-4734-aeff-f76a25e51806.png)
+
+
+
+
+
+56 mos寄生二极管不能忽略
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675849552-f8ebcc09-9622-4301-a81a-7045bf8705d7.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675932660-498d3c3f-1570-4611-bd01-e6e62108d1d4.png)
+
+在这个电路中，电流可能会通过寄生二极管给电池充电
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676025328-41a66602-8c0a-4eed-9cae-222f802982ff.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676062919-1b6042b1-4d56-46d4-a155-4a5794e2f61d.png)
+
+57 mos做开关的注意事项
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676398448-06a1c51c-19dd-41c6-8cb1-0342567a58ae.png)
+
+如图，当S极没有接地时，最终会变成放大状态
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676506710-91912cd3-9697-4217-a1e9-87eb661e8efb.png)
+
+
+
+MOS管作为开关使用时，S极不接地很容易变成放大状态 发热很严重
+
+
+
+方案一 我们可以增大输入电压 例如把输入电压加到6.5V 那么它不会进入放大状态（拿一个比负载还高的电压）
+
+方案二 利用电容两端电压不能突变的特性
+
+
+
+自举电路 利用电容抬高电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676961587-af00b232-5e54-487a-9939-c8fc3bf3b51f.png)
+
+58 Pmos的开关电路设计方法
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732796818609-f9bc29fe-05f1-4d25-8094-43195b37efe9.png)
+
+Pmos适合做开关
+
+大功率场景不适合使用
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732796853955-b13e0d7f-6075-41da-bc9a-1912c60515a8.png)
+
+一般是使用单片机控制
+
+59 Pmos防反接电路的工作原理
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797001971-95a91282-f960-4760-967a-7a6cff4335cc.png)
+
+
+
+如果没有mos管，mcu将承受反向12V
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797044756-2a5ea985-331b-4302-8695-df3a742db96c.png)
+
+60 Mos管DS之间可以双向流通
+
+正常情况下我们是不希望使用双向流通的特性
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797874846-1faff77a-9ef7-40cc-bb68-5406165beb21.png)
+
+因为mos管中存在寄生二极管，它有压降
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798237631-b2729166-3cb5-4dc3-b638-05d6a01063ec.png)
+
+
+
+只要满足导通条件，电子就可以在沟道中移动
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797999988-2cf3e2d3-6631-4feb-a18e-106c137ac3f0.png)
+
+
+
+电路一
+
+注意，此电路即使开关没有闭合，也可以通过寄生二极管供电
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798071907-4b5cb4e5-9b44-4c87-ba3c-64f0b22b29ac.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798253153-1e85cf23-88bf-4e4a-8f07-c1a5279e97f1.png)
+
+
+
+
+
+电路二 
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798298341-c1ef04a1-2b07-414e-845c-430ac60cb0a6.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798181591-4233aba1-81de-470b-ab35-9609a3b8eaf7.png)
+
+
+
+
+
+
+
+可以增加一个反向mos管来抵消寄生二极管的影响
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798340134-76873300-e013-44e4-9d08-78e1d6085849.png)
+
+
+
+（模拟开关芯片当中电流可以双向流通就是利用了mos管）
+
+。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/36.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>电子工程师 学习笔记 二</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">电子工程师 学习笔记 二</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/36" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>31 全波整流工作原理</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/691d685866c687892f09304d718daee9f7955d9f278fc591dcfa3ecad655f2cf/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323435363737313034332d33313730656363332d333233302d343535652d623964312d6234363262346264393530642e706e67"><img src="https://camo.githubusercontent.com/691d685866c687892f09304d718daee9f7955d9f278fc591dcfa3ecad655f2cf/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323435363737313034332d33313730656363332d333233302d343535652d623964312d6234363262346264393530642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732456771043-3170ecc3-3230-455e-b9d1-b462b4bd950d.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3a85819fbb7b444aa3fd4567ee7a7ccc223c898c42bf456a8bdbdad10a596ac2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323435363838383434382d66356632333030352d373337652d346638612d623164342d3562326164376633343938382e706e67"><img src="https://camo.githubusercontent.com/3a85819fbb7b444aa3fd4567ee7a7ccc223c898c42bf456a8bdbdad10a596ac2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323435363838383434382d66356632333030352d373337652d346638612d623164342d3562326164376633343938382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732456888448-f5f23005-737e-4f8a-b1d4-5b2ad7f34988.png" style="max-width: 100%;"></a></p>
+<p>可以加入（滤波）电容稳压</p>
+<p>32 二极管的限位功能</p>
+<p>二极管只要导通了，那么它的电压就是基本不变的</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3b0a8fe032c9af248cb103cf02708b1961eb605e46abef67bcf773abdc732177/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323435373037373933392d37353933653635352d653566392d346435302d626137302d3133653733373864396162372e706e67"><img src="https://camo.githubusercontent.com/3b0a8fe032c9af248cb103cf02708b1961eb605e46abef67bcf773abdc732177/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323435373037373933392d37353933653635352d653566392d346435302d626137302d3133653733373864396162372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732457077939-7593e655-e5f9-4d50-ba70-13e7378d9ab7.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e0aafeb709ff20bad2a4dbd985835a125d14bebf8c3c878fb12fcbc626fa850e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333234393239372d37663333643666342d633635352d343337662d626237612d3239306463623538336535612e706e67"><img src="https://camo.githubusercontent.com/e0aafeb709ff20bad2a4dbd985835a125d14bebf8c3c878fb12fcbc626fa850e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333234393239372d37663333643666342d633635352d343337662d626237612d3239306463623538336535612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463249297-7f33d6f4-c655-437f-bb7a-290dcb583e5a.png" style="max-width: 100%;"></a></p>
+<p>使用二极管钳位的前置条件</p>
+<p>电阻的分压要大于二极管的压降</p>
+<p>可以当作电路保护</p>
+<p>33 二极管控制电路电流流向</p>
+<p>反接保护</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/464de4688863505a0e0035f4119ac8f97449d02773a4f639c56cb324aeaf0619/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333630313737322d36323437343462382d333661642d343464372d616336622d3465636431653666383738612e706e67"><img src="https://camo.githubusercontent.com/464de4688863505a0e0035f4119ac8f97449d02773a4f639c56cb324aeaf0619/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333630313737322d36323437343462382d333661642d343464372d616336622d3465636431653666383738612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463601772-624744b8-36ad-44d7-ac6b-4ecd1e6f878a.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8f118cdce0b1e49f972c23268e348720c1b9beb864a84fe0d010b33b78304b30/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333731343835392d37646161636534362d393330392d343631322d626363382d3165313236623564653330322e706e67"><img src="https://camo.githubusercontent.com/8f118cdce0b1e49f972c23268e348720c1b9beb864a84fe0d010b33b78304b30/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333731343835392d37646161636534362d393330392d343631322d626363382d3165313236623564653330322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463714859-7daace46-9309-4612-bcc8-1e126b5de302.png" style="max-width: 100%;"></a></p>
+<p>另外</p>
+<p>一般不建议将二极管放到GND</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6ac5a2714b3a916111b41a66ab15bd8aa992fa39d30934047465242919525f29/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333832363732302d30306535356666312d353965332d343564322d623433312d3030613361306662353663302e706e67"><img src="https://camo.githubusercontent.com/6ac5a2714b3a916111b41a66ab15bd8aa992fa39d30934047465242919525f29/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333832363732302d30306535356666312d353965332d343564322d623433312d3030613361306662353663302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463826720-00e55ff1-59e3-45d2-b431-00a3a0fb56c0.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/454339f78736d1388fa76331331d3d1cd0b46d8c8f13dc4fa199a8fc1ef5ce87/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333834343331302d36663837636562312d313963392d343734302d386438642d6139363734366666646161322e706e67"><img src="https://camo.githubusercontent.com/454339f78736d1388fa76331331d3d1cd0b46d8c8f13dc4fa199a8fc1ef5ce87/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323436333834343331302d36663837636562312d313963392d343734302d386438642d6139363734366666646161322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732463844310-6f87ceb1-19c9-4740-8d8d-a96746ffdaa2.png" style="max-width: 100%;"></a></p>
+<p>一般接到电源</p>
+<p>如果接到GND，那对地有0.7V</p>
+<p>34 二极管的最大反向耐压</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/454dd38f21a40b6c0bd3794994d8b60feb41079d4052b8fc4f25b0e5efaef8f9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353036393537392d66373736636664332d616465652d343035662d386565302d6265353633353561383232362e706e67"><img src="https://camo.githubusercontent.com/454dd38f21a40b6c0bd3794994d8b60feb41079d4052b8fc4f25b0e5efaef8f9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353036393537392d66373736636664332d616465652d343035662d386565302d6265353633353561383232362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535069579-f776cfd3-adee-405f-8ee0-be56355a8226.png" style="max-width: 100%;"></a></p>
+<p>30V额定电压，可能到35V会有微弱电流</p>
+<p>此时二极管还未损坏</p>
+<p>若继续增大电压，二极管有可能会被击穿</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c46cfdcc640b4f0234d4d77b131256b9f584fdd826ea9a6c10cec7f350061fe6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353038383933372d33353465643865392d326664632d343937622d616361632d3934666564363636623032382e706e67"><img src="https://camo.githubusercontent.com/c46cfdcc640b4f0234d4d77b131256b9f584fdd826ea9a6c10cec7f350061fe6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353038383933372d33353465643865392d326664632d343937622d616361632d3934666564363636623032382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535088937-354ed8e9-2fdc-497b-acac-94fed666b028.png" style="max-width: 100%;"></a><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7678de095b70c9457e4e412b8e221ec41e1b1a7a9393187515b558fe4c89eeff/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353039393031382d35643565373438632d333139372d346461622d393839622d3835363634663632633739652e706e67"><img src="https://camo.githubusercontent.com/7678de095b70c9457e4e412b8e221ec41e1b1a7a9393187515b558fe4c89eeff/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353039393031382d35643565373438632d333139372d346461622d393839622d3835363634663632633739652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535099018-5d5e748c-3197-4dab-989b-85664f62c79e.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/288a38082b9867765df057e6bd445c8af38eceec94e36150e40672534f5d8326/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353236313138362d63356261373833352d633762612d343930392d396361662d3166333333376666663063652e706e67"><img src="https://camo.githubusercontent.com/288a38082b9867765df057e6bd445c8af38eceec94e36150e40672534f5d8326/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353236313138362d63356261373833352d633762612d343930392d396361662d3166333333376666663063652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535261186-c5ba7835-c7ba-4909-9caf-1f3337fff0ce.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d74fc7d9e443dc29f9780e36f5948167142ac1de4693c97e61ca8f19fe7fc06a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353238313833362d34386164356432372d323234312d343231362d393735362d6438303234633330363131302e706e67"><img src="https://camo.githubusercontent.com/d74fc7d9e443dc29f9780e36f5948167142ac1de4693c97e61ca8f19fe7fc06a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353238313833362d34386164356432372d323234312d343231362d393735362d6438303234633330363131302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535281836-48ad5d27-2241-4216-9756-d8024c306110.png" style="max-width: 100%;"></a></p>
+<p>35 稳压二极管的基本功能</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/56d4047c8b7f34869900c7d1d6d3989255ddd99059bb11e9de4fddecedd3ebc1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353334383333332d61353632336335382d663161302d343439642d616438302d3730653030313464306530302e706e67"><img src="https://camo.githubusercontent.com/56d4047c8b7f34869900c7d1d6d3989255ddd99059bb11e9de4fddecedd3ebc1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353334383333332d61353632336335382d663161302d343439642d616438302d3730653030313464306530302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535348333-a5623c58-f1a0-449d-ad80-70e0014d0e00.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f0fcb810275947062d3b155d43fb4d60ca3a9ed0f36c977fe6dc3862bf806bd5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353630383438332d34653433623231352d343436362d346565372d616433612d6663363339396439623664352e706e67"><img src="https://camo.githubusercontent.com/f0fcb810275947062d3b155d43fb4d60ca3a9ed0f36c977fe6dc3862bf806bd5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353630383438332d34653433623231352d343436362d346565372d616433612d6663363339396439623664352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535608483-4e43b215-4466-4ee7-ad3a-fc6399d9b6d5.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0b2df8707d6cafff89d7b14a1534d2433c67e54b308fedef8af70232333a8aab/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353731313132382d62366232333835312d383038622d346136612d613763652d3730356436363464396631382e706e67"><img src="https://camo.githubusercontent.com/0b2df8707d6cafff89d7b14a1534d2433c67e54b308fedef8af70232333a8aab/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353731313132382d62366232333835312d383038622d346136612d613763652d3730356436363464396631382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535711128-b6b23851-808b-4a6a-a7ce-705d664d9f18.png" style="max-width: 100%;"></a></p>
+<p>电压稳定在5.6V左右</p>
+<p>36 三极管的基本结构</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/12948573bea62eb1ce6526e05e9bd2dd6b2eca97c890bafb3cbfd7edb10afb95/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353832343837312d36393930376463652d343465362d343333332d396466352d3433326530663839313330332e706e67"><img src="https://camo.githubusercontent.com/12948573bea62eb1ce6526e05e9bd2dd6b2eca97c890bafb3cbfd7edb10afb95/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353832343837312d36393930376463652d343465362d343333332d396466352d3433326530663839313330332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535824871-69907dce-44e6-4333-9df5-432e0f891303.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d6a63131453fd2bcaf4bcf01728bd3b77e054cd1524f9ffd907bd38a1e623e1d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353836353230332d36363465333039622d316163622d343236642d383836362d6631356632633730316462362e706e67"><img src="https://camo.githubusercontent.com/d6a63131453fd2bcaf4bcf01728bd3b77e054cd1524f9ffd907bd38a1e623e1d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353836353230332d36363465333039622d316163622d343236642d383836362d6631356632633730316462362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535865203-664e309b-1acb-426d-8866-f15f2c701db6.png" style="max-width: 100%;"></a></p>
+<p>三极管可以看作两个背靠背的二极管组成</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7afeb13c1b491c1e05613d3fb32a1026080b763e76016f84e074bbde668b4074/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533363037303638332d39343562623934382d393832622d343132652d623363612d3335393739623732383333332e706e67"><img src="https://camo.githubusercontent.com/7afeb13c1b491c1e05613d3fb32a1026080b763e76016f84e074bbde668b4074/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533363037303638332d39343562623934382d393832622d343132652d623363612d3335393739623732383333332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536070683-945bb948-982b-412e-b3ca-35979b728333.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5047d791e2a754f1d2bcc3287239039b66c37c823acdbabbaea8fa7173d2443c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353933373034302d63626239386366622d373462632d343535302d613037302d3366613732316263393739662e706e67"><img src="https://camo.githubusercontent.com/5047d791e2a754f1d2bcc3287239039b66c37c823acdbabbaea8fa7173d2443c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533353933373034302d63626239386366622d373462632d343535302d613037302d3366613732316263393739662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732535937040-cbb98cfb-74bc-4550-a070-3fa721bc979f.png" style="max-width: 100%;"></a></p>
+<p>NPN PNP</p>
+<p>基级 b</p>
+<p>集电极 c</p>
+<p>发射极 e</p>
+<p>37 三极管的开关功能</p>
+<p>我们想让mcu控制元器件工作时，就必须在电路中添加电子开关（三极管）</p>
+<p>ZZ<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/31bffec4815cdd42f44b52c73f2925845090367a8f73bd4d4441cf340abac73c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533363237333933322d66616463633336372d613034322d346366382d613433352d6333346132643131363339312e706e67"><img src="https://camo.githubusercontent.com/31bffec4815cdd42f44b52c73f2925845090367a8f73bd4d4441cf340abac73c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533363237333933322d66616463633336372d613034322d346366382d613433352d6333346132643131363339312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536273932-fadcc367-a042-4cf8-a435-c34a2d116391.png" style="max-width: 100%;"></a></p>
+<p>当mcu输出高电平时</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c68083a5f1598a04f7252b7e17c57408c94b03264b257468fa098a2ca2fd2e2f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533363330383639332d63393938376663632d393538352d343531392d393061662d3961373234363632383436652e706e67"><img src="https://camo.githubusercontent.com/c68083a5f1598a04f7252b7e17c57408c94b03264b257468fa098a2ca2fd2e2f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533363330383639332d63393938376663632d393538352d343531392d393061662d3961373234363632383436652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536308693-c9987fcc-9585-4519-90af-9a724662846e.png" style="max-width: 100%;"></a></p>
+<p>三极管ce导通</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a9b6482f6595c30b85ab95dce456d0b0c107653ef97a061f7df044b7653e4502/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533363338333337322d64333936316639332d373331382d346237362d626365632d6137346138333766653736312e706e67"><img src="https://camo.githubusercontent.com/a9b6482f6595c30b85ab95dce456d0b0c107653ef97a061f7df044b7653e4502/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323533363338333337322d64333936316639332d373331382d346237362d626365632d6137346138333766653736312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732536383372-d3961f93-7318-4b76-bcec-a74a837fe761.png" style="max-width: 100%;"></a></p>
+<p>三极管还可以放大小信号</p>
+<p>38 三极管开关功能需要注意</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4a84cba7f298605d2fe1773598cf7683da23c7b96c6d763395e90c78545b054f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535373739303839312d37643635623166392d396361642d343765382d386362642d3935313838303131316365362e706e67"><img src="https://camo.githubusercontent.com/4a84cba7f298605d2fe1773598cf7683da23c7b96c6d763395e90c78545b054f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535373739303839312d37643635623166392d396361642d343765382d386362642d3935313838303131316365362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732557790891-7d65b1f9-9cad-47e8-8cbd-951880111ce6.png" style="max-width: 100%;"></a></p>
+<p>当负载电流小于100ma</p>
+<p>一般来讲限流电阻选1k 10k似乎都问题不大</p>
+<p>大于100ma时，会炸</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a827967282b639e96a3993f893fe7df251575595882e5a15f0a04f50b780415d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535373932303238312d35366132323761382d333865382d346231342d626530382d3763383162636261376239652e706e67"><img src="https://camo.githubusercontent.com/a827967282b639e96a3993f893fe7df251575595882e5a15f0a04f50b780415d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535373932303238312d35366132323761382d333865382d346231342d626530382d3763383162636261376239652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732557920281-56a227a8-38e8-4b14-be08-7c81bcba7b9e.png" style="max-width: 100%;"></a></p>
+<p>三极管进入放大状态</p>
+<p>不能带大负载，发热会很严重</p>
+<p>三极管作为开关使用时，Rb一定不能乱取</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/118f79e89e3ef01f577abcf4a0fe209353c6d39050adb3eea14ee79aecd356ae/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383039373832302d39393431343339382d663539662d343363612d396233382d3533643532626639393165322e706e67"><img src="https://camo.githubusercontent.com/118f79e89e3ef01f577abcf4a0fe209353c6d39050adb3eea14ee79aecd356ae/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383039373832302d39393431343339382d663539662d343363612d396233382d3533643532626639393165322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558097820-99414398-f59f-43ca-9b38-53d52bf991e2.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e2681296eef8eba58f95d27b9eb136add588b8d726532959d032c757563b5545/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383134303931322d33653163333366302d656132382d346438392d626535642d3335313164396631613232302e706e67"><img src="https://camo.githubusercontent.com/e2681296eef8eba58f95d27b9eb136add588b8d726532959d032c757563b5545/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383134303931322d33653163333366302d656132382d346438392d626535642d3335313164396631613232302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558140912-3e1c33f0-ea28-4d89-be5d-3511d9f1a220.png" style="max-width: 100%;"></a></p>
+<p>电阻值计算</p>
+<p>Ib乘上三极管电流放大倍数大于Ic就可以</p>
+<p>首先 找出Ic最大值 （负载的电流）</p>
+<p>电流放大倍数默认100就可</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2a1cdde5929da833d41219278839b338c707ea87e0ea030c2811918c3347096a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383339363236302d61626332653733392d386334612d343931662d393539352d3032656137643536313530302e706e67"><img src="https://camo.githubusercontent.com/2a1cdde5929da833d41219278839b338c707ea87e0ea030c2811918c3347096a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383339363236302d61626332653733392d386334612d343931662d393539352d3032656137643536313530302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558396260-abc2e739-8c4a-491f-9595-02ea7d561500.png" style="max-width: 100%;"></a></p>
+<p>39 P型三极管</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f3718941fd046bc177d034a4140b208b5457f02c92a5b6121b8f52cb5dee7ef5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383532373938312d65653036656437322d303236352d343763632d383137322d6338353531633534333935312e706e67"><img src="https://camo.githubusercontent.com/f3718941fd046bc177d034a4140b208b5457f02c92a5b6121b8f52cb5dee7ef5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383532373938312d65653036656437322d303236352d343763632d383137322d6338353531633534333935312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558527981-ee06ed72-0265-47cc-8172-c8551c543951.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/defdee085576962f8cb89b67dd47cc34492975a80e383999846e84ea9d84f93a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535393130383033372d37306535613932342d313438312d343761632d383330332d6539373235373365363965312e706e67"><img src="https://camo.githubusercontent.com/defdee085576962f8cb89b67dd47cc34492975a80e383999846e84ea9d84f93a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535393130383033372d37306535613932342d313438312d343761632d383330332d6539373235373365363965312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732559108037-70e5a924-1481-47ac-8303-e972573e69e1.png" style="max-width: 100%;"></a></p>
+<p>Vbe存在0.7V压降 ce之间有比较大的压差 发热会非常严重</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c78c7d99e8e2c88c71a3ccf39890ba82333d38756adbf445577be0b134cc0c36/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535393138313431362d30303264666433622d623231642d346133622d396263362d3134323734333264663738352e706e67"><img src="https://camo.githubusercontent.com/c78c7d99e8e2c88c71a3ccf39890ba82333d38756adbf445577be0b134cc0c36/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535393138313431362d30303264666433622d623231642d346133622d396263362d3134323734333264663738352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732559181416-002dfd3b-b21d-4a3b-9bc6-1427432df785.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/75b08bb3981a608c246fd199dc8fd162627ae7ebcce483f5a51a9623f0cf080c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383638303733372d61386264393435362d376365642d346635352d626431652d3934343462623265346366332e706e67"><img src="https://camo.githubusercontent.com/75b08bb3981a608c246fd199dc8fd162627ae7ebcce483f5a51a9623f0cf080c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383638303733372d61386264393435362d376365642d346635352d626431652d3934343462623265346366332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558680737-a8bd9456-7ced-4f55-bd1e-9444bb2e4cf3.png" style="max-width: 100%;"></a><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/295f6deceb635488cb91f12f812106e48d23989b15b0a03861f927c6ac9db67e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383736323431302d38346238663039632d336366322d343863312d393466612d3432373135383261633139622e706e67"><img src="https://camo.githubusercontent.com/295f6deceb635488cb91f12f812106e48d23989b15b0a03861f927c6ac9db67e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323535383736323431302d38346238663039632d336366322d343863312d393466612d3432373135383261633139622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732558762410-84b8f09c-3cf2-48c1-94fa-4271582ac19b.png" style="max-width: 100%;"></a></p>
+<p>P管可以当负载电源开关</p>
+<p>N管控制电源负极 GND</p>
+<p>40 P型三极管开关电路设计注意事项</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d2afc3e94a19ec994f01d93e0707d7937d81c7a90ad622364f28c417ed6c4cde/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323538393035343735322d32613763356437302d666331612d343234332d396430362d6462313430386635613530392e706e67"><img src="https://camo.githubusercontent.com/d2afc3e94a19ec994f01d93e0707d7937d81c7a90ad622364f28c417ed6c4cde/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323538393035343735322d32613763356437302d666331612d343234332d396430362d6462313430386635613530392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589054752-2a7c5d70-fc1a-4243-9d06-db1408f5a509.png" style="max-width: 100%;"></a><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f5986191c98878fee4f2573745f977dde32b5adf12e6a076d88b634ecfd7988f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323538393037363836392d32393532326133322d623663322d343362362d623536332d6564323136626335663966632e706e67"><img src="https://camo.githubusercontent.com/f5986191c98878fee4f2573745f977dde32b5adf12e6a076d88b634ecfd7988f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323538393037363836392d32393532326133322d623663322d343362362d623536332d6564323136626335663966632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589076869-29522a32-b6c2-43b6-b563-ed216bc5f9fc.png" style="max-width: 100%;"></a></p>
+<p>41 N型三极管和P型三极管的特性对比</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/da50eea40153cd69971d2074fda7e7b806b67dd10e66a5f0ce6b750ba4e625e2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323538393139393732312d66376439633932372d636335642d343937332d613563302d6362616364396534336164612e706e67"><img src="https://camo.githubusercontent.com/da50eea40153cd69971d2074fda7e7b806b67dd10e66a5f0ce6b750ba4e625e2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323538393139393732312d66376439633932372d636335642d343937332d613563302d6362616364396534336164612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732589199721-f7d9c927-cc5d-4973-a5c0-cbacd9e43ada.png" style="max-width: 100%;"></a></p>
+<p>42 三极管的输出反相功能</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4684ffa716a4a26b9d95d7028b6c52811f9c4ab1ce91943be7b39b26d3a4a649/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343236313033312d36356263376635372d366336342d343761382d613736342d3238333965396330323636322e706e67"><img src="https://camo.githubusercontent.com/4684ffa716a4a26b9d95d7028b6c52811f9c4ab1ce91943be7b39b26d3a4a649/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343236313033312d36356263376635372d366336342d343761382d613736342d3238333965396330323636322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624261031-65bc7f57-6c64-47a8-a764-2839e9c02662.png" style="max-width: 100%;"></a></p>
+<p>当输入0时，三极管不导通，输出为1</p>
+<p>当输入1时，三级管导通，输出0</p>
+<p>使用P管能直接实现</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/cd1ef4a3d969cc50a6c6515e86f84be4d9d329e30a2c192e5b83865237e9241a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343430343638372d38353065613037362d373332392d343635302d386662322d6132393764366631356366322e706e67"><img src="https://camo.githubusercontent.com/cd1ef4a3d969cc50a6c6515e86f84be4d9d329e30a2c192e5b83865237e9241a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343430343638372d38353065613037362d373332392d343635302d386662322d6132393764366631356366322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624404687-850ea076-7329-4650-8fb2-a297d6f15cf2.png" style="max-width: 100%;"></a></p>
+<p>也可以用两个N管实现</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4c5f31b7ef14ef273d829019f82a861a00688cb0c4d18ecfa596583bc3c0ac30/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343438353639352d64616162653234612d646632642d346136632d383238312d3366316638383236313930302e706e67"><img src="https://camo.githubusercontent.com/4c5f31b7ef14ef273d829019f82a861a00688cb0c4d18ecfa596583bc3c0ac30/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343438353639352d64616162653234612d646632642d346136632d383238312d3366316638383236313930302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624485695-daabe24a-df2d-4a6c-8281-3f1f88261900.png" style="max-width: 100%;"></a></p>
+<p>一个N管（小电流场景）</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/17dbd61d072d478e66e7eff60b12e35236f61f2f0ea0cc261adc289a7303809e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343534313238392d31653162643433342d336535642d343730632d383037352d3764323064356230663466332e706e67"><img src="https://camo.githubusercontent.com/17dbd61d072d478e66e7eff60b12e35236f61f2f0ea0cc261adc289a7303809e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343534313238392d31653162643433342d336535642d343730632d383037352d3764323064356230663466332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624541289-1e1bd434-3e5d-470c-8075-7d20d5b0f4f3.png" style="max-width: 100%;"></a></p>
+<p>43 三极管基极下拉电阻的重要性</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8184c46ef63f4b6d533e361718c44ab2058a92482bff3eca6813240595249326/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343636333231372d63393564336465322d646163622d343366392d616365332d3965336237376635633463322e706e67"><img src="https://camo.githubusercontent.com/8184c46ef63f4b6d533e361718c44ab2058a92482bff3eca6813240595249326/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343636333231372d63393564336465322d646163622d343366392d616365332d3965336237376635633463322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624663217-c95d3de2-dacb-43f9-ace3-9e3b77f5c4c2.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4bed4e25bae861853ee02409de8ad21a981cfc7dde1655b1e195e8fb00f9b497/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343731323335362d31303239353531342d353361322d343831332d626232332d3139343735346365356334332e706e67"><img src="https://camo.githubusercontent.com/4bed4e25bae861853ee02409de8ad21a981cfc7dde1655b1e195e8fb00f9b497/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343731323335362d31303239353531342d353361322d343831332d626232332d3139343735346365356334332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624712356-10295514-53a2-4813-bb23-194754ce5c43.png" style="max-width: 100%;"></a></p>
+<p>（加入一个接地电阻就能解决）</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/80bbbf0a78f272c7b363d937c251d102ff03e739cf2203dce3be6314e1202dbc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343736373938382d39386436333338622d623931372d346463382d393035302d3836316331346331366632622e706e67"><img src="https://camo.githubusercontent.com/80bbbf0a78f272c7b363d937c251d102ff03e739cf2203dce3be6314e1202dbc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343736373938382d39386436333338622d623931372d346463382d393035302d3836316331346331366632622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624767988-98d6338b-b917-4dc8-9050-861c14c16f2b.png" style="max-width: 100%;"></a></p>
+<p>人体感应的电荷被接地端释放了</p>
+<p>只要用三极管作为开关，底部就要有上/下拉电阻（！</p>
+<p>N下P上</p>
+<p>p管的上拉电阻</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c4dca303a935e5949677f8bdd799f75dfe5bc3136878aa06e7e970f7adf12b42/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343836363335332d31373230373032332d316337392d343439332d613738372d3439653733356333623339652e706e67"><img src="https://camo.githubusercontent.com/c4dca303a935e5949677f8bdd799f75dfe5bc3136878aa06e7e970f7adf12b42/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343836363335332d31373230373032332d316337392d343439332d613738372d3439653733356333623339652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624866353-17207023-1c79-4493-a787-49e735c3b39e.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9c1a53c0439136d660422bbac390dd2ef3a515d2824cc03e45b8af8b96d7eaff/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343930313131302d34656634356133302d633166302d343932632d623361652d6235343661383139613439662e706e67"><img src="https://camo.githubusercontent.com/9c1a53c0439136d660422bbac390dd2ef3a515d2824cc03e45b8af8b96d7eaff/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343930313131302d34656634356133302d633166302d343932632d623361652d6235343661383139613439662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624901110-4ef45a30-c1f0-492c-b3ae-b546a819a49f.png" style="max-width: 100%;"></a></p>
+<p>44 三极管的最大耐压</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ca1a8a00492d58c3c6884d0705f00faa5cc9f7bdff0ee4c863c6b8d7d6ecaf10/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343935323536362d62633962393633312d616435612d346531652d393035362d3065383165633964336161352e706e67"><img src="https://camo.githubusercontent.com/ca1a8a00492d58c3c6884d0705f00faa5cc9f7bdff0ee4c863c6b8d7d6ecaf10/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632343935323536362d62633962393633312d616435612d346531652d393035362d3065383165633964336161352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732624952566-bc9b9631-ad5a-4e1e-9056-0e81ec9d3aa5.png" style="max-width: 100%;"></a></p>
+<p>一般vbe反向耐压最小</p>
+<p>vce耐压其次</p>
+<p>vcb耐压最大</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7ff57e8ad7fa4874cdaab13d7f065eb293f0163dc42cdff0bbbb479b8e16853e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353233343634302d38663933663538322d636231382d343639342d613836372d3333303536396465626363632e706e67"><img src="https://camo.githubusercontent.com/7ff57e8ad7fa4874cdaab13d7f065eb293f0163dc42cdff0bbbb479b8e16853e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353233343634302d38663933663538322d636231382d343639342d613836372d3333303536396465626363632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625234640-8f93f582-cb18-4694-a867-330569debccc.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6d57f38b23a2eadc08e7b8124aa58f6326c0534db61ca51709eb082c453cd8e6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353136303335392d62356161306166382d306235312d343236652d616335352d3038346639366333663663302e706e67"><img src="https://camo.githubusercontent.com/6d57f38b23a2eadc08e7b8124aa58f6326c0534db61ca51709eb082c453cd8e6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353136303335392d62356161306166382d306235312d343236652d616335352d3038346639366333663663302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625160359-b5aa0af8-0b51-426e-ac55-084f96c3f6c0.png" style="max-width: 100%;"></a></p>
+<p>三极管并不是一个理想开关</p>
+<p>它有最大耐压值</p>
+<p>45 自动出水水龙头工作原理</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/825558019ad9c8ce10e4d23acd709938d025d8beb26d757fa0463c991612177b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353239363938312d32366137373339382d656362342d343264332d613663642d3165303463343665613933392e706e67"><img src="https://camo.githubusercontent.com/825558019ad9c8ce10e4d23acd709938d025d8beb26d757fa0463c991612177b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353239363938312d32366137373339382d656362342d343264332d613663642d3165303463343665613933392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625296981-26a77398-ecb4-42d3-a6cd-1e04c46ea939.png" style="max-width: 100%;"></a></p>
+<p>利用红外发射接收模块判断前面是否有物体</p>
+<p>比较器</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/71771f549ebf9a7e191c725ddcabc311476f7eb80b05b47cd37ea929ecfc38f1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353335303136342d31666566363635352d336438332d346232372d623538312d3039323937373235383566312e706e67"><img src="https://camo.githubusercontent.com/71771f549ebf9a7e191c725ddcabc311476f7eb80b05b47cd37ea929ecfc38f1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353335303136342d31666566363635352d336438332d346232372d623538312d3039323937373235383566312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625350164-1fef6655-3d83-4b27-b581-0929772585f1.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8804a29be6e5aa33050ab9c91551fbd3111cf67bc50889667a3c0780c5462773/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353338363635302d35386564383732622d343166662d343239372d613964642d6361336463336630386366322e706e67"><img src="https://camo.githubusercontent.com/8804a29be6e5aa33050ab9c91551fbd3111cf67bc50889667a3c0780c5462773/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353338363635302d35386564383732622d343166662d343239372d613964642d6361336463336630386366322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625386650-58ed872b-41ff-4297-a9dd-ca3dc3f08cf2.png" style="max-width: 100%;"></a></p>
+<p>V+ &gt; V- -&gt; 1</p>
+<p>V+ &lt; V- -&gt; 0</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7a6811561ad5ca7ecbd494b1a397c597c0bac281aac645a3908c6dedfae51153/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353439393739322d31376230373862612d383665302d346162392d386163362d6336343363316266643335652e706e67"><img src="https://camo.githubusercontent.com/7a6811561ad5ca7ecbd494b1a397c597c0bac281aac645a3908c6dedfae51153/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353439393739322d31376230373862612d383665302d346162392d386163362d6336343363316266643335652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625499792-17b078ba-86e0-4ab9-8ac6-c643c1bfd35e.png" style="max-width: 100%;"></a></p>
+<p>46 自动出水水龙头工作原理2</p>
+<p>当红外接收二极管没收到任何信号时断开</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9a0de75744c09eab27f6d5acf655fac15b9048ac599b90a9133a541d69b7491f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353631353134332d62343637393436392d336137622d343135382d616235312d3464333332376630643432382e706e67"><img src="https://camo.githubusercontent.com/9a0de75744c09eab27f6d5acf655fac15b9048ac599b90a9133a541d69b7491f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353631353134332d62343637393436392d336137622d343135382d616235312d3464333332376630643432382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625615143-b4679469-3a7b-4158-ab51-4d3327f0d428.png" style="max-width: 100%;"></a></p>
+<p>否则导通</p>
+<p>接收的光越亮，流过的电流越大</p>
+<p>如图例</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7b530b5af577e463256a6139145eca9e3c50f3b0e2b379c2995617f86950d523/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353834363339382d36336139336431632d383130392d346163302d616634312d3937313664636261323432372e706e67"><img src="https://camo.githubusercontent.com/7b530b5af577e463256a6139145eca9e3c50f3b0e2b379c2995617f86950d523/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353834363339382d36336139336431632d383130392d346163302d616634312d3937313664636261323432372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625846398-63a93d1c-8109-4ac0-af41-9716dcba2427.png" style="max-width: 100%;"></a></p>
+<p>有红外时，V=5-1=4V</p>
+<p>没红外时5V</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f2b349d62219891bc4e53b27d1332607774a72067a9f0b2d47637705d93923ae/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353933363634392d63633530366563382d656163652d343463302d393965342d3230616235626433336632652e706e67"><img src="https://camo.githubusercontent.com/f2b349d62219891bc4e53b27d1332607774a72067a9f0b2d47637705d93923ae/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632353933363634392d63633530366563382d656163652d343463302d393965342d3230616235626433336632652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732625936649-cc506ec8-eace-44c0-99e4-20ab5bd33f2e.png" style="max-width: 100%;"></a></p>
+<p>火也可以发出红外光</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/955330a3a9e6eeed974d732492c6a6be1adf73c3525dc8f3dfc9ac05481d7790/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363132313433302d38653166376431362d396366662d346563382d626335612d3064333936303566386134332e706e67"><img src="https://camo.githubusercontent.com/955330a3a9e6eeed974d732492c6a6be1adf73c3525dc8f3dfc9ac05481d7790/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363132313433302d38653166376431362d396366662d346563382d626335612d3064333936303566386134332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626121430-8e1f7d16-9cff-4ec8-bc5a-0d39605f8a43.png" style="max-width: 100%;"></a></p>
+<p>可以检测火</p>
+<p>也可以用红外遥控器控制</p>
+<p>47 自动出水水龙头电路设计注意事项</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1277c63f86587b4c35475197b5323d4c6995151bb0ea48d467d191d215ce2b2b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363234343836352d61343234633263622d643062382d343265312d613262642d3332333634353039396636332e706e67"><img src="https://camo.githubusercontent.com/1277c63f86587b4c35475197b5323d4c6995151bb0ea48d467d191d215ce2b2b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363234343836352d61343234633263622d643062382d343265312d613262642d3332333634353039396636332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626244865-a424c2cb-d0b8-42e1-a2bd-323645099f63.png" style="max-width: 100%;"></a></p>
+<p>电源5V 在切断电源时感应出了18v（还可能更高）</p>
+<p>因为电机是电感性负载，切断电源时电感会感应出一个很高的电压</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c42502c326852191b98feb91c47d88bed16609090e86a8ed5c30915922e3aa46/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363339383036332d62656663326632612d616264372d346433302d623436662d6439343132333238383038652e706e67"><img src="https://camo.githubusercontent.com/c42502c326852191b98feb91c47d88bed16609090e86a8ed5c30915922e3aa46/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363339383036332d62656663326632612d616264372d346433302d623436662d6439343132333238383038652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626398063-befc2f2a-abd7-4d30-b46f-d9412328808e.png" style="max-width: 100%;"></a></p>
+<p>我们可以加入一个续流二极管</p>
+<p>48 比较器为什么要加上上拉电阻</p>
+<p>一个接到Vcc，一个接到GND的我们称之为推挽输出</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0940b88c83a85a828644c89bfce798c279ea2dd086c2f971e6954b6097f81b28/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363731383034342d37653738303761322d633831362d343265382d386633372d3539666132373139646438342e706e67"><img src="https://camo.githubusercontent.com/0940b88c83a85a828644c89bfce798c279ea2dd086c2f971e6954b6097f81b28/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363731383034342d37653738303761322d633831362d343265382d386633372d3539666132373139646438342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626718044-7e7807a2-c816-42e8-8f37-59fa2719dd84.png" style="max-width: 100%;"></a></p>
+<p>但是有一些比较器不是推挽输出</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/075a4ec3ea1237eb19812ad20b42050977467fdece8993807329edf4a3c6230c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363734353338342d39383239366432392d633432382d346366622d383363312d3062613137363364326632312e706e67"><img src="https://camo.githubusercontent.com/075a4ec3ea1237eb19812ad20b42050977467fdece8993807329edf4a3c6230c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363734353338342d39383239366432392d633432382d346366622d383363312d3062613137363364326632312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626745384-98296d29-c428-4cfb-83c1-0ba1763d2f21.png" style="max-width: 100%;"></a></p>
+<p>开漏输出/开集输出</p>
+<p>这时需要添加上拉电阻，将电压拉到VCC</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/133589a6eb3eb15fa4048b720630c88c2471dd33036779f8c35ba2f979801fc5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363830333631362d63343633303563382d623165642d346565652d626561342d6437623239636636396361392e706e67"><img src="https://camo.githubusercontent.com/133589a6eb3eb15fa4048b720630c88c2471dd33036779f8c35ba2f979801fc5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363830333631362d63343633303563382d623165642d346565652d626561342d6437623239636636396361392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626803616-c46305c8-b1ed-4eee-bea4-d7b29cf69ca9.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/892d71d95b02b644110a72105b7141117e3f167634712bc4142149115c117a6f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363834373932312d37343534366462612d326434632d346537662d386539642d3737666635353837396139302e706e67"><img src="https://camo.githubusercontent.com/892d71d95b02b644110a72105b7141117e3f167634712bc4142149115c117a6f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632363834373932312d37343534366462612d326434632d346537662d386539642d3737666635353837396139302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732626847921-74546dba-2d4c-4e7f-8e9d-77ff55879a90.png" style="max-width: 100%;"></a></p>
+<p>49 温控风扇工作原理</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6883960a0cd072e2368139b7a218af569d3a1446b50419e7d269c32d614cfbfa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373134353831372d33373237633837312d396139322d346363352d393837632d3539396233396361643661362e706e67"><img src="https://camo.githubusercontent.com/6883960a0cd072e2368139b7a218af569d3a1446b50419e7d269c32d614cfbfa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373134353831372d33373237633837312d396139322d346363352d393837632d3539396233396361643661362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627145817-3727c871-9a92-4cc5-987c-599b39cad6a6.png" style="max-width: 100%;"></a></p>
+<p>当温度达到某一值时驱动电机</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/48f4832789bf6582f26002592872de3e0587bb60e50da5bd16bedd8d840b4c85/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373336373635322d66653737616233382d643665342d343238332d623766392d6334643862643064653634322e706e67"><img src="https://camo.githubusercontent.com/48f4832789bf6582f26002592872de3e0587bb60e50da5bd16bedd8d840b4c85/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373336373635322d66653737616233382d643665342d343238332d623766392d6334643862643064653634322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627367652-fe77ab38-d6e4-4283-b7f9-c4d8bd0de642.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/123d2549d37c48b9c7d70711b7ff6334976f197593e7f28b5e65e5d02fb590e7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373533303831392d64626663323563622d613234652d343032612d383631342d6530393238333633393736342e706e67"><img src="https://camo.githubusercontent.com/123d2549d37c48b9c7d70711b7ff6334976f197593e7f28b5e65e5d02fb590e7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373533303831392d64626663323563622d613234652d343032612d383631342d6530393238333633393736342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627530819-dbfc25cb-a24e-402a-8614-e09283639764.png" style="max-width: 100%;"></a></p>
+<p>50 人体感应灯原理</p>
+<p>当它接收到红外光时，会感应出微软的电压</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b1ebe609cb0d90217456f532a4668144cc4d347d930fad37cddc858c28d0e058/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373632353731322d30333933613065622d613565332d343638362d396337342d6662616263366132663534642e706e67"><img src="https://camo.githubusercontent.com/b1ebe609cb0d90217456f532a4668144cc4d347d930fad37cddc858c28d0e058/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373632353731322d30333933613065622d613565332d343638362d396337342d6662616263366132663534642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627625712-0393a0eb-a5e3-4686-9c74-fbabc6a2f54d.png" style="max-width: 100%;"></a></p>
+<p>经过MOS管放大</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/bbfcff0cc522cd44081e7d8a491fa4c736093bb75f11da95397c95b574f7dc3d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373637333031352d62386231306236312d643865642d343135372d393633312d6135386638613330613130392e706e67"><img src="https://camo.githubusercontent.com/bbfcff0cc522cd44081e7d8a491fa4c736093bb75f11da95397c95b574f7dc3d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373637333031352d62386231306236312d643865642d343135372d393633312d6135386638613330613130392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627673015-b8b10b61-d8ed-4157-9631-a58f8a30a109.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ae2e9afcb3424286a535839dcd33dd5b8ce69ec46481be7be4b961a0d3f45ea0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373934353339332d34613634313039352d393038342d343362362d386130302d3932353862343365656361342e706e67"><img src="https://camo.githubusercontent.com/ae2e9afcb3424286a535839dcd33dd5b8ce69ec46481be7be4b961a0d3f45ea0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373934353339332d34613634313039352d393038342d343362362d386130302d3932353862343365656361342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627945393-4a641095-9084-43b6-8a00-9258b43eeca4.png" style="max-width: 100%;"></a></p>
+<p>模块只能识别移动的热物体</p>
+<p>用P管实现</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3e574b723005e234036a2fee47898d347050587587aa9663986f342589f75a4f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373834393338322d63346266633165622d373239342d343561322d386661312d6138303834343734666363372e706e67"><img src="https://camo.githubusercontent.com/3e574b723005e234036a2fee47898d347050587587aa9663986f342589f75a4f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373834393338322d63346266633165622d373239342d343561322d386661312d6138303834343734666363372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627849382-c4bfc1eb-7294-45a2-8fa1-a8084474fcc7.png" style="max-width: 100%;"></a></p>
+<p>用N管实现</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e78f87545acd493101492fa663bbe006290555082ee667b96655a43af5b9a525/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373930313633392d32313930373365612d353365642d346463632d623835652d3737396339396239353531652e706e67"><img src="https://camo.githubusercontent.com/e78f87545acd493101492fa663bbe006290555082ee667b96655a43af5b9a525/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632373930313633392d32313930373365612d353365642d346463632d623835652d3737396339396239353531652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732627901639-219073ea-53ed-4dcc-b85e-779c99b9551e.png" style="max-width: 100%;"></a></p>
+<p>51 光控灯工作原理</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e7b008a3e11086a8afafb4f6316580103dfb1e95e6854a89eef421d79537f677/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383135383138332d34323266653236302d303533642d343561352d616436352d6664643438633637616333322e706e67"><img src="https://camo.githubusercontent.com/e7b008a3e11086a8afafb4f6316580103dfb1e95e6854a89eef421d79537f677/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383135383138332d34323266653236302d303533642d343561352d616436352d6664643438633637616333322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628158183-422fe260-053d-45a5-ad65-fdd48c67ac32.png" style="max-width: 100%;"></a></p>
+<p>光敏电阻</p>
+<p>当光很暗的时候，阻值11k，V+于2.5 输出1</p>
+<p>很亮 V+对地小于2.5 比较器输出0</p>
+<p>52 MOS管的基本结构</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/af803904446b510ef7364706671486a50a70a87d518e7f3f5871080252798560/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383431373434352d34663164613563632d343666662d346436322d396536662d6361346562323032363761382e706e67"><img src="https://camo.githubusercontent.com/af803904446b510ef7364706671486a50a70a87d518e7f3f5871080252798560/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383431373434352d34663164613563632d343666662d346436322d396536662d6361346562323032363761382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628417445-4f1da5cc-46ff-4d62-9e6f-ca4eb20267a8.png" style="max-width: 100%;"></a></p>
+<p>MOS管由四部分组成</p>
+<p>S源极</p>
+<p>G栅极</p>
+<p>D漏极</p>
+<p>P衬底</p>
+<p>可以认为MOS管的四个部分互相绝缘</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/efcb8d184a38d3349a1007d14c5b7608a658c8aae3e7f53ef634c7a8be0df6e6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383436313739332d61323830613762392d653265392d346262332d383439622d3461616435303134316530642e706e67"><img src="https://camo.githubusercontent.com/efcb8d184a38d3349a1007d14c5b7608a658c8aae3e7f53ef634c7a8be0df6e6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383436313739332d61323830613762392d653265392d346262332d383439622d3461616435303134316530642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628461793-a280a7b9-e2e9-4bb3-849b-4aad50141e0d.png" style="max-width: 100%;"></a></p>
+<p>所以它们互相之间存在寄生电容</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/94346f469b90fa190c617fe300746b599ed09041074be5c0feb54df978ff504f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383439333938322d65343739643033302d623966652d343762312d623134332d3661316634393336363061392e706e67"><img src="https://camo.githubusercontent.com/94346f469b90fa190c617fe300746b599ed09041074be5c0feb54df978ff504f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383439333938322d65343739643033302d623966652d343762312d623134332d3661316634393336363061392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628493982-e479d030-b9fe-47b1-b143-6a1f493660a9.png" style="max-width: 100%;"></a></p>
+<p>它源极漏极由N组成，衬底由P组成，所以可以看作存在两个二极管</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0b11660568516e04eda76cbd587ccb6498b749ec7439f3d6acc4824eb81bff8a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383634363431312d65343964316338612d336338652d343130632d396365392d3036633662616635343734322e706e67"><img src="https://camo.githubusercontent.com/0b11660568516e04eda76cbd587ccb6498b749ec7439f3d6acc4824eb81bff8a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383634363431312d65343964316338612d336338652d343130632d396365392d3036633662616635343734322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628646411-e49d1c8a-3c8e-410c-9ce9-06c6baf54742.png" style="max-width: 100%;"></a></p>
+<p>部分MOS管会将源极和衬底连在一起</p>
+<p>二极管会被短路</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/44f1f0288a8b5f3bb3fc26e8565a2732d1ae9f56dd8a25343e1031856724f83e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383730313437322d63393865366165612d326661382d343630612d613335322d3833373030396531656636322e706e67"><img src="https://camo.githubusercontent.com/44f1f0288a8b5f3bb3fc26e8565a2732d1ae9f56dd8a25343e1031856724f83e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383730313437322d63393865366165612d326661382d343630612d613335322d3833373030396531656636322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628701472-c98e6aea-2fa8-460a-a352-837009e1ef62.png" style="max-width: 100%;"></a></p>
+<p>最后S-D之间会形成寄生二极管</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e8b6ff816cc16bbdace1df1e59b4457100925c27e9ebdb6515ba5cd8e4d4e425/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383738353935372d62343532636663382d323735362d346134632d386564362d6333643836653564316561362e706e67"><img src="https://camo.githubusercontent.com/e8b6ff816cc16bbdace1df1e59b4457100925c27e9ebdb6515ba5cd8e4d4e425/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383738353935372d62343532636663382d323735362d346134632d386564362d6333643836653564316561362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628785957-b452cfc8-2756-4a4c-8ed6-c3d86e5d1ea6.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/93317e43c87063277942b275352fa6647bdf03a301025efda8123b3810090b60/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383832373435302d30386266323535332d396238662d343766612d616437632d6233363263376439386565632e706e67"><img src="https://camo.githubusercontent.com/93317e43c87063277942b275352fa6647bdf03a301025efda8123b3810090b60/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383832373435302d30386266323535332d396238662d343766612d616437632d6233363263376439386565632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628827450-08bf2553-9b8f-47fa-ad7c-b362c7d98eec.png" style="max-width: 100%;"></a></p>
+<p>53 MOS管的导通条件</p>
+<p>Nmos</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/cd878e74adb51d0c376e088087b278201ebdc94c0e328eee5fd1e4980c3cc030/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383937333737392d61653465373563392d623132612d346634332d386439662d6436373364386236386530322e706e67"><img src="https://camo.githubusercontent.com/cd878e74adb51d0c376e088087b278201ebdc94c0e328eee5fd1e4980c3cc030/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632383937333737392d61653465373563392d623132612d346634332d386439662d6436373364386236386530322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732628973779-ae4e75c9-b12a-4f43-8d9f-d673d8b68e02.png" style="max-width: 100%;"></a></p>
+<p>Pmos</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7d5348810540432227963c8bb599ebb464e36e7a491c4054413184ede96657ce/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393032383039312d63303664633964642d353562322d343533622d613138662d6432643566623563623232662e706e67"><img src="https://camo.githubusercontent.com/7d5348810540432227963c8bb599ebb464e36e7a491c4054413184ede96657ce/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393032383039312d63303664633964642d353562322d343533622d613138662d6432643566623563623232662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629028091-c06dc9dd-55b2-453b-a18f-d2d5fb5cb22f.png" style="max-width: 100%;"></a></p>
+<p>注意：</p>
+<p>Pmos管数据手册中导通电压一般为负值</p>
+<p>Vth=Vg - Vs</p>
+<p>所以Vg一般要小于Vs</p>
+<p>54 MOS开关电路的设计方法</p>
+<p>（和三极管非常相似）</p>
+<p>Nmos</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ecac97c4bb2aeff264f16075cd048544d6270e6fee801f6ade42f2589242fc42/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393235363930322d34333663613639632d613162362d343639352d623434332d3839336533383831636638362e706e67"><img src="https://camo.githubusercontent.com/ecac97c4bb2aeff264f16075cd048544d6270e6fee801f6ade42f2589242fc42/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393235363930322d34333663613639632d613162362d343639352d623434332d3839336533383831636638362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629256902-436ca69c-a1b6-4695-b443-893e3881cf86.png" style="max-width: 100%;"></a></p>
+<p>Pmos</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9d08b67c651419e74ef2d0b67f2daf1afc1361381c413c704d9dff75e5391768/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393332393134312d37653533623734362d303561662d343238372d383731342d3834656633653035653734632e706e67"><img src="https://camo.githubusercontent.com/9d08b67c651419e74ef2d0b67f2daf1afc1361381c413c704d9dff75e5391768/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393332393134312d37653533623734362d303561662d343238372d383731342d3834656633653035653734632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629329141-7e53b746-05af-4287-8714-84ef3e05e74c.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/265a278178dbed80d486b5e4d186aa6371d7acd1d18f22e1126b6f4bad0c6c0d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393335393836332d64346239316637382d363466612d346536372d393430352d3932616163643835636462342e706e67"><img src="https://camo.githubusercontent.com/265a278178dbed80d486b5e4d186aa6371d7acd1d18f22e1126b6f4bad0c6c0d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393335393836332d64346239316637382d363466612d346536372d393430352d3932616163643835636462342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629359863-d4b91f78-64fa-4e67-9405-92aacd85cdb4.png" style="max-width: 100%;"></a></p>
+<p>上电</p>
+<p>MOS管时电压控制器件</p>
+<p>可以不加电阻，三极管不行</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f2e5cd738a3741eed8c1fb764d2f8af2401890d9c315a10698ab295e699459af/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393437363134302d62616330323831312d326163382d343934362d613032662d6461306262323937386637652e706e67"><img src="https://camo.githubusercontent.com/f2e5cd738a3741eed8c1fb764d2f8af2401890d9c315a10698ab295e699459af/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323632393437363134302d62616330323831312d326163382d343934362d613032662d6461306262323937386637652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732629476140-bac02811-2ac8-4946-a02f-da0bb2978f7e.png" style="max-width: 100%;"></a></p>
+<p>大部分低功耗芯片会使用MOS管的结构</p>
+<p>55 mos的寄生电容问题</p>
+<p>因为mos存在寄生电容</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6067fca05aa6e8ae170ed9f8b56294c4a95bc8e25ef69f77de09f2118e756c89/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353430353231382d37663166343332352d376132352d346564362d613436312d3961653131626139303138622e706e67"><img src="https://camo.githubusercontent.com/6067fca05aa6e8ae170ed9f8b56294c4a95bc8e25ef69f77de09f2118e756c89/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353430353231382d37663166343332352d376132352d346564362d613436312d3961653131626139303138622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675405218-7f1f4325-7a25-4ed6-a461-9ae11ba9018b.png" style="max-width: 100%;"></a></p>
+<p>当开关闭合时，led任然会亮</p>
+<p>gs之间存在寄生电容</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c2fe4f947e17c4f2e6d24cf62e87aab6ffbd43cf296d16aaa4174a3cc62fbbac/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353437373737382d39643661646632632d633834342d343239302d623037612d3031623066626135393136642e706e67"><img src="https://camo.githubusercontent.com/c2fe4f947e17c4f2e6d24cf62e87aab6ffbd43cf296d16aaa4174a3cc62fbbac/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353437373737382d39643661646632632d633834342d343239302d623037612d3031623066626135393136642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675477778-9d6adf2c-c844-4290-b07a-01b0fba5916d.png" style="max-width: 100%;"></a></p>
+<p>使用三极管就没有这个问题</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9330785fc793abeba6341dc1781afaa4c54e286857dac2438e1ef8acf75a5478/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353539323035322d63316136373339382d383663362d343061322d393963382d3966643061613330353537332e706e67"><img src="https://camo.githubusercontent.com/9330785fc793abeba6341dc1781afaa4c54e286857dac2438e1ef8acf75a5478/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353539323035322d63316136373339382d383663362d343061322d393963382d3966643061613330353537332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675592052-c1a67398-86c6-40a2-99c8-9fd0aa305573.png" style="max-width: 100%;"></a></p>
+<p>解决方案，在gs之间加颗大电阻</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fe80eacdc55825d7662aa3fe7c4bfe3c88c8d552509b20b2b9c33686933ec8e9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353633313734302d37313937313236382d623431302d343733342d616566662d6637366132356535313830362e706e67"><img src="https://camo.githubusercontent.com/fe80eacdc55825d7662aa3fe7c4bfe3c88c8d552509b20b2b9c33686933ec8e9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353633313734302d37313937313236382d623431302d343733342d616566662d6637366132356535313830362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675631740-71971268-b410-4734-aeff-f76a25e51806.png" style="max-width: 100%;"></a></p>
+<p>56 mos寄生二极管不能忽略</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/07b3c92f7bccf6048b66f55dc82291c98a6f37a432318ec72b77f96c9a850ec0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353834393535322d66386562636330392d393632322d343330312d613831612d3730343562663837303564372e706e67"><img src="https://camo.githubusercontent.com/07b3c92f7bccf6048b66f55dc82291c98a6f37a432318ec72b77f96c9a850ec0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353834393535322d66386562636330392d393632322d343330312d613831612d3730343562663837303564372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675849552-f8ebcc09-9622-4301-a81a-7045bf8705d7.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e150cc3b661f1f2c7013331e6a6478a01d1e439f022777f5366530e38a81b3dc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353933323636302d34393864336333662d313537302d343631312d626430312d6536653632313038643164342e706e67"><img src="https://camo.githubusercontent.com/e150cc3b661f1f2c7013331e6a6478a01d1e439f022777f5366530e38a81b3dc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637353933323636302d34393864336333662d313537302d343631312d626430312d6536653632313038643164342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732675932660-498d3c3f-1570-4611-bd01-e6e62108d1d4.png" style="max-width: 100%;"></a></p>
+<p>在这个电路中，电流可能会通过寄生二极管给电池充电</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/315c4647d746509fcb6e6c94297a68d324bd53d5662e9ce0a2139066fec414b4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363032353332382d34316136363630322d386330612d346565642d396361652d3232326638303239383266662e706e67"><img src="https://camo.githubusercontent.com/315c4647d746509fcb6e6c94297a68d324bd53d5662e9ce0a2139066fec414b4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363032353332382d34316136363630322d386330612d346565642d396361652d3232326638303239383266662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676025328-41a66602-8c0a-4eed-9cae-222f802982ff.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b077eb53ba65d1ea110d364191dc2a8dd3dc52686ab1e593742b0e316dcb2e43/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363036323931392d31623630343262312d346435362d343664342d613135352d3461353739346532663631642e706e67"><img src="https://camo.githubusercontent.com/b077eb53ba65d1ea110d364191dc2a8dd3dc52686ab1e593742b0e316dcb2e43/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363036323931392d31623630343262312d346435362d343664342d613135352d3461353739346532663631642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676062919-1b6042b1-4d56-46d4-a155-4a5794e2f61d.png" style="max-width: 100%;"></a></p>
+<p>57 mos做开关的注意事项</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/093b5b2a35376b1c1398c028f65bf2a5f1243489bc43cfa8d47246fa00b90eaa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363339383434382d30366131633531632d313964642d343163362d386362312d3033343235363761353861652e706e67"><img src="https://camo.githubusercontent.com/093b5b2a35376b1c1398c028f65bf2a5f1243489bc43cfa8d47246fa00b90eaa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363339383434382d30366131633531632d313964642d343163362d386362312d3033343235363761353861652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676398448-06a1c51c-19dd-41c6-8cb1-0342567a58ae.png" style="max-width: 100%;"></a></p>
+<p>如图，当S极没有接地时，最终会变成放大状态</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f56e7bdf7f87d9da576626596f2925c9ce6d91c71f955465bd3d8acaf62ca7d7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363530363731302d39313931326364332d393639372d343231372d613165392d3837656236363165386566622e706e67"><img src="https://camo.githubusercontent.com/f56e7bdf7f87d9da576626596f2925c9ce6d91c71f955465bd3d8acaf62ca7d7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363530363731302d39313931326364332d393639372d343231372d613165392d3837656236363165386566622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676506710-91912cd3-9697-4217-a1e9-87eb661e8efb.png" style="max-width: 100%;"></a></p>
+<p>MOS管作为开关使用时，S极不接地很容易变成放大状态 发热很严重</p>
+<p>方案一 我们可以增大输入电压 例如把输入电压加到6.5V 那么它不会进入放大状态（拿一个比负载还高的电压）</p>
+<p>方案二 利用电容两端电压不能突变的特性</p>
+<p>自举电路 利用电容抬高电压</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/00d331cb04593b22342a4fc92c9f7be53acc0ed394c2a0f5a0d70f43614db319/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363936313538372d61663030623233322d356535342d343837612d393933392d6338666333626633623531662e706e67"><img src="https://camo.githubusercontent.com/00d331cb04593b22342a4fc92c9f7be53acc0ed394c2a0f5a0d70f43614db319/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323637363936313538372d61663030623233322d356535342d343837612d393933392d6338666333626633623531662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732676961587-af00b232-5e54-487a-9939-c8fc3bf3b51f.png" style="max-width: 100%;"></a></p>
+<p>58 Pmos的开关电路设计方法</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/31046bc6d6a9cb90bb66e79ba48650ed1df3e25960248f3071ea194162bde96a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739363831383630392d66396263323966652d303566312d346432352d383039342d3433313935623337656665392e706e67"><img src="https://camo.githubusercontent.com/31046bc6d6a9cb90bb66e79ba48650ed1df3e25960248f3071ea194162bde96a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739363831383630392d66396263323966652d303566312d346432352d383039342d3433313935623337656665392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732796818609-f9bc29fe-05f1-4d25-8094-43195b37efe9.png" style="max-width: 100%;"></a></p>
+<p>Pmos适合做开关</p>
+<p>大功率场景不适合使用</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e3c08bce758eabca651ae01b2a1abf3ace28df5550fb1e12d9605d11f4191020/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739363835333935352d62313365306437662d363037352d343164612d626339612d3139313263363035313561382e706e67"><img src="https://camo.githubusercontent.com/e3c08bce758eabca651ae01b2a1abf3ace28df5550fb1e12d9605d11f4191020/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739363835333935352d62313365306437662d363037352d343164612d626339612d3139313263363035313561382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732796853955-b13e0d7f-6075-41da-bc9a-1912c60515a8.png" style="max-width: 100%;"></a></p>
+<p>一般是使用单片机控制</p>
+<p>59 Pmos防反接电路的工作原理</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8f937e29214300ae13d662d13bfeb973d2671e011103c821d54b21ef69cbe5df/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739373030313937312d39356139313238322d663936302d343736302d393637612d3761366366663433333563632e706e67"><img src="https://camo.githubusercontent.com/8f937e29214300ae13d662d13bfeb973d2671e011103c821d54b21ef69cbe5df/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739373030313937312d39356139313238322d663936302d343736302d393637612d3761366366663433333563632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797001971-95a91282-f960-4760-967a-7a6cff4335cc.png" style="max-width: 100%;"></a></p>
+<p>如果没有mos管，mcu将承受反向12V</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7ac5df19f20ad867ba90cbdfa1d442a9bb792b304f380d9d06a05602e75bec9c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739373034343735362d32613565613938352d333331622d343330322d383639352d6466336137343264623936632e706e67"><img src="https://camo.githubusercontent.com/7ac5df19f20ad867ba90cbdfa1d442a9bb792b304f380d9d06a05602e75bec9c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739373034343735362d32613565613938352d333331622d343330322d383639352d6466336137343264623936632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797044756-2a5ea985-331b-4302-8695-df3a742db96c.png" style="max-width: 100%;"></a></p>
+<p>60 Mos管DS之间可以双向流通</p>
+<p>正常情况下我们是不希望使用双向流通的特性</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5da33855557f59e987294b66430043b1b66ed6be678b06b558da8c06c1513367/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739373837343834362d31666166663737612d396566372d343063632d626236382d3534303631363562656232312e706e67"><img src="https://camo.githubusercontent.com/5da33855557f59e987294b66430043b1b66ed6be678b06b558da8c06c1513367/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739373837343834362d31666166663737612d396566372d343063632d626236382d3534303631363562656232312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797874846-1faff77a-9ef7-40cc-bb68-5406165beb21.png" style="max-width: 100%;"></a></p>
+<p>因为mos管中存在寄生二极管，它有压降</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/24bb155388aeec3736c68d78ce1da451b8789865254f11b59f5c19f1a9f2fd03/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383233373633312d62323732393136362d336362352d346463332d623633382d3035643661303130363365632e706e67"><img src="https://camo.githubusercontent.com/24bb155388aeec3736c68d78ce1da451b8789865254f11b59f5c19f1a9f2fd03/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383233373633312d62323732393136362d336362352d346463332d623633382d3035643661303130363365632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798237631-b2729166-3cb5-4dc3-b638-05d6a01063ec.png" style="max-width: 100%;"></a></p>
+<p>只要满足导通条件，电子就可以在沟道中移动</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7faff7d32dd19997b89326022e01a38b1340f87a8e3996c16f0c4602fcd761c0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739373939393938382d32636633653264332d363633312d346665622d613138652d3130366331333761633366302e706e67"><img src="https://camo.githubusercontent.com/7faff7d32dd19997b89326022e01a38b1340f87a8e3996c16f0c4602fcd761c0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739373939393938382d32636633653264332d363633312d346665622d613138652d3130366331333761633366302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732797999988-2cf3e2d3-6631-4feb-a18e-106c137ac3f0.png" style="max-width: 100%;"></a></p>
+<p>电路一</p>
+<p>注意，此电路即使开关没有闭合，也可以通过寄生二极管供电</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/29540dc701330fca54b4dff118a581413b4aca1164ec95a7cb54af56daa7f2b0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383037313930372d34623563623465352d396234342d346338372d626133632d3634663062323262323961632e706e67"><img src="https://camo.githubusercontent.com/29540dc701330fca54b4dff118a581413b4aca1164ec95a7cb54af56daa7f2b0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383037313930372d34623563623465352d396234342d346338372d626133632d3634663062323262323961632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798071907-4b5cb4e5-9b44-4c87-ba3c-64f0b22b29ac.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/52b2fc960cc7f92f715baff975f132681167e58838f8a0c7315a10e87bca2052/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383235333135332d31653835636632332d383862662d346534612d386630372d6331613532373965393766312e706e67"><img src="https://camo.githubusercontent.com/52b2fc960cc7f92f715baff975f132681167e58838f8a0c7315a10e87bca2052/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383235333135332d31653835636632332d383862662d346534612d386630372d6331613532373965393766312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798253153-1e85cf23-88bf-4e4a-8f07-c1a5279e97f1.png" style="max-width: 100%;"></a></p>
+<p>电路二</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1d61757227784675418fb4596053193bb5f373250038b108dbaf89aadd990e27/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383239383334312d63316566303461312d326230372d343134652d383435632d3433306163363063623061362e706e67"><img src="https://camo.githubusercontent.com/1d61757227784675418fb4596053193bb5f373250038b108dbaf89aadd990e27/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383239383334312d63316566303461312d326230372d343134652d383435632d3433306163363063623061362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798298341-c1ef04a1-2b07-414e-845c-430ac60cb0a6.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c17c32bc7bc6df931591f064db85b08197c703db2e28bfeeb3388e08f485c5fb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383138313539312d34323333616261312d383164652d343730622d616233352d3936303961336238656166372e706e67"><img src="https://camo.githubusercontent.com/c17c32bc7bc6df931591f064db85b08197c703db2e28bfeeb3388e08f485c5fb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383138313539312d34323333616261312d383164652d343730622d616233352d3936303961336238656166372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798181591-4233aba1-81de-470b-ab35-9609a3b8eaf7.png" style="max-width: 100%;"></a></p>
+<p>可以增加一个反向mos管来抵消寄生二极管的影响</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ae33a8831b062bfb15f6c0a042f2d97552b34450d748d42ff33dd0ba4f8291a8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383334303133342d37363837333330302d653031332d343465342d396430382d3738653164363038353834392e706e67"><img src="https://camo.githubusercontent.com/ae33a8831b062bfb15f6c0a042f2d97552b34450d748d42ff33dd0ba4f8291a8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323739383334303133342d37363837333330302d653031332d343465342d396430382d3738653164363038353834392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732798340134-76873300-e013-44e4-9d08-78e1d6085849.png" style="max-width: 100%;"></a></p>
+<p>（模拟开关芯片当中电流可以双向流通就是利用了mos管）</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+<script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
