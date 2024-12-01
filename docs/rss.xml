@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sun, 01 Dec 2024 11:02:15 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>鉴于博客样式太丑，写了点样式优化</title><link>https://blog.adouzi.eu.org/post/35.html</link><description>&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sun, 01 Dec 2024 11:11:54 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>Java 学习笔记 SSM IoC</title><link>https://blog.adouzi.eu.org/post/34.html</link><description>&#13;
+# Spring 框架学习笔记&#13;
 &#13;
+## 什么是框架？&#13;
+框架是一种应用程序内部预设了常见问题解决方案的工具。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/34.html</guid><pubDate>Sun, 01 Dec 2024 10:45:29 +0000</pubDate></item><item><title>鉴于博客样式太丑，写了点样式优化</title><link>https://blog.adouzi.eu.org/post/35.html</link><description>&#13;
 ![image](https://github.com/user-attachments/assets/60c8105f-95c0-4c68-8227-2dea9c146fe5)&#13;
 ```css&#13;
 &lt;style&gt;&#13;
@@ -58,12 +61,7 @@
 ```&#13;
 &#13;
 &#13;
-&lt;!-- ##{'timestamp':1732964312}## --&gt;&#13;
-。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/35.html</guid><pubDate>Sun, 01 Dec 2024 11:01:53 +0000</pubDate></item><item><title>Java 学习笔记 SSM IoC</title><link>https://blog.adouzi.eu.org/post/34.html</link><description>&#13;
-# Spring 框架学习笔记&#13;
-&#13;
-## 什么是框架？&#13;
-框架是一种应用程序内部预设了常见问题解决方案的工具。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/34.html</guid><pubDate>Sun, 01 Dec 2024 10:45:29 +0000</pubDate></item><item><title>解决 IDEA 代码提示缓慢，有延迟的问题</title><link>https://blog.adouzi.eu.org/post/33.html</link><description>#### 笔者在使用idea中发现代码提示几乎不可用，出现提示缓慢等问题&#13;
+&lt;!-- ##{'timestamp':1732964312}## --&gt;。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/35.html</guid><pubDate>Sat, 30 Nov 2024 10:58:32 +0000</pubDate></item><item><title>解决 IDEA 代码提示缓慢，有延迟的问题</title><link>https://blog.adouzi.eu.org/post/33.html</link><description>#### 笔者在使用idea中发现代码提示几乎不可用，出现提示缓慢等问题&#13;
 &#13;
 - 找到idea的安装目录&#13;
 ![image](https://github.com/user-attachments/assets/13672396-cf64-4729-b325-a2e4aac4c77b)&#13;
