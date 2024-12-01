@@ -107,12 +107,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <blockquote>
 <p>(优点)数组一旦初始化完成，其元素的类型就是确定的。不是此类型的元素，就不能添加到此数组中</p>
 </blockquote>
-<p>intllarr = new int[10];</p>
-<p>arr[0]= 1;</p>
-<p>arr[1]="AA";//编译报错</p>
-<p>0bject[]arr1 = new 0bject[10];</p>
-<p>arr1[0]= new String();</p>
-<p>arr1[1]= new Date();</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-s1">intllarr</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">10</span>];
+
+<span class="pl-s1">arr</span>[<span class="pl-c1">0</span>]= <span class="pl-c1">1</span>;
+
+<span class="pl-s1">arr</span>[<span class="pl-c1">1</span>]=<span class="pl-s">"AA"</span>;<span class="pl-c">//编译报错</span>
+
+<span class="pl-c1">0</span><span class="pl-smi">bject</span>[]<span class="pl-s1">arr1</span> = <span class="pl-k">new</span> <span class="pl-c1">0</span><span class="pl-smi">bject</span>[<span class="pl-c1">10</span>];
+
+<span class="pl-s1">arr1</span>[<span class="pl-c1">0</span>]= <span class="pl-k">new</span> <span class="pl-smi">String</span>();
+
+<span class="pl-s1">arr1</span>[<span class="pl-c1">1</span>]= <span class="pl-k">new</span> <span class="pl-smi">Date</span>();</pre></div>
 <blockquote>
 <p>（优点 ） 元素的类型既可以是基本数据类型，也可以是引用数据类型</p>
 </blockquote>
@@ -144,42 +149,113 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>java.util.Map:存储一对一对的数据（存储 key-value 键值对，（x1，y1）,（x2，y2）--&gt; y=F</p>
 <p>(x)，类似于函数）</p>
 <p>----HashMap、LinkedHashMap、TreeMap、Hashtable、Properties</p>
-<p>// 向列表末尾添加一个元素</p>
-<p>void add(int index, E element) // 在指定位置插入一个元素</p>
-<p>// 在列表末尾添加一个元素</p>
-<p>boolean add(E element) // 在列表末尾添加一个元素，并返回true</p>
-<p>// 在列表末尾添加多个元素</p>
-<p>boolean addAll(Collection&lt;? extends E&gt; c) // 将指定集合中的所有元素添加到列表末尾，并返回true如果列表被修改</p>
-<p>// 在列表末尾添加多个元素</p>
-<p>boolean addAll(int index, Collection&lt;? extends E&gt; c) // 在指定位置插入指定集合中的所有元素，并返回true如果列表被修改</p>
-<p>// 清除列表中的所有元素</p>
-<p>void clear() // 移除列表中的所有元素</p>
-<p>// 检查列表是否包含某个元素</p>
-<p>boolean contains(Object o) // 如果列表包含指定元素，则返回true</p>
-<p>// 检查列表是否包含指定集合中的所有元素</p>
-<p>boolean containsAll(Collection&lt;?&gt; c) // 如果列表包含指定集合中的所有元素，则返回true</p>
-<p>// 获取列表中的元素</p>
-<p>E get(int index) // 返回列表中指定位置的元素</p>
-<p>// 获取列表中的索引</p>
-<p>int indexOf(Object o) // 返回指定元素在列表中第一次出现的索引，如果未找到则返回-1</p>
-<p>// 获取列表中的最后一个元素的索引</p>
-<p>int lastIndexOf(Object o) // 返回指定元素在列表中最后一次出现的索引，如果未找到则返回-1</p>
-<p>// 从列表中移除一个元素</p>
-<p>E remove(int index) // 移除列表中指定位置的元素，并返回被移除的元素</p>
-<p>// 从列表中移除一个元素</p>
-<p>boolean remove(Object o) // 移除列表中第一次出现的指定元素，并返回true如果元素被移除</p>
-<p>// 从列表中移除指定集合中的所有元素</p>
-<p>boolean removeAll(Collection&lt;?&gt; c) // 移除列表中所有包含在指定集合中的元素，并返回true如果列表被修改</p>
-<p>// 保留列表中不在指定集合中的元素</p>
-<p>boolean retainAll(Collection&lt;?&gt; c) // 保留列表中所有包含在指定集合中的元素，并返回true如果列表被修改</p>
-<p>// 替换列表中的元素</p>
-<p>E set(int index, E element) // 替换列表中指定位置的元素，并返回被替换的元素</p>
-<p>// 获取列表的大小</p>
-<p>int size() // 返回列表中的元素数量</p>
-<p>// 将列表转换为数组</p>
-<p>Object[] toArray() // 返回包含列表所有元素的数组</p>
-<p>// 将列表转换为指定类型的数组</p>
-<p> T[] toArray(T[] a) // 返回包含列表所有元素的指定类型的数组</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 向列表末尾添加一个元素</span>
+
+<span class="pl-smi">void</span> <span class="pl-s1">add</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>, <span class="pl-smi">E</span> <span class="pl-s1">element</span>) <span class="pl-c">// 在指定位置插入一个元素</span>
+
+
+
+<span class="pl-c">// 在列表末尾添加一个元素</span>
+
+<span class="pl-smi">boolean</span> <span class="pl-s1">add</span>(<span class="pl-smi">E</span> <span class="pl-s1">element</span>) <span class="pl-c">// 在列表末尾添加一个元素，并返回true</span>
+
+
+
+
+
+<span class="pl-c">// 在列表末尾添加多个元素</span>
+
+<span class="pl-smi">boolean</span> <span class="pl-s1">addAll</span>(<span class="pl-smi">Collection</span>&lt;? <span class="pl-k">extends</span> <span class="pl-smi">E</span>&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 将指定集合中的所有元素添加到列表末尾，并返回true如果列表被修改</span>
+
+
+
+<span class="pl-c">// 在列表末尾添加多个元素</span>
+
+<span class="pl-smi">boolean</span> <span class="pl-s1">addAll</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>, <span class="pl-smi">Collection</span>&lt;? <span class="pl-k">extends</span> <span class="pl-smi">E</span>&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 在指定位置插入指定集合中的所有元素，并返回true如果列表被修改</span>
+
+
+
+<span class="pl-c">// 清除列表中的所有元素</span>
+
+<span class="pl-smi">void</span> <span class="pl-s1">clear</span>() <span class="pl-c">// 移除列表中的所有元素</span>
+
+
+
+<span class="pl-c">// 检查列表是否包含某个元素</span>
+
+<span class="pl-smi">boolean</span> <span class="pl-s1">contains</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) <span class="pl-c">// 如果列表包含指定元素，则返回true</span>
+
+
+
+<span class="pl-c">// 检查列表是否包含指定集合中的所有元素</span>
+
+<span class="pl-smi">boolean</span> <span class="pl-s1">containsAll</span>(<span class="pl-smi">Collection</span>&lt;?&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 如果列表包含指定集合中的所有元素，则返回true</span>
+
+
+
+<span class="pl-c">// 获取列表中的元素</span>
+
+<span class="pl-smi">E</span> <span class="pl-s1">get</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>) <span class="pl-c">// 返回列表中指定位置的元素</span>
+
+
+
+<span class="pl-c">// 获取列表中的索引</span>
+
+<span class="pl-smi">int</span> <span class="pl-s1">indexOf</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) <span class="pl-c">// 返回指定元素在列表中第一次出现的索引，如果未找到则返回-1</span>
+
+
+
+<span class="pl-c">// 获取列表中的最后一个元素的索引</span>
+
+<span class="pl-smi">int</span> <span class="pl-s1">lastIndexOf</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) <span class="pl-c">// 返回指定元素在列表中最后一次出现的索引，如果未找到则返回-1</span>
+
+
+
+<span class="pl-c">// 从列表中移除一个元素</span>
+
+<span class="pl-smi">E</span> <span class="pl-s1">remove</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>) <span class="pl-c">// 移除列表中指定位置的元素，并返回被移除的元素</span>
+
+
+
+<span class="pl-c">// 从列表中移除一个元素</span>
+
+<span class="pl-smi">boolean</span> <span class="pl-s1">remove</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) <span class="pl-c">// 移除列表中第一次出现的指定元素，并返回true如果元素被移除</span>
+
+
+
+<span class="pl-c">// 从列表中移除指定集合中的所有元素</span>
+
+<span class="pl-smi">boolean</span> <span class="pl-s1">removeAll</span>(<span class="pl-smi">Collection</span>&lt;?&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 移除列表中所有包含在指定集合中的元素，并返回true如果列表被修改</span>
+
+
+
+<span class="pl-c">// 保留列表中不在指定集合中的元素</span>
+
+<span class="pl-smi">boolean</span> <span class="pl-s1">retainAll</span>(<span class="pl-smi">Collection</span>&lt;?&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 保留列表中所有包含在指定集合中的元素，并返回true如果列表被修改</span>
+
+
+
+<span class="pl-c">// 替换列表中的元素</span>
+
+<span class="pl-smi">E</span> <span class="pl-s1">set</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>, <span class="pl-smi">E</span> <span class="pl-s1">element</span>) <span class="pl-c">// 替换列表中指定位置的元素，并返回被替换的元素</span>
+
+
+
+<span class="pl-c">// 获取列表的大小</span>
+
+<span class="pl-smi">int</span> <span class="pl-s1">size</span>() <span class="pl-c">// 返回列表中的元素数量</span>
+
+
+
+<span class="pl-c">// 将列表转换为数组</span>
+
+<span class="pl-smi">Object</span>[] <span class="pl-s1">toArray</span>() <span class="pl-c">// 返回包含列表所有元素的数组</span>
+
+
+
+<span class="pl-c">// 将列表转换为指定类型的数组</span>
+
+&lt;<span class="pl-s1">T</span>&gt; <span class="pl-smi">T</span>[] <span class="pl-s1">toArray</span>(<span class="pl-smi">T</span>[] <span class="pl-s1">a</span>) <span class="pl-c">// 返回包含列表所有元素的指定类型的数组</span></pre></div>
 <p>学习的程度把握:</p>
 <p>层次1:针对于具体特点的多个数据，知道选择相应的适合的接口的主要实现类，会实例化，会调用常用的方法</p>
 <p>层次2:区分接口中不同实现类的区别</p>
