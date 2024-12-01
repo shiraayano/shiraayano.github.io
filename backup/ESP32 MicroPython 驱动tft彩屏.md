@@ -1,4 +1,3 @@
-
 ![IMG_20241125_235339](https://github.com/user-attachments/assets/edae1194-dda4-4994-ba82-25a2e121016f)
 
 ### 接线说明
@@ -110,6 +109,18 @@ D.run()
 电容用电阻档还能测到阻值
 难道是线烧了（？
 下回看看能不能救回来
+
+11月28日
+后续 
+从料板拆了个三极管（去电创看到一堆废板子，从上边找了个同型号的管子换上）
+![IMG_20241129_131621](https://github.com/user-attachments/assets/26f5188f-98ae-49a5-bee6-1c3fd428842b)
+不能正常显示   
+
+于是换了个小屏幕接上
+![IMG_20241129_131552](https://github.com/user-attachments/assets/0a473770-9eef-4876-a8cb-145d05bc7855)
+![1732898216664-50583175](https://github.com/user-attachments/assets/10d131e2-f716-4a36-804e-77541c91487d)
+题外话，博主11月30号又烧了块A988步进电机驱动板
+求安慰QAQ
 
 ---
 
