@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="
+
+# AOP 面向切面编程
+
+
+### AOP简介
+#### 什么是AOP？
+AOP（Aspect-Oriented Programming，面向切面编程）是一种编程范式，旨在通过分离横切关注点（cross-cutting concerns）来提高代码的模块化。">
+<meta property="og:title" content="Java 学习笔记 Spring AOP">
+<meta property="og:description" content="
+
+# AOP 面向切面编程
+
+
+### AOP简介
+#### 什么是AOP？
+AOP（Aspect-Oriented Programming，面向切面编程）是一种编程范式，旨在通过分离横切关注点（cross-cutting concerns）来提高代码的模块化。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/38.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java 学习笔记 Spring AOP</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java 学习笔记 Spring AOP</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/38" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>AOP 面向切面编程</h1>
+<h3>AOP简介</h3>
+<h4>什么是AOP？</h4>
+<p>AOP（Aspect-Oriented Programming，面向切面编程）是一种编程范式，旨在通过分离横切关注点（cross-cutting concerns）来提高代码的模块化。横切关注点是指那些在多个模块中都会涉及的功能，如日志记录、安全检查、事务管理等。AOP通过将这些关注点从业务逻辑中分离出来，使得代码更加清晰、可维护。</p>
+<h4>为什么需要AOP？</h4>
+<p>在传统的面向对象编程（OOP）中，横切关注点往往会散布在多个类中，导致代码重复和耦合度高。AOP通过将这些关注点集中管理，减少了代码的重复，提高了代码的可维护性和可读性。</p>
+<h4>AOP的核心概念</h4>
+<ol>
+<li><strong>切面（Aspect）</strong>：切面是模块化的横切关注点。它可以看作是一个类，包含了横切关注点的具体实现。</li>
+<li><strong>连接点（Join Point）</strong>：连接点是程序执行的某个特定点，如方法调用或异常抛出。AOP框架允许在这些点上插入切面代码。</li>
+<li><strong>通知（Advice）</strong>：通知是切面在连接点上执行的代码。通知有多种类型，如前置通知、后置通知、环绕通知等。</li>
+<li><strong>切入点（Pointcut）</strong>：切入点定义了在哪些连接点上应用切面。它通常通过表达式来指定。</li>
+<li><strong>织入（Weaving）</strong>：织入是将切面代码应用到目标对象的过程。织入可以在编译时、类加载时或运行时进行。</li>
+</ol>
+<h4>AOP的实现方式</h4>
+<ol>
+<li><strong>编译时织入</strong>：在编译阶段将切面代码织入到目标类中。这种方式需要特殊的编译器支持。</li>
+<li><strong>类加载时织入</strong>：在类加载阶段通过类加载器将切面代码织入到目标类中。</li>
+<li><strong>运行时织入</strong>：在运行时通过代理模式将切面代码织入到目标对象中。Spring AOP主要采用这种方式。</li>
+</ol>
+<h4>AOP的应用场景</h4>
+<ol>
+<li><strong>日志记录</strong>：在方法调用前后记录日志。</li>
+<li><strong>性能监控</strong>：监控方法的执行时间。</li>
+<li><strong>安全检查</strong>：在方法调用前进行权限验证。</li>
+<li><strong>事务管理</strong>：在方法调用前后管理事务。</li>
+</ol>
+<h2>代理模式简介（不要求掌握）</h2>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/55b97dd7e46ab387fe4ef108aa7736f74bc5ccee2156f1a775cb6094867fc56e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037333336313434312d37323432333434332d666231302d343237312d386434312d3534643863636335326130352e706e67"><img src="https://camo.githubusercontent.com/55b97dd7e46ab387fe4ef108aa7736f74bc5ccee2156f1a775cb6094867fc56e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037333336313434312d37323432333434332d666231302d343237312d386434312d3534643863636335326130352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733073361441-72423443-fb10-4271-8d41-54d8ccc52a05.png" style="max-width: 100%;"></a></p>
+<h4>什么是代理模式？</h4>
+<p>代理模式（Proxy Pattern）是一种结构型设计模式，它为其他对象提供一种代理以控制对这个对象的访问。代理模式可以在不改变原始对象的情况下，通过代理对象来控制对原始对象的访问。</p>
+<h4>代理模式的类型</h4>
+<ol>
+<li><strong>静态代理</strong>：在编译时由程序员创建代理类，代理类和目标类实现相同的接口。</li>
+<li><strong>动态代理</strong>：在运行时由JDK或CGLIB库动态生成代理类，代理类和目标类实现相同的接口或继承自目标类。</li>
+</ol>
+<h4>代理模式的应用场景</h4>
+<ol>
+<li><strong>远程代理</strong>：为一个对象在不同地址空间提供局部代表。这样可以隐藏一个对象存在于不同地址空间的事实。</li>
+<li><strong>虚拟代理</strong>：根据需要创建开销很大的对象。通过代理对象来控制对实际对象的访问，只有在需要时才创建实际对象。</li>
+<li><strong>保护代理</strong>：控制对原始对象的访问。保护代理用于对象应该有不同的访问权限时。</li>
+<li><strong>智能引用代理</strong>：在访问对象时执行一些附加操作，如计算一个对象被引用的次数。</li>
+</ol>
+<h4>代理模式的优点</h4>
+<ol>
+<li><strong>职责清晰</strong>：真实角色实现实际的业务逻辑，不用关心其他非本职的事务，通过代理类完成一件事务，附带的结果就是编程简洁清晰。</li>
+<li><strong>高扩展性</strong>：真实角色专注于业务逻辑，代理类负责其他事务，符合开闭原则。</li>
+<li><strong>智能化</strong>：代理类可以在执行真实角色的操作时，附加其他操作，如日志记录、性能监控等。</li>
+</ol>
+<h4>代理模式的示例代码</h4>
+<p>以下是一个简单的静态代理示例：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 接口</span>
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">Subject</span> {
+    <span class="pl-smi">void</span> <span class="pl-en">request</span>();
+}
+
+<span class="pl-c">// 真实对象</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">RealSubject</span> <span class="pl-k">implements</span> <span class="pl-smi">Subject</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">request</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"RealSubject: Handling request."</span>);
+    }
+}
+
+<span class="pl-c">// 代理对象</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Proxy</span> <span class="pl-k">implements</span> <span class="pl-smi">Subject</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">RealSubject</span> <span class="pl-s1">realSubject</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">request</span>() {
+        <span class="pl-k">if</span> (<span class="pl-s1">realSubject</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-s1">realSubject</span> = <span class="pl-k">new</span> <span class="pl-smi">RealSubject</span>();
+        }
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Proxy: Logging request."</span>);
+        <span class="pl-s1">realSubject</span>.<span class="pl-en">request</span>();
+    }
+}
+
+<span class="pl-c">// 客户端代码</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Client</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Subject</span> <span class="pl-s1">proxy</span> = <span class="pl-k">new</span> <span class="pl-smi">Proxy</span>();
+        <span class="pl-s1">proxy</span>.<span class="pl-en">request</span>();
+    }
+}</pre></div>
+<p>在这个示例中，<code class="notranslate">Proxy</code>类控制对<code class="notranslate">RealSubject</code>对象的访问，并在调用<code class="notranslate">request</code>方法时添加了日志记录功能。</p>
+<h4>两种动态代理方式区别</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/bbf4b7f0e4b9ce17be51f6e06ce0688d1114bfe5527f8c2a542674b97e26ecf8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037333938353532382d37316231663862612d373639362d343333612d383365352d6364313737323366306436362e706e67"><img src="https://camo.githubusercontent.com/bbf4b7f0e4b9ce17be51f6e06ce0688d1114bfe5527f8c2a542674b97e26ecf8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037333938353532382d37316231663862612d373639362d343333612d383365352d6364313737323366306436362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733073985528-71b1f8ba-7696-433a-83e5-cd17723f0d66.png" style="max-width: 100%;"></a></p>
+<ul>
+<li>JDK原生动态代理 拜把子 不能继承（必须要有接口）</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c91d72c1a68219a5443791eb66af9a6b0078be6a4009a1ea382d959693322df2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037343136333331392d30373063633235642d383236382d346331612d383032372d3336343231623530303839362e706e67"><img src="https://camo.githubusercontent.com/c91d72c1a68219a5443791eb66af9a6b0078be6a4009a1ea382d959693322df2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037343136333331392d30373063633235642d383236382d346331612d383032372d3336343231623530303839362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733074163319-070cc25d-8268-4c1a-8027-36421b500896.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4b7389b22d73126ece17fe702cb36d285e535be7dc7b488990868acfb882256c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037343235303730302d35326332613861642d363032662d343430362d623037612d6237373434633236356134392e706e67"><img src="https://camo.githubusercontent.com/4b7389b22d73126ece17fe702cb36d285e535be7dc7b488990868acfb882256c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037343235303730302d35326332613861642d363032662d343430362d623037612d6237373434633236356134392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733074250700-52c2a8ad-602f-4406-b07a-b7744c265a49.png" style="max-width: 100%;"></a></p>
+<ul>
+<li>Cglib（三方 Spring提供的） 认干爹 可以继承</li>
+</ul>
+<blockquote>
+<p>cglib是spring核心的一部份，使用的时候不用额外导包</p>
+</blockquote>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e45dc2c8375dba278783fcabae23bde403f313e44b741dcffd5e032459172caa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037343237333130322d37613838346235612d376634612d346561392d393463622d3261363536306366393332392e706e67"><img src="https://camo.githubusercontent.com/e45dc2c8375dba278783fcabae23bde403f313e44b741dcffd5e032459172caa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037343237333130322d37613838346235612d376634612d346561392d393463622d3261363536306366393332392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733074273102-7a884b5a-7f4a-4ea9-94cb-2a6560cf9329.png" style="max-width: 100%;"></a></p>
+<h3>AOP其实就是对动态代理的简化</h3>
+<p>AOP 面向切面编程 可以说是 OOP 面向对象编程的一种完善</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fb7be9b161b6490e9aabc698c3c8c45bdc971e38d28aa455d2e3dd470924ae3b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037343738373534392d63666664336337662d623963332d343031332d623965372d3939383536643334646236622e706e67"><img src="https://camo.githubusercontent.com/fb7be9b161b6490e9aabc698c3c8c45bdc971e38d28aa455d2e3dd470924ae3b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037343738373534392d63666664336337662d623963332d343031332d623965372d3939383536643334646236622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733074787549-cffd3c7f-b9c3-4013-b9e7-99856d34db6b.png" style="max-width: 100%;"></a></p>
+<p>一般用于非核心业务 如 日志 权限管理等</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a92b39e271cf73891aa02b13e27ddcdd32b5372bc2fdc50809905b46a261c6bd/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037353232363330322d66386431356131612d333630342d346635322d393062342d6562313837376462396431302e706e67"><img src="https://camo.githubusercontent.com/a92b39e271cf73891aa02b13e27ddcdd32b5372bc2fdc50809905b46a261c6bd/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037353232363330322d66386431356131612d333630342d346635322d393062342d6562313837376462396431302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733075226302-f8d15a1a-3604-4f52-90b4-eb1877db9d10.png" style="max-width: 100%;"></a></p>
+<h4>思维导图</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5d11efa1605e0eba62fad6ac11a70c2beb3ff43da728074ebe59ae5e3f6f9bdb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037353433313330352d30373830346664632d653832382d343333322d613232382d3036356165396462323562312e706e67"><img src="https://camo.githubusercontent.com/5d11efa1605e0eba62fad6ac11a70c2beb3ff43da728074ebe59ae5e3f6f9bdb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037353433313330352d30373830346664632d653832382d343333322d613232382d3036356165396462323562312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733075431305-07804fdc-e828-4332-a228-065ae9db25b1.png" style="max-width: 100%;"></a></p>
+<h3>AOP基于注解方式的实现细节</h3>
+<p>Spring AOP会自动选择使用动态代理或者cglib</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f0e3473fdb8ab88ccc4a9ee4315a8a707c7d20f4de70a81fadcb765fdb84f891/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132383733353130312d39323165633265652d383135342d343533662d393764312d3665623930636236313930392e706e67"><img src="https://camo.githubusercontent.com/f0e3473fdb8ab88ccc4a9ee4315a8a707c7d20f4de70a81fadcb765fdb84f891/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132383733353130312d39323165633265652d383135342d343533662d393764312d3665623930636236313930392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733128735101-921ec2ee-8154-453f-97d1-6eb90cb61909.png" style="max-width: 100%;"></a></p>
+<h4>流程图</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1287d54d92fda8c3be1e97254beff1d9bead3ffb9136eeb900e8695be98095a1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132383935333739312d64626132386465652d643032622d343638372d613637372d3430366563636662653138362e706e67"><img src="https://camo.githubusercontent.com/1287d54d92fda8c3be1e97254beff1d9bead3ffb9136eeb900e8695be98095a1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132383935333739312d64626132386465652d643032622d343638372d613637372d3430366563636662653138362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733128953791-dba28dee-d02b-4687-a677-406eccfbe186.png" style="max-width: 100%;"></a></p>
+<h3>例子</h3>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ef97b901dc171e5b6bcfad626c539710672af7178f10d7a5fbef0c8668afe636/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393430373635312d64383233656236322d643739302d346131642d393238392d6434653566393635643233302e706e67"><img src="https://camo.githubusercontent.com/ef97b901dc171e5b6bcfad626c539710672af7178f10d7a5fbef0c8668afe636/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393430373635312d64383233656236322d643739302d346131642d393238392d6434653566393635643233302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733129407651-d823eb62-d790-4a1d-9289-d4e5f965d230.png" style="max-width: 100%;"></a></p>
+<ul>
+<li>加入日志功能（简单示例）</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fdc935b0c98ff8c9563e1f04bd82cd0dfa5280411a6a59f5a629df8156abc578/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393337343539382d64316661373331372d373163322d343438612d393435322d3832643461376535353730662e706e67"><img src="https://camo.githubusercontent.com/fdc935b0c98ff8c9563e1f04bd82cd0dfa5280411a6a59f5a629df8156abc578/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393337343539382d64316661373331372d373163322d343438612d393435322d3832643461376535353730662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733129374598-d1fa7317-71c2-448a-9452-82d4a7e5570f.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2f8b661ff8dd6a34ad28428d9e10bd6347dcd52fe38b571587207e79938ca80a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393435333830312d37643963633865622d623234342d346465332d383538372d3434396135643363326562352e706e67"><img src="https://camo.githubusercontent.com/2f8b661ff8dd6a34ad28428d9e10bd6347dcd52fe38b571587207e79938ca80a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393435333830312d37643963633865622d623234342d346465332d383538372d3434396135643363326562352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733129453801-7d9cc8eb-b244-4de3-8587-449a5d3c2eb5.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/35458db6c84fb5670337064f2bef762af36bd0872f806fb25b23f944ad44fdd4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393530373636352d61386462326163382d643836612d346365642d393434622d6461613030366433646465622e706e67"><img src="https://camo.githubusercontent.com/35458db6c84fb5670337064f2bef762af36bd0872f806fb25b23f944ad44fdd4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393530373636352d61386462326163382d643836612d346365642d393434622d6461613030366433646465622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733129507665-a8db2ac8-d86a-4ced-944b-daa006d3ddeb.png" style="max-width: 100%;"></a></p>
+<ul>
+<li>示例</li>
+</ul>
+<p>1.定义四个方法</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e8ac290419f6cfd034d233d13de1c37a52b22a67af2501a6a4f7a040790e83a9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393734373039302d38373635333433322d383038382d343064352d626164382d3539373036346666343061662e706e67"><img src="https://camo.githubusercontent.com/e8ac290419f6cfd034d233d13de1c37a52b22a67af2501a6a4f7a040790e83a9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333132393734373039302d38373635333433322d383038382d343064352d626164382d3539373036346666343061662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733129747090-87653432-8088-40d5-bad8-597064ff40af.png" style="max-width: 100%;"></a></p>
+<blockquote>
+<p>TODO：增强方法中获取信息</p>
+<p>1.全部增强方法中，获取目标方法的信息（方法名，参数，访问修饰符，所属类的信息...）</p>
+<p>（JointPoint jointPoint）</p>
+<p>joinpoint 包含目标方法的信息</p>
+<p>2.返回的结果 - @AfterReturning</p>
+<p>（Object result）result接收返回结果</p>
+<p>@AfterReturing(value = "execution(* com.impl.<em>.</em>((..))",returing = "形参")</p>
+<p>3.异常的信息 - @AfterThrowing</p>
+<p>(Throwable t)t接收异常信息</p>
+<p>@AfterThrowing(value = "execution(* com..iml.<em>.</em>(..))",throwing="形参")</p>
+</blockquote>
+<h4>获取目标信息</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b221584ef36a6b418585b5cc521e0b689ee0afed24ab57e9c5ecb6467c99e6c7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133303232393434382d66383234303330312d313361372d343932322d613663302d6639393838333930323636392e706e67"><img src="https://camo.githubusercontent.com/b221584ef36a6b418585b5cc521e0b689ee0afed24ab57e9c5ecb6467c99e6c7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133303232393434382d66383234303330312d313361372d343932322d613663302d6639393838333930323636392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733130229448-f8240301-13a7-4922-a6c0-f99883902669.png" style="max-width: 100%;"></a></p>
+<blockquote>
+<p>添加JoinPoint即连接点即可获取目标方法的信息</p>
+</blockquote>
+<h4>返回结果</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f6174bd1a461cb0d4417028fce4fe484237227fb4454aac7a51d71a79da67593/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133303236373737382d36393732336630392d343838372d343637382d616263632d3030396165333231346539342e706e67"><img src="https://camo.githubusercontent.com/f6174bd1a461cb0d4417028fce4fe484237227fb4454aac7a51d71a79da67593/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133303236373737382d36393732336630392d343838372d343637382d616263632d3030396165333231346539342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733130267778-69723f09-4887-4678-abcc-009ae3214e94.png" style="max-width: 100%;"></a></p>
+<h4>异常</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/15afbccbeb12b75d0449a618b6970430fbd46063f06f42fd1ff7347cfcb866f2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133303435303739322d36663338343831362d663834352d343861322d383464382d3339613863303839386434302e706e67"><img src="https://camo.githubusercontent.com/15afbccbeb12b75d0449a618b6970430fbd46063f06f42fd1ff7347cfcb866f2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133303435303739322d36663338343831362d663834352d343861322d383464382d3339613863303839386434302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733130450792-6f384816-f845-48a2-84d8-39a8c0898d40.png" style="max-width: 100%;"></a></p>
+<h3>切点表达式语法</h3>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3573c7ff941e73cb3134b5356b5e7612043a412b63be541d42c20d3387de4eab/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133303639383734382d37376261373661302d333063342d346363612d616631612d3064333537633437643736342e706e67"><img src="https://camo.githubusercontent.com/3573c7ff941e73cb3134b5356b5e7612043a412b63be541d42c20d3387de4eab/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133303639383734382d37376261373661302d333063342d346363612d616631612d3064333537633437643736342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733130698748-77ba76a0-30c4-4cca-af1a-0d357c47d764.png" style="max-width: 100%;"></a></p>
+<h3>Spring AOP 切点表达式语法</h3>
+<h4>什么是切点表达式？</h4>
+<p>切点表达式（Pointcut Expression）用于定义在哪些连接点（Join Point）上应用切面（Aspect）。它通过匹配方法签名、注解等方式来指定切入点。</p>
+<h4></h4>
+<h4>固定语法</h4>
+<p><code class="notranslate">execution(1 2 3.4.5(6))</code></p>
+<ol>
+<li><strong>访问修饰符</strong>
+<ul>
+<li><code class="notranslate">public</code> / <code class="notranslate">private</code></li>
+</ul>
+</li>
+<li><strong>方法的返回参数类型</strong>
+<ul>
+<li><code class="notranslate">String</code>、<code class="notranslate">int</code>、<code class="notranslate">void</code></li>
+<li>如果不考虑访问修饰符和返回值，这两位整合成一起写 <code class="notranslate">*</code></li>
+<li>如果要是不考虑，必须两个都不考虑，不能出现 <code class="notranslate">*String</code></li>
+</ul>
+</li>
+<li><strong>包的位置</strong>
+<ul>
+<li>具体包：<code class="notranslate">com.atguigu.service.impl</code></li>
+<li>单层模糊：<code class="notranslate">com.atguigu.service.*</code></li>
+<li>多层模糊：<code class="notranslate">com..impl</code></li>
+<li>细节：<code class="notranslate">..</code> 不能开头</li>
+<li>找所有 <code class="notranslate">impl</code> 包：<code class="notranslate">com..impl</code> 不能写 <code class="notranslate">..impl</code>，写成：<code class="notranslate">*..impl</code></li>
+</ul>
+</li>
+<li><strong>类的名称</strong>
+<ul>
+<li>具体：<code class="notranslate">CalculatorPureImpl</code></li>
+<li>模糊：<code class="notranslate">*</code></li>
+<li>不分模糊：<code class="notranslate">*Impl</code></li>
+</ul>
+</li>
+<li><strong>方法名</strong>
+<ul>
+<li>语法和类名一致</li>
+</ul>
+</li>
+<li><strong>形参数列表</strong>
+<ul>
+<li>没有参数：<code class="notranslate">()</code></li>
+<li>有具体参数：<code class="notranslate">(String)</code>、<code class="notranslate">(String, int)</code></li>
+<li>模糊参数：<code class="notranslate">(..)</code> 有没有参数都可以，有多个也可以！</li>
+<li>不分模糊：
+<ul>
+<li><code class="notranslate">(String..)</code> <code class="notranslate">String</code> 后面有没有无所谓</li>
+<li><code class="notranslate">(..int)</code> 最后一个参数是 <code class="notranslate">int</code></li>
+<li><code class="notranslate">(String..int)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3>切点表达式的提取和复用</h3>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3362c96d71b7f6d92eb1f763e345fbd4c048c2c9a913e446716ebdf8f3c2dcb3/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133313330343933352d65623630643033642d363165622d343062392d626663622d3930363738663765636165312e706e67"><img src="https://camo.githubusercontent.com/3362c96d71b7f6d92eb1f763e345fbd4c048c2c9a913e446716ebdf8f3c2dcb3/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133313330343933352d65623630643033642d363165622d343062392d626663622d3930363738663765636165312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733131304935-eb60d03d-61eb-40b9-bfcb-90678f7ecae1.png" style="max-width: 100%;"></a></p>
+<h4>切点表达式的提取</h4>
+<p>在Spring AOP中，可以通过注解和配置文件来提取切点表达式，以便在多个切面中复用。以下是一些常见的提取方法：</p>
+<ol>
+<li><strong>使用注解提取切点表达式</strong><br>
+可以在切面类中定义一个方法，并使用<code class="notranslate">@Pointcut</code>注解来标记切点表达式。然后在其他通知方法中引用这个切点表达式。</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LoggingAspect</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Pointcut</span>(<span class="pl-s">"execution(* com.example.service.*.*(..))"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">serviceMethods</span>() {
+        <span class="pl-c">// 切点表达式</span>
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Before</span>(<span class="pl-s">"serviceMethods()"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">logBefore</span>(<span class="pl-smi">JoinPoint</span> <span class="pl-s1">joinPoint</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Before method: "</span> + <span class="pl-s1">joinPoint</span>.<span class="pl-en">getSignature</span>().<span class="pl-en">getName</span>());
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">After</span>(<span class="pl-s">"serviceMethods()"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">logAfter</span>(<span class="pl-smi">JoinPoint</span> <span class="pl-s1">joinPoint</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"After method: "</span> + <span class="pl-s1">joinPoint</span>.<span class="pl-en">getSignature</span>().<span class="pl-en">getName</span>());
+    }
+}</pre></div>
+<ol>
+<li><strong>使用配置文件提取切点表达式</strong><br>
+可以在Spring配置文件中定义切点表达式，并在切面类中引用。</li>
+</ol>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;
+    &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">pointcut</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceMethods<span class="pl-pds">"</span></span> <span class="pl-e">expression</span>=<span class="pl-s"><span class="pl-pds">"</span>execution(* com.example.service.*.*(..))<span class="pl-pds">"</span></span>/&gt;
+    &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>loggingAspect<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">before</span> <span class="pl-e">pointcut-ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceMethods<span class="pl-pds">"</span></span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>logBefore<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">after</span> <span class="pl-e">pointcut-ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceMethods<span class="pl-pds">"</span></span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>logAfter<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;</pre></div>
+<h4>切点表达式的复用</h4>
+<p>通过提取切点表达式，可以在多个切面中复用相同的切点表达式，从而减少代码重复，提高代码的可维护性。</p>
+<ol>
+<li><strong>在多个切面中复用切点表达式</strong><br>
+可以在一个切面类中定义切点表达式，然后在其他切面类中引用。</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">CommonPointcuts</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Pointcut</span>(<span class="pl-s">"execution(* com.example.service.*.*(..))"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">serviceMethods</span>() {
+        <span class="pl-c">// 切点表达式</span>
+    }
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LoggingAspect</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Before</span>(<span class="pl-s">"com.example.aspect.CommonPointcuts.serviceMethods()"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">logBefore</span>(<span class="pl-smi">JoinPoint</span> <span class="pl-s1">joinPoint</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Before method: "</span> + <span class="pl-s1">joinPoint</span>.<span class="pl-en">getSignature</span>().<span class="pl-en">getName</span>());
+    }
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SecurityAspect</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Before</span>(<span class="pl-s">"com.example.aspect.CommonPointcuts.serviceMethods()"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">checkSecurity</span>(<span class="pl-smi">JoinPoint</span> <span class="pl-s1">joinPoint</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Checking security for method: "</span> + <span class="pl-s1">joinPoint</span>.<span class="pl-en">getSignature</span>().<span class="pl-en">getName</span>());
+    }
+}</pre></div>
+<p>在多个切面中复用相同的切点表达式，避免了重复定义，提高了代码的可维护性和可读性。</p>
+<p>Spring AOP中的环绕通知（Around Advice）是一种非常强大的通知类型，它允许在目标方法执行前后进行自定义的行为，并且可以控制是否执行目标方法，甚至可以替换目标方法的返回值或抛出异常来结束执行。以下是环绕通知的一些关键点：</p>
+<ol>
+<li><strong>功能强大</strong>：环绕通知是最强大的一种通知类型，因为它可以包围一个连接点（如方法调用），允许在方法执行前后添加自定义逻辑。</li>
+<li><strong>控制执行流程</strong>：环绕通知可以在方法调用前后完成自定义的行为，并且可以选择是否继续执行连接点或直接返回它们自己的返回值或抛出异常来结束执行。</li>
+<li><strong>使用</strong><code class="notranslate">ProceedingJoinPoint</code>：环绕通知的连接点参数类型必须是<code class="notranslate">ProceedingJoinPoint</code>，这是<code class="notranslate">JoinPoint</code>的子接口，它允许控制何时执行连接点。</li>
+<li><strong>必须调用</strong><code class="notranslate">proceed()</code><strong>方法</strong>：在环绕通知中，需要明确调用<code class="notranslate">ProceedingJoinPoint</code>的<code class="notranslate">proceed()</code>方法来执行被代理的方法。如果忘记这样做，就会导致通知被执行了，但目标方法没有被执行。</li>
+<li><strong>返回值</strong>：环绕通知的方法需要返回目标方法执行之后的结果，即调用<code class="notranslate">joinPoint.proceed();</code>的返回值，否则会出现空指针异常。</li>
+<li><strong>异常处理</strong>：环绕通知可以捕获并处理目标方法执行过程中抛出的异常，这为异常处理提供了更大的灵活性。</li>
+<li><strong>示例代码</strong>：</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Around</span>(<span class="pl-s">"execution(public int com.test.spring.aop.ArithmeticCalculator.*(..))"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">aroudMethod</span>(<span class="pl-smi">ProceedingJoinPoint</span> <span class="pl-s1">pjd</span>) <span class="pl-k">throws</span> <span class="pl-smi">Throwable</span> {
+    <span class="pl-smi">Object</span> <span class="pl-s1">result</span> = <span class="pl-c1">null</span>;
+    <span class="pl-c">// 执行目标方法之前的逻辑</span>
+    <span class="pl-k">try</span> {
+        <span class="pl-s1">result</span> = <span class="pl-s1">pjd</span>.<span class="pl-en">proceed</span>(); <span class="pl-c">// 调用目标方法</span>
+        <span class="pl-c">// 执行目标方法之后的逻辑</span>
+    } <span class="pl-k">catch</span> (<span class="pl-smi">Throwable</span> <span class="pl-s1">e</span>) {
+        <span class="pl-c">// 异常处理逻辑</span>
+        <span class="pl-k">throw</span> <span class="pl-s1">e</span>;
+    }
+    <span class="pl-k">return</span> <span class="pl-s1">result</span>; <span class="pl-c">// 返回目标方法的结果</span>
+}</pre></div>
+<p>在这个示例中，<code class="notranslate">aroudMethod</code>方法接受一个<code class="notranslate">ProceedingJoinPoint</code>对象作为参数，该对象包含了关于当前正在执行的方法的所有信息。通过<code class="notranslate">pjd.proceed()</code>，你可以让目标方法继续执行，然后在其前后执行自定义的逻辑。</p>
+<p>环绕通知因其强大的控制能力和灵活性，在Spring AOP中被广泛使用，特别是在需要对方法执行进行精细控制的场景中。</p>
+<p>在Spring AOP中，切面的优先级决定了多个切面在同一个连接点上执行的顺序。以下是关于Spring AOP切面优先级设定的介绍：</p>
+<ol>
+<li><strong>切面优先级的影响</strong>：当同一个目标方法上存在多个切面时，切面的优先级决定了这些切面的内外嵌套顺序。优先级高的切面会在外面，优先级低的切面会在里面。</li>
+<li><strong>使用</strong><code class="notranslate">@Order</code><strong>注解</strong>：可以通过在切面类上使用<code class="notranslate">@Order</code>注解来控制切面的优先级。<code class="notranslate">@Order</code>注解的值越小，表示优先级越高；值越大，表示优先级越低。<code class="notranslate">@Order</code>注解的默认值是<code class="notranslate">Integer.MAX_VALUE</code>，即最低优先级。</li>
+<li><code class="notranslate">@Order</code><strong>注解的使用示例</strong>：</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-c1">@</span><span class="pl-c1">Order</span>(<span class="pl-c1">1</span>) <span class="pl-c">// 优先级高</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">HighPriorityAspect</span> {
+    <span class="pl-c">// 切面逻辑</span>
+}
+
+<span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-c1">@</span><span class="pl-c1">Order</span>(<span class="pl-c1">2</span>) <span class="pl-c">// 优先级低</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LowPriorityAspect</span> {
+    <span class="pl-c">// 切面逻辑</span>
+}</pre></div>
+<p>在这个示例中，<code class="notranslate">HighPriorityAspect</code>的优先级高于<code class="notranslate">LowPriorityAspect</code>，因为它的<code class="notranslate">@Order</code>值更小。</p>
+<ol>
+<li><strong>基于XML的AOP配置</strong>：在XML配置中，也可以通过<code class="notranslate">order</code>属性来指定切面的优先级。例如：</li>
+</ol>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>highPriorityAspect<span class="pl-pds">"</span></span> <span class="pl-e">order</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> 切面配置 <span class="pl-c">--&gt;</span></span>
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;
+&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>lowPriorityAspect<span class="pl-pds">"</span></span> <span class="pl-e">order</span>=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>&gt;
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> 切面配置 <span class="pl-c">--&gt;</span></span>
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;</pre></div>
+<p>这里<code class="notranslate">highPriorityAspect</code>的优先级高于<code class="notranslate">lowPriorityAspect</code>。</p>
+<ol>
+<li><strong>优先级对执行顺序的影响</strong>：对于入操作（如Before和Around通知），优先级越高的切面会越早执行；对于出操作（如After、AfterReturning和AfterThrowing通知），优先级越低的切面会越早执行。</li>
+</ol>
+<p>通过合理设置切面的优先级，可以控制不同切面在目标方法执行时的执行顺序，这对于复杂的业务逻辑和事务管理等场景尤为重要。</p>
+<p><code class="notranslate">值越小，优先级越高</code></p>
+<p>Spring AOP（面向切面编程）是一种编程范式，它允许开发者将横切关注点（如日志记录、事务管理、权限检查等）从业务逻辑中分离出来。CGLIB是Spring AOP中使用的一种字节码生成库，用于在运行时动态地扩展类和实现AOP代理。以下是CGLIB在Spring AOP中生效的一些场景：</p>
+<ol>
+<li><strong>非接口代理</strong>：
+<ul>
+<li>当目标对象没有实现接口时，Spring AOP不能使用JDK动态代理，因为JDK动态代理只能代理实现了接口的类。在这种情况下，Spring AOP会使用CGLIB来创建目标对象的子类，并在子类中实现代理逻辑。</li>
+</ul>
+</li>
+<li><strong>方法覆盖</strong>：
+<ul>
+<li>如果目标对象的方法被覆盖（Override），并且你想要在不改变原始方法实现的情况下添加额外的行为，CGLIB可以用来创建一个子类，在子类中添加额外的逻辑。</li>
+</ul>
+</li>
+<li><strong>增强非public方法</strong>：
+<ul>
+<li>JDK动态代理只能代理public方法，而CGLIB可以代理包括private、protected和package-private在内的所有方法。因此，如果需要对非public方法进行增强，CGLIB是必需的。</li>
+</ul>
+</li>
+<li><strong>实现方法拦截</strong>：
+<ul>
+<li>CGLIB通过使用MethodInterceptor来实现方法拦截，可以在方法执行前后以及抛出异常时添加自定义逻辑。</li>
+</ul>
+</li>
+<li><strong>实现字段拦截</strong>：
+<ul>
+<li>CGLIB也可以用来拦截字段的读写操作，通过创建字段的getter和setter方法的子类实现。</li>
+</ul>
+</li>
+<li><strong>实现混合代理</strong>：
+<ul>
+<li>在某些情况下，可能需要同时使用JDK动态代理和CGLIB代理。Spring AOP允许混合使用这两种代理，以适应不同的目标对象和增强需求。</li>
+</ul>
+</li>
+<li><strong>性能优化</strong>：
+<ul>
+<li>对于性能敏感的应用，CGLIB代理可能比JDK动态代理更优，因为CGLIB代理是为目标对象创建子类，而JDK动态代理是为目标接口创建代理类。在某些情况下，子类代理可能比接口代理更高效。</li>
+</ul>
+</li>
+<li><strong>实现复杂的AOP逻辑</strong>：
+<ul>
+<li>CGLIB提供了更多的灵活性，可以用于实现更复杂的AOP逻辑，比如多个切面在同一方法上的不同顺序执行。</li>
+</ul>
+</li>
+</ol>
+<p>在Spring配置中，可以通过<code class="notranslate">proxy-target-class</code>属性来指定是否使用CGLIB代理。如果设置为<code class="notranslate">true</code>，则Spring AOP将使用CGLIB来创建代理，即使目标对象实现了接口。如果设置为<code class="notranslate">false</code>（默认值），Spring将首先尝试使用JDK动态代理，如果目标对象没有实现接口，则回退到CGLIB代理。</p>
+<p>（了解）</p>
+<p>使用XML配置AOP（面向切面编程）是Spring框架中一个重要的功能，它允许我们在不修改业务逻辑代码的情况下，为业务逻辑添加额外的行为，比如日志记录、事务管理等。以下是使用XML配置AOP的基本步骤：</p>
+<ol>
+<li><strong>添加Spring和AOP依赖</strong>：在项目的<code class="notranslate">pom.xml</code>中添加Spring框架和AOP相关的依赖，如<code class="notranslate">spring-context</code>和<code class="notranslate">aspectjweaver</code>。</li>
+<li><strong>定义业务接口和实现类</strong>：创建业务逻辑接口及其实现，例如一个服务类<code class="notranslate">MyService</code>和它的实现<code class="notranslate">MyServiceImpl</code>。</li>
+<li><strong>定义切面类</strong>：创建一个切面类，用于定义前置、后置、环绕等通知。例如，<code class="notranslate">MyAspect</code>类中包含一个前置通知<code class="notranslate">beforeAdvice</code>。</li>
+<li><strong>配置XML</strong>：在<code class="notranslate">applicationContext.xml</code>中配置切面和业务bean，以及AOP相关的标签。
+<ul>
+<li><strong>引入AOP命名空间</strong>：在XML配置文件中添加<code class="notranslate">xmlns:aop</code>和相应的<code class="notranslate">schemaLocation</code>。</li>
+</ul>
+</li>
+</ol>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">beans</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.springframework.org/schema/beans<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xsi</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">aop</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.springframework.org/schema/aop<span class="pl-pds">"</span></span>
+       <span class="pl-e">xsi</span><span class="pl-e">:</span><span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span></span>
+<span class="pl-s">        http://www.springframework.org/schema/beans</span>
+<span class="pl-s">        https://www.springframework.org/schema/beans/spring-beans.xsd</span>
+<span class="pl-s">        http://www.springframework.org/schema/aop</span>
+<span class="pl-s">        https://www.springframework.org/schema/aop/spring-aop.xsd<span class="pl-pds">"</span></span>&gt;
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> bean definitions here <span class="pl-c">--&gt;</span></span>
+&lt;/<span class="pl-ent">beans</span>&gt;</pre></div>
+<pre class="notranslate"><code class="notranslate">- **定义业务bean和切面bean**：将业务逻辑类和切面类作为bean定义在XML中。
+</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">bean</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>myService<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.demo.aop.MyServiceImpl<span class="pl-pds">"</span></span>/&gt;
+&lt;<span class="pl-ent">bean</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.demo.aop.MyAspect<span class="pl-pds">"</span></span>/&gt;</pre></div>
+<pre class="notranslate"><code class="notranslate">- **配置AOP切面**：使用`&lt;aop:config&gt;`标签开始AOP配置，并使用`&lt;aop:aspect&gt;`标签配置切面。
+</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;
+    &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span>&gt;
+        <span class="pl-c"><span class="pl-c">&lt;!--</span> 配置通知 <span class="pl-c">--&gt;</span></span>
+    &lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;</pre></div>
+<pre class="notranslate"><code class="notranslate">- **配置通知**：在`&lt;aop:aspect&gt;`标签内部使用对应的标签配置通知的类型，并建立通知方法和切入点方法的关联。
+</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;
+    &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">before</span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>beforeAdvice<span class="pl-pds">"</span></span> <span class="pl-e">pointcut</span>=<span class="pl-s"><span class="pl-pds">"</span>execution(* com.example.demo.aop.MyService.performAction(..))<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;</pre></div>
+<p>其中<code class="notranslate">method</code>属性指定切面类中的通知方法，<code class="notranslate">pointcut</code>属性指定切入点表达式，表示对哪些方法增强。</p>
+<ol>
+<li><strong>测试配置</strong>：编写测试代码来验证AOP配置是否生效。</li>
+</ol>
+<p>通过以上步骤，你可以在Spring应用中使用XML配置AOP，为业务逻辑添加额外的行为而无需修改业务代码本身。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e451b4cb85e5a6ed8a6ef5c0c8d6d746c35e8e45aeb8a3fc0d75135228e21a72/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133363836323935392d38333964626365662d633361342d343563332d383862642d3232643564376366303763622e706e67"><img src="https://camo.githubusercontent.com/e451b4cb85e5a6ed8a6ef5c0c8d6d746c35e8e45aeb8a3fc0d75135228e21a72/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133363836323935392d38333964626365662d633361342d343563332d383862642d3232643564376366303763622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733136862959-839dbcef-c3a4-45c3-88bd-22d5d7cf07cb.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/01e3b2db84ea6d912b7f6d746e6e7933380502d1820884278290703f8efb9a75/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133363837393934362d37356362343766342d616336652d343430352d383432662d3362636432666234633565322e706e67"><img src="https://camo.githubusercontent.com/01e3b2db84ea6d912b7f6d746e6e7933380502d1820884278290703f8efb9a75/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133363837393934362d37356362343766342d616336652d343430352d383432662d3362636432666234633565322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733136879946-75cb47f4-ac6e-4405-842f-3bcd2fb4c5e2.png" style="max-width: 100%;"></a></p>
+<p>Spring AOP（面向切面编程）是Spring框架中的一个重要概念，它允许开发者在不修改业务逻辑代码的情况下，对程序中的某些部分进行横向切入，比如日志记录、事务管理、权限检查等。AOP通过代理模式实现，即在不改变原有对象的基础上，创建一个代理对象来扩展对象的行为。</p>
+<p>在Spring中，AOP对获取bean的影响主要体现在以下几个方面：</p>
+<ol>
+<li><strong>代理对象的创建</strong>：
+<ul>
+<li>当你使用Spring AOP时，Spring容器会为被代理的bean创建一个代理对象。这个代理对象可能是JDK动态代理对象（如果目标对象实现了接口），或者是CGLIB代理对象（如果目标对象没有实现接口）。</li>
+<li>这意味着当你从Spring容器中获取一个bean时，实际上可能获取到的是它的代理对象，而不是原始对象。</li>
+</ul>
+</li>
+<li><strong>获取bean的方式</strong>：
+<ul>
+<li>如果你直接通过<code class="notranslate">@Autowired</code>注解注入bean，Spring会自动处理代理，你不需要做任何额外的操作。</li>
+<li>如果你通过<code class="notranslate">ApplicationContext</code>的<code class="notranslate">getBean</code>方法获取bean，并且指定了bean的名称，Spring同样会返回代理对象。</li>
+</ul>
+</li>
+<li><strong>代理对象的行为</strong>：
+<ul>
+<li>代理对象会拦截对原始对象的方法调用，并在调用前后执行额外的逻辑（如日志、事务等）。</li>
+<li>这可能会导致方法调用的执行时间比直接调用原始对象更长，因为代理对象需要执行额外的逻辑。</li>
+</ul>
+</li>
+<li><strong>代理对象的透明性</strong>：
+<ul>
+<li>对于客户端代码来说，代理对象是透明的，即客户端代码不需要知道它正在与代理对象交互。</li>
+<li>这意味着客户端代码可以像调用原始对象一样调用代理对象，而不需要做任何特殊的处理。</li>
+</ul>
+</li>
+<li><strong>配置和性能</strong>：
+<ul>
+<li>AOP的配置可能会增加Spring容器启动的时间，因为需要额外处理代理对象的创建。</li>
+<li>在某些情况下，AOP可能会对性能产生影响，尤其是在代理逻辑非常复杂或者被代理的方法调用非常频繁的情况下。</li>
+</ul>
+</li>
+<li><strong>事务管理</strong>：
+<ul>
+<li>在Spring中，事务管理通常是通过AOP实现的。这意味着当你使用<code class="notranslate">@Transactional</code>注解时，Spring会为相关的bean创建代理对象，以确保在方法执行前后正确地管理事务。</li>
+</ul>
+</li>
+<li><strong>调试和测试</strong>：
+<ul>
+<li>在调试和测试时，需要注意你操作的是代理对象还是原始对象。这可能会影响调试信息和测试结果。</li>
+</ul>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f6c8ed73d8c8b07a4bc7d36c33f950672e6d7c313720b22183c10a1e01a88f53/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133373139313837372d61336438303763352d336537662d346264642d393764362d3435353965316161653566332e706e67"><img src="https://camo.githubusercontent.com/f6c8ed73d8c8b07a4bc7d36c33f950672e6d7c313720b22183c10a1e01a88f53/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133373139313837372d61336438303763352d336537662d346264642d393764362d3435353965316161653566332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733137191877-a3d807c5-3e7f-4bdd-97d6-4559e1aae5f3.png" style="max-width: 100%;"></a></p>
+<blockquote>
+<p>如果使用AOP结束，目标有接口，必须使用接口类型接收IoC容器中代理组件</p>
+</blockquote>
+<p>AOP是一种思想，为了解决散落在四处的非核心代码，提高项目的可维护性</p>
+<h1>TX 声明式事务</h1>
+<p>tx是对aop的再次封装</p>
+<p>在Spring框架中，编程式事务管理是指通过代码直接控制事务的边界。与声明式事务（使用注解或XML配置）相比，编程式事务提供了更细粒度的控制，但在代码中需要显式地管理事务的开启、提交和回滚。Spring提供了<code class="notranslate">PlatformTransactionManager</code>接口来支持编程式事务管理。</p>
+<p>以下是编程式事务管理的基本步骤和代码示例：</p>
+<h3>1. 引入依赖</h3>
+<p>首先，确保你的项目中已经包含了Spring事务管理的相关依赖。</p>
+<h3>2. 配置事务管理器</h3>
+<p>你需要配置一个<code class="notranslate">PlatformTransactionManager</code>。在Spring Boot项目中，这通常是自动配置的。如果是XML配置，你需要定义事务管理器并设置事务属性。</p>
+<h3>3. 编程式事务管理</h3>
+<h4>a. 手动管理事务</h4>
+<p>你可以通过<code class="notranslate">TransactionTemplate</code>或直接使用<code class="notranslate">PlatformTransactionManager</code>来手动管理事务。</p>
+<p><strong>使用</strong><code class="notranslate">TransactionTemplate</code><strong>：</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">stereotype</span>.<span class="pl-s1">Service</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">PlatformTransactionManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">TransactionDefinition</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">TransactionStatus</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">support</span>.<span class="pl-s1">DefaultTransactionDefinition</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">support</span>.<span class="pl-s1">TransactionTemplate</span>;
+
+<span class="pl-c1">@</span><span class="pl-c1">Service</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyService</span> {
+
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">TransactionTemplate</span> <span class="pl-s1">transactionTemplate</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">public</span> <span class="pl-smi">MyService</span>(<span class="pl-smi">PlatformTransactionManager</span> <span class="pl-s1">transactionManager</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">transactionTemplate</span> = <span class="pl-k">new</span> <span class="pl-smi">TransactionTemplate</span>(<span class="pl-s1">transactionManager</span>);
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">myTransactionalMethod</span>() {
+        <span class="pl-s1">transactionTemplate</span>.<span class="pl-en">execute</span>(<span class="pl-s1">status</span> -&gt; {
+            <span class="pl-c">// 在这里执行业务逻辑</span>
+            <span class="pl-c">// 如果发生异常，事务将自动回滚</span>
+            <span class="pl-k">return</span> <span class="pl-c1">null</span>;
+        });
+    }
+}</pre></div>
+<p><strong>使用</strong><code class="notranslate">PlatformTransactionManager</code><strong>：</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">stereotype</span>.<span class="pl-s1">Service</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">PlatformTransactionManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">TransactionDefinition</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">TransactionStatus</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">support</span>.<span class="pl-s1">DefaultTransactionDefinition</span>;
+
+<span class="pl-c1">@</span><span class="pl-c1">Service</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyService</span> {
+
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">PlatformTransactionManager</span> <span class="pl-s1">transactionManager</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">public</span> <span class="pl-smi">MyService</span>(<span class="pl-smi">PlatformTransactionManager</span> <span class="pl-s1">transactionManager</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">transactionManager</span> = <span class="pl-s1">transactionManager</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">myTransactionalMethod</span>() {
+        <span class="pl-smi">TransactionDefinition</span> <span class="pl-s1">definition</span> = <span class="pl-k">new</span> <span class="pl-smi">DefaultTransactionDefinition</span>();
+        <span class="pl-smi">TransactionStatus</span> <span class="pl-s1">status</span> = <span class="pl-s1">transactionManager</span>.<span class="pl-en">getTransaction</span>(<span class="pl-s1">definition</span>);
+        <span class="pl-k">try</span> {
+            <span class="pl-c">// 在这里执行业务逻辑</span>
+            <span class="pl-s1">transactionManager</span>.<span class="pl-en">commit</span>(<span class="pl-s1">status</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">transactionManager</span>.<span class="pl-en">rollback</span>(<span class="pl-s1">status</span>);
+            <span class="pl-k">throw</span> <span class="pl-s1">e</span>;
+        }
+    }
+}</pre></div>
+<h4>b. 设置事务属性</h4>
+<p>你可以通过<code class="notranslate">TransactionDefinition</code>设置事务的传播行为、隔离级别、超时时间等属性。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">TransactionDefinition</span> <span class="pl-s1">definition</span> = <span class="pl-k">new</span> <span class="pl-smi">DefaultTransactionDefinition</span>();
+<span class="pl-s1">definition</span>.<span class="pl-en">setPropagationBehavior</span>(<span class="pl-smi">TransactionDefinition</span>.<span class="pl-c1">PROPAGATION_REQUIRED</span>);
+<span class="pl-s1">definition</span>.<span class="pl-en">setIsolationLevel</span>(<span class="pl-smi">TransactionDefinition</span>.<span class="pl-c1">ISOLATION_SERIALIZABLE</span>);
+<span class="pl-s1">definition</span>.<span class="pl-en">setTimeout</span>(<span class="pl-c1">30</span>); <span class="pl-c">// 超时时间，单位为秒</span></pre></div>
+<h3>4. 处理事务回滚</h3>
+<p>在编程式事务管理中，你需要手动捕获异常并决定是否回滚事务。</p>
+<h3>总结</h3>
+<p>编程式事务管理提供了对事务控制的细粒度操作，但相比声明式事务，它需要更多的代码，可能会增加出错的机会。在实际开发中，声明式事务因其简洁性和易用性更受欢迎，但在需要更复杂事务控制的场景下，编程式事务管理是一个有力的工具。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/374b19955937a10877bd4c8b4d1083148684bc4c13797a5eda56cc3bde54d66e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133383233303730302d61303561613930352d393266392d343633642d613136382d3365323530663137313937332e706e67"><img src="https://camo.githubusercontent.com/374b19955937a10877bd4c8b4d1083148684bc4c13797a5eda56cc3bde54d66e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333133383233303730302d61303561613930352d393266392d343633642d613136382d3365323530663137313937332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733138230700-a05aa905-92f9-463d-a168-3e250f171973.png" style="max-width: 100%;"></a></p>
+<p>插拔式，增强了弹性</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
