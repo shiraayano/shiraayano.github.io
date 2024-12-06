@@ -296,9 +296,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>可选 <code class="notranslate">else if</code> 语句用于多条件分支。</li>
 <li>注意：<code class="notranslate">if</code> 后面没有大括号时，仅对下一行有效。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">if</span> (条件) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">if</span> (<span class="pl-s1">条件</span>) {
     <span class="pl-c">// 代码块</span>
-} <span class="pl-s1">else</span> {
+} <span class="pl-k">else</span> {
     <span class="pl-c">// 代码块</span>
 }</pre></div>
 </li>
@@ -309,11 +309,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">break</code> 用于防止 “穿透” 到下一个 case。</li>
 <li><code class="notranslate">default</code> 处理未匹配的情况。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">switch</span> (变量) {
-    <span class="pl-s1">case</span> 值<span class="pl-c1">1</span>:
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">switch</span> (<span class="pl-s1">变量</span>) {
+    <span class="pl-k">case</span> <span class="pl-s1">值1</span>:
         <span class="pl-c">// 代码块</span>
         <span class="pl-k">break</span>;
-    <span class="pl-s1">case</span> 值<span class="pl-c1">2</span>:
+    <span class="pl-k">case</span> <span class="pl-s1">值2</span>:
         <span class="pl-c">// 代码块</span>
         <span class="pl-k">break</span>;
     <span class="pl-k">default</span>:
@@ -330,7 +330,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>常用于已知次数的循环。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">for</span> (初始化; 条件; 更新) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">for</span> (<span class="pl-s1">初始化</span>; <span class="pl-s1">条件</span>; <span class="pl-s1">更新</span>) {
     <span class="pl-c">// 代码块</span>
 }</pre></div>
 </li>
@@ -339,7 +339,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>条件为真时执行代码块，不满足时停止。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">while</span> (条件) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">while</span> (<span class="pl-s1">条件</span>) {
     <span class="pl-c">// 代码块</span>
 }</pre></div>
 </li>
@@ -350,7 +350,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">do</span> {
     <span class="pl-c">// 代码块</span>
-} <span class="pl-k">while</span> (条件);</pre></div>
+} <span class="pl-k">while</span> (<span class="pl-s1">条件</span>);</pre></div>
 </li>
 </ul>
 <hr>
@@ -931,7 +931,7 @@ double d1 = Math.random();<br>
 <li><strong>描述</strong>：当传递给方法的参数不合法时，可能会抛出此异常。虽然不是专门针对数组的，但在使用数组作为参数的方法中可能会遇到。</li>
 <li><strong>示例</strong>：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">processArray</span>(<span class="pl-smi">int</span>[] <span class="pl-s1">array</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">processArray</span>(<span class="pl-smi">int</span>[] <span class="pl-s1">array</span>) {
     <span class="pl-k">if</span> (<span class="pl-s1">array</span> == <span class="pl-c1">null</span>) {
         <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">IllegalArgumentException</span>(<span class="pl-s">"Array cannot be null"</span>);
     }

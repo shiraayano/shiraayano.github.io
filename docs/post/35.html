@@ -200,18 +200,18 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
     <div id="content">
 <div class="markdown-body" id="postBody"><p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/60c8105f-95c0-4c68-8227-2dea9c146fe5"><img src="https://github.com/user-attachments/assets/60c8105f-95c0-4c68-8227-2dea9c146fe5" alt="image" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-css"><pre class="notranslate">&lt;<span class="pl-ent">style</span><span class="pl-c1">&gt;</span>
-  <span class="pl-ent">img</span> {
-    <span class="pl-c1">max-width</span><span class="pl-kos">:</span> <span class="pl-c1">100<span class="pl-smi">%</span></span>;
-    <span class="pl-c1">height</span><span class="pl-kos">:</span> auto;
-    <span class="pl-c1">display</span><span class="pl-kos">:</span> block;
-    <span class="pl-c1">margin</span><span class="pl-kos">:</span> <span class="pl-c1">1<span class="pl-smi">em</span></span> auto;
-    <span class="pl-c1">border-radius</span><span class="pl-kos">:</span> <span class="pl-c1">8<span class="pl-smi">px</span></span>;
-    <span class="pl-c1">box-shadow</span><span class="pl-kos">:</span> <span class="pl-c1">0</span> <span class="pl-c1">4<span class="pl-smi">px</span></span> <span class="pl-c1">6<span class="pl-smi">px</span></span> <span class="pl-en">rgba</span>(<span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">0.1</span>);
-    <span class="pl-c1">transition</span><span class="pl-kos">:</span> transform <span class="pl-c1">0.2<span class="pl-smi">s</span></span> ease<span class="pl-kos">,</span> box-shadow <span class="pl-c1">0.2<span class="pl-smi">s</span></span> ease;
+<div class="highlight highlight-source-css"><pre class="notranslate">&lt;style<span class="pl-c1">&gt;</span>
+  img {
+    max<span class="pl-c1">-</span>width<span class="pl-kos">:</span> 100%;
+    height<span class="pl-kos">:</span> au<span class="pl-k">to</span>;
+    d<span class="pl-c1">is</span>play<span class="pl-kos">:</span> block;
+    margin<span class="pl-kos">:</span> 1em au<span class="pl-k">to</span>;
+    b<span class="pl-c1">or</span>der<span class="pl-c1">-</span>radius<span class="pl-kos">:</span> 8px;
+    box<span class="pl-c1">-</span>shadow<span class="pl-kos">:</span> 0 4px 6px rgba(0<span class="pl-kos">,</span> 0<span class="pl-kos">,</span> 0<span class="pl-kos">,</span> 0.1);
+    transition<span class="pl-kos">:</span> transf<span class="pl-c1">or</span>m 0.2s ease<span class="pl-kos">,</span> box<span class="pl-c1">-</span>shadow 0.2s ease;
   }
 
-  <span class="pl-ent">img</span>[<span class="pl-c1">data-src</span>] {
+  img[<span class="pl-c1">data-src</span>] {
     <span class="pl-c1">opacity</span><span class="pl-kos">:</span> <span class="pl-c1">0</span>;
     <span class="pl-c1">animation</span><span class="pl-kos">:</span> fadeIn <span class="pl-c1">1<span class="pl-smi">s</span></span> forwards;
   }
@@ -232,9 +232,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
       <span class="pl-c1">margin</span><span class="pl-kos">:</span> <span class="pl-c1">0.5<span class="pl-smi">em</span></span> auto;
     }
   }
-&lt;<span class="pl-c1">/</span><span class="pl-ent">style</span><span class="pl-c1">&gt;</span></pre></div>
+&lt;<span class="pl-c1">/</span>style<span class="pl-c1">&gt;</span></pre></div>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8a0729c2-741d-4f4e-99d1-a86146e0cb59"><img src="https://github.com/user-attachments/assets/8a0729c2-741d-4f4e-99d1-a86146e0cb59" alt="image" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-js"><pre class="notranslate"><span class="pl-c1">&lt;</span><span class="pl-ent">script</span><span class="pl-c1">&gt;</span>
+<div class="highlight highlight-source-js"><pre class="notranslate"><span class="pl-c1">&lt;</span><span class="pl-s1">script</span><span class="pl-c1">&gt;</span>
   document.addEventListener('visibilitychange', function () <span class="pl-kos">{</span>
     <span class="pl-s1">const</span> <span class="pl-s1">originalTitle</span> <span class="pl-c1">=</span> <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-c1">title</span><span class="pl-kos">;</span>
     <span class="pl-k">const</span> <span class="pl-s1">hiddenMessages</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-s">'不来看看咱喵~？'</span><span class="pl-kos">,</span> <span class="pl-s">'喵喵喵~？'</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
@@ -248,7 +248,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
       <span class="pl-kos">}</span><span class="pl-kos">,</span> <span class="pl-c1">1000</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
     <span class="pl-kos">}</span>
   <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-c1">&lt;</span><span class="pl-c1">/</span><span class="pl-ent">script</span><span class="pl-c1">&gt;</span></pre></div>
+<span class="pl-kos">&lt;/</span><span class="pl-s1">script</span><span class="pl-c1">&gt;</span></pre></div>
 </div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
 

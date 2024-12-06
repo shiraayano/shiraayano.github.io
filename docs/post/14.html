@@ -510,8 +510,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>1.3 静态变量</h3>
 <h4>1.3.1 语法格式</h4>
 <p>使用static修饰的成员变量就是静态变量（或类变量、类属性）</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">[修饰符] <span class="pl-k">class</span> 类{
-    [其他修饰符] <span class="pl-k">static</span> 数据类型 变量名;
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">修饰符</span>] <span class="pl-k">class</span> <span class="pl-smi">类</span>{
+    [<span class="pl-s1">其他修饰符</span>] <span class="pl-k">static</span> <span class="pl-smi">数据类型</span> <span class="pl-s1">变量名</span>;
 }</pre></div>
 <h4>1.3.2 静态变量的特点</h4>
 <ul>
@@ -703,9 +703,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>1.4 静态方法</h3>
 <h4>1.4.1 语法格式</h4>
 <p>用static修饰的成员方法就是静态方法。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">[修饰符] <span class="pl-k">class</span> 类{
-    [其他修饰符] <span class="pl-k">static</span> 返回值类型 方法名(形参列表){
-        方法体
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">修饰符</span>] <span class="pl-k">class</span> <span class="pl-smi">类</span>{
+    [<span class="pl-s1">其他修饰符</span>] <span class="pl-k">static</span> <span class="pl-smi">返回值类型</span> <span class="pl-en">方法名</span>(<span class="pl-smi">形参列表</span><span class="pl-s1"></span>){
+        <span class="pl-s1">方法体</span>
     }
 }</pre></div>
 <h4>1.4.2 静态方法的特点</h4>
@@ -1083,9 +1083,9 @@ c
 <p>如果想要为静态变量初始化，可以直接在静态变量的声明后面直接赋值，也可以使用静态代码块。</p>
 <h4>4.1.1 语法格式</h4>
 <p>在代码块的前面加static，就是静态代码块。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">【修饰符】 <span class="pl-k">class</span> 类{
+<div class="highlight highlight-source-java"><pre class="notranslate">【<span class="pl-s1">修饰符</span>】 <span class="pl-k">class</span> <span class="pl-smi">类</span>{
     <span class="pl-k">static</span>{
-        静态代码块
+        <span class="pl-s1">静态代码块</span>
     }
 }</pre></div>
 <h4>4.1.2 静态代码块的特点</h4>
@@ -1128,14 +1128,14 @@ c
 }</pre></div>
 <h3>4.2 非静态代码块</h3>
 <h4>4.2.1 语法格式</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate">【修饰符】 <span class="pl-k">class</span> 类{
+<div class="highlight highlight-source-java"><pre class="notranslate">【<span class="pl-s1">修饰符</span>】 <span class="pl-k">class</span> <span class="pl-smi">类</span>{
     {
-        非静态代码块
+        <span class="pl-smi">非静态代码块</span>
     }
-    【修饰符】 构造器名(){
+    【<span class="pl-s1">修饰符</span>】 <span class="pl-s1">构造器名</span>(){
         <span class="pl-c">// 实例初始化代码</span>
     }
-    【修饰符】 构造器名(参数列表){
+    【<span class="pl-smi">修饰符</span>】 <span class="pl-s1">构造器名</span>(<span class="pl-s1">参数列表</span>){
         <span class="pl-c">// 实例初始化代码</span>
     }
 }</pre></div>
@@ -1175,7 +1175,7 @@ c
 <li>包含public String getInfo()方法，返回：“用户名：xx，密码：xx，注册时间：xx”</li>
 </ul>
 <p>（2）编写测试类，测试类main方法的代码如下：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
         <span class="pl-smi">User</span> <span class="pl-s1">u1</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>();
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">u1</span>.<span class="pl-en">getInfo</span>());
 
@@ -1739,14 +1739,14 @@ abstract 不能与哪些关键字共用?(自治)<br>
 <li><strong>抽象方法</strong>：被abstract修饰没有方法体的方法。</li>
 </ul>
 <p>抽象类的语法格式</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">[权限修饰符] <span class="pl-k">abstract</span> <span class="pl-k">class</span> 类名{
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">权限修饰符</span>] <span class="pl-k">abstract</span> <span class="pl-k">class</span> <span class="pl-smi">类名</span>{
     
-}
-[权限修饰符] <span class="pl-k">abstract</span> <span class="pl-k">class</span> 类名 <span class="pl-k">extends</span> 父类{
+}<span class="pl-s1"></span>
+[<span class="pl-s1">权限修饰符</span>] <span class="pl-k">abstract</span> <span class="pl-k">class</span> <span class="pl-smi">类名</span> <span class="pl-k">extends</span> <span class="pl-smi">父类</span>{
     
 }</pre></div>
 <p>抽象方法的语法格式</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">[其他修饰符] <span class="pl-k">abstract</span> 返回值类型 方法名([形参列表]);</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">其他修饰符</span>] <span class="pl-k">abstract</span> <span class="pl-smi">返回值类型</span> <span class="pl-s1">方法名</span>([<span class="pl-s1">形参列表</span>]);</pre></div>
 <blockquote>
 <p>注意：抽象方法没有方法体</p>
 </blockquote>
@@ -2030,7 +2030,7 @@ jdk9:声明私有方法</p>
 <p>引用数据类型：数组，类，枚举，接口，注解。</p>
 </blockquote>
 <h4>7.3.1 接口的声明格式</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate">[修饰符] <span class="pl-k">interface</span> 接口名{
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">修饰符</span>] <span class="pl-k">interface</span> <span class="pl-smi">接口名</span>{
     <span class="pl-c">//接口的成员列表：</span>
     <span class="pl-c">// 公共的静态常量</span>
     <span class="pl-c">// 公共的抽象方法</span>
@@ -2042,7 +2042,7 @@ jdk9:声明私有方法</p>
 <p>示例代码：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">interfacetype</span>;
 
-<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">USB3</span>{
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-c1">USB3</span>{
     <span class="pl-c">//静态常量</span>
     <span class="pl-smi">long</span> <span class="pl-c1">MAX_SPEED</span> = <span class="pl-c1">500</span>*<span class="pl-c1">1024</span>*<span class="pl-c1">1024</span>;<span class="pl-c">//500MB/s</span>
 
@@ -2080,12 +2080,12 @@ jdk9:声明私有方法</p>
 <p><strong>1、类实现接口（implements）</strong></p>
 <p>接口<strong>不能创建对象</strong>，但是可以被类实现（<code class="notranslate">implements</code> ，类似于被继承）。</p>
 <p>类与接口的关系为实现关系，即<strong>类实现接口</strong>，该类可以称为接口的实现类。实现的动作类似继承，格式相仿，只是关键字不同，实现使用 <code class="notranslate"> implements</code>关键字。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">【修饰符】 <span class="pl-k">class</span> 实现类  <span class="pl-k">implements</span> 接口{
+<div class="highlight highlight-source-java"><pre class="notranslate">【<span class="pl-s1">修饰符</span>】 <span class="pl-k">class</span> <span class="pl-smi">实现类</span>  <span class="pl-k">implements</span> <span class="pl-smi">接口</span>{
     <span class="pl-c">// 重写接口中抽象方法【必须】，当然如果实现类是抽象类，那么可以不重写</span>
       <span class="pl-c">// 重写接口中默认方法【可选】</span>
 }
 
-【修饰符】 <span class="pl-k">class</span> 实现类 <span class="pl-k">extends</span> 父类 <span class="pl-k">implements</span> 接口{
+【<span class="pl-s1">修饰符</span>】 <span class="pl-k">class</span> <span class="pl-smi">实现类</span> <span class="pl-k">extends</span> <span class="pl-smi">父类</span> <span class="pl-k">implements</span> <span class="pl-smi">接口</span>{
     <span class="pl-c">// 重写接口中抽象方法【必须】，当然如果实现类是抽象类，那么可以不重写</span>
       <span class="pl-c">// 重写接口中默认方法【可选】</span>
 }</pre></div>
@@ -2101,7 +2101,7 @@ jdk9:声明私有方法</p>
 <li>接口中的静态方法不能被继承也不能被重写</li>
 </ol>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">interface</span> <span class="pl-smi">USB</span>{		<span class="pl-c">// </span>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">interface</span> <span class="pl-c1">USB</span>{		<span class="pl-c">// </span>
     <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">start</span>() ;
     <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">stop</span>() ;	
 }
@@ -2146,12 +2146,12 @@ jdk9:声明私有方法</p>
 <p><strong>2、接口的多实现（implements）</strong></p>
 <p>之前学过，在继承体系中，一个类只能继承一个父类。而对于接口而言，一个类是可以实现多个接口的，这叫做接口的<code class="notranslate">多实现</code>。并且，一个类能继承一个父类，同时实现多个接口。</p>
 <p>实现格式：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">【修饰符】 <span class="pl-k">class</span> 实现类  <span class="pl-k">implements</span> 接口<span class="pl-c1">1</span>，接口<span class="pl-c1">2</span>，接口<span class="pl-c1">3</span>。。。{
+<div class="highlight highlight-source-java"><pre class="notranslate">【<span class="pl-s1">修饰符</span>】 <span class="pl-k">class</span> <span class="pl-smi">实现类</span>  <span class="pl-k">implements</span> <span class="pl-smi">接口1</span>，<span class="pl-s1">接口2</span>，<span class="pl-s1">接口3</span>。。。{
     <span class="pl-c">// 重写接口中所有抽象方法【必须】，当然如果实现类是抽象类，那么可以不重写</span>
       <span class="pl-c">// 重写接口中默认方法【可选】</span>
 }
 
-【修饰符】 <span class="pl-k">class</span> 实现类 <span class="pl-k">extends</span> 父类 <span class="pl-k">implements</span> 接口<span class="pl-c1">1</span>，接口<span class="pl-c1">2</span>，接口<span class="pl-c1">3</span>。。。{
+【<span class="pl-s1">修饰符</span>】 <span class="pl-k">class</span> <span class="pl-smi">实现类</span> <span class="pl-k">extends</span> <span class="pl-smi">父类</span> <span class="pl-k">implements</span> <span class="pl-smi">接口1</span>，<span class="pl-s1">接口2</span>，<span class="pl-s1">接口3</span>。。。{
     <span class="pl-c">// 重写接口中所有抽象方法【必须】，当然如果实现类是抽象类，那么可以不重写</span>
       <span class="pl-c">// 重写接口中默认方法【可选】</span>
 }</pre></div>
@@ -2305,9 +2305,9 @@ jdk9:声明私有方法</p>
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestUSB3</span> {
     <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
         <span class="pl-c">//通过“接口名.”调用接口的静态方法 (JDK8.0才能开始使用)</span>
-        <span class="pl-smi">USB3</span>.<span class="pl-en">show</span>();
+        <span class="pl-c1">USB3</span>.<span class="pl-en">show</span>();
         <span class="pl-c">//通过“接口名.”直接使用接口的静态常量</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">USB3</span>.<span class="pl-c1">MAX_SPEED</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-c1">USB3</span>.<span class="pl-c1">MAX_SPEED</span>);
     }
 }</pre></div>
 <p><strong>6、使用接口的非静态方法</strong></p>
@@ -2472,7 +2472,7 @@ jdk9:声明私有方法</p>
 <p>另一个父接口：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">interfacetype</span>;
 
-<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">USB2</span> {
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-c1">USB2</span> {
     <span class="pl-c">//静态常量</span>
     <span class="pl-smi">long</span> <span class="pl-c1">MAX_SPEED</span> = <span class="pl-c1">60</span>*<span class="pl-c1">1024</span>*<span class="pl-c1">1024</span>;<span class="pl-c">//60MB/s</span>
 
@@ -2496,7 +2496,7 @@ jdk9:声明私有方法</p>
 <p>子接口：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">interfacetype</span>;
 
-<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">USB</span> <span class="pl-k">extends</span> <span class="pl-smi">USB2</span>,<span class="pl-smi">USB3</span> {
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-c1">USB</span> <span class="pl-k">extends</span> <span class="pl-smi">USB2</span>,<span class="pl-smi">USB3</span> {
     <span class="pl-c1">@</span><span class="pl-c1">Override</span>
     <span class="pl-k">default</span> <span class="pl-smi">void</span> <span class="pl-en">start</span>() {
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Usb.start"</span>);
@@ -2834,8 +2834,8 @@ jdk9:声明私有方法</p>
 <h4>8.2.1 概述</h4>
 <p>如果成员内部类中不使用外部类的非静态成员，那么通常将内部类声明为静态内部类，否则声明为非静态内部类。</p>
 <p><strong>语法格式：</strong></p>
-<div class="highlight highlight-source-java"><pre class="notranslate">[修饰符] <span class="pl-k">class</span> 外部类{
-    [其他修饰符] [<span class="pl-k">static</span>] <span class="pl-k">class</span> 内部类{
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">修饰符</span>] <span class="pl-k">class</span> <span class="pl-smi">外部类</span>{
+    [<span class="pl-smi">其他修饰符</span>] [<span class="pl-s1">static</span>] <span class="pl-s1">class</span> <span class="pl-s1">内部类</span>{
     }
 }</pre></div>
 <p><strong>成员内部类的使用特征，概括来讲有如下两种角色：</strong></p>
@@ -2945,9 +2945,9 @@ jdk9:声明私有方法</p>
 <h3>8.3 局部内部类</h3>
 <h4>8.3.1 非匿名局部内部类</h4>
 <p>语法格式：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">[修饰符] <span class="pl-k">class</span> 外部类{
-    [修饰符] 返回值类型  方法名(形参列表){<span class="pl-s1"></span>
-            [<span class="pl-s1">final</span>/<span class="pl-s1">abstract</span>] <span class="pl-s1">class</span> 内部类{
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">修饰符</span>] <span class="pl-k">class</span> <span class="pl-smi">外部类</span>{
+    [<span class="pl-smi">修饰符</span>] <span class="pl-s1">返回值类型</span>  <span class="pl-s1">方法名</span>(<span class="pl-smi">形参列表</span>){<span class="pl-s1"></span>
+            [<span class="pl-s1">final</span>/<span class="pl-s1">abstract</span>] <span class="pl-k">class</span> <span class="pl-smi">内部类</span>{
         }
     }    
 }</pre></div>
@@ -3025,11 +3025,11 @@ jdk9:声明私有方法</p>
 }</pre></div>
 <h4>8.3.2 匿名内部类</h4>
 <p>因为考虑到这个子类或实现类是一次性的，那么我们“费尽心机”的给它取名字，就显得多余。那么我们完全可以使用匿名内部类的方式来实现，避免给类命名的问题。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">new</span> 父类([实参列表]){
-    重写方法...
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">new</span> <span class="pl-smi">父类</span>(<span class="pl-s1"></span>[<span class="pl-s1">实参列表</span>]){
+    <span class="pl-s1">重写方法</span>...
 }</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">new</span> 父接口(){
-    重写方法...
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">new</span> <span class="pl-smi">父接口</span>(){
+    <span class="pl-s1">重写方法</span>...
 }</pre></div>
 <p>举例1：使用匿名内部类的对象直接调用方法：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">interface</span> <span class="pl-smi">A</span>{
@@ -3221,14 +3221,14 @@ jdk9:声明私有方法</p>
 }</pre></div>
 <h3>9.3 定义枚举类（JDK5.0 之后）</h3>
 <h4>9.3.1 enum关键字声明枚举</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate">【修饰符】 <span class="pl-k">enum</span> 枚举类名{
-    常量对象列表
+<div class="highlight highlight-source-java"><pre class="notranslate">【<span class="pl-s1">修饰符</span>】 <span class="pl-k">enum</span> <span class="pl-smi">枚举类名</span>{
+    <span class="pl-s1">常量对象列表</span>
 }
 
-【修饰符】 <span class="pl-k">enum</span> 枚举类名{
-    常量对象列表;
+【<span class="pl-s1">修饰符</span>】 <span class="pl-k">enum</span> <span class="pl-smi">枚举类名</span>{
+    <span class="pl-s1">常量对象列表</span>;
     
-    对象的实例变量列表;
+    <span class="pl-smi">对象的实例变量列表</span><span class="pl-s1"></span>;
 }</pre></div>
 <p>举例1：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">enumeration</span>;
@@ -3426,16 +3426,16 @@ int ordinal():返回当前枚举常量的次序号，默认从0开始
 </ul>
 <p>语法：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//1、枚举类可以像普通的类一样，实现接口，并且可以多个，但要求必须实现里面所有的抽象方法！</span>
-<span class="pl-k">enum</span> <span class="pl-smi">A</span> <span class="pl-k">implements</span> 接口<span class="pl-c1">1</span>，接口<span class="pl-c1">2</span>{
+<span class="pl-k">enum</span> <span class="pl-smi">A</span> <span class="pl-k">implements</span> <span class="pl-smi">接口1</span>，<span class="pl-s1">接口2</span>{
     <span class="pl-c">//抽象方法的实现</span>
 }
 
 <span class="pl-c">//2、如果枚举类的常量可以继续重写抽象方法!</span>
-<span class="pl-k">enum</span> <span class="pl-smi">A</span> <span class="pl-k">implements</span> 接口<span class="pl-c1">1</span>，接口<span class="pl-c1">2</span>{
-    常量名<span class="pl-c1">1</span>(参数){
+<span class="pl-k">enum</span> <span class="pl-smi">A</span> <span class="pl-k">implements</span> <span class="pl-smi">接口1</span>，<span class="pl-s1">接口2</span>{
+    <span class="pl-s1">常量名1</span>(<span class="pl-s1">参数</span>){
         <span class="pl-c">//抽象方法的实现或重写</span>
     },
-    常量名<span class="pl-c1">2</span>(参数){
+    <span class="pl-s1">常量名2</span>(<span class="pl-s1">参数</span>){
         <span class="pl-c">//抽象方法的实现或重写</span>
     },
     <span class="pl-c">//...</span>
@@ -3494,40 +3494,40 @@ int ordinal():返回当前枚举常量的次序号，默认从0开始
 <ol>
 <li><strong>values()</strong>：返回枚举类型的所有值的数组。这是一个静态方法，可以直接通过枚举类型调用，而不需要实例。</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">E</span>[] <span class="pl-s1">values</span>();</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">E</span>[] <span class="pl-en">values</span>();</pre></div>
 <ol start="2">
 <li><strong>valueOf(String name)</strong>：返回一个指定名称的枚举常量。这也是一个静态方法，如果找不到匹配的常量，则抛出<code class="notranslate">IllegalArgumentException</code>。</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">E</span> <span class="pl-s1">valueOf</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>);</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">E</span> <span class="pl-en">valueOf</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>);</pre></div>
 <ol start="3">
 <li><strong>ordinal()</strong>：返回枚举常量的序号，序号从0开始。这是实例方法。</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-smi">int</span> <span class="pl-s1">ordinal</span>();</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-smi">int</span> <span class="pl-en">ordinal</span>();</pre></div>
 <ol start="4">
 <li><strong>name()</strong>：返回枚举常量的名称。这是实例方法。</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>();</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-en">name</span>();</pre></div>
 <ol start="5">
 <li><strong>compareTo(E o)</strong>：比较两个枚举常量的顺序。如果调用对象的序号小于参数的序号，则返回负数；如果相等，则返回0；如果大于，则返回正数。这是实例方法。</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-smi">int</span> <span class="pl-s1">compareTo</span>(<span class="pl-smi">E</span> <span class="pl-s1">o</span>);</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">E</span> <span class="pl-s1">o</span>);</pre></div>
 <ol start="6">
 <li><strong>equals(Object obj)</strong> 和 <strong>hashCode()</strong>：这些方法通常被重写以提供基于枚举常量名称的相等性和哈希码。</li>
 </ol>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Override</span>
-<span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-s1">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>);
+<span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>);
 <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-<span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-s1">hashCode</span>();</pre></div>
+<span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">hashCode</span>();</pre></div>
 <ol start="7">
 <li><strong>toString()</strong>：返回枚举常量的字符串表示，通常就是它的名称。</li>
 </ol>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Override</span>
-<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">toString</span>();</pre></div>
+<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>();</pre></div>
 <ol start="8">
 <li><strong>clone()</strong>：由于枚举是单例的，所以<code class="notranslate">clone()</code>方法总是抛出<code class="notranslate">CloneNotSupportedException</code>。</li>
 </ol>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Override</span>
-<span class="pl-k">protected</span> <span class="pl-k">final</span> <span class="pl-smi">Object</span> <span class="pl-s1">clone</span>() <span class="pl-k">throws</span> <span class="pl-s1">CloneNotSupportedException</span>;</pre></div>
+<span class="pl-k">protected</span> <span class="pl-k">final</span> <span class="pl-smi">Object</span> <span class="pl-en">clone</span>() <span class="pl-k">throws</span> <span class="pl-smi">CloneNotSupportedException</span>;</pre></div>
 <p>枚举类接口操作</p>
 <p>情况 1： 枚举类实现接口，在枚举类中重写接口中的抽象方法，当通过不同的枚举类对象调用此方法时，执行同一个方法。</p>
 <p>情况 2：让枚举类的每一个对象重写接口的抽象方法，当通过不同的枚举类对象调用此方法时，执行的是不同的实现方法</p>

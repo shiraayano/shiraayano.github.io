@@ -1683,7 +1683,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 </blockquote>
 <p>练习：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
     <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
     <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
     <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
@@ -1698,7 +1698,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 }
 
 <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>(){
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
     <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
     <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
     <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
@@ -1713,7 +1713,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 }
 
 <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
     <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
     <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
     <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
@@ -1787,7 +1787,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 <span class="pl-smi">byte</span> <span class="pl-s1">bytes</span>[] = {<span class="pl-c1">97</span>, <span class="pl-c1">98</span>, <span class="pl-c1">99</span> };     
 <span class="pl-smi">String</span> <span class="pl-s1">str5</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">bytes</span>);
 <span class="pl-smi">String</span> <span class="pl-s1">str6</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">bytes</span>,<span class="pl-s">"GBK"</span>);</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
     <span class="pl-smi">char</span>[] <span class="pl-s1">data</span> = {<span class="pl-s">'h'</span>,<span class="pl-s">'e'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'o'</span>,<span class="pl-s">'j'</span>,<span class="pl-s">'a'</span>,<span class="pl-s">'v'</span>,<span class="pl-s">'a'</span>};
     <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>);
     <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>,<span class="pl-c1">0</span>,<span class="pl-c1">5</span>);
@@ -1835,7 +1835,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 <p>utf8 与 gbk 都向下兼容了 ascii 码</p>
 <p>编码与解码 编码用什么解码就要用什么 否则乱码</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>() <span class="pl-k">throws</span> <span class="pl-s1">Exception</span> {
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>() <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
     <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"中国"</span>;
     <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"ISO8859-1"</span>).<span class="pl-s1">length</span>);<span class="pl-c">// 2</span>
     <span class="pl-c">// ISO8859-1把所有的字符都当做一个byte处理，处理不了多个字节</span>
@@ -1864,7 +1864,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 （10）String trim()：去掉字符串前后空白符<br>
 （11）public String intern()：结果在常量池中共享</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
         <span class="pl-c">//将用户输入的单词全部转为小写，如果用户没有输入单词，重新输入</span>
         <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
         <span class="pl-smi">String</span> <span class="pl-s1">word</span>;
@@ -1880,7 +1880,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
     }
 
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>(){
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
         <span class="pl-c">//随机生成验证码，验证码由0-9，A-Z,a-z的字符组成</span>
         <span class="pl-smi">char</span>[] <span class="pl-s1">array</span> = <span class="pl-k">new</span> <span class="pl-smi">char</span>[<span class="pl-c1">26</span>*<span class="pl-c1">2</span>+<span class="pl-c1">10</span>];
         <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>; <span class="pl-s1">i</span>++) {
@@ -1914,7 +1914,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 （14）int lastIndexOf(xx)：从后往前找当前字符串中xx，即如果有返回最后一次出现的下标，要是没有返回-1<br>
 （15）int lastIndexOf(String str, int fromIndex)：返回指定子字符串在此字符串中最后一次出现处的索引，从指定的索引开始反向搜索。</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
         <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"尚硅谷是一家靠谱的培训机构，尚硅谷可以说是IT培训的小清华，JavaEE是尚硅谷的当家学科，尚硅谷的大数据培训是行业独角兽。尚硅谷的前端和UI专业一样独领风骚。"</span>;
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"是否包含清华："</span> + <span class="pl-s1">str</span>.<span class="pl-en">contains</span>(<span class="pl-s">"清华"</span>));
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"培训出现的第一次下标："</span> + <span class="pl-s1">str</span>.<span class="pl-en">indexOf</span>(<span class="pl-s">"培训"</span>));
@@ -1924,7 +1924,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 <p>（16）String substring(int beginIndex) ：返回一个新的字符串，它是此字符串的从beginIndex开始截取到最后的一个子字符串。<br>
 （17）String substring(int beginIndex, int endIndex) ：返回一个新字符串，它是此字符串从beginIndex开始截取到endIndex(不包含)的一个子字符串。</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
     <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"helloworldjavaatguigu"</span>;
     <span class="pl-smi">String</span> <span class="pl-s1">sub1</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">5</span>);
     <span class="pl-smi">String</span> <span class="pl-s1">sub2</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">5</span>,<span class="pl-c1">10</span>);
@@ -1933,7 +1933,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 }
 
 <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>(){
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
     <span class="pl-smi">String</span> <span class="pl-s1">fileName</span> = <span class="pl-s">"快速学习Java的秘诀.dat"</span>;
     <span class="pl-c">//截取文件名</span>
     <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"文件名："</span> + <span class="pl-s1">fileName</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>,<span class="pl-s1">fileName</span>.<span class="pl-en">lastIndexOf</span>(<span class="pl-s">"."</span>)));
@@ -1948,7 +1948,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 （22）static String copyValueOf(char[] data)： 返回指定数组中表示该字符序列的 String<br>
 （23）static String copyValueOf(char[] data, int offset, int count)：返回指定数组中表示该字符序列的 String</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test01</span>(){
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
         <span class="pl-c">//将字符串中的字符按照大小顺序排列</span>
         <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"helloworldjavaatguigu"</span>;
         <span class="pl-smi">char</span>[] <span class="pl-s1">array</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
@@ -1958,14 +1958,14 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
     }
     
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test02</span>(){
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
         <span class="pl-c">//将首字母转为大写</span>
         <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"jack"</span>;
         <span class="pl-s1">str</span> = <span class="pl-smi">Character</span>.<span class="pl-en">toUpperCase</span>(<span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-c1">0</span>))+<span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">1</span>);
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>);
     }
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test03</span>(){
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
         <span class="pl-smi">char</span>[] <span class="pl-s1">data</span> = {<span class="pl-s">'h'</span>,<span class="pl-s">'e'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'o'</span>,<span class="pl-s">'j'</span>,<span class="pl-s">'a'</span>,<span class="pl-s">'v'</span>,<span class="pl-s">'a'</span>};
         <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>);
         <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>,<span class="pl-c1">0</span>,<span class="pl-c1">5</span>);
@@ -1981,13 +1981,13 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 （25）boolean startsWith(String prefix, int toffset)：测试此字符串从指定索引开始的子字符串是否以指定前缀开始<br>
 （26）boolean endsWith(xx)：测试此字符串是否以指定的后缀结束</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
         <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-s">"张三"</span>;
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">name</span>.<span class="pl-en">startsWith</span>(<span class="pl-s">"张"</span>));
     }
     
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test2</span>(){
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
         <span class="pl-smi">String</span> <span class="pl-s1">file</span> = <span class="pl-s">"Hello.txt"</span>;
         <span class="pl-k">if</span>(<span class="pl-s1">file</span>.<span class="pl-en">endsWith</span>(<span class="pl-s">".java"</span>)){
             <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Java源文件"</span>);
@@ -2003,7 +2003,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 （29）String replaceAll(String regex, String replacement)：使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串。<br>
 （30）String replaceFirst(String regex, String replacement)：使用给定的 replacement 替换此字符串匹配给定的正则表达式的第一个子字符串。</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
     <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"hello244world.java;887"</span>;
     <span class="pl-c">//把其中的非字母去掉</span>
     <span class="pl-s1">str1</span> = <span class="pl-s1">str1</span>.<span class="pl-en">replaceAll</span>(<span class="pl-s">"[^a-zA-Z]"</span>, <span class="pl-s">""</span>);
@@ -2017,7 +2017,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 }</pre></div>
 <h3>1.5 常见算法题目</h3>
 <p>**题目1：**模拟一个trim方法，去除字符串两端的空格。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">myTrim</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">myTrim</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>) {
         <span class="pl-k">if</span> (<span class="pl-s1">str</span> != <span class="pl-c1">null</span>) {
             <span class="pl-smi">int</span> <span class="pl-s1">start</span> = <span class="pl-c1">0</span>;<span class="pl-c">// 用于记录从前往后首次索引位置不是空格的位置的索引</span>
             <span class="pl-smi">int</span> <span class="pl-s1">end</span> = <span class="pl-s1">str</span>.<span class="pl-en">length</span>() - <span class="pl-c1">1</span>;<span class="pl-c">// 用于记录从后往前首次索引位置不是空格的位置的索引</span>
@@ -2039,7 +2039,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
     }
 
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testMyTrim</span>() {
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testMyTrim</span>() {
         <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"   a   "</span>;
         <span class="pl-c">// str = " ";</span>
         <span class="pl-smi">String</span> <span class="pl-s1">newStr</span> = <span class="pl-en">myTrim</span>(<span class="pl-s1">str</span>);
@@ -2047,7 +2047,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
     }</pre></div>
 <p>**题目2：**将一个字符串进行反转。将字符串中指定部分进行反转。比如“ab<code class="notranslate">cdef</code>g”反转为”ab<code class="notranslate">fedc</code>g”</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 方式一：</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">reverse1</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {<span class="pl-c">// start:2,end:5</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">reverse1</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {<span class="pl-c">// start:2,end:5</span>
         <span class="pl-k">if</span> (<span class="pl-s1">str</span> != <span class="pl-c1">null</span>) {
             <span class="pl-c">// 1.</span>
             <span class="pl-smi">char</span>[] <span class="pl-s1">charArray</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
@@ -2066,7 +2066,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
     }
 
     <span class="pl-c">// 方式二：</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">reverse2</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">reverse2</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {
         <span class="pl-c">// 1.</span>
         <span class="pl-smi">String</span> <span class="pl-s1">newStr</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>, <span class="pl-s1">start</span>);<span class="pl-c">// ab</span>
         <span class="pl-c">// 2.</span>
@@ -2079,7 +2079,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
     }
 
     <span class="pl-c">// 方式三：推荐 （相较于方式二做的改进）</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">reverse3</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {<span class="pl-c">// ArrayList list = new ArrayList(80);</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">reverse3</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {<span class="pl-c">// ArrayList list = new ArrayList(80);</span>
         <span class="pl-c">// 1.</span>
         <span class="pl-smi">StringBuffer</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s1">str</span>.<span class="pl-en">length</span>());
         <span class="pl-c">// 2.</span>
@@ -2098,7 +2098,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
     }
 
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testReverse</span>() {
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testReverse</span>() {
         <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"abcdefg"</span>;
         <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-en">reverse3</span>(<span class="pl-s1">str</span>, <span class="pl-c1">2</span>, <span class="pl-c1">5</span>);
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>);<span class="pl-c">// abfedcg</span>
@@ -2108,7 +2108,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 比如：获取“ ab”在 “abkkcadkabkebfkabkskab” 中出现的次数</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第3题</span>
     <span class="pl-c">// 判断str2在str1中出现的次数</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-s1">getCount</span>(<span class="pl-smi">String</span> <span class="pl-s1">mainStr</span>, <span class="pl-smi">String</span> <span class="pl-s1">subStr</span>) {
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getCount</span>(<span class="pl-smi">String</span> <span class="pl-s1">mainStr</span>, <span class="pl-smi">String</span> <span class="pl-s1">subStr</span>) {
         <span class="pl-k">if</span> (<span class="pl-s1">mainStr</span>.<span class="pl-en">length</span>() &gt;= <span class="pl-s1">subStr</span>.<span class="pl-en">length</span>()) {
             <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-c1">0</span>;
             <span class="pl-smi">int</span> <span class="pl-s1">index</span> = <span class="pl-c1">0</span>;
@@ -2130,7 +2130,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
     }
 
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testGetCount</span>() {
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testGetCount</span>() {
         <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"cdabkkcadkabkebfkabkskab"</span>;
         <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"ab"</span>;
         <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-en">getCount</span>(<span class="pl-s1">str1</span>, <span class="pl-s1">str2</span>);
@@ -2141,7 +2141,7 @@ str1 = "abcwerthelloyuiodef“;str2 = "cvhellobnm"<br>
 提示：将短的那个串进行长度依次递减的子串与较长的串比较。</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第4题</span>
     <span class="pl-c">// 如果只存在一个最大长度的相同子串</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">getMaxSameSubString</span>(<span class="pl-smi">String</span> <span class="pl-s1">str1</span>, <span class="pl-smi">String</span> <span class="pl-s1">str2</span>) {
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getMaxSameSubString</span>(<span class="pl-smi">String</span> <span class="pl-s1">str1</span>, <span class="pl-smi">String</span> <span class="pl-s1">str2</span>) {
         <span class="pl-k">if</span> (<span class="pl-s1">str1</span> != <span class="pl-c1">null</span> &amp;&amp; <span class="pl-s1">str2</span> != <span class="pl-c1">null</span>) {
             <span class="pl-smi">String</span> <span class="pl-s1">maxStr</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str1</span> : <span class="pl-s1">str2</span>;
             <span class="pl-smi">String</span> <span class="pl-s1">minStr</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str2</span> : <span class="pl-s1">str1</span>;
@@ -2166,7 +2166,7 @@ str1 = "abcwerthelloyuiodef“;str2 = "cvhellobnm"<br>
 
     <span class="pl-c">// 如果存在多个长度相同的最大相同子串</span>
     <span class="pl-c">// 此时先返回String[]，后面可以用集合中的ArrayList替换，较方便</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span>[] <span class="pl-s1">getMaxSameSubString1</span>(<span class="pl-smi">String</span> <span class="pl-s1">str1</span>, <span class="pl-smi">String</span> <span class="pl-s1">str2</span>) {
+    <span class="pl-k">public</span> <span class="pl-smi">String</span>[] <span class="pl-en">getMaxSameSubString1</span>(<span class="pl-smi">String</span> <span class="pl-s1">str1</span>, <span class="pl-smi">String</span> <span class="pl-s1">str2</span>) {
         <span class="pl-k">if</span> (<span class="pl-s1">str1</span> != <span class="pl-c1">null</span> &amp;&amp; <span class="pl-s1">str2</span> != <span class="pl-c1">null</span>) {
             <span class="pl-smi">StringBuffer</span> <span class="pl-s1">sBuffer</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>();
             <span class="pl-smi">String</span> <span class="pl-s1">maxString</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str1</span> : <span class="pl-s1">str2</span>;
@@ -2217,7 +2217,7 @@ str1 = "abcwerthelloyuiodef“;str2 = "cvhellobnm"<br>
 <span class="pl-c">//	}</span>
 
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testGetMaxSameSubString</span>() {
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testGetMaxSameSubString</span>() {
         <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"abcwerthelloyuiodef"</span>;
         <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"cvhellobnmiodef"</span>;
         <span class="pl-smi">String</span>[] <span class="pl-s1">strs</span> = <span class="pl-en">getMaxSameSubString1</span>(<span class="pl-s1">str1</span>, <span class="pl-s1">str2</span>);
@@ -2230,7 +2230,7 @@ str1 = "abcwerthelloyuiodef“;str2 = "cvhellobnm"<br>
 3）将排序后的数组变成字符串。</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第5题</span>
     <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">testSort</span>() {
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testSort</span>() {
         <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"abcwerthelloyuiodef"</span>;
         <span class="pl-smi">char</span>[] <span class="pl-s1">arr</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
         <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">arr</span>);

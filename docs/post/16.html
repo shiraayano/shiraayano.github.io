@@ -458,7 +458,7 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 }</pre></div>
 <p>练习：获取main线程对象的名称和优先级。</p>
 <p>声明一个匿名内部类继承Thread类，重写run方法，在run方法中获取线程名称和优先级。设置该线程优先级为最高优先级并启动该线程。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
         <span class="pl-smi">Thread</span> <span class="pl-s1">t</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
             <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
                 <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">getName</span>() + <span class="pl-s">"的优先级："</span> + <span class="pl-en">getPriority</span>());
@@ -885,8 +885,8 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <span class="pl-kos">}</span>
 
 <span class="pl-s1">public</span><span class="pl-kos"></span> <span class="pl-k">class</span> <span class="pl-v">SaleTicketDemo1</span> <span class="pl-kos">{</span>
-    <span class="pl-c1">public</span> <span class="pl-k">static</span> <span class="pl-c1">void</span> <span class="pl-en">main</span><span class="pl-kos">(</span><span class="pl-v">String</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">args</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-        <span class="pl-v">Window</span> <span class="pl-s1">w1</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Window</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-c1">public</span> <span class="pl-k">static</span> <span class="pl-c1">void</span> <span class="pl-s1">main</span><span class="pl-kos">(</span><span class="pl-v">String</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">args</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        Window <span class="pl-s1">w1</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Window</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
         <span class="pl-v">Window</span> <span class="pl-s1">w2</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Window</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
         <span class="pl-v">Window</span> <span class="pl-s1">w3</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Window</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 
@@ -969,108 +969,108 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
     }
 }</pre></div>
 <p>运行结果：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">100</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">100</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">100</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">97</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">97</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">97</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">94</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">94</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">94</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">91</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">91</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">91</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">88</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">88</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">88</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">85</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">85</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">85</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">82</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">82</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">82</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">79</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">79</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">79</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">76</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">76</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">76</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">73</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">73</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">73</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">70</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">70</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">70</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">67</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">67</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">67</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">64</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">64</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">64</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">61</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">61</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">61</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">58</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">58</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">58</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">55</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">55</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">55</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">52</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">52</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">52</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">49</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">49</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">49</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">46</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">46</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">46</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">43</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">43</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">43</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">40</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">40</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">40</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">37</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">37</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">37</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">34</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">34</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">34</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">31</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">31</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">31</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">28</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">28</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">28</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">25</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">25</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">25</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">22</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">22</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">22</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">19</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">19</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">19</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">16</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">16</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">16</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">13</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">13</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">13</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">10</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">10</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">10</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">7</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">7</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">7</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">4</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">4</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">4</span>
-窗口<span class="pl-c1">3</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">1</span>
-窗口<span class="pl-c1">2</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">1</span>
-窗口<span class="pl-c1">1</span>卖出<span class="pl-s1">一</span>张票，票号:<span class="pl-c1">1</span></pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">100</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">100</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">100</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">97</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">97</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">97</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">94</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">94</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">94</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">91</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">91</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">91</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">88</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">88</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">88</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">85</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">85</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">85</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">82</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">82</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">82</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">79</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">79</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">79</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">76</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">76</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">76</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">73</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">73</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">73</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">70</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">70</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">70</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">67</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">67</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">67</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">64</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">64</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">64</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">61</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">61</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">61</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">58</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">58</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">58</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">55</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">55</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">55</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">52</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">52</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">52</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">49</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">49</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">49</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">46</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">46</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">46</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">43</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">43</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">43</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">40</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">40</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">40</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">37</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">37</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">37</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">34</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">34</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">34</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">31</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">31</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">31</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">28</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">28</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">28</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">25</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">25</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">25</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">22</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">22</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">22</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">19</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">19</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">19</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">16</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">16</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">16</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">13</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">13</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">13</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">10</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">10</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">10</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">7</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">7</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">7</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">4</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">4</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">4</span>
+<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">1</span>
+<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">1</span>
+<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">1</span></pre></div>
 <p>结果：发现卖出近100张票。</p>
 <p>问题1：但是有重复票或负数票问题。</p>
 <p>原因：线程安全问题</p>
@@ -1191,12 +1191,12 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <h4>5.2.2 同步代码块和同步方法</h4>
 <p><strong>同步代码块</strong>：synchronized 关键字可以用于某个区块前面，表示只对这个区块的资源实行互斥访问。<br>
 格式:</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">synchronized</span>(同步锁){
-     需要同步操作的代码
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">synchronized</span>(<span class="pl-s1">同步锁</span>){
+     <span class="pl-s1">需要同步操作的代码</span>
 }</pre></div>
 <p>**同步方法：**synchronized 关键字直接修饰方法，表示同一时刻只有一个线程能进入这个方法，其他线程在外面等着。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-s1">method</span>(){
-    可能会产生线程安全问题的代码
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">method</span>(){
+    <span class="pl-s1">可能会产生线程安全问题的代码</span>
 }</pre></div>
 <p>说明:<br>
 需要被同步的代码，即为操作共享数据的代码。</p>

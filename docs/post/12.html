@@ -406,9 +406,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>
 <p><strong>方法的定义</strong>：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">[访问修饰符] [<span class="pl-k">static</span>] 返回类型 方法名(参数类型 参数名, ...) {
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">访问修饰符</span>] [<span class="pl-s1">static</span>] <span class="pl-smi">返回类型</span> <span class="pl-en">方法名</span>(<span class="pl-smi">参数类型</span> <span class="pl-s1">参数名</span>, ...) {
     <span class="pl-c">// 方法体</span>
-    <span class="pl-k">return</span> 返回值; <span class="pl-c">// 如果有返回值</span>
+    <span class="pl-k">return</span> <span class="pl-s1">返回值</span>; <span class="pl-c">// 如果有返回值</span>
 }</pre></div>
 <ul>
 <li><strong>访问修饰符</strong>：定义方法可见性，如 <code class="notranslate">public</code>、<code class="notranslate">private</code>、<code class="notranslate">protected</code>。</li>
@@ -496,11 +496,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>方法的定义与调用</h3>
 <p>在 Java 中，方法是实现功能模块的基本单元。一个方法可以包含逻辑代码、接收参数并返回数据。方法的定义结构包括访问修饰符、可选的 <code class="notranslate">static</code> 关键字、返回值类型、方法名和参数列表。</p>
 <h4>方法的定义结构</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate">[访问修饰符] [<span class="pl-k">static</span>] 返回类型 方法名(参数类型 参数名, 参数类型 参数名, ...) {
+<div class="highlight highlight-source-java"><pre class="notranslate">[<span class="pl-s1">访问修饰符</span>] [<span class="pl-s1">static</span>] <span class="pl-smi">返回类型</span> <span class="pl-en">方法名</span>(<span class="pl-smi">参数类型</span> <span class="pl-s1">参数名</span>, <span class="pl-smi">参数类型</span> <span class="pl-s1">参数名</span>, ...) {
     <span class="pl-c">// 方法体</span>
     <span class="pl-c">// ...</span>
     <span class="pl-c">// 返回语句（如果方法有返回值）</span>
-    <span class="pl-k">return</span> 返回值;
+    <span class="pl-k">return</span> <span class="pl-s1">返回值</span>;
 }</pre></div>
 <p><strong>要点：</strong></p>
 <ul>
@@ -547,7 +547,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h3>方法声明</h3>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8afa91f3-d9f5-4c9b-9f43-495979185092"><img src="https://github.com/user-attachments/assets/8afa91f3-d9f5-4c9b-9f43-495979185092" alt="image (60)" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-java"><pre class="notranslate">权限修饰符 [其它修饰符（非必要）] 返回值类型 方法名（形参列表）{
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-s1">权限修饰符</span> [<span class="pl-s1">其它修饰符</span>（<span class="pl-s1">非必要</span>）] <span class="pl-smi">返回值类型</span> <span class="pl-s1">方法名</span>（<span class="pl-s1">形参列表</span>）{
     <span class="pl-c">// 方法体</span>
 }</pre></div>
 <h4>方法分类</h4>
@@ -557,7 +557,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ol>
 <h4>形参列表的使用</h4>
 <p>当方法需要外部数据时，形参列表可指定接收的参数：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">sleep</span>(<span class="pl-smi">int</span> <span class="pl-s1">hour</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">sleep</span>(<span class="pl-smi">int</span> <span class="pl-s1">hour</span>) {
     <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"人每天最少睡："</span> + <span class="pl-s1">hour</span> + <span class="pl-s">" 小时"</span>);
 }</pre></div>
 <h4>注意 <code class="notranslate">return</code> 语句</h4>
@@ -3270,7 +3270,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>7.1.1 对象的多态性</h4>
 <p>多态性，是面向对象中最重要的概念，在Java中的体现：<strong>对象的多态性：父类的引用指向子类的对象</strong></p>
 <p>格式：（父类类型：指子类继承的父类类型，或者实现的接口类型）</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">父类类型 变量名 = 子类对象；</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">父类类型</span> <span class="pl-s1">变量名</span> = <span class="pl-s1">子类对象</span>；</pre></div>
 <p>举例：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Person</span> <span class="pl-s1">p</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>();
 
@@ -3665,7 +3665,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>7.6.3 instanceof关键字</h4>
 <p>为了避免ClassCastException的发生，Java提供了 <code class="notranslate">instanceof</code> 关键字，给引用变量做类型的校验。如下代码格式：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//检验对象a是否是数据类型A的对象，返回值为boolean型</span>
-对象<span class="pl-s1">a</span> <span class="pl-k">instanceof</span> 数据类型<span class="pl-smi">A</span> </pre></div>
+<span class="pl-s1">对象a</span> <span class="pl-k">instanceof</span> <span class="pl-smi">数据类型A</span> </pre></div>
 <ul>
 <li>说明：
 <ul>
@@ -4056,7 +4056,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 }</pre></div>
 <p><strong>我们使用 ctrl 键来看看 java.lang.Object 类中 equals()的定义</strong></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-s1">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
         <span class="pl-k">return</span> (<span class="pl-smi">this</span> == <span class="pl-s1">obj</span>);
 }</pre></div>
 <p><code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;this == obj&lt;/font&gt;</code>是一个比较操作，它检查当前对象的内存地址是否与传入参数对象的内存地址相同。如果相同，意味着它们是同一个对象，因此返回<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;true&lt;/font&gt;</code>；如果不同，意味着它们是不同的对象，因此返回<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;false&lt;/font&gt;</code>。</p>
@@ -4067,7 +4067,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">str2</span>));
          <span class="pl-c">//输出结果为true</span></pre></div>
 <p></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-s1">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">anObject</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">anObject</span>) {
         <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">anObject</span>) {
             <span class="pl-k">return</span> <span class="pl-c1">true</span>;
         }
@@ -4080,7 +4080,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>对于像String、File、Date和包装类等，它们都重写了0bject类中的equals()方法，用于比较两个对象的实体内容是否相等。</p>
 <p>重写 equals</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//重写equals方法</span>
-    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-s1">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
         <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">obj</span>) {
             <span class="pl-k">return</span> <span class="pl-c1">true</span>;
         }
@@ -4313,7 +4313,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>练习1：</strong></p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">it</span> = <span class="pl-c1">65</span>;
 <span class="pl-smi">float</span> <span class="pl-s1">fl</span> = <span class="pl-c1">65.0f</span>;
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(“<span class="pl-c1">65</span>和<span class="pl-c1">65.0f</span>是否相等？” + (<span class="pl-s1">it</span> == <span class="pl-s1">fl</span>)); <span class="pl-c">//</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(“<span class="pl-c1">65</span><span class="pl-s1">和65</span><span class="pl-c1">.0f</span><span class="pl-s1">是否相等</span>？” + (<span class="pl-s1">it</span> == <span class="pl-s1">fl</span>)); <span class="pl-c">//</span>
 
 <span class="pl-smi">char</span> <span class="pl-s1">ch1</span> = <span class="pl-s">'A'</span>; <span class="pl-smi">char</span> <span class="pl-s1">ch2</span> = <span class="pl-c1">12</span>;
 <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"65和'A'是否相等？"</span> + (<span class="pl-s1">it</span> == <span class="pl-s1">ch1</span>));<span class="pl-c">//</span>
@@ -4523,7 +4523,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <blockquote>
 <p>因为Java有多态现象，所以一个引用数据类型的变量的编译时类型与运行时类型可能不一致，因此如果需要查看这个变量实际指向的对象的类型，需要用getClass()方法</p>
 </blockquote>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
     <span class="pl-smi">Object</span> <span class="pl-s1">obj</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
     <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj</span>.<span class="pl-en">getClass</span>());<span class="pl-c">//运行时类型</span>
 }</pre></div>
@@ -4531,7 +4531,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">java</span>.<span class="pl-s1">Person</span></pre></div>
 <h4>6、hashCode()</h4>
 <p>public int hashCode()：返回每个对象的hash值。(后续在集合框架章节重点讲解)</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
     <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"AA"</span>.<span class="pl-en">hashCode</span>());<span class="pl-c">//2080</span>
     <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"BB"</span>.<span class="pl-en">hashCode</span>());<span class="pl-c">//2112</span>
 }</pre></div>

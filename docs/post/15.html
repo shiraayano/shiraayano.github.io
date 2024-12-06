@@ -145,13 +145,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>注解可以有参数，这些参数在声明注解时必须指定。注解也可以没有参数</p>
 <h3>10.2 常见的Annotation作用</h3>
 <p><strong>示例1：生成文档相关的注解</strong></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">author</span> 标明开发该类模块的作者，多个作者之间使用,分割
-<span class="pl-c1">@</span><span class="pl-c1">version</span> 标明该类模块的版本
-<span class="pl-c1">@</span><span class="pl-c1">see</span> 参考转向，也就是相关主题
-<span class="pl-c1">@</span><span class="pl-c1">since</span> 从哪个版本开始增加的
-<span class="pl-c1">@</span><span class="pl-c1">param</span> 对方法中某参数的说明，如果没有参数就不能写
-<span class="pl-c1">@</span><span class="pl-c1">return</span> 对方法返回值的说明，如果方法的返回值类型是<span class="pl-smi">void</span>就不能写
-<span class="pl-c1">@</span><span class="pl-c1">exception</span> 对方法可能抛出的异常进行说明 ，如果方法没有用<span class="pl-k">throws</span>显式抛出的异常就不能写</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">author</span> <span class="pl-smi">标明开发该类模块的作者</span>，<span class="pl-s1">多个作者之间使用</span>,<span class="pl-s1">分割</span>
+<span class="pl-c1">@</span><span class="pl-c1">version</span> <span class="pl-s1">标明该类模块的版本</span>
+<span class="pl-c1">@</span><span class="pl-c1">see</span> <span class="pl-s1">参考转向</span>，<span class="pl-s1">也就是相关主题</span>
+<span class="pl-c1">@</span><span class="pl-c1">since</span> <span class="pl-s1">从哪个版本开始增加的</span>
+<span class="pl-c1">@</span><span class="pl-c1">param</span> <span class="pl-s1">对方法中某参数的说明</span>，<span class="pl-s1">如果没有参数就不能写</span>
+<span class="pl-c1">@</span><span class="pl-c1">return</span> <span class="pl-s1">对方法返回值的说明</span>，<span class="pl-s1">如果方法的返回值类型是void就不能写</span>
+<span class="pl-c1">@</span><span class="pl-c1">exception</span> <span class="pl-s1">对方法可能抛出的异常进行说明</span> ，<span class="pl-s1">如果方法没有用throws显式抛出的异常就不能写</span></pre></div>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">javadoc</span>;
 <span class="pl-c">/**</span>
 <span class="pl-c"> * @author 尚硅谷-宋红康</span>
@@ -229,7 +229,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>Spring框架中关于“事务”的管理</li>
 </ul>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">propagation</span>=<span class="pl-smi">Propagation</span>.<span class="pl-c1">REQUIRES_NEW</span>,<span class="pl-s1">isolation</span>=<span class="pl-smi">Isolation</span>.<span class="pl-c1">READ_COMMITTED</span>,<span class="pl-s1">readOnly</span>=<span class="pl-c1">false</span>,<span class="pl-s1">timeout</span>=<span class="pl-c1">3</span>)
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">buyBook</span>(<span class="pl-smi">String</span> <span class="pl-s1">username</span>, <span class="pl-smi">String</span> <span class="pl-s1">isbn</span>) {
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">buyBook</span>(<span class="pl-smi">String</span> <span class="pl-s1">username</span>, <span class="pl-smi">String</span> <span class="pl-s1">isbn</span>) {
     <span class="pl-c">//1.查询书的单价</span>
     <span class="pl-smi">int</span> <span class="pl-s1">price</span> = <span class="pl-s1">bookShopDao</span>.<span class="pl-en">findBookPriceByIsbn</span>(<span class="pl-s1">isbn</span>);
     <span class="pl-c">//2. 更新库存</span>
@@ -372,9 +372,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 （2）使用<br>
 （3）读取</p>
 <h4>10.5.1 声明自定义注解</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate">【元注解】
-【修饰符】 @interface 注解名{
-    【成员列表】
+<div class="highlight highlight-source-java"><pre class="notranslate">【<span class="pl-smi">元注解</span>】
+【<span class="pl-s1">修饰符</span>】 @interface <span class="pl-s1">注解名</span>{
+    【<span class="pl-s1">成员列表</span>】
 }</pre></div>
 <ul>
 <li>自定义注解可以通过四个元注解<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/retention/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/retention">@retention</a>,<a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/target/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/target">@target</a>，<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/inherited/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/inherited">@inherited</a>,<a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/documented/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/documented">@documented</a>，分别说明它的声明周期，使用位置，是否被继承，是否被生成到API文档中。</li>
@@ -590,12 +590,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>char - Char</li>
 </ul>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//情况1：方法形参</span>
-<span class="pl-smi">Object</span>类的<span class="pl-s1">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>)
+<span class="pl-en">Object类的equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>)
 
 <span class="pl-c">//情况2：方法形参</span>
-<span class="pl-s1">ArrayList</span>类的<span class="pl-en">add</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>)
+<span class="pl-en">ArrayList类的add</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>)
 <span class="pl-c">//没有如下的方法：</span>
-<span class="pl-s1">add</span>(<span class="pl-smi">int</span> <span class="pl-s1">number</span>)
+<span class="pl-en">add</span>(<span class="pl-smi">int</span> <span class="pl-s1">number</span>)
 <span class="pl-s1">add</span>(<span class="pl-smi">double</span> <span class="pl-s1">d</span>)
 <span class="pl-s1">add</span>(<span class="pl-smi">boolean</span> <span class="pl-s1">b</span>)
 
@@ -607,7 +607,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>11.2 有哪些包装类</h3>
 <p>Java针对八种基本数据类型定义了相应的引用类型：包装类（封装类）。有了类的特点，就可以调用类中的方法，Java才是真正的面向对象。</p>
 <p>封装以后的，内存结构对比：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-s1">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>){
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>){
     <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-c1">520</span>;
     <span class="pl-smi">Integer</span> <span class="pl-s1">obj</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">520</span>);
 }</pre></div>
@@ -721,11 +721,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813012801907.png"><img src="images/image-20220813012801907.png" alt="" style="max-width: 100%;"></a></p>
 <h3>11.6 包装类的其它API</h3>
 <h4>11.6.1 数据类型的最大最小值</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span>.<span class="pl-smi">MAX_VALUE</span>和<span class="pl-s1">Integer</span>.<span class="pl-c1">MIN_VALUE</span>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span>.<span class="pl-smi">MAX_VALUE和Integer</span>.<span class="pl-smi">MIN_VALUE</span>
     
-<span class="pl-smi">Long</span>.<span class="pl-smi">MAX_VALUE</span>和<span class="pl-s1">Long</span>.<span class="pl-c1">MIN_VALUE</span>
+<span class="pl-s1">Long</span>.<span class="pl-s1">MAX_VALUE和Long</span>.<span class="pl-c1">MIN_VALUE</span>
     
-<span class="pl-smi">Double</span>.<span class="pl-smi">MAX_VALUE</span>和<span class="pl-s1">Double</span>.<span class="pl-c1">MIN_VALUE</span></pre></div>
+<span class="pl-smi">Double</span>.<span class="pl-smi">MAX_VALUE和Double</span>.<span class="pl-smi">MIN_VALUE</span></pre></div>
 <h4>11.6.2 字符转大小写</h4>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Character</span>.<span class="pl-en">toUpperCase</span>(<span class="pl-s">'x'</span>);
 
@@ -852,7 +852,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <span class="pl-s1">o2</span> = <span class="pl-k">new</span> <span class="pl-smi">Double</span>(<span class="pl-c1">2.0</span>);
 <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">o2</span>);<span class="pl-c">//1</span></pre></div>
 <p>面试题：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">method1</span>() {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method1</span>() {
     <span class="pl-smi">Integer</span> <span class="pl-s1">i</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>);
     <span class="pl-smi">Integer</span> <span class="pl-s1">j</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>);
     <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span> == <span class="pl-s1">j</span>);
@@ -1219,10 +1219,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span>{
     ......	<span class="pl-c">//可能产生异常的代码</span>
 }
-<span class="pl-k">catch</span>( 异常类型<span class="pl-c1">1</span> <span class="pl-smi">e</span><span class="pl-s1"></span> ){
+<span class="pl-k">catch</span>( <span class="pl-smi">异常类型1</span> <span class="pl-s1">e</span> ){
     ......	<span class="pl-c">//当产生异常类型1型异常时的处置措施</span>
 }
-<span class="pl-k">catch</span>( 异常类型<span class="pl-c1">2</span> <span class="pl-smi">e</span><span class="pl-s1"></span> ){
+<span class="pl-k">catch</span>( <span class="pl-smi">异常类型2</span> <span class="pl-s1">e</span> ){
     ...... 	<span class="pl-c">//当产生异常类型2型异常时的处置措施</span>
 }  
 <span class="pl-k">finally</span>{
@@ -1301,7 +1301,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 }</pre></div>
 <p>举例3：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">test1</span>(){
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
     <span class="pl-k">try</span>{
         <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"atguigu.com"</span>;
         <span class="pl-s1">str1</span> = <span class="pl-c1">null</span>;
@@ -1496,10 +1496,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </code></pre>
 <p>在throws后面可以写多个异常类型，用逗号隔开。</p>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">readFile</span>(<span class="pl-smi">String</span> <span class="pl-s1">file</span>)  <span class="pl-k">throws</span> <span class="pl-smi">FileNotFoundException</span>,<span class="pl-s1">IOException</span> {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">readFile</span>(<span class="pl-smi">String</span> <span class="pl-s1">file</span>)  <span class="pl-k">throws</span> <span class="pl-smi">FileNotFoundException</span>,<span class="pl-smi">IOException</span> {
     ...
     <span class="pl-c">// 读文件的操作可能产生FileNotFoundException或IOException类型的异常</span>
-    <span class="pl-s1">FileInputStream</span> <span class="pl-s1">fis</span> = <span class="pl-k">new</span> <span class="pl-smi">FileInputStream</span>(<span class="pl-s1">file</span>);
+    <span class="pl-smi">FileInputStream</span> <span class="pl-s1">fis</span> = <span class="pl-k">new</span> <span class="pl-smi">FileInputStream</span>(<span class="pl-s1">file</span>);
     <span class="pl-c">//...</span>
 }</pre></div>
 <h4>4.3.2 throws 使用举例</h4>
@@ -1630,7 +1630,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>由开发人员<strong>手动创建</strong>：<code class="notranslate">new 异常类型([实参列表]);</code>，如果创建好的异常对象不抛出对程序没有任何影响，和创建一个普通对象一样，但是一旦throw抛出，就会对程序运行产生影响了。</li>
 </ul>
 <h3>5.1 使用格式</h3>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">throw</span> <span class="pl-k">new</span> 异常类名(参数);</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">异常类名</span>(<span class="pl-s1">参数</span>);</pre></div>
 <p>throw语句抛出的异常对象，和JVM自动创建和抛出的异常对象一样。</p>
 <ul>
 <li>如果是编译时异常类型的对象，同样需要使用throws或者try...catch处理，否则编译不通过。</li>

@@ -152,7 +152,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ol>
 <li><strong>编写事务管理代码</strong></li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">performTransaction</span>() {
     <span class="pl-smi">TransactionStatus</span> <span class="pl-s1">status</span> = <span class="pl-s1">transactionManager</span>.<span class="pl-en">getTransaction</span>(<span class="pl-k">new</span> <span class="pl-smi">DefaultTransactionDefinition</span>());
     <span class="pl-k">try</span> {
         <span class="pl-c">// 数据库操作</span>
@@ -165,7 +165,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>事务传播行为</h4>
 <p>Spring事务管理支持多种事务传播行为，如<code class="notranslate">REQUIRED</code>、<code class="notranslate">REQUIRES_NEW</code>、<code class="notranslate">NESTED</code>等。可以通过<code class="notranslate">@Transactional</code>注解的<code class="notranslate">propagation</code>属性来设置事务的传播行为：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">propagation</span> = <span class="pl-smi">Propagation</span>.<span class="pl-c1">REQUIRED</span>)
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() {
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">performTransaction</span>() {
     <span class="pl-c">// 事务操作</span>
 }</pre></div>
 <h3>Spring 事务属性</h3>
@@ -204,7 +204,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>timeout</strong>（超时时间）</li>
 </ol>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">timeout</span> = <span class="pl-c1">30</span>)
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() {
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">performTransaction</span>() {
     <span class="pl-c">// 事务操作</span>
 }</pre></div>
 <pre class="notranslate"><code class="notranslate">- 定义事务的超时时间（以秒为单位）。如果事务在指定时间内没有完成，则自动回滚。
@@ -213,7 +213,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>readOnly</strong>（只读）</li>
 </ol>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">readOnly</span> = <span class="pl-c1">true</span>)
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performReadOnlyTransaction</span>() {
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">performReadOnlyTransaction</span>() {
     <span class="pl-c">// 只读事务操作</span>
 }</pre></div>
 <pre class="notranslate"><code class="notranslate">- 指定事务是否为只读事务。只读事务可以优化性能，适用于只执行查询操作的方法。
@@ -222,7 +222,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>rollbackFor</strong>（回滚规则）</li>
 </ol>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">rollbackFor</span> = <span class="pl-smi">Exception</span>.<span class="pl-k">class</span>)
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() <span class="pl-k">throws</span> <span class="pl-s1">Exception</span> {
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">performTransaction</span>() <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
     <span class="pl-c">// 事务操作</span>
 }</pre></div>
 <pre class="notranslate"><code class="notranslate">- 指定哪些异常会导致事务回滚。可以指定一个或多个异常类。
@@ -231,7 +231,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>noRollbackFor</strong>（不回滚规则）</li>
 </ol>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">noRollbackFor</span> = <span class="pl-smi">IllegalArgumentException</span>.<span class="pl-k">class</span>)
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() {
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">performTransaction</span>() {
     <span class="pl-c">// 事务操作</span>
 }</pre></div>
 <pre class="notranslate"><code class="notranslate">- 指定哪些异常不会导致事务回滚。可以指定一个或多个异常类。
