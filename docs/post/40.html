@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733161893932-20a5e9a6-9647-48f8-9deb-5e6043bcd90d.png)
+
+
+
+### Spring TX 基本事务控制
+#### 什么是事务？
+事务（Transaction）是指一组操作的集合，这些操作要么全部成功，要么全部失败。">
+<meta property="og:title" content="Java 学习笔记 Spring TX 基本事务控制">
+<meta property="og:description" content="![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733161893932-20a5e9a6-9647-48f8-9deb-5e6043bcd90d.png)
+
+
+
+### Spring TX 基本事务控制
+#### 什么是事务？
+事务（Transaction）是指一组操作的集合，这些操作要么全部成功，要么全部失败。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/40.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java 学习笔记 Spring TX 基本事务控制</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java 学习笔记 Spring TX 基本事务控制</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/40" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/743d593e3aeaa865ee9771bdd997f46861968a2a718fba5145e994f692455884/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136313839333933322d32306135653961362d393634372d343866382d396465622d3565363034336263643930642e706e67"><img src="https://camo.githubusercontent.com/743d593e3aeaa865ee9771bdd997f46861968a2a718fba5145e994f692455884/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136313839333933322d32306135653961362d393634372d343866382d396465622d3565363034336263643930642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733161893932-20a5e9a6-9647-48f8-9deb-5e6043bcd90d.png" style="max-width: 100%;"></a></p>
+<h3>Spring TX 基本事务控制</h3>
+<h4>什么是事务？</h4>
+<p>事务（Transaction）是指一组操作的集合，这些操作要么全部成功，要么全部失败。事务的主要特性包括原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）和持久性（Durability），简称ACID特性。</p>
+<h4>为什么需要事务？</h4>
+<p>在数据库操作中，事务可以确保数据的一致性和完整性。例如，在银行转账操作中，事务可以确保从一个账户扣款和向另一个账户存款这两个操作要么同时成功，要么同时失败，避免出现资金丢失或重复的问题。</p>
+<h4>Spring中的事务管理</h4>
+<p>Spring提供了强大的事务管理功能，支持声明式事务和编程式事务两种方式。声明式事务通过注解或XML配置来管理事务，而编程式事务则通过编写代码来管理事务。</p>
+<h4>声明式事务管理</h4>
+<p>声明式事务管理是Spring推荐的事务管理方式，主要通过注解来实现。</p>
+<ol>
+<li><strong>引入依赖</strong><br>
+在项目的<code class="notranslate">pom.xml</code>文件中添加Spring事务管理相关的依赖：</li>
+</ol>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">dependency</span>&gt;
+    &lt;<span class="pl-ent">groupId</span>&gt;org.springframework&lt;/<span class="pl-ent">groupId</span>&gt;
+    &lt;<span class="pl-ent">artifactId</span>&gt;spring-tx&lt;/<span class="pl-ent">artifactId</span>&gt;
+    &lt;<span class="pl-ent">version</span>&gt;5.3.10&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+<ol>
+<li><strong>启用事务管理</strong><br>
+在Spring配置类中启用事务管理：</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableTransactionManagement</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">AppConfig</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">PlatformTransactionManager</span> <span class="pl-en">transactionManager</span>(<span class="pl-smi">DataSource</span> <span class="pl-s1">dataSource</span>) {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">DataSourceTransactionManager</span>(<span class="pl-s1">dataSource</span>);
+    }
+}</pre></div>
+<ol>
+<li><strong>使用注解管理事务</strong><br>
+在需要事务管理的方法上使用<code class="notranslate">@Transactional</code>注解：</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Service</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyService</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">MyRepository</span> <span class="pl-s1">myRepository</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Transactional</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">performTransaction</span>() {
+        <span class="pl-s1">myRepository</span>.<span class="pl-en">save</span>(<span class="pl-k">new</span> <span class="pl-smi">Entity</span>());
+        <span class="pl-c">// 其他数据库操作</span>
+    }
+}</pre></div>
+<h4>编程式事务管理</h4>
+<p>编程式事务管理通过编写代码来管理事务，适用于需要精细控制事务的场景。</p>
+<ol>
+<li><strong>获取事务管理器</strong></li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+<span class="pl-k">private</span> <span class="pl-smi">PlatformTransactionManager</span> <span class="pl-s1">transactionManager</span>;</pre></div>
+<ol>
+<li><strong>编写事务管理代码</strong></li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() {
+    <span class="pl-smi">TransactionStatus</span> <span class="pl-s1">status</span> = <span class="pl-s1">transactionManager</span>.<span class="pl-en">getTransaction</span>(<span class="pl-k">new</span> <span class="pl-smi">DefaultTransactionDefinition</span>());
+    <span class="pl-k">try</span> {
+        <span class="pl-c">// 数据库操作</span>
+        <span class="pl-s1">transactionManager</span>.<span class="pl-en">commit</span>(<span class="pl-s1">status</span>);
+    } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+        <span class="pl-s1">transactionManager</span>.<span class="pl-en">rollback</span>(<span class="pl-s1">status</span>);
+        <span class="pl-k">throw</span> <span class="pl-s1">e</span>;
+    }
+}</pre></div>
+<h4>事务传播行为</h4>
+<p>Spring事务管理支持多种事务传播行为，如<code class="notranslate">REQUIRED</code>、<code class="notranslate">REQUIRES_NEW</code>、<code class="notranslate">NESTED</code>等。可以通过<code class="notranslate">@Transactional</code>注解的<code class="notranslate">propagation</code>属性来设置事务的传播行为：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">propagation</span> = <span class="pl-smi">Propagation</span>.<span class="pl-c1">REQUIRED</span>)
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() {
+    <span class="pl-c">// 事务操作</span>
+}</pre></div>
+<h3>Spring 事务属性</h3>
+<p>在Spring中，<code class="notranslate">@Transactional</code>注解用于声明事务。通过设置不同的属性，可以控制事务的行为。以下是一些常用的事务属性：</p>
+<ol>
+<li><strong>propagation</strong>（传播行为）
+<ul>
+<li>定义事务的传播行为，即当前事务方法被另一个事务方法调用时，事务如何传播。</li>
+<li>常见的传播行为包括：
+<ul>
+<li><code class="notranslate">REQUIRED</code>：默认值，支持当前事务，如果没有则创建一个新事务。</li>
+<li><code class="notranslate">REQUIRES_NEW</code>：总是创建一个新事务，如果当前存在事务，则挂起当前事务。</li>
+<li><code class="notranslate">SUPPORTS</code>：支持当前事务，如果没有事务，则以非事务方式执行。</li>
+<li><code class="notranslate">NOT_SUPPORTED</code>：以非事务方式执行，如果当前存在事务，则挂起当前事务。</li>
+<li><code class="notranslate">MANDATORY</code>：支持当前事务，如果没有事务，则抛出异常。</li>
+<li><code class="notranslate">NEVER</code>：以非事务方式执行，如果当前存在事务，则抛出异常。</li>
+<li><code class="notranslate">NESTED</code>：如果当前存在事务，则在嵌套事务内执行，否则创建一个新事务。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>isolation</strong>（隔离级别）
+<ul>
+<li>定义事务的隔离级别，以防止多个事务之间的数据干扰。（推荐设置第二隔离级别）</li>
+<li>常见的隔离级别包括：
+<ul>
+<li><code class="notranslate">DEFAULT</code>：使用数据库默认的隔离级别。</li>
+<li><code class="notranslate">READ_UNCOMMITTED</code>：最低的隔离级别，允许读取未提交的数据，可能会导致脏读、不可重复读和幻读。</li>
+<li><code class="notranslate">READ_COMMITTED</code>：允许读取已提交的数据，防止脏读，但可能会导致不可重复读和幻读。</li>
+<li><code class="notranslate">REPEATABLE_READ</code>：防止脏读和不可重复读，但可能会导致幻读。</li>
+<li><code class="notranslate">SERIALIZABLE</code>：最高的隔离级别，防止脏读、不可重复读和幻读，但性能较低。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>timeout</strong>（超时时间）</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">timeout</span> = <span class="pl-c1">30</span>)
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() {
+    <span class="pl-c">// 事务操作</span>
+}</pre></div>
+<pre class="notranslate"><code class="notranslate">- 定义事务的超时时间（以秒为单位）。如果事务在指定时间内没有完成，则自动回滚。
+</code></pre>
+<ol>
+<li><strong>readOnly</strong>（只读）</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">readOnly</span> = <span class="pl-c1">true</span>)
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performReadOnlyTransaction</span>() {
+    <span class="pl-c">// 只读事务操作</span>
+}</pre></div>
+<pre class="notranslate"><code class="notranslate">- 指定事务是否为只读事务。只读事务可以优化性能，适用于只执行查询操作的方法。
+</code></pre>
+<ol>
+<li><strong>rollbackFor</strong>（回滚规则）</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">rollbackFor</span> = <span class="pl-smi">Exception</span>.<span class="pl-k">class</span>)
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() <span class="pl-k">throws</span> <span class="pl-s1">Exception</span> {
+    <span class="pl-c">// 事务操作</span>
+}</pre></div>
+<pre class="notranslate"><code class="notranslate">- 指定哪些异常会导致事务回滚。可以指定一个或多个异常类。
+</code></pre>
+<ol>
+<li><strong>noRollbackFor</strong>（不回滚规则）</li>
+</ol>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">noRollbackFor</span> = <span class="pl-smi">IllegalArgumentException</span>.<span class="pl-k">class</span>)
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-s1">performTransaction</span>() {
+    <span class="pl-c">// 事务操作</span>
+}</pre></div>
+<pre class="notranslate"><code class="notranslate">- 指定哪些异常不会导致事务回滚。可以指定一个或多个异常类。
+</code></pre>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5493d56f95380d17b03f8ebc43291b74196f9e10dc522e33e0b4bc59becae250/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136323232353839302d38633465656663382d306135622d343333302d613764372d3535363339633762663064612e706e67"><img src="https://camo.githubusercontent.com/5493d56f95380d17b03f8ebc43291b74196f9e10dc522e33e0b4bc59becae250/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136323232353839302d38633465656663382d306135622d343333302d613764372d3535363339633762663064612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733162225890-8c4eefc8-0a5b-4330-a7d7-55639c7bf0da.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8b2d86d32e7d725f3f902367e84d7daf302d681cb54051f83e38ac5369fb6747/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136323336373833372d34393534616664642d353763612d343732342d396336312d3136346139383563346438652e706e67"><img src="https://camo.githubusercontent.com/8b2d86d32e7d725f3f902367e84d7daf302d681cb54051f83e38ac5369fb6747/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136323336373833372d34393534616664642d353763612d343732342d396336312d3136346139383563346438652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733162367837-4954afdd-57ca-4724-9c61-164a985c4d8e.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c6185f72d5566dad47950ddf6fade39f525b9624e9abac8a265163e4f6a00875/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136323633343137362d34343030393565372d343237642d343338312d386262342d3461653734326539393531612e706e67"><img src="https://camo.githubusercontent.com/c6185f72d5566dad47950ddf6fade39f525b9624e9abac8a265163e4f6a00875/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136323633343137362d34343030393565372d343237642d343338312d386262342d3461653734326539393531612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733162634176-440095e7-427d-4381-8bb4-4ae742e9951a.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/01c2e45388128a8dec8b70b40dd448cba42623261715a2b8e67326a07f3d9133/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136323530343639372d62363736366230662d623536302d343030312d383039362d3165353331366539643734642e706e67"><img src="https://camo.githubusercontent.com/01c2e45388128a8dec8b70b40dd448cba42623261715a2b8e67326a07f3d9133/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333136323530343639372d62363736366230662d623536302d343030312d383039362d3165353331366539643734642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733162504697-b6766b0f-b560-4001-8096-1e5316e9d74d.png" style="max-width: 100%;"></a></p>
+<h3>事务传播行为</h3>
+<p>事务传播行为（Transaction Propagation Behavior）定义了当一个事务方法被另一个事务方法调用时，事务如何传播。Spring提供了多种传播行为，以满足不同的事务管理需求。以下是常见的事务传播行为：</p>
+<ol>
+<li><strong>REQUIRED</strong>
+<ul>
+<li><strong>描述</strong>：如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新事务。</li>
+<li><strong>应用场景</strong>：这是默认的传播行为，适用于大多数情况。</li>
+<li>（如果父方法有事务，我就加入，没有就新建自己独立）</li>
+</ul>
+</li>
+<li><strong>REQUIRES_NEW</strong>
+<ul>
+<li><strong>描述</strong>：总是创建一个新事务。如果当前存在事务，则挂起当前事务。</li>
+<li><strong>应用场景</strong>：适用于需要独立事务的情况，例如记录日志操作。</li>
+<li>（不管父方法是否有事务，我都是新建事务，都是独立的）</li>
+</ul>
+</li>
+<li><strong>SUPPORTS</strong>
+<ul>
+<li><strong>描述</strong>：如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务方式执行。</li>
+<li><strong>应用场景</strong>：适用于既可以在事务中执行，也可以在非事务中执行的操作。</li>
+</ul>
+</li>
+<li><strong>NOT_SUPPORTED</strong>
+<ul>
+<li><strong>描述</strong>：以非事务方式执行，如果当前存在事务，则挂起当前事务。</li>
+<li><strong>应用场景</strong>：适用于不需要事务的操作，例如读取配置文件。</li>
+</ul>
+</li>
+<li><strong>MANDATORY</strong>
+<ul>
+<li><strong>描述</strong>：如果当前存在事务，则加入该事务；如果当前没有事务，则抛出异常。</li>
+<li><strong>应用场景</strong>：适用于必须在事务中执行的操作。</li>
+</ul>
+</li>
+<li><strong>NEVER</strong>
+<ul>
+<li><strong>描述</strong>：以非事务方式执行，如果当前存在事务，则抛出异常。</li>
+<li><strong>应用场景</strong>：适用于不允许在事务中执行的操作。</li>
+</ul>
+</li>
+<li><strong>NESTED</strong>
+<ul>
+<li><strong>描述</strong>：如果当前存在事务，则在嵌套事务内执行；如果当前没有事务，则创建一个新事务。</li>
+<li><strong>应用场景</strong>：适用于需要嵌套事务的情况，例如批量处理操作。</li>
+</ul>
+</li>
+</ol>
+<h4>示例代码</h4>
+<p>以下是一个使用<code class="notranslate">@Transactional</code>注解设置事务传播行为的示例：</p>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">@Service
+public class MyService {
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void requiredTransaction() {
+        // 事务操作
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void requiresNewTransaction() {
+        // 事务操作
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void supportsTransaction() {
+        // 事务操作
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void notSupportedTransaction() {
+        // 事务操作
+    }
+
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void mandatoryTransaction() {
+        // 事务操作
+    }
+
+    @Transactional(propagation = Propagation.NEVER)
+    public void neverTransaction() {
+        // 事务操作
+    }
+
+    @Transactional(propagation = Propagation.NESTED)
+    public void nestedTransaction() {
+        // 事务操作
+    }
+}
+</code></pre>
+<p>传播行为：父方法调用子方法时，子方法是否要加到父方法中，或者是新建</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
