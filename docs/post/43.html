@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="
+102 纯硬件循迹小车工作原理
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301041816-0bf7bd6a-3645-48bb-91ea-73a9cc0df415.png)
+
+底部有两对红外发射接收管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301117703-b33a4b63-cd88-4c0d-91f6-f96d79c381fe.png)
+
+白色会反射所有光谱，黑色会直接吸收
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301858785-51623f8e-322b-4899-acdf-c93d8fb935a3.png)
+
+没收到红外信号对应的车轮停止驱动
+
+
+
+103 纯硬件循迹小车 设计电机驱动电路
+
+工作逻辑：
+
++ 检测黑线
++ 控制电机
+
+
+
+PS 排针一般封装名为header 下面有两个洞
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303601455-261844df-690d-4e97-a4cc-652f61b80ac9.png)
+
+最简单的开关控制电路
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303656717-e38fbe65-3ade-428f-95dc-b7dcc896fff5.png)
+
+104 黑线检测原理
+
+
+
+红外接收二极管工作原理
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303753851-052210b8-fc8b-474e-a87f-1e57f8127af2.png)
+
+在没有接收到红外光时，它的反向电流非常小
+
+当他接收到红外光时它会反向导通
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303889797-d758a1eb-d376-4acf-a300-35f670633671.png)
+
+利用这个特性能够检测小车有没有进入黑线区域
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733304435616-8cf7cae5-7295-4c0d-9841-2c0b833e0dbc.png)
+
+我们可以对比电压区别
+
+在黑线区域和白线区域有两个电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733304501578-9c1a3d7b-0773-4927-b16d-deca302b7fe4.png)
+
+105 控制电路的基本逻辑
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310729220-cc84685d-84f6-40d4-9409-4547d865a5ae.png)
+
+通过调节电阻R能够调节灵敏度
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310782966-20943bde-590a-46bd-bd58-b09b320a1f0a.png)
+
+105 控制电路的基本逻辑
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310729220-cc84685d-84f6-40d4-9409-4547d865a5ae.png)
+
+通过调节电阻R能够调节灵敏度
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310782966-20943bde-590a-46bd-bd58-b09b320a1f0a.png)
+
+106 设计电机控制电路
+
+
+
+运放LM358和LM393的封装是可以共用的，引脚定义一模一样
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311031640-e2234bcc-6066-4934-9ec3-464c0035036c.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311150157-74fdd79f-f066-4af3-995c-892c3bcb7e4f.png)
+
+lm393是oc输出，必须使用上拉电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311207841-efe5497a-72cf-4ea1-8b0a-adab71143884.png)
+
+107 改善电机驱动电路
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311433232-8c187f04-ebc3-45c1-bdb7-33c2fa6b5697.png)
+
+电机属于电感型元器件，在开关断开时容易产生很高的电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311502772-3ced631c-c33e-4056-b24d-84f6a0fc8fca.png)
+
+在电机两端添加一个续流二极管
+
+注意:二极管电流最大导通电流要比电机正常工作电流大
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312024673-8240047c-120e-43af-ae44-07379511f22c.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312101000-2179a188-bd08-4f1a-9e8c-bdb2c5cdc300.png)
+
+这个电阻可以用来调试
+
+因为这条支路电阻越大，耗能越小，所以刚好饱和导通为最好的状态
+
+108 电机驱动电路中储能电容的作用
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312336971-58265f40-47e2-451d-a20a-940d6ca2bef9.png)
+
+给电机提供瞬间的大电容和滤波
+
+109 完善电机驱动电路
+
+一个模块包含两个比较器，共用电源
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312444805-a116d74c-6627-47d6-8a4e-6f1a325dd09e.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312469815-b3829bd1-218b-4846-829f-1b25037f039d.png)
+
+110 设计电源电路
+
+ 想要正常输出5V，需要满足减去它最小稳压压差之后还有5V
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733314285003-38b8eb0d-10e0-410a-ad97-2f47a8003bf1.png)																	
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733314439985-d56d84e1-d979-4f5c-b3dd-d22ac40a6dbb.png)
+
+111 电源电路参数计算
+
+稳压管一般工作电流取到1-10毫安差不多
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733316994315-fdce9a84-b41c-454c-ab3a-291b6d081459.png)
+
+
+
+112 完善电路设计
+
+在电机驱动板上增加一个下拉电阻，增大电路稳定性
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317182553-fd878204-a0f8-4f11-8eaa-a268ed4507a5.png)
+
+然后我们再加入两个红外发射管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317258532-907a2234-f2d6-4508-8e99-d129b71b4ba2.png)
+
+加入LED方便调试
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317291520-f6f82f1a-e3a5-4b22-9233-62d8555c1caf.png)
+
+113 绘制单部件原理图封装
+
+
+
+添加原理图库
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317366454-46770ef6-068c-4b4f-b817-16a753d90a5b.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317392378-224d2cae-fc49-427e-b533-bc06bf3efdd1.png)
+
+设置好格点
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317426530-cab0e769-faba-4067-93c6-d835a15dd00c.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317445969-4eba7eb2-5e6e-434e-bc9a-900b6a2ef0b4.png)
+
+对着手册画
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317512257-66721241-79e3-4c53-8f54-e5b4a3ede75d.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317582205-8099e26f-1b48-4177-ab96-df1dbf191205.png)
+
+
+
+小白点要往外放
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317552011-37967b17-cb92-4c25-b748-c2618896ff49.png)
+
+画外壳
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317673279-86005ca1-f334-4ef7-b878-0f99336ce7b0.png)
+
+全选 信息窗
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317720414-6245c2fd-ef13-490c-b465-2177aa8b3f8b.png)
+
+打开隐藏
+
+格式乱了就拉一下
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317779610-04fe75bd-e028-44db-9006-9af875fd5360.png)
+
+
+
+保存
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317826759-c595fc93-d0ad-4ef0-a12b-2a2139156fdb.png)
+
+114 绘制多部件原理图封装
+
+
+
+新部件
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317923719-3e2823d8-a0b0-4db5-963f-923560f00f82.png)
+
+芯片会变成两部分
+
+part1
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318078620-0fbf07bf-6231-4998-8587-b43502537388.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318124965-3b3113fe-444d-41d7-9e08-bb44dc2bc18f.png)
+
+part2
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318192260-1dd400cf-af0f-4933-8aef-ae8814c8cfe8.png)
+
+
+
+到时候有两个部件可以选
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318217138-77e68c31-06ea-46b5-bfb6-f8090644e1de.png)
+
+115 绘制PCB封装
+
+
+
+ADD
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318268971-d8f9bfb6-1125-4c24-9a7c-449aac80279c.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318283959-05698657-53e9-4410-a127-0f7604502a86.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318326689-36003ff4-656c-4906-98fb-a21af6b4e04a.png)
+
+
+
+画pcb封装
+
+新建 PCB Library
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318421034-32f32a24-9a3d-44f7-a47f-6b9ffec22c0e.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318434594-9363d7fe-19b9-4d79-b44f-44cb531c54d8.png)
+
+
+
+
+
+根据芯片提供的手册画
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318493260-5243468a-4ff6-4f37-871d-9c3c23333b8c.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318528301-85de97fd-cb2c-4cfa-99e3-40356d816cbc.png)
+
+
+
+按G - 栅格属性
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318562578-a4bbf602-0655-482e-abfa-c6b2f406f1c8.png)
+
+设为默认，适用
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318592556-8cc12eb7-60a7-4a29-bea5-abcecd0b4f66.png)
+
+更改焊盘 layer
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318690696-f108524d-4851-486d-bc89-4fbbe221bd45.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318701195-f9c7e274-bb53-478f-a41a-0cef228308a1.png)
+
+按输入法Q切换单位
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318738904-5c4cd54c-c9fb-4e5a-8ea5-9c928e13208b.png)
+
+计算焊盘大小
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318812426-db9226ba-822a-49e2-82d7-8e7affc90034.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318848502-dec3f7f9-67ec-41da-9643-4f3ad6c63771.png)
+
+设置焊盘
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318875411-65681b6a-05a3-4e3e-9789-3c10c5591751.png)
+
+以打坐标的形式设置位置
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318920793-c612d90a-818b-4096-87ae-36db38e579bb.png)
+
+也可以使用格点设置
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318990238-4096a567-2237-4cd1-9ebe-f7c4a51ed81c.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318995507-6317e487-6353-4e55-a708-b03e75542393.png)
+
+按CTRL M监测距离
+
+
+
+切换到丝印层绘制丝印信息
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319087366-56f4d47a-8834-408c-b7e3-f71650868c3d.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319134805-77167b0b-fe80-42d2-b441-9ded3e8b2349.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319149762-3ad421e6-7912-4656-bb41-cb1177be8092.png)
+
+
+
+画个小圆圈标注第一个引脚
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319187948-63b4ff6c-bea7-4cdc-a799-a1c9a2940486.png)
+
+ 
+
+注意：引脚的标号不能乱取
+
+
+
+116 原理图导入pcb
+
+
+
+添加新的pcb文件到工程
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319362084-8631e154-5343-4884-befc-3133483735d1.png)
+
+设计 - 更新pcb
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319410448-4df63057-ec1b-4a3c-b9e0-8c99eb76d572.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319418967-0f6e01cf-b84a-4577-adc6-d2ad76dab614.png)
+
+验证变更
+
+执行变更
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319448945-c1a7f8f4-4288-4634-96d5-62eef4b2a696.png)
+
+
+
+。">
+<meta property="og:title" content="电子工程师 学习笔记 纯硬件循迹小车">
+<meta property="og:description" content="
+102 纯硬件循迹小车工作原理
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301041816-0bf7bd6a-3645-48bb-91ea-73a9cc0df415.png)
+
+底部有两对红外发射接收管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301117703-b33a4b63-cd88-4c0d-91f6-f96d79c381fe.png)
+
+白色会反射所有光谱，黑色会直接吸收
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301858785-51623f8e-322b-4899-acdf-c93d8fb935a3.png)
+
+没收到红外信号对应的车轮停止驱动
+
+
+
+103 纯硬件循迹小车 设计电机驱动电路
+
+工作逻辑：
+
++ 检测黑线
++ 控制电机
+
+
+
+PS 排针一般封装名为header 下面有两个洞
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303601455-261844df-690d-4e97-a4cc-652f61b80ac9.png)
+
+最简单的开关控制电路
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303656717-e38fbe65-3ade-428f-95dc-b7dcc896fff5.png)
+
+104 黑线检测原理
+
+
+
+红外接收二极管工作原理
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303753851-052210b8-fc8b-474e-a87f-1e57f8127af2.png)
+
+在没有接收到红外光时，它的反向电流非常小
+
+当他接收到红外光时它会反向导通
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303889797-d758a1eb-d376-4acf-a300-35f670633671.png)
+
+利用这个特性能够检测小车有没有进入黑线区域
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733304435616-8cf7cae5-7295-4c0d-9841-2c0b833e0dbc.png)
+
+我们可以对比电压区别
+
+在黑线区域和白线区域有两个电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733304501578-9c1a3d7b-0773-4927-b16d-deca302b7fe4.png)
+
+105 控制电路的基本逻辑
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310729220-cc84685d-84f6-40d4-9409-4547d865a5ae.png)
+
+通过调节电阻R能够调节灵敏度
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310782966-20943bde-590a-46bd-bd58-b09b320a1f0a.png)
+
+105 控制电路的基本逻辑
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310729220-cc84685d-84f6-40d4-9409-4547d865a5ae.png)
+
+通过调节电阻R能够调节灵敏度
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310782966-20943bde-590a-46bd-bd58-b09b320a1f0a.png)
+
+106 设计电机控制电路
+
+
+
+运放LM358和LM393的封装是可以共用的，引脚定义一模一样
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311031640-e2234bcc-6066-4934-9ec3-464c0035036c.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311150157-74fdd79f-f066-4af3-995c-892c3bcb7e4f.png)
+
+lm393是oc输出，必须使用上拉电阻
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311207841-efe5497a-72cf-4ea1-8b0a-adab71143884.png)
+
+107 改善电机驱动电路
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311433232-8c187f04-ebc3-45c1-bdb7-33c2fa6b5697.png)
+
+电机属于电感型元器件，在开关断开时容易产生很高的电压
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311502772-3ced631c-c33e-4056-b24d-84f6a0fc8fca.png)
+
+在电机两端添加一个续流二极管
+
+注意:二极管电流最大导通电流要比电机正常工作电流大
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312024673-8240047c-120e-43af-ae44-07379511f22c.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312101000-2179a188-bd08-4f1a-9e8c-bdb2c5cdc300.png)
+
+这个电阻可以用来调试
+
+因为这条支路电阻越大，耗能越小，所以刚好饱和导通为最好的状态
+
+108 电机驱动电路中储能电容的作用
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312336971-58265f40-47e2-451d-a20a-940d6ca2bef9.png)
+
+给电机提供瞬间的大电容和滤波
+
+109 完善电机驱动电路
+
+一个模块包含两个比较器，共用电源
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312444805-a116d74c-6627-47d6-8a4e-6f1a325dd09e.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312469815-b3829bd1-218b-4846-829f-1b25037f039d.png)
+
+110 设计电源电路
+
+ 想要正常输出5V，需要满足减去它最小稳压压差之后还有5V
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733314285003-38b8eb0d-10e0-410a-ad97-2f47a8003bf1.png)																	
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733314439985-d56d84e1-d979-4f5c-b3dd-d22ac40a6dbb.png)
+
+111 电源电路参数计算
+
+稳压管一般工作电流取到1-10毫安差不多
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733316994315-fdce9a84-b41c-454c-ab3a-291b6d081459.png)
+
+
+
+112 完善电路设计
+
+在电机驱动板上增加一个下拉电阻，增大电路稳定性
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317182553-fd878204-a0f8-4f11-8eaa-a268ed4507a5.png)
+
+然后我们再加入两个红外发射管
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317258532-907a2234-f2d6-4508-8e99-d129b71b4ba2.png)
+
+加入LED方便调试
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317291520-f6f82f1a-e3a5-4b22-9233-62d8555c1caf.png)
+
+113 绘制单部件原理图封装
+
+
+
+添加原理图库
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317366454-46770ef6-068c-4b4f-b817-16a753d90a5b.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317392378-224d2cae-fc49-427e-b533-bc06bf3efdd1.png)
+
+设置好格点
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317426530-cab0e769-faba-4067-93c6-d835a15dd00c.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317445969-4eba7eb2-5e6e-434e-bc9a-900b6a2ef0b4.png)
+
+对着手册画
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317512257-66721241-79e3-4c53-8f54-e5b4a3ede75d.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317582205-8099e26f-1b48-4177-ab96-df1dbf191205.png)
+
+
+
+小白点要往外放
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317552011-37967b17-cb92-4c25-b748-c2618896ff49.png)
+
+画外壳
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317673279-86005ca1-f334-4ef7-b878-0f99336ce7b0.png)
+
+全选 信息窗
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317720414-6245c2fd-ef13-490c-b465-2177aa8b3f8b.png)
+
+打开隐藏
+
+格式乱了就拉一下
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317779610-04fe75bd-e028-44db-9006-9af875fd5360.png)
+
+
+
+保存
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317826759-c595fc93-d0ad-4ef0-a12b-2a2139156fdb.png)
+
+114 绘制多部件原理图封装
+
+
+
+新部件
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317923719-3e2823d8-a0b0-4db5-963f-923560f00f82.png)
+
+芯片会变成两部分
+
+part1
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318078620-0fbf07bf-6231-4998-8587-b43502537388.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318124965-3b3113fe-444d-41d7-9e08-bb44dc2bc18f.png)
+
+part2
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318192260-1dd400cf-af0f-4933-8aef-ae8814c8cfe8.png)
+
+
+
+到时候有两个部件可以选
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318217138-77e68c31-06ea-46b5-bfb6-f8090644e1de.png)
+
+115 绘制PCB封装
+
+
+
+ADD
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318268971-d8f9bfb6-1125-4c24-9a7c-449aac80279c.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318283959-05698657-53e9-4410-a127-0f7604502a86.png)
+
+
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318326689-36003ff4-656c-4906-98fb-a21af6b4e04a.png)
+
+
+
+画pcb封装
+
+新建 PCB Library
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318421034-32f32a24-9a3d-44f7-a47f-6b9ffec22c0e.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318434594-9363d7fe-19b9-4d79-b44f-44cb531c54d8.png)
+
+
+
+
+
+根据芯片提供的手册画
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318493260-5243468a-4ff6-4f37-871d-9c3c23333b8c.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318528301-85de97fd-cb2c-4cfa-99e3-40356d816cbc.png)
+
+
+
+按G - 栅格属性
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318562578-a4bbf602-0655-482e-abfa-c6b2f406f1c8.png)
+
+设为默认，适用
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318592556-8cc12eb7-60a7-4a29-bea5-abcecd0b4f66.png)
+
+更改焊盘 layer
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318690696-f108524d-4851-486d-bc89-4fbbe221bd45.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318701195-f9c7e274-bb53-478f-a41a-0cef228308a1.png)
+
+按输入法Q切换单位
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318738904-5c4cd54c-c9fb-4e5a-8ea5-9c928e13208b.png)
+
+计算焊盘大小
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318812426-db9226ba-822a-49e2-82d7-8e7affc90034.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318848502-dec3f7f9-67ec-41da-9643-4f3ad6c63771.png)
+
+设置焊盘
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318875411-65681b6a-05a3-4e3e-9789-3c10c5591751.png)
+
+以打坐标的形式设置位置
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318920793-c612d90a-818b-4096-87ae-36db38e579bb.png)
+
+也可以使用格点设置
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318990238-4096a567-2237-4cd1-9ebe-f7c4a51ed81c.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318995507-6317e487-6353-4e55-a708-b03e75542393.png)
+
+按CTRL M监测距离
+
+
+
+切换到丝印层绘制丝印信息
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319087366-56f4d47a-8834-408c-b7e3-f71650868c3d.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319134805-77167b0b-fe80-42d2-b441-9ded3e8b2349.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319149762-3ad421e6-7912-4656-bb41-cb1177be8092.png)
+
+
+
+画个小圆圈标注第一个引脚
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319187948-63b4ff6c-bea7-4cdc-a799-a1c9a2940486.png)
+
+ 
+
+注意：引脚的标号不能乱取
+
+
+
+116 原理图导入pcb
+
+
+
+添加新的pcb文件到工程
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319362084-8631e154-5343-4884-befc-3133483735d1.png)
+
+设计 - 更新pcb
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319410448-4df63057-ec1b-4a3c-b9e0-8c99eb76d572.png)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319418967-0f6e01cf-b84a-4577-adc6-d2ad76dab614.png)
+
+验证变更
+
+执行变更
+
+![](https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319448945-c1a7f8f4-4288-4634-96d5-62eef4b2a696.png)
+
+
+
+。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/43.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>电子工程师 学习笔记 纯硬件循迹小车</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">电子工程师 学习笔记 纯硬件循迹小车</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/43" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>102 纯硬件循迹小车工作原理</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f6c8cf0082d624845914b1e06dba95a6ca6a60f927b45144dd8ee8cb1cf54d4d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330313034313831362d30626637626436612d333634352d343862622d393165612d3733613963633064663431352e706e67"><img src="https://camo.githubusercontent.com/f6c8cf0082d624845914b1e06dba95a6ca6a60f927b45144dd8ee8cb1cf54d4d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330313034313831362d30626637626436612d333634352d343862622d393165612d3733613963633064663431352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301041816-0bf7bd6a-3645-48bb-91ea-73a9cc0df415.png" style="max-width: 100%;"></a></p>
+<p>底部有两对红外发射接收管</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/510582233706e1e8b4d43271e8f6a383f954de4499ab1e3c8223da418f5fdabc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330313131373730332d62333361346236332d636438382d346330642d393166362d6639366437396333383166652e706e67"><img src="https://camo.githubusercontent.com/510582233706e1e8b4d43271e8f6a383f954de4499ab1e3c8223da418f5fdabc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330313131373730332d62333361346236332d636438382d346330642d393166362d6639366437396333383166652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301117703-b33a4b63-cd88-4c0d-91f6-f96d79c381fe.png" style="max-width: 100%;"></a></p>
+<p>白色会反射所有光谱，黑色会直接吸收</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/87593ddce0b9a950cd0ddda08e65c0c911f2591e02b3503dac958b22facec530/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330313835383738352d35313632336638652d333232622d343839392d616364662d6339336438666239333561332e706e67"><img src="https://camo.githubusercontent.com/87593ddce0b9a950cd0ddda08e65c0c911f2591e02b3503dac958b22facec530/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330313835383738352d35313632336638652d333232622d343839392d616364662d6339336438666239333561332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733301858785-51623f8e-322b-4899-acdf-c93d8fb935a3.png" style="max-width: 100%;"></a></p>
+<p>没收到红外信号对应的车轮停止驱动</p>
+<p>103 纯硬件循迹小车 设计电机驱动电路</p>
+<p>工作逻辑：</p>
+<ul>
+<li>检测黑线</li>
+<li>控制电机</li>
+</ul>
+<p>PS 排针一般封装名为header 下面有两个洞</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5620921d2535df9150100dc2e969e909a7a2334f84882b21a084ce7c63506914/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330333630313435352d32363138343464662d363930642d346539372d613463632d3635326636316238306163392e706e67"><img src="https://camo.githubusercontent.com/5620921d2535df9150100dc2e969e909a7a2334f84882b21a084ce7c63506914/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330333630313435352d32363138343464662d363930642d346539372d613463632d3635326636316238306163392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303601455-261844df-690d-4e97-a4cc-652f61b80ac9.png" style="max-width: 100%;"></a></p>
+<p>最简单的开关控制电路</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a6a73c32d269e033e78fddf4d388e0a7f642c55d42d9931b514160e993af82ec/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330333635363731372d65333866626536352d336164652d343238662d393564632d6237646363383936666666352e706e67"><img src="https://camo.githubusercontent.com/a6a73c32d269e033e78fddf4d388e0a7f642c55d42d9931b514160e993af82ec/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330333635363731372d65333866626536352d336164652d343238662d393564632d6237646363383936666666352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303656717-e38fbe65-3ade-428f-95dc-b7dcc896fff5.png" style="max-width: 100%;"></a></p>
+<p>104 黑线检测原理</p>
+<p>红外接收二极管工作原理</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/30440ec4e15de5a948ce023f4adabb29d266bcd148df732bf0ae6a874472b1e1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330333735333835312d30353232313062382d666338622d343734652d613837662d3165353766383132376166322e706e67"><img src="https://camo.githubusercontent.com/30440ec4e15de5a948ce023f4adabb29d266bcd148df732bf0ae6a874472b1e1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330333735333835312d30353232313062382d666338622d343734652d613837662d3165353766383132376166322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303753851-052210b8-fc8b-474e-a87f-1e57f8127af2.png" style="max-width: 100%;"></a></p>
+<p>在没有接收到红外光时，它的反向电流非常小</p>
+<p>当他接收到红外光时它会反向导通</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3355e6770d6681cac306378bdb3e639ff9e19f729dc5eab561afebc5280f0a65/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330333838393739372d64373538613165622d643337362d346163662d613330302d3335663637303633333637312e706e67"><img src="https://camo.githubusercontent.com/3355e6770d6681cac306378bdb3e639ff9e19f729dc5eab561afebc5280f0a65/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330333838393739372d64373538613165622d643337362d346163662d613330302d3335663637303633333637312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733303889797-d758a1eb-d376-4acf-a300-35f670633671.png" style="max-width: 100%;"></a></p>
+<p>利用这个特性能够检测小车有没有进入黑线区域</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d6169e65515082d260e33021a7bfe4bfa1b74d1b1e9c346f9400be9b6c22b9e5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330343433353631362d38636637636165352d373239352d346330642d393834312d3263306238333365306462632e706e67"><img src="https://camo.githubusercontent.com/d6169e65515082d260e33021a7bfe4bfa1b74d1b1e9c346f9400be9b6c22b9e5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330343433353631362d38636637636165352d373239352d346330642d393834312d3263306238333365306462632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733304435616-8cf7cae5-7295-4c0d-9841-2c0b833e0dbc.png" style="max-width: 100%;"></a></p>
+<p>我们可以对比电压区别</p>
+<p>在黑线区域和白线区域有两个电压</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3edbcd1996804135b485d54b39f194a22b413a39b62606cbb0f3402e376b3ea4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330343530313537382d39633161336437622d303737332d343932372d623136642d6465636133303262376665342e706e67"><img src="https://camo.githubusercontent.com/3edbcd1996804135b485d54b39f194a22b413a39b62606cbb0f3402e376b3ea4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333330343530313537382d39633161336437622d303737332d343932372d623136642d6465636133303262376665342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733304501578-9c1a3d7b-0773-4927-b16d-deca302b7fe4.png" style="max-width: 100%;"></a></p>
+<p>105 控制电路的基本逻辑</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/54412d31c8055dc115020978a29998d912925ddb3dd91d16aee2e0cee6a71d4c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331303732393232302d63633834363835642d383466362d343064342d393430392d3435343764383635613561652e706e67"><img src="https://camo.githubusercontent.com/54412d31c8055dc115020978a29998d912925ddb3dd91d16aee2e0cee6a71d4c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331303732393232302d63633834363835642d383466362d343064342d393430392d3435343764383635613561652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310729220-cc84685d-84f6-40d4-9409-4547d865a5ae.png" style="max-width: 100%;"></a></p>
+<p>通过调节电阻R能够调节灵敏度</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b96e211ddb5ec2dba7ee7d7b5511ad140bb501422f1c06e2b43718b6075fa13c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331303738323936362d32303934336264652d353930612d343662642d626435382d6230396233323061316630612e706e67"><img src="https://camo.githubusercontent.com/b96e211ddb5ec2dba7ee7d7b5511ad140bb501422f1c06e2b43718b6075fa13c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331303738323936362d32303934336264652d353930612d343662642d626435382d6230396233323061316630612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310782966-20943bde-590a-46bd-bd58-b09b320a1f0a.png" style="max-width: 100%;"></a></p>
+<p>105 控制电路的基本逻辑</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/54412d31c8055dc115020978a29998d912925ddb3dd91d16aee2e0cee6a71d4c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331303732393232302d63633834363835642d383466362d343064342d393430392d3435343764383635613561652e706e67"><img src="https://camo.githubusercontent.com/54412d31c8055dc115020978a29998d912925ddb3dd91d16aee2e0cee6a71d4c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331303732393232302d63633834363835642d383466362d343064342d393430392d3435343764383635613561652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310729220-cc84685d-84f6-40d4-9409-4547d865a5ae.png" style="max-width: 100%;"></a></p>
+<p>通过调节电阻R能够调节灵敏度</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b96e211ddb5ec2dba7ee7d7b5511ad140bb501422f1c06e2b43718b6075fa13c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331303738323936362d32303934336264652d353930612d343662642d626435382d6230396233323061316630612e706e67"><img src="https://camo.githubusercontent.com/b96e211ddb5ec2dba7ee7d7b5511ad140bb501422f1c06e2b43718b6075fa13c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331303738323936362d32303934336264652d353930612d343662642d626435382d6230396233323061316630612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733310782966-20943bde-590a-46bd-bd58-b09b320a1f0a.png" style="max-width: 100%;"></a></p>
+<p>106 设计电机控制电路</p>
+<p>运放LM358和LM393的封装是可以共用的，引脚定义一模一样</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e88597b0739d3b377b3b59cc36121133318024f83c1bd067451e2447805fd576/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313033313634302d65323233346263632d363036362d343933342d396563332d3436346330303335303336632e706e67"><img src="https://camo.githubusercontent.com/e88597b0739d3b377b3b59cc36121133318024f83c1bd067451e2447805fd576/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313033313634302d65323233346263632d363036362d343933342d396563332d3436346330303335303336632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311031640-e2234bcc-6066-4934-9ec3-464c0035036c.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/168d2d4139f98aaa9cbac7103d04fcc4fdbf0b29b024ad280a2270d876b3534f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313135303135372d37346664643739662d663036362d346166332d393935632d3839326333626362376534662e706e67"><img src="https://camo.githubusercontent.com/168d2d4139f98aaa9cbac7103d04fcc4fdbf0b29b024ad280a2270d876b3534f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313135303135372d37346664643739662d663036362d346166332d393935632d3839326333626362376534662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311150157-74fdd79f-f066-4af3-995c-892c3bcb7e4f.png" style="max-width: 100%;"></a></p>
+<p>lm393是oc输出，必须使用上拉电阻</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/10343fd6c75fc22d09782a5465d33fe88e890d369fe0f75a139e2a37b2a031c2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313230373834312d65666535343937612d373263662d346561312d386230612d6164616237313134333838342e706e67"><img src="https://camo.githubusercontent.com/10343fd6c75fc22d09782a5465d33fe88e890d369fe0f75a139e2a37b2a031c2/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313230373834312d65666535343937612d373263662d346561312d386230612d6164616237313134333838342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311207841-efe5497a-72cf-4ea1-8b0a-adab71143884.png" style="max-width: 100%;"></a></p>
+<p>107 改善电机驱动电路</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/300f6f1ad99b29072ac1448234c53d6b9c8f29ffec436d2aba177900e97a677b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313433333233322d38633138376630342d656263332d343563312d626462372d3333633266613662353639372e706e67"><img src="https://camo.githubusercontent.com/300f6f1ad99b29072ac1448234c53d6b9c8f29ffec436d2aba177900e97a677b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313433333233322d38633138376630342d656263332d343563312d626462372d3333633266613662353639372e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311433232-8c187f04-ebc3-45c1-bdb7-33c2fa6b5697.png" style="max-width: 100%;"></a></p>
+<p>电机属于电感型元器件，在开关断开时容易产生很高的电压</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/21cce8cd93ae8c0a213161443a1dadd970a833b4329706ecc5bbb3101fdea512/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313530323737322d33636564363331632d633333652d343035362d623234642d3834663661306663386663612e706e67"><img src="https://camo.githubusercontent.com/21cce8cd93ae8c0a213161443a1dadd970a833b4329706ecc5bbb3101fdea512/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331313530323737322d33636564363331632d633333652d343035362d623234642d3834663661306663386663612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733311502772-3ced631c-c33e-4056-b24d-84f6a0fc8fca.png" style="max-width: 100%;"></a></p>
+<p>在电机两端添加一个续流二极管</p>
+<p>注意:二极管电流最大导通电流要比电机正常工作电流大</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/36944cb7f22454d2ae3b2bb3dd94a20f7f1711f9eb32191b020446f4d3232fdb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323032343637332d38323430303437632d313230652d343361662d616534342d3037333739353131663232632e706e67"><img src="https://camo.githubusercontent.com/36944cb7f22454d2ae3b2bb3dd94a20f7f1711f9eb32191b020446f4d3232fdb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323032343637332d38323430303437632d313230652d343361662d616534342d3037333739353131663232632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312024673-8240047c-120e-43af-ae44-07379511f22c.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/91893ee7a6ff340138b4de9d2ae4e2632ef8e6a4a5866942681f609fff2f567a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323130313030302d32313739613138382d626430382d346631612d396538632d6264623263356364633330302e706e67"><img src="https://camo.githubusercontent.com/91893ee7a6ff340138b4de9d2ae4e2632ef8e6a4a5866942681f609fff2f567a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323130313030302d32313739613138382d626430382d346631612d396538632d6264623263356364633330302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312101000-2179a188-bd08-4f1a-9e8c-bdb2c5cdc300.png" style="max-width: 100%;"></a></p>
+<p>这个电阻可以用来调试</p>
+<p>因为这条支路电阻越大，耗能越小，所以刚好饱和导通为最好的状态</p>
+<p>108 电机驱动电路中储能电容的作用</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/15d4a278bef4348ebacaadd4218b77dd69967d9fc800f80cfc0931cb0675261a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323333363937312d35383236356634302d343765322d343531642d613230612d3934306436636132626566392e706e67"><img src="https://camo.githubusercontent.com/15d4a278bef4348ebacaadd4218b77dd69967d9fc800f80cfc0931cb0675261a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323333363937312d35383236356634302d343765322d343531642d613230612d3934306436636132626566392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312336971-58265f40-47e2-451d-a20a-940d6ca2bef9.png" style="max-width: 100%;"></a></p>
+<p>给电机提供瞬间的大电容和滤波</p>
+<p>109 完善电机驱动电路</p>
+<p>一个模块包含两个比较器，共用电源</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/269df229f64160c3d5e48e90c12578519473ad24c042e3250d64470a0ab4fa07/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323434343830352d61313136643734632d363632372d343764362d386134652d3666316133323564643039652e706e67"><img src="https://camo.githubusercontent.com/269df229f64160c3d5e48e90c12578519473ad24c042e3250d64470a0ab4fa07/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323434343830352d61313136643734632d363632372d343764362d386134652d3666316133323564643039652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312444805-a116d74c-6627-47d6-8a4e-6f1a325dd09e.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6d2cacce9189917bdf34ac01521f318546a9ac2f357ffe7c4bc842d9a63c3854/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323436393831352d62333832396264312d323138622d343834362d383239662d3162323530333766303339642e706e67"><img src="https://camo.githubusercontent.com/6d2cacce9189917bdf34ac01521f318546a9ac2f357ffe7c4bc842d9a63c3854/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331323436393831352d62333832396264312d323138622d343834362d383239662d3162323530333766303339642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733312469815-b3829bd1-218b-4846-829f-1b25037f039d.png" style="max-width: 100%;"></a></p>
+<p>110 设计电源电路</p>
+<p>想要正常输出5V，需要满足减去它最小稳压压差之后还有5V</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ecaaece9c20bd028a466830e5b6473ca573464b7b666efecc39b5d64fd02b92c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331343238353030332d33386238656230642d313065302d343130612d616439372d3266343761383030336266312e706e67"><img src="https://camo.githubusercontent.com/ecaaece9c20bd028a466830e5b6473ca573464b7b666efecc39b5d64fd02b92c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331343238353030332d33386238656230642d313065302d343130612d616439372d3266343761383030336266312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733314285003-38b8eb0d-10e0-410a-ad97-2f47a8003bf1.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/026bd98cbef26c0db2ca85ddcf47d607242f552a42178545f980d0267cc9951d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331343433393938352d64353664383465312d643937392d346635632d623364642d6432326163343061366462622e706e67"><img src="https://camo.githubusercontent.com/026bd98cbef26c0db2ca85ddcf47d607242f552a42178545f980d0267cc9951d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331343433393938352d64353664383465312d643937392d346635632d623364642d6432326163343061366462622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733314439985-d56d84e1-d979-4f5c-b3dd-d22ac40a6dbb.png" style="max-width: 100%;"></a></p>
+<p>111 电源电路参数计算</p>
+<p>稳压管一般工作电流取到1-10毫安差不多</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/900f6abb9a4d277ab5ef1a8d136304319abcb287e71e17926ff08a540422845f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331363939343331352d66646365396138342d623431632d343534632d616233612d3239316236643038313435392e706e67"><img src="https://camo.githubusercontent.com/900f6abb9a4d277ab5ef1a8d136304319abcb287e71e17926ff08a540422845f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331363939343331352d66646365396138342d623431632d343534632d616233612d3239316236643038313435392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733316994315-fdce9a84-b41c-454c-ab3a-291b6d081459.png" style="max-width: 100%;"></a></p>
+<p>112 完善电路设计</p>
+<p>在电机驱动板上增加一个下拉电阻，增大电路稳定性</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/78628790373d71ed9873098c8f881d7d4eb9abed26ea785c8c09db04afee606d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373138323535332d66643837383230342d613066382d346631312d386561612d6132363865643435303761352e706e67"><img src="https://camo.githubusercontent.com/78628790373d71ed9873098c8f881d7d4eb9abed26ea785c8c09db04afee606d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373138323535332d66643837383230342d613066382d346631312d386561612d6132363865643435303761352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317182553-fd878204-a0f8-4f11-8eaa-a268ed4507a5.png" style="max-width: 100%;"></a></p>
+<p>然后我们再加入两个红外发射管</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4c837ed3f2fdc802616f59daa4aaa5c7f145ef83a3de9e01cc9e21c56b6fae6c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373235383533322d39303761323233342d663264362d343530382d386539392d6431323962373162346261322e706e67"><img src="https://camo.githubusercontent.com/4c837ed3f2fdc802616f59daa4aaa5c7f145ef83a3de9e01cc9e21c56b6fae6c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373235383533322d39303761323233342d663264362d343530382d386539392d6431323962373162346261322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317258532-907a2234-f2d6-4508-8e99-d129b71b4ba2.png" style="max-width: 100%;"></a></p>
+<p>加入LED方便调试</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3527509600e0c6e384f76a1a3d8a983be2d493eb3ac4ea0bd8db492d7b1e80ea/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373239313532302d66366638326631612d653361352d346232322d393233332d3632643835353563316361662e706e67"><img src="https://camo.githubusercontent.com/3527509600e0c6e384f76a1a3d8a983be2d493eb3ac4ea0bd8db492d7b1e80ea/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373239313532302d66366638326631612d653361352d346232322d393233332d3632643835353563316361662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317291520-f6f82f1a-e3a5-4b22-9233-62d8555c1caf.png" style="max-width: 100%;"></a></p>
+<p>113 绘制单部件原理图封装</p>
+<p>添加原理图库</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d52a60634c4202b4b6d0f9bbd4b33e2aba9d990c969330ae39f86fa13ab9286e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373336363435342d34363737306566362d303638632d346234662d623831372d3136613735336439306135622e706e67"><img src="https://camo.githubusercontent.com/d52a60634c4202b4b6d0f9bbd4b33e2aba9d990c969330ae39f86fa13ab9286e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373336363435342d34363737306566362d303638632d346234662d623831372d3136613735336439306135622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317366454-46770ef6-068c-4b4f-b817-16a753d90a5b.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6f4006d2c040a307d0140ca11bfe1ccb411ef26b8570d008649f360ab3dc5df6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373339323337382d32323464326361652d666334392d343237652d623533332d6263303662663365666464312e706e67"><img src="https://camo.githubusercontent.com/6f4006d2c040a307d0140ca11bfe1ccb411ef26b8570d008649f360ab3dc5df6/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373339323337382d32323464326361652d666334392d343237652d623533332d6263303662663365666464312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317392378-224d2cae-fc49-427e-b533-bc06bf3efdd1.png" style="max-width: 100%;"></a></p>
+<p>设置好格点</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7aab8d5d5134109df53f0bc43f7eb12703a9f56c7aa22ec67a6032293a62f57e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373432363533302d63616230653736392d666162612d343036372d393363362d6438333561313564643030632e706e67"><img src="https://camo.githubusercontent.com/7aab8d5d5134109df53f0bc43f7eb12703a9f56c7aa22ec67a6032293a62f57e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373432363533302d63616230653736392d666162612d343036372d393363362d6438333561313564643030632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317426530-cab0e769-faba-4067-93c6-d835a15dd00c.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d4417898d644d764ccc8c0ee31655d7fef26c48f040a7910efdc4590402cd950/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373434353936392d34656261376562322d356536652d343334652d626339612d3930306236613265663062342e706e67"><img src="https://camo.githubusercontent.com/d4417898d644d764ccc8c0ee31655d7fef26c48f040a7910efdc4590402cd950/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373434353936392d34656261376562322d356536652d343334652d626339612d3930306236613265663062342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317445969-4eba7eb2-5e6e-434e-bc9a-900b6a2ef0b4.png" style="max-width: 100%;"></a></p>
+<p>对着手册画</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/492aca667c382eb0291988003e7f01a5e6b89267de0bf771c6166a006effab65/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373531323235372d36363732313234312d373965332d346335332d386635342d6535623461336564653735642e706e67"><img src="https://camo.githubusercontent.com/492aca667c382eb0291988003e7f01a5e6b89267de0bf771c6166a006effab65/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373531323235372d36363732313234312d373965332d346335332d386635342d6535623461336564653735642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317512257-66721241-79e3-4c53-8f54-e5b4a3ede75d.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/cff127d59c990af8fbd3f27935b2eac1c1438b90dad280b64b0130ce59ed46a5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373538323230352d38303939653236662d316234382d343137372d616239362d6466316462663139313230352e706e67"><img src="https://camo.githubusercontent.com/cff127d59c990af8fbd3f27935b2eac1c1438b90dad280b64b0130ce59ed46a5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373538323230352d38303939653236662d316234382d343137372d616239362d6466316462663139313230352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317582205-8099e26f-1b48-4177-ab96-df1dbf191205.png" style="max-width: 100%;"></a></p>
+<p>小白点要往外放</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0eef566154f4e54a4ad9346dbcb69aa8c6a61c678c9586d6d310728f9b3b97d8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373535323031312d33373936376231372d636239322d346332352d623734382d6332363138383936666634392e706e67"><img src="https://camo.githubusercontent.com/0eef566154f4e54a4ad9346dbcb69aa8c6a61c678c9586d6d310728f9b3b97d8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373535323031312d33373936376231372d636239322d346332352d623734382d6332363138383936666634392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317552011-37967b17-cb92-4c25-b748-c2618896ff49.png" style="max-width: 100%;"></a></p>
+<p>画外壳</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b0b6b77b921eeeaa0cf4ae6f3fdb78e3857f9e31645cc71b8696fa592081a04d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373637333237392d38363030356361312d663333342d346566372d623837382d3066393933333663653762302e706e67"><img src="https://camo.githubusercontent.com/b0b6b77b921eeeaa0cf4ae6f3fdb78e3857f9e31645cc71b8696fa592081a04d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373637333237392d38363030356361312d663333342d346566372d623837382d3066393933333663653762302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317673279-86005ca1-f334-4ef7-b878-0f99336ce7b0.png" style="max-width: 100%;"></a></p>
+<p>全选 信息窗</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/09326d8ce20502c02aad8d92ca82c50a17c8af0f31a678eb9eabf3f4b3568cfe/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373732303431342d36323435633266642d656631332d343930632d623436352d3231373761613862336638622e706e67"><img src="https://camo.githubusercontent.com/09326d8ce20502c02aad8d92ca82c50a17c8af0f31a678eb9eabf3f4b3568cfe/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373732303431342d36323435633266642d656631332d343930632d623436352d3231373761613862336638622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317720414-6245c2fd-ef13-490c-b465-2177aa8b3f8b.png" style="max-width: 100%;"></a></p>
+<p>打开隐藏</p>
+<p>格式乱了就拉一下</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4a518c986e655717e550d753477442e326b377e670c094922f14f795a4b83c23/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373737393631302d30346665373562642d653032382d343464622d393030362d3961663837356664353336302e706e67"><img src="https://camo.githubusercontent.com/4a518c986e655717e550d753477442e326b377e670c094922f14f795a4b83c23/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373737393631302d30346665373562642d653032382d343464622d393030362d3961663837356664353336302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317779610-04fe75bd-e028-44db-9006-9af875fd5360.png" style="max-width: 100%;"></a></p>
+<p>保存</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f1d452f53697b9712d4b6cc28645cd2a81fc647e562622d803880b644691d75e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373832363735392d63353935666339332d643061642d346566302d613132622d3261323133393135366664622e706e67"><img src="https://camo.githubusercontent.com/f1d452f53697b9712d4b6cc28645cd2a81fc647e562622d803880b644691d75e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373832363735392d63353935666339332d643061642d346566302d613132622d3261323133393135366664622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317826759-c595fc93-d0ad-4ef0-a12b-2a2139156fdb.png" style="max-width: 100%;"></a></p>
+<p>114 绘制多部件原理图封装</p>
+<p>新部件</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e857a5ede0eff11e435e3bd4aa7dedd5c77c891d9629d60e151fae0aabcc3d0a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373932333731392d33653238323364382d613062302d346462352d393633662d3932333536306630306638322e706e67"><img src="https://camo.githubusercontent.com/e857a5ede0eff11e435e3bd4aa7dedd5c77c891d9629d60e151fae0aabcc3d0a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331373932333731392d33653238323364382d613062302d346462352d393633662d3932333536306630306638322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733317923719-3e2823d8-a0b0-4db5-963f-923560f00f82.png" style="max-width: 100%;"></a></p>
+<p>芯片会变成两部分</p>
+<p>part1</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1eba6bb72fede1a6c3bf0c7b6523cb4f819c9df3a1b5b38bd9cf01c9bb40b271/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383037383632302d30666266303762662d363233312d343939382d383538372d6234333530323533373338382e706e67"><img src="https://camo.githubusercontent.com/1eba6bb72fede1a6c3bf0c7b6523cb4f819c9df3a1b5b38bd9cf01c9bb40b271/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383037383632302d30666266303762662d363233312d343939382d383538372d6234333530323533373338382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318078620-0fbf07bf-6231-4998-8587-b43502537388.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4f32e46b80db46036c8f304a92763cce08ad5a803ef2f233aa0adc10c08139a9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383132343936352d33623331313366652d343434642d343164372d396530382d6262343464633262633138662e706e67"><img src="https://camo.githubusercontent.com/4f32e46b80db46036c8f304a92763cce08ad5a803ef2f233aa0adc10c08139a9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383132343936352d33623331313366652d343434642d343164372d396530382d6262343464633262633138662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318124965-3b3113fe-444d-41d7-9e08-bb44dc2bc18f.png" style="max-width: 100%;"></a></p>
+<p>part2</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/916e8e5746457ee9aed8154fc410dc5e1d00df643f8ffd0b415b36a001782a2c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383139323236302d31646434303063662d616630662d343933332d386165662d6165383831346338636665382e706e67"><img src="https://camo.githubusercontent.com/916e8e5746457ee9aed8154fc410dc5e1d00df643f8ffd0b415b36a001782a2c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383139323236302d31646434303063662d616630662d343933332d386165662d6165383831346338636665382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318192260-1dd400cf-af0f-4933-8aef-ae8814c8cfe8.png" style="max-width: 100%;"></a></p>
+<p>到时候有两个部件可以选</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fe153c20e4a45c5e02cfbe48ed22d04d367d187045ec23e7c46bf3d559433a04/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383231373133382d37376536386333312d303665612d343662352d626662362d6638303930363434653164652e706e67"><img src="https://camo.githubusercontent.com/fe153c20e4a45c5e02cfbe48ed22d04d367d187045ec23e7c46bf3d559433a04/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383231373133382d37376536386333312d303665612d343662352d626662362d6638303930363434653164652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318217138-77e68c31-06ea-46b5-bfb6-f8090644e1de.png" style="max-width: 100%;"></a></p>
+<p>115 绘制PCB封装</p>
+<p>ADD</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1ff8298a65ff41da2a3bb069724179b1c893edd29d7d8f7feb7d6f2ce59eaeae/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383236383937312d64386639626662362d313132352d346332342d396137632d3434396161633830323739632e706e67"><img src="https://camo.githubusercontent.com/1ff8298a65ff41da2a3bb069724179b1c893edd29d7d8f7feb7d6f2ce59eaeae/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383236383937312d64386639626662362d313132352d346332342d396137632d3434396161633830323739632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318268971-d8f9bfb6-1125-4c24-9a7c-449aac80279c.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d63adeeec46ab9d14f691cda3ddb594d20b60795861ffca4db8e4e67a36b9822/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383238333935392d30353639383635372d353365392d343431302d613132372d3066373630343530326138362e706e67"><img src="https://camo.githubusercontent.com/d63adeeec46ab9d14f691cda3ddb594d20b60795861ffca4db8e4e67a36b9822/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383238333935392d30353639383635372d353365392d343431302d613132372d3066373630343530326138362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318283959-05698657-53e9-4410-a127-0f7604502a86.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/46b14634c14d4194d3117f3cefe9c650bd78e287a5c196fb8c9520cb53496429/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383332363638392d33363030336666342d363536632d343930362d393866622d6132316166366234653034612e706e67"><img src="https://camo.githubusercontent.com/46b14634c14d4194d3117f3cefe9c650bd78e287a5c196fb8c9520cb53496429/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383332363638392d33363030336666342d363536632d343930362d393866622d6132316166366234653034612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318326689-36003ff4-656c-4906-98fb-a21af6b4e04a.png" style="max-width: 100%;"></a></p>
+<p>画pcb封装</p>
+<p>新建 PCB Library</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9ca1e4ff8ddf70895724e0f1f3baf78f6efa1e24d5eeb0979e33d95ff9f0f8ab/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383432313033342d33326633326132342d396133642d343466372d613437662d3662396666656332326330652e706e67"><img src="https://camo.githubusercontent.com/9ca1e4ff8ddf70895724e0f1f3baf78f6efa1e24d5eeb0979e33d95ff9f0f8ab/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383432313033342d33326633326132342d396133642d343466372d613437662d3662396666656332326330652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318421034-32f32a24-9a3d-44f7-a47f-6b9ffec22c0e.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2fca84e92eb6c197b0cd0c5608b731e6182322c626842f4022538b459de489fb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383433343539342d39333633643766652d313962392d346437392d623434662d3434636235333163353464382e706e67"><img src="https://camo.githubusercontent.com/2fca84e92eb6c197b0cd0c5608b731e6182322c626842f4022538b459de489fb/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383433343539342d39333633643766652d313962392d346437392d623434662d3434636235333163353464382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318434594-9363d7fe-19b9-4d79-b44f-44cb531c54d8.png" style="max-width: 100%;"></a></p>
+<p>根据芯片提供的手册画</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/458f518e2e18c4bbba5d5c956d000eabc15253d5827267d1e6f9ba2c254a5502/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383439333236302d35323433343638612d346666362d346633372d383731642d3963336332333333336238632e706e67"><img src="https://camo.githubusercontent.com/458f518e2e18c4bbba5d5c956d000eabc15253d5827267d1e6f9ba2c254a5502/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383439333236302d35323433343638612d346666362d346633372d383731642d3963336332333333336238632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318493260-5243468a-4ff6-4f37-871d-9c3c23333b8c.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0f8ff258fd16634706530eb5f3b4d55e9a0d3689a72ad293e6ca16b0694dedd7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383532383330312d38356465393766642d636232632d346366612d393965332d3430333536643831366362632e706e67"><img src="https://camo.githubusercontent.com/0f8ff258fd16634706530eb5f3b4d55e9a0d3689a72ad293e6ca16b0694dedd7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383532383330312d38356465393766642d636232632d346366612d393965332d3430333536643831366362632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318528301-85de97fd-cb2c-4cfa-99e3-40356d816cbc.png" style="max-width: 100%;"></a></p>
+<p>按G - 栅格属性</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/640c088dfb8cb880b1c054eeb14ff3f40ac494c175b9f8194797e3c2cdc01f0f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383536323537382d61346262663630322d303635352d343832652d616266612d6336623266343036663163382e706e67"><img src="https://camo.githubusercontent.com/640c088dfb8cb880b1c054eeb14ff3f40ac494c175b9f8194797e3c2cdc01f0f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383536323537382d61346262663630322d303635352d343832652d616266612d6336623266343036663163382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318562578-a4bbf602-0655-482e-abfa-c6b2f406f1c8.png" style="max-width: 100%;"></a></p>
+<p>设为默认，适用</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/72033acc68dfb21447b0068a3d3824665f965dc6acbf07f976c13ddf90f79ab3/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383539323535362d38636331326562372d363061372d346132392d626561352d6162636563643062346636362e706e67"><img src="https://camo.githubusercontent.com/72033acc68dfb21447b0068a3d3824665f965dc6acbf07f976c13ddf90f79ab3/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383539323535362d38636331326562372d363061372d346132392d626561352d6162636563643062346636362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318592556-8cc12eb7-60a7-4a29-bea5-abcecd0b4f66.png" style="max-width: 100%;"></a></p>
+<p>更改焊盘 layer</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c0efe30c281ff2e19ea4656b3d8de693bdf7ca7237d61bd89c9e3a5cd3d7fdf0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383639303639362d66313038353234642d343835312d343836642d626338392d3466626265323231626434352e706e67"><img src="https://camo.githubusercontent.com/c0efe30c281ff2e19ea4656b3d8de693bdf7ca7237d61bd89c9e3a5cd3d7fdf0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383639303639362d66313038353234642d343835312d343836642d626338392d3466626265323231626434352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318690696-f108524d-4851-486d-bc89-4fbbe221bd45.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0255a2e17c51014bbc878dbf94e30da63fdc36a08e2cf549d33fbc68e336001c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383730313139352d66396337653237342d626235332d343738662d613431612d3063656632323833303861312e706e67"><img src="https://camo.githubusercontent.com/0255a2e17c51014bbc878dbf94e30da63fdc36a08e2cf549d33fbc68e336001c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383730313139352d66396337653237342d626235332d343738662d613431612d3063656632323833303861312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318701195-f9c7e274-bb53-478f-a41a-0cef228308a1.png" style="max-width: 100%;"></a></p>
+<p>按输入法Q切换单位</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/37dc09f613767081e6728df643479dceffea9b641df3de48cd5c02e61cd48c7c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383733383930342d35633463643534632d633966622d346535612d386561352d3963393238653133323038622e706e67"><img src="https://camo.githubusercontent.com/37dc09f613767081e6728df643479dceffea9b641df3de48cd5c02e61cd48c7c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383733383930342d35633463643534632d633966622d346535612d386561352d3963393238653133323038622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318738904-5c4cd54c-c9fb-4e5a-8ea5-9c928e13208b.png" style="max-width: 100%;"></a></p>
+<p>计算焊盘大小</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/27b4ffad0794bb28106f08c289d61573089233d567c0b1377723a550b7ab8701/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383831323432362d64623932323662612d383232612d343965322d383264372d3865376166666339303033342e706e67"><img src="https://camo.githubusercontent.com/27b4ffad0794bb28106f08c289d61573089233d567c0b1377723a550b7ab8701/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383831323432362d64623932323662612d383232612d343965322d383264372d3865376166666339303033342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318812426-db9226ba-822a-49e2-82d7-8e7affc90034.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4fd0dd418616d8fb836d61157c35c5cc3e8359957231661486920e25fe9e3ff5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383834383530322d64656333663766392d363765632d343164612d393634332d3466336164366336333737312e706e67"><img src="https://camo.githubusercontent.com/4fd0dd418616d8fb836d61157c35c5cc3e8359957231661486920e25fe9e3ff5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383834383530322d64656333663766392d363765632d343164612d393634332d3466336164366336333737312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318848502-dec3f7f9-67ec-41da-9643-4f3ad6c63771.png" style="max-width: 100%;"></a></p>
+<p>设置焊盘</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a1cacb3d7f50f82af7b737e4a17a0550794950642c08c76c1eea375cd8eb82e5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383837353431312d36353638316236612d303561332d346533652d393738392d3363313063353539313735312e706e67"><img src="https://camo.githubusercontent.com/a1cacb3d7f50f82af7b737e4a17a0550794950642c08c76c1eea375cd8eb82e5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383837353431312d36353638316236612d303561332d346533652d393738392d3363313063353539313735312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318875411-65681b6a-05a3-4e3e-9789-3c10c5591751.png" style="max-width: 100%;"></a></p>
+<p>以打坐标的形式设置位置</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/dbeff9a2fb1c93e9be1d3bd3c5ffedc676a00c71b2ec7e22910f779dce77108c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383932303739332d63363132643930612d383138622d343039362d383761652d3336646233386535373962622e706e67"><img src="https://camo.githubusercontent.com/dbeff9a2fb1c93e9be1d3bd3c5ffedc676a00c71b2ec7e22910f779dce77108c/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383932303739332d63363132643930612d383138622d343039362d383761652d3336646233386535373962622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318920793-c612d90a-818b-4096-87ae-36db38e579bb.png" style="max-width: 100%;"></a></p>
+<p>也可以使用格点设置</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2a7d14f6bf12af2352cc14d6db5853229e7cabac20f64edaa086ed76809d44c3/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383939303233382d34303936613536372d323233372d346364312d396562652d6637633461353165643831632e706e67"><img src="https://camo.githubusercontent.com/2a7d14f6bf12af2352cc14d6db5853229e7cabac20f64edaa086ed76809d44c3/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383939303233382d34303936613536372d323233372d346364312d396562652d6637633461353165643831632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318990238-4096a567-2237-4cd1-9ebe-f7c4a51ed81c.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e0a6e16df85248ea370ca7142bbab8e140922e2fba1910909aec83aaf911abf8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383939353530372d36333137653438372d363335332d346535352d613730382d6230336537353534323339332e706e67"><img src="https://camo.githubusercontent.com/e0a6e16df85248ea370ca7142bbab8e140922e2fba1910909aec83aaf911abf8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331383939353530372d36333137653438372d363335332d346535352d613730382d6230336537353534323339332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733318995507-6317e487-6353-4e55-a708-b03e75542393.png" style="max-width: 100%;"></a></p>
+<p>按CTRL M监测距离</p>
+<p>切换到丝印层绘制丝印信息</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a9821d4a83bf258610fb805556c086fd82a4a8e20909e0456f9416460de6b900/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393038373336362d35366634643437612d383833342d343038632d623765332d6637313635303836386333642e706e67"><img src="https://camo.githubusercontent.com/a9821d4a83bf258610fb805556c086fd82a4a8e20909e0456f9416460de6b900/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393038373336362d35366634643437612d383833342d343038632d623765332d6637313635303836386333642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319087366-56f4d47a-8834-408c-b7e3-f71650868c3d.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b143f56291afe124056cf81a465ccff835836d4866b0d9bf39f4f1e2b6dbdaf9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393133343830352d37373136376230622d666538302d343264322d623434312d3964656433653862323334392e706e67"><img src="https://camo.githubusercontent.com/b143f56291afe124056cf81a465ccff835836d4866b0d9bf39f4f1e2b6dbdaf9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393133343830352d37373136376230622d666538302d343264322d623434312d3964656433653862323334392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319134805-77167b0b-fe80-42d2-b441-9ded3e8b2349.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/03b230c4cb2fbc07f73ed53c7bf4ef7a388cd1e7d6ccd0ae01aeb5a25a7ead50/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393134393736322d33616434323165362d373931322d343635362d626234312d6362313137376265383039322e706e67"><img src="https://camo.githubusercontent.com/03b230c4cb2fbc07f73ed53c7bf4ef7a388cd1e7d6ccd0ae01aeb5a25a7ead50/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393134393736322d33616434323165362d373931322d343635362d626234312d6362313137376265383039322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319149762-3ad421e6-7912-4656-bb41-cb1177be8092.png" style="max-width: 100%;"></a></p>
+<p>画个小圆圈标注第一个引脚</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/88707daa37e2c220ed8b270ceae0ab63c80c0cd180bc7eb68f74db94229405dd/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393138373934382d36336234666636632d626561372d346364632d613739392d6131633961323934303438362e706e67"><img src="https://camo.githubusercontent.com/88707daa37e2c220ed8b270ceae0ab63c80c0cd180bc7eb68f74db94229405dd/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393138373934382d36336234666636632d626561372d346364632d613739392d6131633961323934303438362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319187948-63b4ff6c-bea7-4cdc-a799-a1c9a2940486.png" style="max-width: 100%;"></a></p>
+<p>注意：引脚的标号不能乱取</p>
+<p>116 原理图导入pcb</p>
+<p>添加新的pcb文件到工程</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ce747dd7b284cfc77737989123409fd0d8f8cfb4b4e239f784a211de7d4d4e63/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393336323038342d38363331653135342d353334332d343838342d626566632d3331333334383337333564312e706e67"><img src="https://camo.githubusercontent.com/ce747dd7b284cfc77737989123409fd0d8f8cfb4b4e239f784a211de7d4d4e63/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393336323038342d38363331653135342d353334332d343838342d626566632d3331333334383337333564312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319362084-8631e154-5343-4884-befc-3133483735d1.png" style="max-width: 100%;"></a></p>
+<p>设计 - 更新pcb</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3347faa12b216672782f8b92d7eb70369358bffeb3096172b34a2feae0cd7dfa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393431303434382d34646636333035372d656331622d346133632d623965302d3863393965623736643537322e706e67"><img src="https://camo.githubusercontent.com/3347faa12b216672782f8b92d7eb70369358bffeb3096172b34a2feae0cd7dfa/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393431303434382d34646636333035372d656331622d346133632d623965302d3863393965623736643537322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319410448-4df63057-ec1b-4a3c-b9e0-8c99eb76d572.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f425f36d538217f964abea5f88170f36445c7ede2008afaa229b6e87d47a38d4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393431383936372d30663665303163662d623834612d343537372d616463362d6432616437366461623631342e706e67"><img src="https://camo.githubusercontent.com/f425f36d538217f964abea5f88170f36445c7ede2008afaa229b6e87d47a38d4/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393431383936372d30663665303163662d623834612d343537372d616463362d6432616437366461623631342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319418967-0f6e01cf-b84a-4577-adc6-d2ad76dab614.png" style="max-width: 100%;"></a></p>
+<p>验证变更</p>
+<p>执行变更</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c07d51768ffb2d51f2b4ae951b8ae076091033787d3cfb4067ecaf8fe93015ec/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393434383934352d63316137663866342d343238382d343633342d393664352d3632656566346232613639362e706e67"><img src="https://camo.githubusercontent.com/c07d51768ffb2d51f2b4ae951b8ae076091033787d3cfb4067ecaf8fe93015ec/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333331393434383934352d63316137663866342d343238382d343633342d393664352d3632656566346232613639362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733319448945-c1a7f8f4-4288-4634-96d5-62eef4b2a696.png" style="max-width: 100%;"></a></p></div>
+<div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+<script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
