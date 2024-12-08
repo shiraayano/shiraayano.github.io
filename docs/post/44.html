@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="Spring bean的生命周期
+
+bean的生命周期指的就是bean从创建到销毁的整个过程
+
+1.实例化
+
++ 通过反射去推断构造函数进行实例化
++ 实例工程，静态工厂
+
+2.属性赋值
+
++ 解析自动装配
++ 循环依赖的解决
+
+3.初始化
+
++ 调用xxx的aware回调方法
++ 调用初始化生命周期的回调
++ 如果bean实现aop，创建动态代理
+
+4.销毁
+
++ 在spring容器关闭时进行调用
++ 调用销毁生命周期回调
+
+
+
+单例bean的优势
+
++ 单例只要创建一次，减少了创建实例的消耗。">
+<meta property="og:title" content="Java Spring 一些常见的问题">
+<meta property="og:description" content="Spring bean的生命周期
+
+bean的生命周期指的就是bean从创建到销毁的整个过程
+
+1.实例化
+
++ 通过反射去推断构造函数进行实例化
++ 实例工程，静态工厂
+
+2.属性赋值
+
++ 解析自动装配
++ 循环依赖的解决
+
+3.初始化
+
++ 调用xxx的aware回调方法
++ 调用初始化生命周期的回调
++ 如果bean实现aop，创建动态代理
+
+4.销毁
+
++ 在spring容器关闭时进行调用
++ 调用销毁生命周期回调
+
+
+
+单例bean的优势
+
++ 单例只要创建一次，减少了创建实例的消耗。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/44.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java Spring 一些常见的问题</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java Spring 一些常见的问题</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/44" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>Spring bean的生命周期</p>
+<p>bean的生命周期指的就是bean从创建到销毁的整个过程</p>
+<p>1.实例化</p>
+<ul>
+<li>通过反射去推断构造函数进行实例化</li>
+<li>实例工程，静态工厂</li>
+</ul>
+<p>2.属性赋值</p>
+<ul>
+<li>解析自动装配</li>
+<li>循环依赖的解决</li>
+</ul>
+<p>3.初始化</p>
+<ul>
+<li>调用xxx的aware回调方法</li>
+<li>调用初始化生命周期的回调</li>
+<li>如果bean实现aop，创建动态代理</li>
+</ul>
+<p>4.销毁</p>
+<ul>
+<li>在spring容器关闭时进行调用</li>
+<li>调用销毁生命周期回调</li>
+</ul>
+<p>单例bean的优势</p>
+<ul>
+<li>单例只要创建一次，减少了创建实例的消耗。spring会通过反射或者cglib来生成bean实例，这都是消耗性能的操作</li>
+<li>减少了内存等资源的消耗，提高了内存的利用率，减少了jvm内存回收的负担</li>
+<li>我们获取也更快，除了第一次创建都是从缓存中获取（性能）</li>
+</ul>
+<p>bean是线程安全的吗</p>
+<ul>
+<li>单例bean的情况下 如果在类中声明成员变量 并且有读写操作 就会线程不安全（有状态）</li>
+<li>如果我们把成员变量申明在方法中，那就是线程安全的（无状态）</li>
+</ul>
+<p>还有什么方法解决线程安全问题？</p>
+<ul>
+<li>设置为多例 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/scope/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/scope">@scope</a>（prototype）
+<ul>
+<li>因为声明为多例了，使用的时候会新new一个，都是唯一的</li>
+</ul>
+</li>
+<li>将成员变量放在 ThreadLocal</li>
+<li>同步锁 会影响吞吐量</li>
+</ul>
+<p>Spring实例化bean有几种方式？</p>
+<ul>
+<li>构造器方式（反射）</li>
+<li>静态工厂的方式 factory-method</li>
+<li>实例工厂方式 factory-bean + factory-method</li>
+<li>FactoryBean方式</li>
+</ul>
+<p>区别 第一种是spring控制实例，234可以由程序员自己控制bean的实例化过程，更加灵活</p>
+<p>什么是bean装配，自动装配？</p>
+<p>将bean和bean的依赖互相关联起来</p>
+<ul>
+<li>手动</li>
+<li>自动 @Autowried ref="" 将bean自动装配</li>
+</ul>
+<p>自动注入有什么限制吗</p>
+<p>自动注入是通过Autowrie</p>
+<ul>
+<li>一定要声明set方法</li>
+<li>覆盖 仍然可以通过来定义配置，这些配置会自动覆盖</li>
+<li>基本数据类型 不能自动专攻欸简单的数学，如基本数据类型，字符串和类 (手动注入可以  AValue)</li>
+<li>模糊特性：自动装配不如显示装配精确，如果有可能精良使用显示装配</li>
+</ul>
+<p>推荐使用 @Autowried ref=""</p>
+<p>自动装配的方式有几种</p>
+<ul>
+<li>no 默认 不自动装配</li>
+<li>byName 根据bean的名字自动装配</li>
+<li>byType 通过参数的数据类型自动装配</li>
+<li>constructor 利用构造函数进行装配 并且构造函数用过byType进行装配</li>
+<li>autodetect 自动探测 如果由构造方法 通过construc的方式进行自动装配 否则使用byType的方式自动装配（在spring3.0+弃用）</li>
+</ul>
+<p>bean有哪些生命周期回调方法?有哪几种实现方式？</p>
+<ul>
+<li>通过注解的方式
+<ul>
+<li>创建<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/PostConstruct/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/PostConstruct">@PostConstruct</a></li>
+<li>销毁@PreDestroy</li>
+</ul>
+</li>
+</ul>
+<p>Spring在加载的过程中Bean有几种形态</p>
+<ul>
+<li>概念态</li>
+<li>定义态</li>
+<li>纯净态</li>
+<li>成熟态</li>
+</ul>
+<p>Spring是如何解决bean的循环依赖？</p>
+<p>关键 一定要有一个缓存保存它的早期对象作为死循环的出口</p>
+<ul>
+<li>一级缓存 存储完整的bean</li>
+<li>二级缓存 避免多次循环依赖</li>
+<li>采用三级缓存解决的（三层map）
+<ul>
+<li>三级缓存时一个函数接口，可以把方法传进去（把bean的实例和bean的明治传进去）（后续可能会进行aop动态代理的创建）</li>
+<li>不会立即调用</li>
+<li>会在ABA（第二次调用getBean(A)）才会去调用三级缓存（如果在实例化后立即调用的话：所有的aop 不管bean是否循环依赖都会在实例化后创建proxy）</li>
+<li>然后放入二级缓存中（如果实现了aop才会创建动态代理，如果，欸写实现依然返回bean实例）</li>
+</ul>
+</li>
+</ul>
+<p>二级缓存能不能解决循环依赖？</p>
+<ul>
+<li>如果只是死循环问题，一级缓存就可以解决，无法避免在并发情况下获取不到完整的bean</li>
+<li>二级缓存可以解决循环依赖 只不过出现重复循环依赖 会多次创建aop的动态代理</li>
+</ul>
+<p>Spring有没有解决多例bean的循环依赖？</p>
+<ul>
+<li>多例bean不会使用缓存进行存储（多例bean每次使用都需要重新创建）</li>
+<li>不缓存早期对象无法解决循环</li>
+</ul>
+<p>Spring有没有解决构造函数参数Bean的循环依赖？</p>
+<ul>
+<li>构造函数的循环依赖也是会报错的</li>
+<li>可以通过<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lazy/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lazy">@lazy</a> （延迟加载注解）
+<ul>
+<li>就不会立即创建依赖的bean了，而是等到用到才通过动态代理进行创建</li>
+</ul>
+</li>
+</ul>
+<p>bean有哪些生命周期的回调方法？有哪几种实现方式？</p>
+<p>生命周期的回调方法有两种，一种是初始化的时候调用，一种是销毁的时候调用</p>
+<ul>
+<li>各有三种实现方式</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/73113710e3b63e367aac084974951f254e0003c7b8dfbeeff8b61517fe9ad684/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333438363233333630392d34646435663239322d333933392d343462372d396666662d3161376364333661393039622e706e67"><img src="https://camo.githubusercontent.com/73113710e3b63e367aac084974951f254e0003c7b8dfbeeff8b61517fe9ad684/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333438363233333630392d34646435663239322d333933392d343462372d396666662d3161376364333661393039622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733486233609-4dd5f292-3939-44b7-9fff-1a7cd36a909b.png" style="max-width: 100%;"></a></p></div>
+<div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+<script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
