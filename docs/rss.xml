@@ -1,5 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sun, 08 Dec 2024 15:53:41 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>Java Spring 一些常见的问题</title><link>https://blog.adouzi.eu.org/post/44.html</link><description>Spring bean的生命周期&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Tue, 31 Dec 2024 19:10:41 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>新的一年也要快乐呀~</title><link>https://blog.adouzi.eu.org/post/45.html</link><description>#####  2025 年了呀，时间过得真快呢&#13;
+![](https://cdn.nlark.com/yuque/0/2025/jpeg/49455411/1735663131910-f914cc5f-8c5a-42fe-b096-784d75b3a90a.jpeg)&#13;
+&#13;
+（pid66589938）&#13;
+&#13;
+&#13;
+&#13;
+有些东西挺感慨的，上了大学才知道，以前不务正业的东西，真的是自己的一项技能&#13;
+&#13;
+如多有“学生”看到了我这篇文章，我可以明确的告诉你，多学些技能是真的有用的，课后拓宽自己的兴趣，学习技能是个不错的选择&#13;
+&#13;
+学习并非只有课本上的死东西，只局限于一张张试卷。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/45.html</guid><pubDate>Tue, 31 Dec 2024 19:10:16 +0000</pubDate></item><item><title>Java Spring 一些常见的问题</title><link>https://blog.adouzi.eu.org/post/44.html</link><description>Spring bean的生命周期&#13;
 &#13;
 bean的生命周期指的就是bean从创建到销毁的整个过程&#13;
 &#13;
