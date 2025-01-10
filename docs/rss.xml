@@ -1,5 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Thu, 09 Jan 2025 09:59:08 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>Mysql 初阶</title><link>https://blog.adouzi.eu.org/post/47.html</link><description>### MySQL&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Fri, 10 Jan 2025 14:37:16 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>解决设置驱动器分页文件时的 pagefile.sys 已存在的问题</title><link>https://blog.adouzi.eu.org/post/48.html</link><description>&#13;
+![](https://cdn.nlark.com/yuque/0/2025/png/49455411/1736519374967-b2371080-3658-446c-b4bf-9b308a9fe5a1.png)&#13;
+&#13;
+在设置驱动器分页时弹出这个错误&#13;
+&#13;
+![](https://cdn.nlark.com/yuque/0/2025/png/49455411/1736519417024-fd29eebe-52f6-4df2-96a5-1e3d4543c2e8.png)&#13;
+&#13;
+正常我们是找不到这个文件的，因为它被隐藏了&#13;
+&#13;
+关掉显示受保护的操作系统文件&#13;
+&#13;
+![](https://cdn.nlark.com/yuque/0/2025/png/49455411/1736519460672-e1c9a1ab-9e26-4d15-a35b-22f22990a1e7.png)&#13;
+&#13;
+找到pagefile.sys ，删掉&#13;
+&#13;
+。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/48.html</guid><pubDate>Fri, 10 Jan 2025 14:36:48 +0000</pubDate></item><item><title>Mysql 初阶</title><link>https://blog.adouzi.eu.org/post/47.html</link><description>### MySQL&#13;
 1. **SQL语言四大类别**：&#13;
     - **DDL**：用于定义数据库结构，如创建、修改、删除表。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/47.html</guid><pubDate>Thu, 09 Jan 2025 09:58:44 +0000</pubDate></item><item><title>解决 edge 浏览器播放高码率视频卡顿、无法加载的问题</title><link>https://blog.adouzi.eu.org/post/46.html</link><description>&#13;
 笔者在使用 edge 播放高码率视频的过程中遇到了播放卡死等问题&#13;
