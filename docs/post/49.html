@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="SpringMVC内部工作流程
+
+![](https://cdn.nlark.com/yuque/0/2025/png/49455411/1736452608640-aab129c3-e24b-4923-b71b-ed65a3dfb7d4.png)
+
+SpringMVC 的内部工作流程可以分为以下几个步骤：
+
+1. **用户请求**：用户通过浏览器发送一个 HTTP 请求到服务器。">
+<meta property="og:title" content="使用SpringMVC搭建一个最基本的服务器">
+<meta property="og:description" content="SpringMVC内部工作流程
+
+![](https://cdn.nlark.com/yuque/0/2025/png/49455411/1736452608640-aab129c3-e24b-4923-b71b-ed65a3dfb7d4.png)
+
+SpringMVC 的内部工作流程可以分为以下几个步骤：
+
+1. **用户请求**：用户通过浏览器发送一个 HTTP 请求到服务器。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/49.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>使用SpringMVC搭建一个最基本的服务器</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">使用SpringMVC搭建一个最基本的服务器</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/49" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>SpringMVC内部工作流程</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fd5e4a1a4f26c68907c3077dbb7864bfdc606f055aad2b5525f25902ec97304d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363435323630383634302d61616231323963332d653234622d343932332d623731622d6564363561336466623764342e706e67"><img src="https://camo.githubusercontent.com/fd5e4a1a4f26c68907c3077dbb7864bfdc606f055aad2b5525f25902ec97304d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363435323630383634302d61616231323963332d653234622d343932332d623731622d6564363561336466623764342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736452608640-aab129c3-e24b-4923-b71b-ed65a3dfb7d4.png" style="max-width: 100%;"></a></p>
+<p>SpringMVC 的内部工作流程可以分为以下几个步骤：</p>
+<ol>
+<li><strong>用户请求</strong>：用户通过浏览器发送一个 HTTP 请求到服务器。</li>
+<li><strong>DispatcherServlet</strong>：请求首先到达 DispatcherServlet，这是 SpringMVC 的核心组件。它负责将请求分发到相应的处理器。</li>
+<li><strong>HandlerMapping</strong>：DispatcherServlet 调用 HandlerMapping 来确定哪个 Controller 处理这个请求。HandlerMapping 根据请求的 URL 找到合适的 Controller。</li>
+<li><strong>Controller</strong>：找到合适的 Controller 后，DispatcherServlet 将请求转发给这个 Controller。Controller 处理请求，调用业务逻辑（Model），并返回视图名和模型数据。</li>
+<li><strong>Model</strong>：Controller 调用 Model 来处理数据，并将结果返回给视图。Model 包含应用程序的数据和业务逻辑。</li>
+<li><strong>ViewResolver</strong>：DispatcherServlet 调用 ViewResolver 将视图名解析为实际的视图对象。ViewResolver 根据视图名找到相应的视图模板，并将模型数据传递给视图。</li>
+<li><strong>View</strong>：视图对象生成最终的 HTML 页面，并将其返回给用户。视图负责将模型数据展示给用户，通常是 JSP、Thymeleaf 等模板引擎生成的 HTML 页面。</li>
+<li><strong>响应用户</strong>：最终生成的 HTML 页面通过 HTTP 响应返回给用户的浏览器，用户可以看到处理后的结果。</li>
+</ol>
+<h4>下面是一个 springmvc 的例子</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8490f00dd469d14986d1c9fa1e206d35188f68310bdc26db2cd739be3e36199f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531333837323132352d65383261343635332d303765652d346464392d393961622d6462643637396230343131632e706e67"><img src="https://camo.githubusercontent.com/8490f00dd469d14986d1c9fa1e206d35188f68310bdc26db2cd739be3e36199f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531333837323132352d65383261343635332d303765652d346464392d393961622d6462643637396230343131632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736513872125-e82a4653-07ee-4dd9-99ab-dbd679b0411c.png" style="max-width: 100%;"></a></p>
+<p>作为父工程，我们先删除 src，再编辑它的依赖</p>
+<h5>导入springmvc需要的依赖</h5>
+<pre class="notranslate"><code class="notranslate">    web servlet
+
+    ioc spring-context
+
+    mvc spring-webmvc
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">&lt;!--
+    导入springmvc需要的依赖
+        web servlet
+        ioc spring-context
+        mvc spring-webmvc
+--&gt;
+&lt;properties&gt;
+    &lt;spring.version&gt;6.0.6&lt;/spring.version&gt;
+    &lt;servlet.api&gt;9.1.0&lt;/servlet.api&gt;
+    &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+&lt;/properties&gt;
+
+&lt;dependencies&gt;
+    &lt;!-- springioc相关依赖  --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- web相关依赖  --&gt;
+    &lt;!-- 在 pom.xml 中引入 Jakarta EE Web API 的依赖 --&gt;
+    &lt;!--
+        在 Spring Web MVC 6 中，Servlet API 迁移到了 Jakarta EE API，因此在配置 DispatcherServlet 时需要使用
+         Jakarta EE 提供的相应类库和命名空间。错误信息 “‘org.springframework.web.servlet.DispatcherServlet’
+         is not assignable to ‘javax.servlet.Servlet,jakarta.servlet.Servlet’” 表明你使用了旧版本的
+         Servlet API，没有更新到 Jakarta EE 规范。
+    --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.platform&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.jakartaee-web-api&lt;/artifactId&gt;
+        &lt;version&gt;${servlet.api}&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- springwebmvc相关依赖  --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+
+&lt;/dependencies&gt;
+</code></pre>
+<p>（完整的配置文件）</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;org.eu.adouzi&lt;/groupId&gt;
+    &lt;artifactId&gt;ssm-springmvc-part&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;pom&lt;/packaging&gt;
+
+
+    &lt;!--
+        导入springmvc需要的依赖
+            web servlet
+            ioc spring-context
+            mvc spring-webmvc
+    --&gt;
+    &lt;properties&gt;
+        &lt;spring.version&gt;6.0.6&lt;/spring.version&gt;
+        &lt;servlet.api&gt;9.1.0&lt;/servlet.api&gt;
+        &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;!-- springioc相关依赖  --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+            &lt;version&gt;${spring.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- web相关依赖  --&gt;
+        &lt;!-- 在 pom.xml 中引入 Jakarta EE Web API 的依赖 --&gt;
+        &lt;!--
+            在 Spring Web MVC 6 中，Servlet API 迁移到了 Jakarta EE API，因此在配置 DispatcherServlet 时需要使用
+             Jakarta EE 提供的相应类库和命名空间。错误信息 “‘org.springframework.web.servlet.DispatcherServlet’
+             is not assignable to ‘javax.servlet.Servlet,jakarta.servlet.Servlet’” 表明你使用了旧版本的
+             Servlet API，没有更新到 Jakarta EE 规范。
+        --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;jakarta.platform&lt;/groupId&gt;
+            &lt;artifactId&gt;jakarta.jakartaee-web-api&lt;/artifactId&gt;
+            &lt;version&gt;${servlet.api}&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- springwebmvc相关依赖  --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+            &lt;version&gt;${spring.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+    &lt;/dependencies&gt;
+
+&lt;/project&gt;
+</code></pre>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/98b2ca3d8f99a5be667e53f258cbba7ca94abd265567ddf1fe481c231f2deee9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531333835303839312d36396139393331662d653138642d343031392d613734342d3336323439616531383966612e706e67"><img src="https://camo.githubusercontent.com/98b2ca3d8f99a5be667e53f258cbba7ca94abd265567ddf1fe481c231f2deee9/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531333835303839312d36396139393331662d653138642d343031392d613734342d3336323439616531383966612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736513850891-69a9931f-e18d-4019-a744-36249ae189fa.png" style="max-width: 100%;"></a></p>
+<p>新建一个模块，使用插件将它转化成 web 工程</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b6fd884ee7f0e6fe4d14a1df40c281c40a1f0188484ce4794d3397d66ee7bd2b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531343131373231372d39623332626135342d613233612d346235322d623034342d6566666436396563626637382e706e67"><img src="https://camo.githubusercontent.com/b6fd884ee7f0e6fe4d14a1df40c281c40a1f0188484ce4794d3397d66ee7bd2b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531343131373231372d39623332626135342d613233612d346235322d623034342d6566666436396563626637382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736514117217-9b32ba54-a23a-4b52-b044-effd69ecbf78.png" style="max-width: 100%;"></a></p>
+<p>新建类HelloControll</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/214a8b4db7dc70218c69f47c0a28120d1c6abd028a797bc15b671fb5bc9b2353/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531343534373030372d62323465363231662d643761622d343766382d613863342d3134643639656662306136362e706e67"><img src="https://camo.githubusercontent.com/214a8b4db7dc70218c69f47c0a28120d1c6abd028a797bc15b671fb5bc9b2353/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531343534373030372d62323465363231662d643761622d343766382d613863342d3134643639656662306136362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736514547007-b24e621f-d7ab-47f8-a8c4-14d69efb0a66.png" style="max-width: 100%;"></a></p>
+<pre lang="plain" class="notranslate"><code class="notranslate">package org.eu.adouzi.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * Hello 控制器
+ *
+ * @author shiraayano
+ * @date 2025/01/10 21:01
+ */
+@Controller
+public class HelloController {
+    /**
+     * 你好
+     *
+     * @return {@link String}
+     */
+    //定义handler
+    //handler -&gt; spring/hello return "hello"
+    @RequestMapping("springmvc/hello")//对外访问的地址 也是到handler注册的注解
+    @ResponseBody//直接然会字符串给前端,不找字符解析器
+    public String hello() {
+        System.out.println("hello handler method is running...");
+        return "hello";
+        //hello会返回给前端
+    }
+}
+</code></pre>
+<p>创建 config 包，在包下创建配置类 MvcConfig</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8bb51f5ebafe4493f58b5ce5411948cbecb86e7893fcd94dbed2fb86829cc839/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531343933303832302d65653162323162362d353536642d343064352d623765632d3336633436373132316263382e706e67"><img src="https://camo.githubusercontent.com/8bb51f5ebafe4493f58b5ce5411948cbecb86e7893fcd94dbed2fb86829cc839/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531343933303832302d65653162323162362d353536642d343064352d623765632d3336633436373132316263382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736514930820-ee1b21b6-556d-40d5-b7ec-36c467121bc8.png" style="max-width: 100%;"></a></p>
+<pre lang="plain" class="notranslate"><code class="notranslate">package org.eu.adouzi.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+
+/**
+ * MVC 配置
+ *
+ * @author shiraayano
+ * @date 2025/01/10 21:15
+ * 
+ * 将controller扫描到spring容器中
+ * 将handlerMapping handlerAdapter 扫描到spring容器中
+ */
+
+@Configuration
+@ComponentScan("org.eu.adouzi.controller")
+public class MvcConfig {
+    @Bean
+    public RequestMappingHandlerMapping handlerMapping(){
+        return new RequestMappingHandlerMapping();
+    }
+    @Bean
+    public RequestMappingHandlerAdapter handlerAdapter(){
+        return new RequestMappingHandlerAdapter();
+    }
+    
+    
+}
+</code></pre>
+<p>SpringMVC 对外提供有接口是替代 web.xml</p>
+<p>创建<strong>SpringMvcInit 类</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/687e7b2f0860e0df29db16b6d1d62d534456b92a316c47a2239c091971d3a3a5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531353439333430382d38306461333032322d613035662d346236362d383661362d3035633864613666316261312e706e67"><img src="https://camo.githubusercontent.com/687e7b2f0860e0df29db16b6d1d62d534456b92a316c47a2239c091971d3a3a5/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531353439333430382d38306461333032322d613035662d346236362d383661362d3035633864613666316261312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736515493408-80da3022-a05f-4b66-86a6-05c8da6f1ba1.png" style="max-width: 100%;"></a></p>
+<p>生成实现方法</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/632497e3860eae926f178bc3bb2211582755614ad7482e065628a97eddc577f0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531353636313334302d66613938306332302d303962332d343630332d386264622d6265333332633033363535612e706e67"><img src="https://camo.githubusercontent.com/632497e3860eae926f178bc3bb2211582755614ad7482e065628a97eddc577f0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531353636313334302d66613938306332302d303962332d343630332d386264622d6265333332633033363535612e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736515661340-fa980c20-09b3-4603-8bdb-be332c03655a.png" style="max-width: 100%;"></a></p>
+<pre lang="plain" class="notranslate"><code class="notranslate">package org.eu.adouzi.config;
+
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+/**
+ * Spring MVC 初始化
+ *
+ * @author shiraayano
+ * @date 2025/01/10 21:27
+ */
+public class SpringMvcInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    /**
+     * 获取根配置类
+     *
+     * @return {@link Class&lt;?&gt;[]}
+     */
+    @Override
+    protected Class&lt;?&gt;[] getRootConfigClasses() {
+        return new Class[0];
+    }
+
+    /**
+     * 获取 Servlet 配置类
+     *
+     * @return {@link Class&lt;?&gt;[]}
+     */
+    @Override
+    protected Class&lt;?&gt;[] getServletConfigClasses() {
+        return new Class[0];
+    }
+
+    /**
+     * 获取 Servlet 映射
+     *
+     * @return {@link String[]}
+     */
+    @Override
+    protected String[] getServletMappings() {
+        return new String[0];
+    }
+}
+</code></pre>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fd18957239dbf3b279a329592d4b2795f5d8e87f0e98f9eb7c5e44caa88df466/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531363035323636372d63343436343466392d303162652d343533362d613436362d3036346562306233356131632e706e67"><img src="https://camo.githubusercontent.com/fd18957239dbf3b279a329592d4b2795f5d8e87f0e98f9eb7c5e44caa88df466/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531363035323636372d63343436343466392d303162652d343533362d613436362d3036346562306233356131632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736516052667-c44644f9-01be-4536-a466-064eb0b35a1c.png" style="max-width: 100%;"></a></p>
+<pre lang="plain" class="notranslate"><code class="notranslate">package org.eu.adouzi.config;
+
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+/**
+ * Spring MVC 初始化
+ *
+ * @author shiraayano
+ * @date 2025/01/10 21:27
+ */
+public class SpringMvcInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    /**
+     * 获取根配置类
+     *
+     * @return {@link Class&lt;?&gt;[]}
+     */
+
+    @Override
+    protected Class&lt;?&gt;[] getRootConfigClasses() {
+        return new Class[0];
+    }
+
+    /**
+     * 获取 Servlet 配置类
+     *
+     * @return {@link Class&lt;?&gt;[]}
+     */
+    //设置我们项目对应的配置类
+    @Override
+    protected Class&lt;?&gt;[] getServletConfigClasses() {
+        return new Class[] {MvcConfig.class};
+    }
+
+    /**
+     * 获取 Servlet 映射
+     *
+     * @return {@link String[]}
+     */
+    //配置springmvc内部自带的servlet的访问地址
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/"};//允许全部
+    }
+}
+</code></pre>
+<p>编辑运行调试配置，添加 tomcat</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ca127a983dd0767e5d462a241baa7db99bd301c46984f3bfa0e75dbf27f1852d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531363634333435392d37303935633339652d663030612d346333322d623163652d6235653766373137393036362e706e67"><img src="https://camo.githubusercontent.com/ca127a983dd0767e5d462a241baa7db99bd301c46984f3bfa0e75dbf27f1852d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531363634333435392d37303935633339652d663030612d346333322d623163652d6235653766373137393036362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736516643459-7095c39e-f00a-4c32-b1ce-b5e7f7179066.png" style="max-width: 100%;"></a></p>
+<p>部署项目</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2da5f2f8f395182efce612fea188b19f4477d761b67dde50464987e4362d1786/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531363730363734382d33336664656434332d656361382d346239372d383161362d6136643435616232376434302e706e67"><img src="https://camo.githubusercontent.com/2da5f2f8f395182efce612fea188b19f4477d761b67dde50464987e4362d1786/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531363730363734382d33336664656434332d656361382d346239372d383161362d6136643435616232376434302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736516706748-33fded43-eca8-4b97-81a6-a6d45ab27d40.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/aa6ea175f19cdf2e30035296548385962864df2a8a8623ec4d488c98c37949a1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531363735313132352d31353334373363312d333162312d343464342d626362622d6539623732346433663331322e706e67"><img src="https://camo.githubusercontent.com/aa6ea175f19cdf2e30035296548385962864df2a8a8623ec4d488c98c37949a1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531363735313132352d31353334373363312d333162312d343464342d626362622d6539623732346433663331322e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736516751125-153473c1-31b1-44d4-bcbb-e9b724d3f312.png" style="max-width: 100%;"></a></p>
+<p>运行...报错</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f4ab93638c266350453fc3a317f628dcfb7e385465adb84c007b5316bfed1727/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531373737363430322d37343933383938342d363031312d343664652d386230652d6365313235623662363161382e706e67"><img src="https://camo.githubusercontent.com/f4ab93638c266350453fc3a317f628dcfb7e385465adb84c007b5316bfed1727/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531373737363430322d37343933383938342d363031312d343664652d386230652d6365313235623662363161382e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736517776402-74938984-6011-46de-8b0e-ce125b6b61a8.png" style="max-width: 100%;"></a></p>
+<p>看起来像是 jdk 版本高了</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/68f6cab8d86158f3085b57d43bafc1f88c767abbfb897d02cfa6749765023da1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531383131383637372d31346235383331392d653836312d343133342d616137332d6537623037363264363062332e706e67"><img src="https://camo.githubusercontent.com/68f6cab8d86158f3085b57d43bafc1f88c767abbfb897d02cfa6749765023da1/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313733363531383131383637372d31346235383331392d653836312d343133342d616137332d6537623037363264363062332e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1736518118677-14b58319-e861-4134-aa73-e7b0762d60b3.png" style="max-width: 100%;"></a></p>
+<p>总结</p>
+<p>1.正常申明 Controller 方法</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">package org.eu.adouzi.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * Hello 控制器
+ *
+ * @author shiraayano
+ * @date 2025/01/10 21:01
+ */
+@Controller
+public class HelloController {
+    /**
+     * 你好
+     *
+     * @return {@link String}
+     */
+    //定义handler
+    //handler -&gt; spring/hello return "hello"
+    @RequestMapping("springmvc/hello")//对外访问的地址 也是到handler注册的注解
+    @ResponseBody//直接然会字符串给前端,不找字符解析器
+    public String HelloController() {
+        System.out.println("hello handler method is running...");
+        return "hello";
+        //hello会返回给前端
+    }
+}
+</code></pre>
+<p>2.写一个配置类，指定 HandlerMapping 和 HandlerAdapter，以及将 Handler 对应的 Controller 放入 ioc 容器</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">package org.eu.adouzi.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+
+/**
+ * MVC 配置
+ *
+ * @author shiraayano
+ * @date 2025/01/10 21:15
+ *
+ * 将controller扫描到spring容器中
+ * 将handlerMapping handlerAdapter 扫描到spring容器中
+ */
+
+@Configuration
+@ComponentScan("org.eu.adouzi.controller")
+public class MvcConfig {
+    @Bean
+    public RequestMappingHandlerMapping handlerMapping(){
+        return new RequestMappingHandlerMapping();
+    }
+    @Bean
+    public RequestMappingHandlerAdapter handlerAdapter(){
+        return new RequestMappingHandlerAdapter();
+    }
+    
+
+}
+</code></pre>
+<p>3.按照 springmvc 的约定固定写一个类去继承 AbstractAnnotationConfigDispatcherServletInitializer</p>
+<p>(只要继承这个类，项目启动的时候就会被加载)</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">package org.eu.adouzi.config;
+
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+/**
+ * Spring MVC 初始化
+ *
+ * @author shiraayano
+ * @date 2025/01/10 21:27
+ */
+public class SpringMvcInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    /**
+     * 获取根配置类
+     *
+     * @return {@link Class&lt;?&gt;[]}
+     */
+
+    @Override
+    protected Class&lt;?&gt;[] getRootConfigClasses() {
+        return new Class[0];
+    }
+
+    /**
+     * 获取 Servlet 配置类
+     *
+     * @return {@link Class&lt;?&gt;[]}
+     */
+    //设置我们项目对应的配置类
+    @Override
+    protected Class&lt;?&gt;[] getServletConfigClasses() {
+        return new Class[] {MvcConfig.class};
+    }
+
+    /**
+     * 获取 Servlet 映射
+     *
+     * @return {@link String[]}
+     */
+    //配置springmvc内部自带的servlet的访问地址 （设置拦截路径）
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/"};//拦截全部
+    }
+}
+</code></pre></div>
+<div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
