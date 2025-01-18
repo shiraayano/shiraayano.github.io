@@ -570,4 +570,26 @@ SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 + **事务隔离级别**：包括`READ UNCOMMITTED`、`READ COMMITTED`、`REPEATABLE READ`和`SERIALIZABLE`四种，隔离级别越高，数据一致性越强，但性能可能降低。
 
 
+MySQL中SQL语句的书写顺序和执行顺序：
+书写顺序
+SELECT：选择要返回的列。
+FROM：指定查询的表。
+JOIN：表连接操作。
+WHERE：过滤条件。
+GROUP BY：分组条件。
+HAVING：分组后的过滤条件。
+ORDER BY：排序条件。
+LIMIT：限制返回的行数。
+执行顺序
+FROM：确定查询的表。
+JOIN：表连接操作。
+WHERE：过滤条件。
+GROUP BY：分组条件。
+HAVING：分组后的过滤条件。
+SELECT：选择要返回的列。
+ORDER BY：排序条件。
+LIMIT：限制返回的行数。
+为什么不同
+性能优化：先处理FROM、JOIN和WHERE可以减少需要处理的数据量，提高查询效率。
+逻辑依赖：GROUP BY和HAVING需要在数据已经过滤和连接之后才能生效。
 
