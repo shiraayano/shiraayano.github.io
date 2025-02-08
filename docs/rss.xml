@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Thu, 06 Feb 2025 15:37:31 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>PHP cURL 与 MQTT 扩展安装</title><link>https://blog.adouzi.eu.org/post/54.html</link><description>无论是与外部API交互的 cURL，还是物联网场景的 MQTT 协议，都是 PHP 开发者必备的技能。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/54.html</guid><pubDate>Thu, 06 Feb 2025 15:37:05 +0000</pubDate></item><item><title>一些常用的操作 Ubuntu</title><link>https://blog.adouzi.eu.org/post/53.html</link><description>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sat, 08 Feb 2025 10:54:11 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>本地部署体验AI大模型</title><link>https://blog.adouzi.eu.org/post/55.html</link><description># Tools：Ollama 、Conda、 Open-WebUI
+## Ollama
+### 使用 open-webui 前我们需要先安装 Ollama
+### 以下是 Ollama 的一些基本命令：
+&gt; 安装完 Ollama 之后可以直接跳到 conda 部分食用
+&gt;
+
+### 模型管理
+**创建模型**：从 Modelfile 创建模型。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/55.html</guid><pubDate>Sat, 08 Feb 2025 10:53:50 +0000</pubDate></item><item><title>PHP cURL 与 MQTT 扩展安装</title><link>https://blog.adouzi.eu.org/post/54.html</link><description>无论是与外部API交互的 cURL，还是物联网场景的 MQTT 协议，都是 PHP 开发者必备的技能。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/54.html</guid><pubDate>Thu, 06 Feb 2025 15:37:05 +0000</pubDate></item><item><title>一些常用的操作 Ubuntu</title><link>https://blog.adouzi.eu.org/post/53.html</link><description>
 
 ### 查看、开启、关闭和永久关闭防火墙
 
