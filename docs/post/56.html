@@ -1052,234 +1052,1608 @@ var fn1 = function() {
 fn1(); // 正常调用</pre></div>
 <p><strong>解释</strong>：函数表达式调用必须写在函数赋值之后，否则会报错。</p>
 <hr>
+<hr>
+<h3>JavaScript 对象、数组、字符串和内置对象笔记</h3>
+<h4>1. 变量作用域</h4>
+<p>变量的作用域决定了变量的可访问范围。</p>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">function fun1() {
+    var a = b = c = 9; // a 是局部变量，b 和 c 是全局变量
+    console.log(a, b, c); // 输出 9 9 9
+}
+fun1(); // 要执行才会有 b 和 c
+// console.log(a); // 报错
+console.log(b); // 输出 9
+console.log(c); // 输出 9</pre></div>
+<p><strong>解释</strong>：在函数内部声明的变量 <code class="notranslate">a</code> 是局部变量，而 <code class="notranslate">b</code> 和 <code class="notranslate">c</code> 由于没有使用 <code class="notranslate">var</code> 声明，因此成为全局变量。</p>
+<hr>
+<h4>2. 对象</h4>
+<p>对象是一个具体的事物，由属性和方法组成。</p>
+<h5>2.1 创建对象</h5>
+<p>JavaScript 提供了多种方式来创建对象。</p>
+<h6>2.1.1 字面量创建对象</h6>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var obj1 = {}; // 创建了一个空的对象
+var obj1 = {
+    name: 'shiraayano',
+    age: 3,
+    sex: 'Ta',
+    sayHi: function() {
+        console.log('hi');
+    }
+};
+console.log(obj1.name); // 输出 shiraayano
+console.log(obj1['age']); // 输出 3
+obj1.sayHi(); // 调用方法，输出 hi</pre></div>
+<p><strong>解释</strong>：使用对象字面量方式创建对象，并访问其属性和方法。</p>
+<h6>2.1.2 使用 <code class="notranslate">new Object</code> 创建对象</h6>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var obj2 = new Object();
+obj2.name = 'shiraayano';
+obj2.age = 6;
+obj2.sex = 'Ta';
+obj2.sayHi = function() {
+    console.log('hi');
+};</pre></div>
+<p><strong>解释</strong>：通过 <code class="notranslate">new Object</code> 创建对象，属性和方法的写法与字面量方式相同。</p>
+<h6>2.1.3 使用构造函数创建对象</h6>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">function User(name, age, sex) {
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+    this.sayHi = function() {
+        console.log('hi');
+    };
+}
+var u1 = new User('shiraayano', 3, 'Ta');
+var u2 = new User('adouzi', 3, 'Ta');
+console.log(u1.name); // 输出 shiraayano</pre></div>
+<p><strong>解释</strong>：通过构造函数创建对象，称为实例化。构造函数中使用 <code class="notranslate">this</code> 指代新创建的对象。</p>
+<hr>
+<h5>2.2 <code class="notranslate">new</code> 的执行过程</h5>
+<p><code class="notranslate">new</code> 关键字在执行时会做以下四件事：</p>
 <ol>
-<li>变量作用域<br>
-变量的作用域决定了变量的可访问范围。<br>
-HTML复制<br>
-function fun1() {<br>
-var a = b = c = 9; // a 是局部变量，b 和 c 是全局变量<br>
-console.log(a, b, c); // 输出 9 9 9<br>
-}<br>
-fun1(); // 要执行才会有 b 和 c<br>
-// console.log(a); // 报错<br>
-console.log(b); // 输出 9<br>
-console.log(c); // 输出 9<br>
-解释：在函数内部声明的变量 a 是局部变量，而 b 和 c 由于没有使用 var 声明，因此成为全局变量。</li>
-<li>对象<br>
-对象是一个具体的事物，由属性和方法组成。<br>
-2.1 创建对象<br>
-JavaScript 提供了多种方式来创建对象。<br>
-2.1.1 字面量创建对象<br>
-HTML复制<br>
-var obj1 = {}; // 创建了一个空的对象<br>
-var obj1 = {<br>
-name: 'shiraayano',<br>
-age: 3,<br>
-sex: 'Ta',<br>
-sayHi: function() {<br>
-console.log('hi');<br>
-}<br>
-};<br>
-console.log(obj1.name); // 输出 shiraayano<br>
-console.log(obj1['age']); // 输出 3<br>
-obj1.sayHi(); // 调用方法，输出 hi<br>
-解释：使用对象字面量方式创建对象，并访问其属性和方法。<br>
-2.1.2 使用 new Object 创建对象<br>
-HTML复制<br>
-var obj2 = new Object();<br>
-obj2.name = 'shiraayano';<br>
-obj2.age = 6;<br>
-obj2.sex = 'Ta';<br>
-obj2.sayHi = function() {<br>
-console.log('hi');<br>
-};<br>
-解释：通过 new Object 创建对象，属性和方法的写法与字面量方式相同。<br>
-2.1.3 使用构造函数创建对象<br>
-HTML复制<br>
-function User(name, age, sex) {<br>
-this.name = name;<br>
-this.age = age;<br>
-this.sex = sex;<br>
-this.sayHi = function() {<br>
-console.log('hi');<br>
-};<br>
-}<br>
-var u1 = new User('shiraayano', 3, 'Ta');<br>
-var u2 = new User('adouzi', 3, 'Ta');<br>
-console.log(u1.name); // 输出 shiraayano<br>
-解释：通过构造函数创建对象，称为实例化。构造函数中使用 this 指代新创建的对象。<br>
-2.2 new 的执行过程<br>
-new 关键字在执行时会做以下四件事：<br>
-在内存中开辟一块空间。<br>
-把 this 指向这块空间。<br>
-执行构造函数，给对象添加属性和方法。<br>
-返回这个对象（所以构造函数里面不需要 return）。<br>
-2.3 遍历对象<br>
-使用 for...in 语句遍历对象的属性。<br>
-HTML复制<br>
-for (var k in u1) {<br>
-console.log(k); // 输出属性名<br>
-console.log(u1[k]); // 输出属性值<br>
-}<br>
-解释：for...in 语句可以遍历对象的所有可枚举属性。</li>
-<li>内置对象<br>
-JavaScript 提供了一些内置对象，如 Math、Date、Array、String 等。<br>
-3.1 Math 对象<br>
-Math 对象提供了数学相关的属性和方法。<br>
-HTML复制<br>
-console.log(Math.PI); // 输出圆周率<br>
-console.log(Math.abs(-1)); // 输出绝对值 1<br>
-console.log(Math.max(1, 2, 3, 4, 5)); // 输出最大值 5<br>
-console.log(Math.floor(1.9)); // 向下取整，输出 1<br>
-console.log(Math.ceil(1.1)); // 向上取整，输出 2<br>
-console.log(Math.round(-1.5)); // 四舍五入，输出 -1<br>
-console.log(Math.random()); // 输出随机数<br>
-解释：Math 对象提供了常用的数学功能，如绝对值、最大值、取整和随机数等。<br>
-3.2 Date 对象<br>
-Date 对象用于处理日期和时间。<br>
-HTML复制<br>
-var d = new Date();<br>
-console.log(d); // 输出当前日期和时间<br>
-console.log(d.getFullYear()); // 输出年份<br>
-console.log(d.getMonth()); // 输出月份（0-11）<br>
-console.log(d.getDate()); // 输出日期<br>
-console.log(d.getDay()); // 输出星期几（0-6）<br>
-console.log(d.getHours()); // 输出小时<br>
-console.log(d.getMinutes()); // 输出分钟<br>
-console.log(d.getSeconds()); // 输出秒数<br>
-console.log(d.getTime()); // 输出时间戳<br>
-console.log(d.toLocaleDateString()); // 输出本地日期<br>
-console.log(d.toLocaleTimeString()); // 输出本地时间<br>
-解释：Date 对象提供了获取和设置日期和时间的方法。<br>
-3.3 自定义 Math 对象<br>
-可以自定义一个对象来封装常用的数学方法。<br>
-HTML复制<br>
-var mMath = {<br>
-PI: Math.PI,<br>
-max: function() {<br>
-return Math.max.apply(null, arguments);<br>
-},<br>
-min: function() {<br>
-return Math.min.apply(null, arguments);<br>
-},<br>
-pai: function() {<br>
-var arg = Array.prototype.slice.call(arguments);<br>
-for (var i = 0; i &lt; arguments.length; i++) {<br>
-for (var j = 0; j &lt; arguments.length - 1 - i; j++) {<br>
-if (arg[j] &gt; arg[j + 1]) {<br>
-var temp = arg[j];<br>
-arg[j] = arg[j + 1];<br>
-arg[j + 1] = temp;<br>
-}<br>
-}<br>
-}<br>
-return arg;<br>
-}<br>
-};<br>
-console.log(mMath.pai(66, 1, 2, 3, 4, 5)); // 输出 [1, 2, 3, 4, 5, 66]<br>
-解释：自定义了一个 mMath 对象，封装了常用的数学方法。</li>
-<li>数组<br>
-数组用于存储一组数据。<br>
-4.1 创建数组<br>
-HTML复制<br>
-var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];<br>
-var arr1 = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);<br>
-var arr2 = new Array(10); // 创建一个长度为10的数组<br>
-解释：展示了三种创建数组的方式。<br>
-4.2 数组操作<br>
-HTML复制<br>
-arr.push(11); // 在数组末尾添加元素<br>
-console.log(arr); // 输出 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]<br>
-arr.unshift(0); // 在数组开头添加元素<br>
-console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]<br>
-解释：使用 push 和 unshift 方法向数组中添加元素。<br>
-4.3 数组排序<br>
-HTML复制<br>
-// 升序排序<br>
-arr.sort(function(a, b) {<br>
-return a - b;<br>
-});<br>
-console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]</li>
+<li>在内存中开辟一块空间。</li>
+<li>把 <code class="notranslate">this</code> 指向这块空间。</li>
+<li>执行构造函数，给对象添加属性和方法。</li>
+<li>返回这个对象（所以构造函数里面不需要 <code class="notranslate">return</code>）。</li>
 </ol>
-<p>// 降序排序<br>
-arr.sort(function(a, b) {<br>
-return b - a;<br>
-});<br>
-console.log(arr); // 输出 [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]<br>
-解释：使用 sort 方法对数组进行升序或降序排序。<br>
-4.4 数组去重<br>
-HTML复制<br>
-var arr1 = [];<br>
-for (var i = 0; i &lt; arr.length; i++) {<br>
-if (arr.indexOf(arr[i]) == i) {<br>
-arr1[arr1.length] = arr[i];<br>
-}<br>
-}<br>
-console.log(arr1); // 输出去重后的数组<br>
-解释：通过 indexOf 方法去除数组中的重复项。<br>
-5. 字符串<br>
-字符串用于存储文本数据。<br>
-5.1 字符串不可变<br>
-HTML复制<br>
-var str = 'andy';<br>
-str = 'red';<br>
-console.log(str); // 输出 red<br>
-解释：字符串是不可变的，每次修改字符串时，实际上是在创建一个新的字符串。<br>
-5.2 字符串方法<br>
-HTML复制<br>
-var str = 'andy';<br>
-console.log(str.length); // 输出 4<br>
-console.log(str.toUpperCase()); // 输出 ANDY<br>
-console.log(str.toLowerCase()); // 输出 andy<br>
-解释：字符串提供了多种方法，如获取长度、转换大小写等。<br>
-5.3 字符串拼接<br>
-HTML复制<br>
-var str = 'andy';<br>
-console.log(str + 'red'); // 输出 andyred<br>
-解释：使用 + 运算符可以拼接字符串。<br>
-5.4 字符串查找<br>
-HTML复制<br>
-var str = '改革春风吹满地,春风吹满地';<br>
-console.log(str.indexOf('春', 3)); // 输出 5<br>
-解释：使用 indexOf 方法查找字符串中指定内容的位置。<br>
-5.5 字符串截取<br>
-HTML复制<br>
-var str = '改革春风吹满地';<br>
-console.log(str.slice(2, 4)); // 输出 春风<br>
-console.log(str.substring(2, 4)); // 输出 春风<br>
-console.log(str.substr(2, 4)); // 输出 春风地<br>
-解释：使用 slice、substring 和 substr 方法截取字符串。<br>
-5.6 字符串替换<br>
-HTML复制<br>
-var str = 'andy';<br>
-console.log(str.replace('a', 'A')); // 输出 Andy<br>
-解释：使用 replace 方法替换字符串中的指定内容。<br>
-5.7 字符串分割<br>
-HTML复制<br>
-var str = 'red,blue,green';<br>
-console.log(str.split(',')); // 输出 ["red", "blue", "green"]<br>
-解释：使用 split 方法将字符串分割成数组。<br>
-6. 数据类型<br>
-JavaScript 中的数据类型分为简单数据类型和复杂数据类型。<br>
-6.1 简单数据类型<br>
-简单数据类型包括数字、字符串、布尔值等。<br>
-HTML复制<br>
-var temp = null;<br>
-console.log(typeof temp); // 输出 object<br>
-解释：null 是一个特殊的简单数据类型，表示空值。<br>
-6.2 复杂数据类型<br>
-复杂数据类型包括对象、数组等。<br>
-HTML复制<br>
-var arr = [1, 2, 3];<br>
-console.log(arr instanceof Array); // 输出 true<br>
-console.log(Array.isArray(arr)); // 输出 true<br>
-解释：使用 instanceof 和 Array.isArray 方法检测变量是否为数组。<br>
-7. 内存存储<br>
-简单数据类型存储在栈中，复杂数据类型存储在堆中。<br>
-HTML复制<br>
-var str = 'andy';<br>
-var obj = { name: 'andy' };<br>
-解释：简单数据类型直接存储值，复杂数据类型存储的是地址。</p></div>
+<hr>
+<h5>2.3 遍历对象</h5>
+<p>使用 <code class="notranslate">for...in</code> 语句遍历对象的属性。</p>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">for (var k in u1) {
+    console.log(k); // 输出属性名
+    console.log(u1[k]); // 输出属性值
+}</pre></div>
+<p><strong>解释</strong>：<code class="notranslate">for...in</code> 语句可以遍历对象的所有可枚举属性。</p>
+<hr>
+<h4>3. 内置对象</h4>
+<p>JavaScript 提供了一些内置对象，如 <code class="notranslate">Math</code>、<code class="notranslate">Date</code>、<code class="notranslate">Array</code>、<code class="notranslate">String</code> 等。</p>
+<h5>3.1 <code class="notranslate">Math</code> 对象</h5>
+<p><code class="notranslate">Math</code> 对象提供了数学相关的属性和方法。</p>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">console.log(Math.PI); // 输出圆周率
+console.log(Math.abs(-1)); // 输出绝对值 1
+console.log(Math.max(1, 2, 3, 4, 5)); // 输出最大值 5
+console.log(Math.floor(1.9)); // 向下取整，输出 1
+console.log(Math.ceil(1.1)); // 向上取整，输出 2
+console.log(Math.round(-1.5)); // 四舍五入，输出 -1
+console.log(Math.random()); // 输出随机数</pre></div>
+<p><strong>解释</strong>：<code class="notranslate">Math</code> 对象提供了常用的数学功能，如绝对值、最大值、取整和随机数等。</p>
+<hr>
+<h5>3.2 <code class="notranslate">Date</code> 对象</h5>
+<p><code class="notranslate">Date</code> 对象用于处理日期和时间。</p>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var d = new Date();
+console.log(d); // 输出当前日期和时间
+console.log(d.getFullYear()); // 输出年份
+console.log(d.getMonth()); // 输出月份（0-11）
+console.log(d.getDate()); // 输出日期
+console.log(d.getDay()); // 输出星期几（0-6）
+console.log(d.getHours()); // 输出小时
+console.log(d.getMinutes()); // 输出分钟
+console.log(d.getSeconds()); // 输出秒数
+console.log(d.getTime()); // 输出时间戳
+console.log(d.toLocaleDateString()); // 输出本地日期
+console.log(d.toLocaleTimeString()); // 输出本地时间</pre></div>
+<p><strong>解释</strong>：<code class="notranslate">Date</code> 对象提供了获取和设置日期和时间的方法。</p>
+<hr>
+<h5>3.3 自定义 <code class="notranslate">Math</code> 对象</h5>
+<p>可以自定义一个对象来封装常用的数学方法。</p>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var mMath = {
+    PI: Math.PI,
+    max: function() {
+        return Math.max.apply(null, arguments);
+    },
+    min: function() {
+        return Math.min.apply(null, arguments);
+    },
+    pai: function() {
+        var arg = Array.prototype.slice.call(arguments);
+        for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arguments</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
+            <span class="pl-c1">for</span> <span class="pl-c1">(var</span> <span class="pl-c1">j</span> = <span class="pl-s">0;</span> <span class="pl-c1">j</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arguments</span><span class="pl-c1">.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span> <span class="pl-c1">-</span> <span class="pl-c1">i;</span> <span class="pl-c1">j++)</span> <span class="pl-c1">{</span>
+                <span class="pl-c1">if</span> <span class="pl-c1">(arg[j]</span> <span class="pl-kos">&gt;</span> arg[j + 1]) {
+                    var temp = arg[j];
+                    arg[j] = arg[j + 1];
+                    arg[j + 1] = temp;
+                }
+            }
+        }
+        return arg;
+    }
+};
+console.log(mMath.pai(66, 1, 2, 3, 4, 5)); // 输出 [1, 2, 3, 4, 5, 66]</pre></div>
+<p><strong>解释</strong>：自定义了一个 <code class="notranslate">mMath</code> 对象，封装了常用的数学方法。</p>
+<hr>
+<h4>4. 数组</h4>
+<p>数组用于存储一组数据。</p>
+<h5>4.1 创建数组</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var arr1 = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+var arr2 = new Array(10); // 创建一个长度为10的数组</pre></div>
+<p><strong>解释</strong>：展示了三种创建数组的方式。</p>
+<hr>
+<h5>4.2 数组操作</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">arr.push(11); // 在数组末尾添加元素
+console.log(arr); // 输出 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+arr.unshift(0); // 在数组开头添加元素
+console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]</pre></div>
+<p><strong>解释</strong>：使用 <code class="notranslate">push</code> 和 <code class="notranslate">unshift</code> 方法向数组中添加元素。</p>
+<hr>
+<h5>4.3 数组排序</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 升序排序
+arr.sort(function(a, b) {
+    return a - b;
+});
+console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+// 降序排序
+arr.sort(function(a, b) {
+    return b - a;
+});
+console.log(arr); // 输出 [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</pre></div>
+<p><strong>解释</strong>：使用 <code class="notranslate">sort</code> 方法对数组进行升序或降序排序。</p>
+<hr>
+<h5>4.4 数组去重</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var arr1 = [];
+for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
+    <span class="pl-c1">if</span> <span class="pl-c1">(arr.indexOf(arr[i])</span> == <span class="pl-s">i)</span> <span class="pl-c1">{</span>
+        <span class="pl-c1">arr1[arr1.length]</span> = <span class="pl-s">arr[i];</span>
+    <span class="pl-c1">}</span>
+<span class="pl-c1">}</span>
+<span class="pl-c1">console.log(arr1);</span> // 输出去重后的数组</pre></div>
+<p><strong>解释</strong>：通过 <code class="notranslate">indexOf</code> 方法去除数组中的重复项。</p>
+<hr>
+<h4>5. 字符串</h4>
+<p>字符串用于存储文本数据。</p>
+<h5>5.1 字符串不可变</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
+str = 'red';
+console.log(str); // 输出 red</pre></div>
+<p><strong>解释</strong>：字符串是不可变的，每次修改字符串时，实际上是在创建一个新的字符串。</p>
+<hr>
+<h5>5.2 字符串方法</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
+console.log(str.length); // 输出 4
+console.log(str.toUpperCase()); // 输出 ANDY
+console.log(str.toLowerCase()); // 输出 andy</pre></div>
+<p><strong>解释</strong>：字符串提供了多种方法，如获取长度、转换大小写等。</p>
+<hr>
+<h5>5.3 字符串拼接</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
+console.log(str + 'red'); // 输出 andyred</pre></div>
+<p><strong>解释</strong>：使用 <code class="notranslate">+</code> 运算符可以拼接字符串。</p>
+<hr>
+<h5>5.4 字符串查找</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = '改革春风吹满地,春风吹满地';
+console.log(str.indexOf('春', 3)); // 输出 5</pre></div>
+<p><strong>解释</strong>：使用 <code class="notranslate">indexOf</code> 方法查找字符串中指定内容的位置。</p>
+<hr>
+<h5>5.5 字符串截取</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = '改革春风吹满地';
+console.log(str.slice(2, 4)); // 输出 春风
+console.log(str.substring(2, 4)); // 输出 春风
+console.log(str.substr(2, 4)); // 输出 春风地</pre></div>
+<p><strong>解释</strong>：使用 <code class="notranslate">slice</code>、<code class="notranslate">substring</code> 和 <code class="notranslate">substr</code> 方法截取字符串。</p>
+<hr>
+<h5>5.6 字符串替换</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
+console.log(str.replace('a', 'A')); // 输出 Andy</pre></div>
+<p><strong>解释</strong>：使用 <code class="notranslate">replace</code> 方法替换字符串中的指定内容。</p>
+<hr>
+<h5>5.7 字符串分割</h5>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'red,blue,green';
+console.log(str.split(',')); // 输出 ["red", "blue", "green"]</pre></div>
+<p><strong>解释</strong>：使用 <code class="notranslate">split</code> 方法将字符串分割成数组。</p>
+<hr>
+<h4>6. 数据类型</h4>
+<p>JavaScript 中的数据类型分为简单数据类型和复杂数据类型。</p>
+<h5>6.1 简单数据类型</h5>
+<p>简单数据类型包括数字、字符串、布尔值等。</p>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var temp = null;
+console.log(typeof temp); // 输出 object</pre></div>
+<p><strong>解释</strong>：<code class="notranslate">null</code> 是一个特殊的简单数据类型，表示空值。</p>
+<hr>
+<h5>6.2 复杂数据类型</h5>
+<p>复杂数据类型包括对象、数组等。</p>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var arr = [1, 2, 3];
+console.log(arr instanceof Array); // 输出 true
+console.log(Array.isArray(arr)); // 输出 true</pre></div>
+<p><strong>解释</strong>：使用 <code class="notranslate">instanceof</code> 和 <code class="notranslate">Array.isArray</code> 方法检测变量是否为数组。</p>
+<hr>
+<h4>7. 内存存储</h4>
+<p>简单数据类型存储在栈中，复杂数据类型存储在堆中。</p>
+<p>HTML复制</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
+var obj = { name: 'andy' };</pre></div>
+<p><strong>解释</strong>：简单数据类型直接存储值，复杂数据类型存储的是地址。</p>
+<hr>
+<h3>未整理的原笔记</h3>
+<p>alert 浏览器弹出框</p>
+<p>console.log 控制台打印</p>
+<p>prompt 浏览器输入</p>
+<p>声明变量</p>
+<p>var age;</p>
+<p>赋值</p>
+<p>age = 111;</p>
+<p>声明变量并'赋值称为变量的初始化</p>
+<p>var age = 'xxx';</p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var myname = 'shiraayano';
+        var address = '地球村';
+        var age = 18;
+        var emial = 'shiraayano@adouzi.eu.org';
+        console.log(myname,address,age,emial);</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var myname = prompt("请输入你的姓名");
+        alert( myname + "欢迎回家");</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//同时申明多个变量
+        var age = 18, sex = "男", address = "北京";
+
+
+        var age = 18,
+         sex = "男",
+         address = "北京";</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//申明未赋值结果为undefined
+         var a;
+         console.log(a);</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//不申明不赋值会报错
+         console.log(b);</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//不声明赋值可以使用，但是不建议
+         c = 100;
+         console.log(c);</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//变量命名规则
+        //1.变量名必须由字母、数字、下划线、$组成，不能以数字开头
+        //2.变量名区分大小写
+        //3.不能是关键字和保留字
+        //4.变量名要见名知意
+        //5.驼峰命名法 首字母小写，后面首字母大写
+        //6.命名规范
+        //7.变量声明
+        //var 变量名 = 值;
+        //var age = 18;
+        //console.log(age);
+        //var name = "张三";
+        //console.log(name);
+        //另外，我们尽量不要用name作为变量名，有些浏览器name有含义</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">        var a;
+        var b;
+        var temp;
+
+        a = 1;
+        b = 2;
+        console.log(a);
+        console.log(b);
+        
+        temp = a;
+        a = b;
+        b = temp;
+
+        console.log(a);
+        console.log(b);</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//JS中的数据类型
+        //JS是一种弱类型语言，变量没有类型，值才有类型。只有在运行过程中才能确定类型
+        //JS是动态语言，变量的数据类型是可以变化的
+        //1.基本数据类型
+        //2.引用数据类型
+
+
+        //简单数据类型介绍
+        //1.数字类型 number
+        //2.字符串类型 string
+        //3.布尔类型 boolean
+        //4.未定义类型 undefined
+        //5.空类型 null</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//简单数据类型介绍
+        //1.数字类型 number
+        //2.字符串类型 string
+        //3.布尔类型 boolean
+        //4.未定义类型 undefined
+        //5.空类型 null
+
+
+        //数字类型 number
+        //数字类型包括整数和小数
+        //整数
+        var num1 = 10;
+        console.log(num1);
+        //小数
+        var num2 = 10.5;
+        console.log(num2);
+        //科学计数法
+        var num3 = 1.23e3;
+        console.log(num3);
+        //数字类型转换
+
+
+        //在JS中 以0开头的是八进制
+        //以0x开头的是十六进制
+
+
+        var a = 10;
+        var b = 010;
+        var c = 0x10;
+        console.log(a);
+        console.log(b);
+        console.log(c);
+        //10
+        //8
+        //16
+        console.log(Number.MAX_VALUE);//数字型的最大值
+        console.log(Number.MIN_VALUE);//数字型的最小值
+        //无穷大 Infinity
+        console.log(Number.MAX_VALUE * 2);//Infinity
+        //无穷小 -Infinity
+        console.log(-Number.MAX_VALUE * 2);//-Infinity
+        //NaN  not a number（非数值，非数字）
+        console.log("abc" - 10);//NaN
+        //isNaN() 判断一个值是否为非数字，返回一个布尔值
+        console.log(isNaN(10));//false
+
+
+        //字符串型 加了引号都是字符串型 String
+        var str = "我的名字叫白绫乃";
+        console.log(str);
+        //字符串拼接
+        var str1 = "我的名字叫";
+        var str2 = "白绫乃";
+        console.log(str1 + str2);</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//JS中通过length获取字符串长度
+        var str = "123";
+        var str1 = "你好";
+        console.log(str.length);//3
+        console.log(str1.length);//2</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var age = prompt("请输入年龄：");
+        alert("你" + age);</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var flag = true;
+        var flag1 = false;
+        console.log(flag);//true
+        console.log(flag + 1);//2</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">var num = 1;
+        console.log(typeof num);//number
+        num = "hello";
+        console.log(typeof num);//string
+
+
+        //tips：prompt()方法取过来的值是string
+        
+        //字面量
+        //字面量：是源代码中一个固定值的表示法，通俗的说，就是字面量表示如何表达这个值。
+        //数值字面量：8，9，10
+        //字符串字面量：'hello', "world"
+        //布尔字面量：true，false
+
+
+        //我们可以通过控制台的颜色来判断类型 number蓝色
+
+
+        //toString转化为字符串
+        //String强制转换
+        var num1 = 10;
+        console.log(num1.toString());//10
+        var num2 = 10;
+        console.log(typeof num2.toString());//string
+        var num3 = 10;
+        console.log(typeof String(num3));//string
+        //也可以用字符串拼接
+
+
+        //parselnt(sring) 转化为整形
+        //parseFloat(sring) 转化为浮点型
+        //Number()转化为数值型
+        // - * / % 也可以将字符串转化为数值型
+
+
+        //利用Number()函数
+        var num4 = "10";
+        console.log(typeof Number(num4));//number
+
+
+        //利用parseInt()函数
+        var num5 = "10.98";
+        console.log(parseInt(num5));//10
+        var num6 = "10.98";
+        console.log(parseInt(num6, 10));//10
+        console.log(parseInt("120px"));//120</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//计算年龄
+        var year = prompt("输入出生年份");
+        var age = 2025 - year;//隐式转换
+        alert("您的年龄是" + age + "岁");</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//转化为布尔类型
+        //Boolean()函数
+        //代表空、否定的值会被转化为false，如：0，NaN，null，undefined，空字符串
+        //其余值都会被转化为true
+
+
+        console.log(Boolean(0));//false
+        console.log(Boolean(NaN));//false
+        console.log(Boolean(null));//false
+        console.log(Boolean(undefined));//false
+        console.log(Boolean(" "));//true
+        console.log(Boolean("hello"));//true</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//运算符
+        //算术运算符
+        // + - * / % ++ --
+        // ++自增，--自减
+        // ++num 先加1，再运算
+        // num++ 先运算，再加1
+        // ++ -- 只能写在变量后面
+        // % 取余数
+        // + 可以用于字符串的拼接
+        // + 也可以用于数字的加法
+        // + 也可以用于字符串和数字的拼接
+        //tips：任何数据类型和字符串拼接都会变成字符串
+        //tips：任何数据类型和数字相加都会变成数字
+
+
+        console.log(1 + 1);//2
+        console.log(5 % 3);//2
+        console.log(0.1 + 0.2);//0.30000000000000004 浮点数精度问题
+
+
+        //表达式：由数字、运算符、变量组成的式子
+        var num = 1 + 1;
+
+
+        //递增 递减
+        var num = 10;
+        console.log(num++);//10
+        console.log(++num);//12
+        console.log(num--);//12
+        console.log(--num);//10
+
+
+        //比较运算符
+        // <span class="pl-kos">&gt;</span> <span class="pl-kos">&lt;</span> <span class="pl-kos">&gt;</span>= <span class="pl-kos">&lt;</span>= == != === !==
+        // == 只比较值，不比较类型
+        // === 既比较值，又比较类型
+        // != 只比较值，不比较类型
+        // !== 既比较值，又比较类型
+        //tips：== 和 === 的区别
+        //tips：== 和 != 的区别
+        //tips：=== 和 !== 的区别
+        console.log(9<span class="pl-kos">&gt;</span>10);//false
+        console.log(10=='10');//true
+        console.log(10==='10');//false
+
+
+        //逻辑运算符
+        // &amp;&amp; 与，两个条件都为真，结果才为真
+        // || 或，两个条件有一个为真，结果就为真
+        // ! 非，取反
+        //tips：短路运算
+        //如果第一个条件为真，后面的条件就不执行了
+        //如果第一个条件为假，后面的条件就执行了
+        console.log(4<span class="pl-kos">&lt;</span><span class="pl-ent">5</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">5</span><span class="pl-kos">&lt;</span>6);//true
+        console.log(4<span class="pl-kos">&lt;</span><span class="pl-ent">5</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">5</span><span class="pl-kos">&gt;</span>6);//false
+        console.log(4<span class="pl-kos">&gt;</span>5 || 5<span class="pl-kos">&lt;</span><span class="pl-ent">6</span><span class="pl-c1">);</span>//true
+        console.log(!true);//false
+
+
+        //短路运算
+        console.log(4<span class="pl-kos">&lt;</span><span class="pl-ent">5</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">alert(</span>"hello1"));//true 第一个为真，返回第二个
+        console.log(4<span class="pl-kos">&gt;</span>5 &amp;&amp; alert("hello2"));//false 第一个为假，第二个不执行
+        console.log(4<span class="pl-kos">&lt;</span><span class="pl-ent">5</span> <span class="pl-c1">||</span> <span class="pl-c1">alert(</span>"hello3"));//true 第一个为真，第二个不执行
+        console.log(4<span class="pl-kos">&gt;</span>5 || alert("hello4"));//false 第一个为假，返回第二个
+
+
+        //赋值运算符
+        // = += -= *= /= %=
+        //tips：+= -= *= /= %= 都可以简化代码，使代码更简洁
+        var num = 10;
+        num += 5;//num = num + 5
+        console.log(num);//15
+
+
+        //运算符优先级
+        //先乘除后加减
+        //先算括号里的
+        //一元运算符 ++ -- 优先级最高
+        //逻辑运算符 &amp;&amp; || 优先级最低</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//流程控制 （顺序结构 分支结构 循环结构）
+
+
+        //if语句
+        //if语句用于条件判断，根据条件的真假来执行不同的代码
+        //if语句的语法：
+        //if(条件){
+        //    条件为真时执行的代码
+        //}else{
+        //    条件为假时执行的代码
+        //}
+        //if语句的执行流程：
+        //1.首先判断条件是否为真
+        //2.如果条件为真，则执行if语句块中的代码
+        //3.如果条件为假，则执行else语句块中的代码
+        //switch语句
+        //switch语句用于多分支选择，根据不同的条件执行不同的代码
+
+
+        //switch语句的语法：
+        //switch(表达式){
+        //    case 值1:
+        //        代码块1
+        //        break;
+        //    case 值2:
+        //        代码块2
+        //        break;
+        //    ...</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//闰年
+        //能被四整除 不能被100整除 或者能被400整除
+        var year = prompt("请输入年份");
+        if(year % 4 == 0 &amp;&amp; year % 100 !==0 || year % 400 == 0){
+            alert(year + "是闰年");
+        }else{
+            alert(year + "不是闰年");
+        }</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">switch(1){
+            case 1:
+                console.log("星期一");
+                break;
+            case 2:
+                console.log("星期二");
+                break;
+            case 3:
+                console.log("星期三");
+                break;
+            case 4:
+                console.log("星期四");
+                break;
+            case 5:
+                console.log("星期五");
+                break;
+            case 6:
+                console.log("星期六");
+                break;
+            case 7:
+                console.log("星期日");
+                break;
+            default:
+                console.log("输入有误");
+        }</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//三元表达式
+        //语法：条件 ? 表达式1 : 表达式2
+        //如果条件为真，则执行表达式1，否则执行表达式2
+        var age = 18;
+        var result = age <span class="pl-kos">&gt;</span>= 18 ? "成年" : "未成年";
+        console.log(result);</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//循环
+        //for循环
+        //whie循环
+        //do while循环
+        //for in循环
+        //for of循环
+
+
+        //break和continue
+        //break:跳出整个循环
+        //continue:跳出本次循环，继续下一次循环
+
+
+        //for循环
+        //for(初始化变量;条件表达式;操作表达式){
+        //    循环体
+        //}
+        //初始化变量：定义一个变量并赋初值
+        //条件表达式：判断条件，如果为true，则执行循环体，如果为false，则跳出循环
+        //操作表达式：每次循环结束后执行的操作
+        for(var i =0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
+            <span class="pl-c1">console.log(i)</span>
+        <span class="pl-c1">}</span>
+
+
+        //while循环
+        //while(条件表达式){
+        //    循环体
+        //}
+        //条件表达式：判断条件，如果为true，则执行循环体，如果为false，则跳出循环
+        //循环体：循环执行的代码
+        var i = <span class="pl-s">0;</span>
+        <span class="pl-c1">while(i</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span><span class="pl-c1">){</span>
+            <span class="pl-c1">console.log(i)</span>
+            <span class="pl-c1">i++</span>
+        <span class="pl-c1">}</span>
+
+
+        // do while循环
+        // do{
+        //    循环体
+        // }while(条件表达式)
+        // do 
+        var i = <span class="pl-s">1;</span>
+        <span class="pl-c1">do</span> <span class="pl-c1">{</span>
+            <span class="pl-c1">console.log(i)</span>
+            <span class="pl-c1">i++;</span>
+        <span class="pl-c1">}</span> <span class="pl-c1">while</span> <span class="pl-c1">(i</span> <span class="pl-kos">&lt;</span> 99);
+
+
+
+
+        //递加
+        var sum = <span class="pl-s">0;</span>
+        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">1;</span> <span class="pl-c1">i</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span> <span class="pl-ent">10</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
+            <span class="pl-c1">sum</span> = <span class="pl-s">sum</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">console.log(sum);</span>
+        
+        //平均数
+        sum = <span class="pl-s">0;</span>
+        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">1;</span> <span class="pl-c1">i</span> <span class="pl-kos">&lt;</span>= <span class="pl-s">100</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
+            <span class="pl-c1">sum</span> = <span class="pl-s">sum</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
+
+
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">arg</span> = <span class="pl-s">sum/100;</span>
+        <span class="pl-c1">console.log(arg);</span>
+        
+        //奇偶数和
+        var sum1 = <span class="pl-s">0;</span>
+        <span class="pl-c1">var</span> <span class="pl-c1">sum2</span> = <span class="pl-s">0;</span>
+        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">1;</span> <span class="pl-c1">i</span> <span class="pl-kos">&lt;</span>= <span class="pl-s">100</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
+            <span class="pl-c1">if(i</span> <span class="pl-c1">%</span> <span class="pl-c1">2</span> == 0){
+                //偶数
+                sum1 = <span class="pl-s">sum1</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
+            <span class="pl-c1">}else{</span>
+                //奇数
+                sum2 = <span class="pl-s">sum2</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
+            <span class="pl-c1">}</span>
+
+
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">console.log(sum1);</span>
+        <span class="pl-c1">console.log(sum2);</span>
+        <span class="pl-c1">console.log(sum1</span> <span class="pl-c1">+</span> <span class="pl-c1">sum2);</span>
+
+
+        <span class="pl-c1">sum</span> = <span class="pl-s">0;</span>
+        //1-100能被3整除的数的和
+        for(var i = 1; i <span class="pl-kos">&lt;</span>= 100 ; i++){
+            if(i % 3 ==0){
+                sum = sum + i;
+            }
+        }
+        console.log(sum);
+
+
+        // //练习
+        // var count = prompt('几个人');
+        // var course;
+        // sum = 0;
+        // for(var i = 1; i <span class="pl-kos">&lt;</span>= count ; i++){
+        //     course = prompt('第'+i+'个人');
+        //     sum = sum + parseInt(course);
+        // }
+        // console.log(sum/count);
+
+
+        for(var i = 1; i <span class="pl-kos">&lt;</span>= 9 ; i++){
+
+
+            for(var j = 1; j <span class="pl-kos">&lt;</span>= i ; j++){
+                document.write(j+'*'+i+'='+i*j+' ');//写入到网页
+            }
+            document.write('<span class="pl-kos">&lt;</span>br<span class="pl-kos">&gt;</span>');
+        }
+
+
+        var str = '';
+        for(var i = 1; i <span class="pl-kos">&lt;</span>= 9 ; i++){
+            str = str + '❤';
+            console.log(str);
+        }
+
+
+        
+        for(var i = 10 ; i <span class="pl-kos">&gt;</span>= 0 ; i--){
+            var str = '';
+            for(var j = i;j <span class="pl-kos">&gt;</span>= 0 ; j--){
+                str = str + '❤';
+            }
+            console.log(str);
+        }
+
+
+        for(var i = 1; i <span class="pl-kos">&lt;</span>= 9 ; i++){
+            for(j = 1; j <span class="pl-kos">&lt;</span>= i;j ++){
+                document.write(j+'*'+i+'='+i*j+' ');
+            }
+            document.write('<span class="pl-kos">&lt;</span><span class="pl-ent">br</span><span class="pl-kos">&gt;</span>');
+        }
+
+
+        var i = 1;
+        while(i <span class="pl-kos">&lt;</span>= 100){
+            
+            console.log(i);
+            i++;
+        }
+
+
+        var i = 1;
+        do {
+            console.log(i + '岁了');
+            i ++;
+
+
+            if (i == 2){
+                break;
+            }
+        } while (i <span class="pl-kos">&lt;</span>= 99);
+
+
+        var i = 1;
+        do {
+            console.log(i + '岁了');
+            i ++;
+
+
+            if (i == 2){
+                continue;
+            }
+        } while (i <span class="pl-kos">&lt;</span>= 99);
+
+
+        
+        //数组是一组数据的集合存储在单个变量里的优雅方式
+
+
+        //两种创建方式
+        new Array(1,2,3,4,5,6,7,8,9,10);
+        var arr = [1,2,3,4,5,6,7,8,9,10];
+
+
+        console.log(arr[0]);
+
+
+        for (let index = 0; index <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">index++)</span> <span class="pl-c1">{</span>
+            <span class="pl-c1">const</span> <span class="pl-c1">element</span> = <span class="pl-s">arr[index];</span>
+            <span class="pl-c1">console.log(element);</span>
+        <span class="pl-c1">}</span>
+
+
+        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">0</span> <span class="pl-c1">;</span> <span class="pl-c1">i</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
+            <span class="pl-c1">console.log(arr[i]);</span>
+        <span class="pl-c1">}</span>
+
+
+        <span class="pl-c1">var</span> <span class="pl-c1">arr</span> = <span class="pl-s">[11,2,33,44,5,66,77];</span>
+        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">0;i</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
+            <span class="pl-c1">max</span> = <span class="pl-s">0;</span>
+            <span class="pl-c1">if(arr[i]</span> <span class="pl-kos">&gt;</span> max){
+                max = arr[i];
+            }
+     
+        }
+        console.log(max);
+        for(var i = 0;i<span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
+            <span class="pl-c1">min</span> = <span class="pl-s">999;</span>
+            <span class="pl-c1">if(arr[i]</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span><span class="pl-ent">min</span><span class="pl-c1">){</span>
+                <span class="pl-c1">min</span> = <span class="pl-s">arr[i];</span>
+            <span class="pl-c1">}</span>
+
+
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">console.log(min);</span>
+
+
+        //也可以使用array.lenth
+        var j = <span class="pl-s">0;</span>
+        <span class="pl-c1">var</span> <span class="pl-c1">arr1</span> = <span class="pl-s">new</span> <span class="pl-c1">Array();</span>
+        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span>=<span class="pl-s">0;i</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
+            <span class="pl-c1">console.log(arr[i]);</span>
+            <span class="pl-c1">if(arr[i]</span> <span class="pl-kos">&gt;</span> 10){
+                console.log('大于10');
+                arr1[j] = arr[i];
+                j++;
+            }
+        }
+        console.log(arr1);
+
+
+        var arr1 = [];
+        for(var i = 0;i<span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
+            <span class="pl-c1">if(arr[i]</span> <span class="pl-kos">&gt;</span> 10){
+                arr1[arr1.length] = arr[i];
+            }
+        }
+        console.log(arr1);
+
+
+        var arr = [1,2,3,4,5,6,7,8,9,10];
+        var arr2 = [];
+
+
+        for(var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.lenth;</span> <span class="pl-c1">i++){</span>
+            <span class="pl-c1">if(arr[i]</span> <span class="pl-c1">!</span>= <span class="pl-s">2){</span>
+                <span class="pl-c1">arr2[arr2.length]</span> = <span class="pl-s">arr[i];</span>
+            <span class="pl-c1">}</span>
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">console.log(arr2);</span>
+
+
+        <span class="pl-c1">var</span> <span class="pl-c1">arr</span> = <span class="pl-s">[1,2,3,4,5,6,7,8,9,10];</span>
+        <span class="pl-c1">console.log(arr);</span>
+        <span class="pl-c1">arr1</span> = <span class="pl-s">[];</span>
+        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">0;</span> <span class="pl-c1">i</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++){</span>
+            <span class="pl-c1">console.log(arr[arr.length</span> <span class="pl-c1">-</span> <span class="pl-c1">i</span> <span class="pl-c1">-1]);</span>
+            <span class="pl-c1">arr1[arr1.length]</span> = <span class="pl-s">arr[arr.length</span> <span class="pl-c1">-</span> <span class="pl-c1">i</span> <span class="pl-c1">-1];</span>
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">console.log(arr1);</span>
+
+
+        //倒序输出index
+        var a = '<span class="pl-s">index</span>'<span class="pl-c1">;</span>
+        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">a.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1;</span> <span class="pl-c1">i</span> <span class="pl-kos">&gt;</span>= 0; i--){
+            console.log(a[i]);
+        }
+
+
+        //数组去重
+        var arr = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10];
+
+
+
+        var arr1 = [];
+        for(var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++){</span>
+            <span class="pl-c1">if(arr1.indexOf(arr[i])</span> == <span class="pl-s">-1){</span>
+                <span class="pl-c1">arr1[arr1.length]</span> = <span class="pl-s">arr[i];</span>
+            <span class="pl-c1">}</span>
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">console.log(arr1);</span>
+
+
+
+ 
+
+
+        //修改数组长度
+        //JS中数组长度是可变的
+        arr.length = <span class="pl-s">10;</span>
+        //修改索引号
+        arr['你好']='666';
+        console.log(arr['你好']);
+
+
+        //冒泡排序
+        arr = [44,66,11,22,33];
+        for(var i = 0; i <span class="pl-kos">&lt;</span> arr.length -1; i++){
+            for(var j = 0; j <span class="pl-kos">&lt;</span> arr.length - 1 -i; j++){
+                if(arr[j] <span class="pl-kos">&gt;</span> arr[j+1]){
+                    var temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+
+
+        //函数：封装一段可重复使用的代码块
+        function fn(){
+            console.log('hello world');
+        }
+        fn();
+
+
+        //函数接收的实参小于形参 时，形参的值为undefined
+        function fn(a,b){
+            console.log(a,b);
+        }
+        fn(1);
+        //函数接收的实参大于形参 时，形参的值为undefined
+
+
+        //函数没有return 返回值时，返回值为undefined
+
+
+        //return 不仅可以退出循环，还可以返回结果，结束当前函数</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">//arguments存储了所以实参
+        //它是伪数组的形式
+        function f(){
+            console.log(arguments);
+            console.log(arguments.length);
+        }
+        f(1,2,3,4,5,6,7,8,9,10);
+        //只有函数采样arguments对象，每个函数都有arguments对象，用来存储实参
+
+
+        //获取最大数
+        function getMax(){
+            var max = arguments[0];//先取第一个数
+            for(var i = 0;i<span class="pl-kos">&lt;</span><span class="pl-ent">arguments</span><span class="pl-c1">.length;i++){</span>
+                <span class="pl-c1">if(arguments[i]</span><span class="pl-kos">&gt;</span>max){
+                    max = arguments[i];
+                }
+            }
+            return max;
+        }
+        console.log(getMax(22,44,66,11));
+        
+        //倒序输出
+        function fun1(){
+            var str = arguments[0];
+            var str1 = [];
+            for(var i = 0;i<span class="pl-kos">&lt;</span><span class="pl-ent">str</span><span class="pl-c1">.length;i++){</span>
+                <span class="pl-c1">str1[i]</span> = <span class="pl-s">str[str.length-1-i];</span>
+            <span class="pl-c1">}</span>
+            <span class="pl-c1">return</span> <span class="pl-c1">str1;</span>
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">console.log(fun1(</span>"hello"));
+
+
+        //冒泡排序
+        function fun2(){
+            var arr = <span class="pl-s">arguments[0];</span>
+            <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">0;i</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
+                <span class="pl-c1">for(var</span> <span class="pl-c1">j</span> = <span class="pl-s">0;j</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length</span> <span class="pl-c1">-1</span> <span class="pl-c1">-i;j++){</span>
+                    <span class="pl-c1">if(arr[j]</span> <span class="pl-kos">&gt;</span> arr[j+1]){
+                        var temp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1]= temp;
+                    }
+                }
+
+
+            }
+            return arr;
+        }
+        console.log(fun2([1,3,2,5,4]));
+
+
+        function isRunYear() {
+            var year = arguments[0];
+            if(year % 4 == 0 &amp;&amp; year % 100 != 0 || year % 400 == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        console.log(isRunYear(2000));
+
+
+        //函数的两种声明方式
+        //1.function关键字声明
+        //2.函数表达式声明 var f = function(){} 这个也叫做匿名函数 调用方式 f();
+        var f = function(){
+            console.log("hello");
+        }
+        f();
+
+
+        //作用域
+        //作用域就是代码名字再某个范围内起作用和效果
+        //js的作用域有两种（es6之前）
+        //1.全局作用域：整个script标签或者一个单独的js文件
+        //2.局部作用域：函数内部就是局部作用域
+
+
+        //全局变量 （再函数内部没有声明直接赋值的变量也是全局变量）
+        var num = 10;
+        console.log(num);
+        function fun(){
+            console.log(num);
+        }
+        fun();
+
+
+        //局部变量 （函数的形参也可以看作局部变量）
+        function fun1(){
+            var num1 = 20;
+            console.log(num1);
+        }
+        fun1();
+        //console.log(num1);//报错
+
+
+        //全局变量只有在浏览器关闭才会销毁，局部变量在函数执行完毕就会销毁
+        //js没有块级作用域，其他语言有
+
+
+        //java
+        // if(true){
+        //     int num = 10;
+        //     System.out.println(num);
+        // }
+        // //System.out.println(num);//报错
+
+
+        //作用域链（就近原则）
+        //当在函数内部查找变量的时候，先在函数内部查找，如果函数内部没有这个变量，则会向上一级查找，直到全局作用域，这个查找的过程就是作用域链
+        function fun2(){
+            var num2 = 20;
+            function fun3(){
+                var num3 = 30;
+                console.log(num3);
+                console.log(num2);
+                console.log(num);
+            }
+            fun3();
+        }
+        fun2();
+
+
+        //预解析
+        //js执行分为两个过程：预解析和执行
+        //预解析会将当前作用域下所有带var和function关键字的进行提前声明或定义
+        //预解析分为全局预解析和函数内部预解析
+        //全局预解析只会声明不会赋值，函数内部预解析会声明并且赋值
+        //预解析只会解析当前作用域，不会解析其他作用域
+
+
+        //直接运行会报错
+        //console.log(num); 
+
+
+        console.log(num1);// undefined
+        num1 = 10;//坑1
+
+
+        //相当于
+        var num1;
+        console.log(num1);
+        num1 = 10;
+
+
+        
+
+
+        fn();//正常调用
+        function fn() {
+            console.log('fn');            
+        }
+
+
+        // fn1();//报错，fn1 is not a function
+        // var fn1 = function() {
+        //     console.log('fn1');            
+        // }
+        //坑2
+
+
+        //JS中预解析分为变量预解析（变量提升）和函数预解析（函数提升）
+        //变量提升：将变量声明提升到当前作用域的最上面，不提升赋值操作（把这些提到最前面）
+        //函数提升：将函数声明提升到当前作用域的最上面，不调用函数
+
+
+        //所以函数表达式调用必须写在函数赋值之后</pre></div>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate">function fun1(){
+            var a = b = c = 9;//a是局部变量，b和c是全局变量
+            console.log(a,b,c);
+        }
+        fun1();//要执行才会有b c
+        //console.log(a);//报错
+        console.log(b);//9
+        console.log(c);//9
+
+
+
+        //对象
+        //对象是一个具体的事物，一个具体的事物由属性和方法组成
+        //属性：事物的特征，在对象中用属性来表示（常用名词）
+        //方法：事物的行为，在对象中用方法来表示（常用动词）
+        //保存一个值时我们开可以用变量，多个值可以用数组，而使用对象可以使结构更清晰
+        //创建对象
+        //1.字面量创建对象 {}
+        //2.利用new Object
+        //3.利用构造函数创建对象
+
+
+        //利用字面量
+        var obj1 = {}//创建了一个空的对象
+        var obj1 = {
+            name:'shiraayano',
+            age:3,
+            sex:'Ta',
+            sayHi:function(){
+                console.log('hi');
+            }
+        }
+        console.log(obj1.name);
+        console.log(obj1['age']);
+        obj1.sayHi();//调用方法 （对象里的函数叫做方法）
+
+
+        //利用new Object
+        var obj2 = new Object();
+        obj2.name = 'shiraayano';
+        obj2.age = 6;
+        obj2.sex = 'Ta';
+        obj2.sayHi = function(){
+            console.log('hi');
+        }
+        //我们利用new Object创建对象时，属性和方法写法与字面量方式一样
+
+
+        //利用构造函数创建对象
+        //构造函数就是把我们对象里面一些相同的属性方法抽取出来封装到函数里
+        //利用构造函数创建对象叫做实例化
+        function User(name,age,sex){
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.sayHi = function(){
+                console.log('hi');
+            }
+        }
+        var u1 = new User('shiraayano',3,'Ta');
+        var u2 = new User('adouzi',3,'Ta');
+        console.log(u1.name);
+
+
+        //new在执行时会做四件事
+        //1.在内存中开辟一块空间
+        //2.把this指向这块空间
+        //3.执行构造函数，给对象添加属性和方法
+        //4.返回这个对象（所以构造函数里面不需要return）
+
+
+        //遍历对象
+        //使用for...in语句
+        for(var k in u1){
+            console.log(k);//输出属性名
+            console.log(u1[k]);//输出属性值
+        }
+
+
+        //内置对象
+        //JS对象分为三种，自定义对象，内置对象，浏览器对象
+        //内置对象就是指js语言自带的一些对象，供开发者使用，并提供了一些常用的功能（属性和方法）
+        //比如Math、Date、Array、String等
+        //查询MDN、w3c文档 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/abs#%E8%AF%AD%E6%B3%95
+        
+        //Math函数不是一个构造函数，所以我们不需要new
+        console.log(Math.PI);//圆周率
+        console.log(Math.abs(-1));//绝对值
+        console.log(Math.max(1,2,3,4,5));
+        console.log(Math.floor(1.9));//向下取整
+        console.log(Math.ceil(1.1));//向上取整
+        console.log(Math.round(-1.5));//四舍五入 负数.05往大了取 所以 结果是-1
+        console.log(Math.random());
+
+
+        function getRandom(min,max){//获取min到max之间的随机整数
+            return Math.floor(Math.random()*(max-min+1))+min;
+        }
+
+
+        //猜数字游戏
+        // var game = true;
+        // var count = 0;
+        // var random = getRandom(1,10);
+        // while(game &amp;&amp; count <span class="pl-kos">&lt;</span> <span class="pl-ent">3</span><span class="pl-c1">){</span>
+        //     count++;
+        //     var num = <span class="pl-s">prompt(</span>'请输入1-10之间的数字');
+
+
+        //     if(num <span class="pl-kos">&gt;</span> random){
+        //         alert('大了');
+        //     }else if(num <span class="pl-kos">&lt;</span> <span class="pl-ent">random</span><span class="pl-c1">){</span>
+        //         alert('小了');
+        //     }else{
+        //         alert('恭喜你猜对了');
+        //         game = <span class="pl-s">false;</span>
+        //     }
+        // }
+
+
+
+        var mMath = {
+            PI: Math.PI,
+            max: function() {
+                return Math.max.apply(null, arguments);
+            },
+            min: function() {
+                return Math.min.apply(null, arguments);
+            },
+            pai: function() {
+                var arg = Array.prototype.slice.call(arguments);
+                for (var i = 0; i <span class="pl-kos">&lt;</span> arguments.length; i++) {
+                    for (var j = 0; j <span class="pl-kos">&lt;</span> <span class="pl-ent">arguments</span><span class="pl-c1">.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span> <span class="pl-c1">-</span> <span class="pl-c1">i;</span> <span class="pl-c1">j++)</span> <span class="pl-c1">{</span>
+                        <span class="pl-c1">if</span> <span class="pl-c1">(arg[j]</span> <span class="pl-kos">&gt;</span> arg[j + 1]) {
+                            var temp = arg[j];
+                            arg[j] = arg[j + 1];
+                            arg[j + 1] = temp;
+                        }
+                    }
+                }
+                return arg;
+            }
+        }
+        console.log(mMath.pai(66, 1, 2, 3, 4, 5));
+
+
+        //Date对象
+        //Date是构造函数，需要new来创建对象，实例化后才能用
+        var d = new Date();
+        console.log(d);
+        console.log(d.getFullYear());//获取年份
+        console.log(d.getMonth());//获取月份 0-11
+        console.log(d.getDate());//获取日期
+        console.log(d.getDay());//获取星期几 0-6
+        console.log(d.getHours());//获取小时
+        console.log(d.getMinutes());//获取分钟
+        console.log(d.getSeconds());//获取秒数
+        console.log(d.getTime());//获取时间戳
+        console.log(d.toLocaleDateString());//获取日期
+        console.log(d.toLocaleTimeString());//获取时间
+
+
+        console.log(d);//默认返回系统时间 Tue Feb 11 2025 04:15:49 GMT+0800 (中国标准时间)
+        var e = new Date(2025, 1, 11, 4, 15, 49);
+        console.log(e);//返回指定时间 2025-02-11T16:15:49.000Z
+        var f = new Date('2025-02-11 16:15:49');
+        console.log(f);//返回指定时间 2025-02-11T08:15:49.000Z
+
+
+        var g = new Date('2025-02-11 16:15:49');
+        console.log(g.getFullYear());//2025
+        console.log(g.getMonth());//1 月份返回0-11 所以需要自己 +1
+        console.log(g.getDate());//11
+        console.log(g.getDay());//2 周日返回0
+        console.log(g.getHours());//16
+        console.log(g.getMinutes());//15
+        console.log(g.getSeconds());//49
+        console.log(g.getTime());//返回时间戳 1676055749000
+
+
+        console.log(g.getFullYear() +'年'+ (g.getMonth()+1) + g.getDate() + g.getDay() + g.getHours() + g.getMinutes() + g.getSeconds());
+
+
+        //补零
+        h = g.getSeconds();
+        h = h <span class="pl-kos">&lt;</span> <span class="pl-ent">10</span> <span class="pl-c1">?</span> '0' + h : h;//三元运算符
+        //等价于
+        if(h<span class="pl-kos">&lt;</span><span class="pl-ent">10</span><span class="pl-c1">){</span>
+            <span class="pl-c1">h</span> = '<span class="pl-s">0</span>' <span class="pl-c1">+</span> <span class="pl-c1">h;</span>
+        <span class="pl-c1">}else{</span>
+            <span class="pl-c1">h</span> = <span class="pl-s">h;</span>
+        <span class="pl-c1">}</span>
+
+
+        //时间戳
+        //valueOf()返回时间戳 getTime()返回时间戳 +new Date()返回时间戳 Date.now()返回时间戳
+        console.log(d.valueOf());
+        console.log(d.getTime());
+        console.log(+new Date());
+        console.log(Date.now());
+
+
+        //倒计时
+        var time = <span class="pl-s">new</span> <span class="pl-c1">Date(</span>'2025-02-11 16:15:49');
+        var now = <span class="pl-s">+new</span> <span class="pl-c1">Date();</span>
+        <span class="pl-c1">var</span> <span class="pl-c1">target</span> = <span class="pl-s">+new</span> <span class="pl-c1">Date(time);</span>
+        <span class="pl-c1">var</span> <span class="pl-c1">s</span> = <span class="pl-s">(target</span> <span class="pl-c1">-</span> <span class="pl-c1">now)</span> / 1000;
+        var d = <span class="pl-s">Math.floor(s</span> / (60 * 60 * 24));
+        var h = Math.floor(s % (60 * 60 * 24) / (60 * 60));
+        var m = Math.floor(s % (60 * 60) / 60);
+
+
+        function countDown(time) {
+            
+            var now = +new Date();
+            var inputTime = +new Date(time);
+            times = inputTime - now;
+            var d = parseInt(times / 1000 / 60 / 60 / 24);
+            var h = parseInt(times / 1000 / 60 / 60 % 24);
+            var m = parseInt(times / 1000 / 60 % 60);
+            var s = parseInt(times / 1000 % 60);
+            d = d <span class="pl-kos">&lt;</span> 10 ? '0' + d : d;
+            h = h <span class="pl-kos">&lt;</span> 10 ? '0' + h : h;
+            m = m <span class="pl-kos">&lt;</span> 10 ? '0' + m : m;
+            s = s <span class="pl-kos">&lt;</span> 10 ? '0' + s : s;
+            re = d + '天' + h + '时' + m + '分' + s + '秒';
+            return re;
+
+
+        }
+        console.log(countDown('2025-02-11 16:15:49'));
+
+
+        //数组
+        arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        arr1 = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        arr2 = new Array(10);//创建一个长度为10的数组
+
+
+        arr4 = [];
+        for(var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++){</span>
+            <span class="pl-c1">arr4[i]</span> = <span class="pl-s">arr[arr.length</span> <span class="pl-c1">-</span> <span class="pl-c1">i</span> <span class="pl-c1">-</span> <span class="pl-c1">1];</span>
+        <span class="pl-c1">}</span>
+        <span class="pl-c1">console.log(arr4);</span>
+
+
+        //检测是否为数组
+        //instanceof Array
+        //Array.isArray() h5新增 ie9以上才支持
+        console.log(arr instanceof Array);
+        console.log(Array.isArray(arr));
+
+
+        //添加删除数组元素
+        //push() 在数组末尾添加一个或多个元素 返回节后是新数组的长度
+        //pop() 删除数组末尾的一个元素 删除哪个元素返回哪个元素
+        //unshift() 在数组开头添加一个或多个元素
+        //shift() 删除数组开头的一个元素
+        //splice() 可以在数组中添加或删除元素
+        //slice() 从数组中返回选定的元素
+        //concat() 连接两个或多个数组
+        //join() 将数组元素连接成一个字符串
+        //reverse() 反转数组
+
+
+        arr.push(11);
+        console.log(arr);
+        arr.unshift(0);
+        console.log(arr);
+
+
+        //sort升序
+        arr.sort(function(a, b) {
+            return a - b;
+        });
+        console.log(arr);
+
+
+        //sort降序
+        arr.sort(function(a, b) {
+            return b - a;
+        });
+        console.log(arr);
+
+
+        //indexOf() 查找数组中某个元素的下标 从前往后找
+        //lastIndexOf() 查找数组中某个元素的下标 从后往前找
+
+
+        
+        arr = <span class="pl-s">[</span>'苹果', 'a', 'b', 'c', 'd','a', 'e', 'f', 'g', 'h', 'i', 'j'];
+        console.log(arr.indexOf('b'));
+
+
+        //去除重复项
+        var arr1 = [];
+        for(var i = 0; i <span class="pl-kos">&lt;</span> arr.length; i++) {
+            
+                if(arr.indexOf(arr[i]) == arr.lastIndexOf(arr[i])) {
+                    arr1[arr1.length] = arr[i];
+                }else{
+                    
+                }
+            
+        }
+        console.log(arr1);
+
+
+        //数组去重
+        //利用indexOf遇到没有的时候返回-1
+        // arr1 = [arr[0]];
+        // for(var i = 0; i <span class="pl-kos">&lt;</span> arr.length; i++) {
+        //     for(var j = 0; j <span class="pl-kos">&lt;</span> arr1.length; j++) {
+        //         if(arr1.indexOf(arr[i]) == -1) {
+        //             arr1[arr1.length] = arr[i];
+        //         }
+        //     }
+        // }
+        // console.log(arr1);
+        
+        for(var i = 0; i <span class="pl-kos">&lt;</span> arr.length; i++) {
+            if(arr.indexOf(arr[i]) == i) {
+                arr1[arr1.length] = arr[i];
+            }
+        }
+        console.log(arr1);
+
+
+        //把数组转化为字符串 toString() join()
+        //区别是join可以指定分隔符
+        console.log(arr.toString());
+        console.log(arr.join(''));
+
+
+        //concat() 连接两个或多个数组
+        //slice() 从数组中返回选定的元素
+        //splice() 可以在数组中添加或删除元素
+
+
+
+        //基本包装类型
+        //只有复杂类型才有属性和方法
+        //把简单数据类型包装成复杂数据类型
+
+
+        var str = 'andy';
+        console.log(str.length);
+
+
+        //可以看成
+        var temp = new String('andy');//创建了一个对象
+        str = temp;//赋值
+        temp = null;//销毁
+
+
+
+        //字符串不可变
+        //看上去变了，其实是地址变了，开辟了新的空间
+        //所以我们不要进行大量的字符串拼接
+
+
+
+        //字符串所有的方法都不会改变原字符串，都会返回一个新的字符串
+        //字符串不可变，所以拼接字符串时应该优先使用数组
+
+
+        //字符串的不可变
+        var str = 'andy';
+        str = 'red';
+        console.log(str);//red
+
+
+        //字符串的拼接
+        var str = 'andy';
+        console.log(str + 'red');
+
+
+        //字符串长度
+        var str = 'andy';
+        console.log(str.length);
+
+
+        //字符串的拼接
+        var str = 'andy';
+        console.log(str + 'red');
+
+
+        //字符串的拼接
+        var str = 'andy';
+        console.log(str + 'red');
+
+
+        str = '改革春风吹满地,春风吹满地';
+        console.log(str.indexOf('春',3));//查找字符串中指定内容的位置
+
+
+        //查找出现的位置和次数
+        //利用indexOf()查找字符串中指定内容的位置
+        //只要返回的不是-1就继续找
+        // var count = 0;
+        // var re = true;
+        // str = '改革春风吹满地,春风吹满地';
+        // var index = str.indexOf('春');
+        // while(re){
+            
+
+
+        //     if(index != -1) {
+        //         count++;
+        //         str = str.indexOf('春',index + 1);
+        //     }else{
+        //         re = false;
+        //     }
+        // }
+        // console.log(count);
+
+
+
+
+        //根据位置返回字符
+        //charAt() 根据索引返回字符
+        //charCodeAt() 根据索引返回字符编码 ASCII码 可以用来判断字母大小写
+        //str[index] 根据索引返回字符
+
+
+        var str = 'andy';
+        console.log(str.charAt(3));
+        console.log(str.charCodeAt(3));
+        console.log(str[3]);
+
+
+        //统计出现最多的字符
+        //利用charAt() 遍历字符串
+        //利用charCodeAt() 获取字符编码
+        //利用对象，属性名重复会覆盖
+        var str = 'andyandyandy';
+        var o = {};
+        for(var i = 0; i <span class="pl-kos">&lt;</span> str.length; i++) {
+            var chars = str.charAt(i);
+            if(o[chars]) {
+                o[chars]++;
+            }else{
+                o[chars] = 1;
+            }
+        }
+        console.log(o);
+        var max = 0;
+        var maxname = '';
+        //遍历对象
+        for(var k in o) {
+            if(o[k] <span class="pl-kos">&gt;</span> max) {
+                max = o[k];
+                maxname = k;
+            }
+        }
+
+
+
+        //拼接，截取字符串
+        //concat() 连接两个或多个字符串
+        //slice() 从数组中返回选定的元素
+        //splice() 可以在数组中添加或删除元素
+
+
+        //字符串截取
+        //slice() 从数组中返回选定的元素
+        //substring() 从数组中返回选定的元素
+        //substr() 从数组中返回选定的元素
+
+
+        var str = '改革春风吹满地';
+        console.log(str.slice(2,4));
+        console.log(str.substring(2,4));
+        console.log(str.substr(2,4));
+
+
+
+        //replace() 替换指定字符串
+        //split() 字符串分割成数组
+        //toUpperCase() 字符串转换成大写
+        //toLowerCase() 字符串转换成小写
+
+
+        var str = 'andy';
+        console.log(str.toUpperCase());
+        console.log(str.toLowerCase());
+
+
+        //字符串分割
+        var str = 'red,blue,green';
+
+
+        //简单数据类型也叫值类型，但是，null是对象
+        var temp = null;
+        console.log(typeof temp);//object
+        //如果有个变量以后打算存为对象可以先设为null
+
+
+        //简单数据类型存到栈里，存的值是值本身
+        //复杂数据类型存到堆里，栈里存的是地址，指向堆里的数据
+
+
+        //简单数据类型是直接操作值，复杂数据类型是操作地址
+        //简单数据类型作为函数的参数时，传递的是值
+        //复杂数据类型作为函数的参数时，传递的是地址</pre></div></div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
