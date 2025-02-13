@@ -1380,5 +1380,232 @@ fn1(); // 正常调用
 
 ---
 
+1. 变量作用域
+变量的作用域决定了变量的可访问范围。
+HTML复制
+function fun1() {
+    var a = b = c = 9; // a 是局部变量，b 和 c 是全局变量
+    console.log(a, b, c); // 输出 9 9 9
+}
+fun1(); // 要执行才会有 b 和 c
+// console.log(a); // 报错
+console.log(b); // 输出 9
+console.log(c); // 输出 9
+解释：在函数内部声明的变量 a 是局部变量，而 b 和 c 由于没有使用 var 声明，因此成为全局变量。
+2. 对象
+对象是一个具体的事物，由属性和方法组成。
+2.1 创建对象
+JavaScript 提供了多种方式来创建对象。
+2.1.1 字面量创建对象
+HTML复制
+var obj1 = {}; // 创建了一个空的对象
+var obj1 = {
+    name: 'shiraayano',
+    age: 3,
+    sex: 'Ta',
+    sayHi: function() {
+        console.log('hi');
+    }
+};
+console.log(obj1.name); // 输出 shiraayano
+console.log(obj1['age']); // 输出 3
+obj1.sayHi(); // 调用方法，输出 hi
+解释：使用对象字面量方式创建对象，并访问其属性和方法。
+2.1.2 使用 new Object 创建对象
+HTML复制
+var obj2 = new Object();
+obj2.name = 'shiraayano';
+obj2.age = 6;
+obj2.sex = 'Ta';
+obj2.sayHi = function() {
+    console.log('hi');
+};
+解释：通过 new Object 创建对象，属性和方法的写法与字面量方式相同。
+2.1.3 使用构造函数创建对象
+HTML复制
+function User(name, age, sex) {
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+    this.sayHi = function() {
+        console.log('hi');
+    };
+}
+var u1 = new User('shiraayano', 3, 'Ta');
+var u2 = new User('adouzi', 3, 'Ta');
+console.log(u1.name); // 输出 shiraayano
+解释：通过构造函数创建对象，称为实例化。构造函数中使用 this 指代新创建的对象。
+2.2 new 的执行过程
+new 关键字在执行时会做以下四件事：
+在内存中开辟一块空间。
+把 this 指向这块空间。
+执行构造函数，给对象添加属性和方法。
+返回这个对象（所以构造函数里面不需要 return）。
+2.3 遍历对象
+使用 for...in 语句遍历对象的属性。
+HTML复制
+for (var k in u1) {
+    console.log(k); // 输出属性名
+    console.log(u1[k]); // 输出属性值
+}
+解释：for...in 语句可以遍历对象的所有可枚举属性。
+3. 内置对象
+JavaScript 提供了一些内置对象，如 Math、Date、Array、String 等。
+3.1 Math 对象
+Math 对象提供了数学相关的属性和方法。
+HTML复制
+console.log(Math.PI); // 输出圆周率
+console.log(Math.abs(-1)); // 输出绝对值 1
+console.log(Math.max(1, 2, 3, 4, 5)); // 输出最大值 5
+console.log(Math.floor(1.9)); // 向下取整，输出 1
+console.log(Math.ceil(1.1)); // 向上取整，输出 2
+console.log(Math.round(-1.5)); // 四舍五入，输出 -1
+console.log(Math.random()); // 输出随机数
+解释：Math 对象提供了常用的数学功能，如绝对值、最大值、取整和随机数等。
+3.2 Date 对象
+Date 对象用于处理日期和时间。
+HTML复制
+var d = new Date();
+console.log(d); // 输出当前日期和时间
+console.log(d.getFullYear()); // 输出年份
+console.log(d.getMonth()); // 输出月份（0-11）
+console.log(d.getDate()); // 输出日期
+console.log(d.getDay()); // 输出星期几（0-6）
+console.log(d.getHours()); // 输出小时
+console.log(d.getMinutes()); // 输出分钟
+console.log(d.getSeconds()); // 输出秒数
+console.log(d.getTime()); // 输出时间戳
+console.log(d.toLocaleDateString()); // 输出本地日期
+console.log(d.toLocaleTimeString()); // 输出本地时间
+解释：Date 对象提供了获取和设置日期和时间的方法。
+3.3 自定义 Math 对象
+可以自定义一个对象来封装常用的数学方法。
+HTML复制
+var mMath = {
+    PI: Math.PI,
+    max: function() {
+        return Math.max.apply(null, arguments);
+    },
+    min: function() {
+        return Math.min.apply(null, arguments);
+    },
+    pai: function() {
+        var arg = Array.prototype.slice.call(arguments);
+        for (var i = 0; i < arguments.length; i++) {
+            for (var j = 0; j < arguments.length - 1 - i; j++) {
+                if (arg[j] > arg[j + 1]) {
+                    var temp = arg[j];
+                    arg[j] = arg[j + 1];
+                    arg[j + 1] = temp;
+                }
+            }
+        }
+        return arg;
+    }
+};
+console.log(mMath.pai(66, 1, 2, 3, 4, 5)); // 输出 [1, 2, 3, 4, 5, 66]
+解释：自定义了一个 mMath 对象，封装了常用的数学方法。
+4. 数组
+数组用于存储一组数据。
+4.1 创建数组
+HTML复制
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var arr1 = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+var arr2 = new Array(10); // 创建一个长度为10的数组
+解释：展示了三种创建数组的方式。
+4.2 数组操作
+HTML复制
+arr.push(11); // 在数组末尾添加元素
+console.log(arr); // 输出 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+arr.unshift(0); // 在数组开头添加元素
+console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+解释：使用 push 和 unshift 方法向数组中添加元素。
+4.3 数组排序
+HTML复制
+// 升序排序
+arr.sort(function(a, b) {
+    return a - b;
+});
+console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+// 降序排序
+arr.sort(function(a, b) {
+    return b - a;
+});
+console.log(arr); // 输出 [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+解释：使用 sort 方法对数组进行升序或降序排序。
+4.4 数组去重
+HTML复制
+var arr1 = [];
+for (var i = 0; i < arr.length; i++) {
+    if (arr.indexOf(arr[i]) == i) {
+        arr1[arr1.length] = arr[i];
+    }
+}
+console.log(arr1); // 输出去重后的数组
+解释：通过 indexOf 方法去除数组中的重复项。
+5. 字符串
+字符串用于存储文本数据。
+5.1 字符串不可变
+HTML复制
+var str = 'andy';
+str = 'red';
+console.log(str); // 输出 red
+解释：字符串是不可变的，每次修改字符串时，实际上是在创建一个新的字符串。
+5.2 字符串方法
+HTML复制
+var str = 'andy';
+console.log(str.length); // 输出 4
+console.log(str.toUpperCase()); // 输出 ANDY
+console.log(str.toLowerCase()); // 输出 andy
+解释：字符串提供了多种方法，如获取长度、转换大小写等。
+5.3 字符串拼接
+HTML复制
+var str = 'andy';
+console.log(str + 'red'); // 输出 andyred
+解释：使用 + 运算符可以拼接字符串。
+5.4 字符串查找
+HTML复制
+var str = '改革春风吹满地,春风吹满地';
+console.log(str.indexOf('春', 3)); // 输出 5
+解释：使用 indexOf 方法查找字符串中指定内容的位置。
+5.5 字符串截取
+HTML复制
+var str = '改革春风吹满地';
+console.log(str.slice(2, 4)); // 输出 春风
+console.log(str.substring(2, 4)); // 输出 春风
+console.log(str.substr(2, 4)); // 输出 春风地
+解释：使用 slice、substring 和 substr 方法截取字符串。
+5.6 字符串替换
+HTML复制
+var str = 'andy';
+console.log(str.replace('a', 'A')); // 输出 Andy
+解释：使用 replace 方法替换字符串中的指定内容。
+5.7 字符串分割
+HTML复制
+var str = 'red,blue,green';
+console.log(str.split(',')); // 输出 ["red", "blue", "green"]
+解释：使用 split 方法将字符串分割成数组。
+6. 数据类型
+JavaScript 中的数据类型分为简单数据类型和复杂数据类型。
+6.1 简单数据类型
+简单数据类型包括数字、字符串、布尔值等。
+HTML复制
+var temp = null;
+console.log(typeof temp); // 输出 object
+解释：null 是一个特殊的简单数据类型，表示空值。
+6.2 复杂数据类型
+复杂数据类型包括对象、数组等。
+HTML复制
+var arr = [1, 2, 3];
+console.log(arr instanceof Array); // 输出 true
+console.log(Array.isArray(arr)); // 输出 true
+解释：使用 instanceof 和 Array.isArray 方法检测变量是否为数组。
+7. 内存存储
+简单数据类型存储在栈中，复杂数据类型存储在堆中。
+HTML复制
+var str = 'andy';
+var obj = { name: 'andy' };
+解释：简单数据类型直接存储值，复杂数据类型存储的是地址。
 
 

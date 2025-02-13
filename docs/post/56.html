@@ -1051,7 +1051,235 @@ var fn1 = function() {
 }
 fn1(); // 正常调用</pre></div>
 <p><strong>解释</strong>：函数表达式调用必须写在函数赋值之后，否则会报错。</p>
-<hr></div>
+<hr>
+<ol>
+<li>变量作用域<br>
+变量的作用域决定了变量的可访问范围。<br>
+HTML复制<br>
+function fun1() {<br>
+var a = b = c = 9; // a 是局部变量，b 和 c 是全局变量<br>
+console.log(a, b, c); // 输出 9 9 9<br>
+}<br>
+fun1(); // 要执行才会有 b 和 c<br>
+// console.log(a); // 报错<br>
+console.log(b); // 输出 9<br>
+console.log(c); // 输出 9<br>
+解释：在函数内部声明的变量 a 是局部变量，而 b 和 c 由于没有使用 var 声明，因此成为全局变量。</li>
+<li>对象<br>
+对象是一个具体的事物，由属性和方法组成。<br>
+2.1 创建对象<br>
+JavaScript 提供了多种方式来创建对象。<br>
+2.1.1 字面量创建对象<br>
+HTML复制<br>
+var obj1 = {}; // 创建了一个空的对象<br>
+var obj1 = {<br>
+name: 'shiraayano',<br>
+age: 3,<br>
+sex: 'Ta',<br>
+sayHi: function() {<br>
+console.log('hi');<br>
+}<br>
+};<br>
+console.log(obj1.name); // 输出 shiraayano<br>
+console.log(obj1['age']); // 输出 3<br>
+obj1.sayHi(); // 调用方法，输出 hi<br>
+解释：使用对象字面量方式创建对象，并访问其属性和方法。<br>
+2.1.2 使用 new Object 创建对象<br>
+HTML复制<br>
+var obj2 = new Object();<br>
+obj2.name = 'shiraayano';<br>
+obj2.age = 6;<br>
+obj2.sex = 'Ta';<br>
+obj2.sayHi = function() {<br>
+console.log('hi');<br>
+};<br>
+解释：通过 new Object 创建对象，属性和方法的写法与字面量方式相同。<br>
+2.1.3 使用构造函数创建对象<br>
+HTML复制<br>
+function User(name, age, sex) {<br>
+this.name = name;<br>
+this.age = age;<br>
+this.sex = sex;<br>
+this.sayHi = function() {<br>
+console.log('hi');<br>
+};<br>
+}<br>
+var u1 = new User('shiraayano', 3, 'Ta');<br>
+var u2 = new User('adouzi', 3, 'Ta');<br>
+console.log(u1.name); // 输出 shiraayano<br>
+解释：通过构造函数创建对象，称为实例化。构造函数中使用 this 指代新创建的对象。<br>
+2.2 new 的执行过程<br>
+new 关键字在执行时会做以下四件事：<br>
+在内存中开辟一块空间。<br>
+把 this 指向这块空间。<br>
+执行构造函数，给对象添加属性和方法。<br>
+返回这个对象（所以构造函数里面不需要 return）。<br>
+2.3 遍历对象<br>
+使用 for...in 语句遍历对象的属性。<br>
+HTML复制<br>
+for (var k in u1) {<br>
+console.log(k); // 输出属性名<br>
+console.log(u1[k]); // 输出属性值<br>
+}<br>
+解释：for...in 语句可以遍历对象的所有可枚举属性。</li>
+<li>内置对象<br>
+JavaScript 提供了一些内置对象，如 Math、Date、Array、String 等。<br>
+3.1 Math 对象<br>
+Math 对象提供了数学相关的属性和方法。<br>
+HTML复制<br>
+console.log(Math.PI); // 输出圆周率<br>
+console.log(Math.abs(-1)); // 输出绝对值 1<br>
+console.log(Math.max(1, 2, 3, 4, 5)); // 输出最大值 5<br>
+console.log(Math.floor(1.9)); // 向下取整，输出 1<br>
+console.log(Math.ceil(1.1)); // 向上取整，输出 2<br>
+console.log(Math.round(-1.5)); // 四舍五入，输出 -1<br>
+console.log(Math.random()); // 输出随机数<br>
+解释：Math 对象提供了常用的数学功能，如绝对值、最大值、取整和随机数等。<br>
+3.2 Date 对象<br>
+Date 对象用于处理日期和时间。<br>
+HTML复制<br>
+var d = new Date();<br>
+console.log(d); // 输出当前日期和时间<br>
+console.log(d.getFullYear()); // 输出年份<br>
+console.log(d.getMonth()); // 输出月份（0-11）<br>
+console.log(d.getDate()); // 输出日期<br>
+console.log(d.getDay()); // 输出星期几（0-6）<br>
+console.log(d.getHours()); // 输出小时<br>
+console.log(d.getMinutes()); // 输出分钟<br>
+console.log(d.getSeconds()); // 输出秒数<br>
+console.log(d.getTime()); // 输出时间戳<br>
+console.log(d.toLocaleDateString()); // 输出本地日期<br>
+console.log(d.toLocaleTimeString()); // 输出本地时间<br>
+解释：Date 对象提供了获取和设置日期和时间的方法。<br>
+3.3 自定义 Math 对象<br>
+可以自定义一个对象来封装常用的数学方法。<br>
+HTML复制<br>
+var mMath = {<br>
+PI: Math.PI,<br>
+max: function() {<br>
+return Math.max.apply(null, arguments);<br>
+},<br>
+min: function() {<br>
+return Math.min.apply(null, arguments);<br>
+},<br>
+pai: function() {<br>
+var arg = Array.prototype.slice.call(arguments);<br>
+for (var i = 0; i &lt; arguments.length; i++) {<br>
+for (var j = 0; j &lt; arguments.length - 1 - i; j++) {<br>
+if (arg[j] &gt; arg[j + 1]) {<br>
+var temp = arg[j];<br>
+arg[j] = arg[j + 1];<br>
+arg[j + 1] = temp;<br>
+}<br>
+}<br>
+}<br>
+return arg;<br>
+}<br>
+};<br>
+console.log(mMath.pai(66, 1, 2, 3, 4, 5)); // 输出 [1, 2, 3, 4, 5, 66]<br>
+解释：自定义了一个 mMath 对象，封装了常用的数学方法。</li>
+<li>数组<br>
+数组用于存储一组数据。<br>
+4.1 创建数组<br>
+HTML复制<br>
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];<br>
+var arr1 = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);<br>
+var arr2 = new Array(10); // 创建一个长度为10的数组<br>
+解释：展示了三种创建数组的方式。<br>
+4.2 数组操作<br>
+HTML复制<br>
+arr.push(11); // 在数组末尾添加元素<br>
+console.log(arr); // 输出 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]<br>
+arr.unshift(0); // 在数组开头添加元素<br>
+console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]<br>
+解释：使用 push 和 unshift 方法向数组中添加元素。<br>
+4.3 数组排序<br>
+HTML复制<br>
+// 升序排序<br>
+arr.sort(function(a, b) {<br>
+return a - b;<br>
+});<br>
+console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]</li>
+</ol>
+<p>// 降序排序<br>
+arr.sort(function(a, b) {<br>
+return b - a;<br>
+});<br>
+console.log(arr); // 输出 [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]<br>
+解释：使用 sort 方法对数组进行升序或降序排序。<br>
+4.4 数组去重<br>
+HTML复制<br>
+var arr1 = [];<br>
+for (var i = 0; i &lt; arr.length; i++) {<br>
+if (arr.indexOf(arr[i]) == i) {<br>
+arr1[arr1.length] = arr[i];<br>
+}<br>
+}<br>
+console.log(arr1); // 输出去重后的数组<br>
+解释：通过 indexOf 方法去除数组中的重复项。<br>
+5. 字符串<br>
+字符串用于存储文本数据。<br>
+5.1 字符串不可变<br>
+HTML复制<br>
+var str = 'andy';<br>
+str = 'red';<br>
+console.log(str); // 输出 red<br>
+解释：字符串是不可变的，每次修改字符串时，实际上是在创建一个新的字符串。<br>
+5.2 字符串方法<br>
+HTML复制<br>
+var str = 'andy';<br>
+console.log(str.length); // 输出 4<br>
+console.log(str.toUpperCase()); // 输出 ANDY<br>
+console.log(str.toLowerCase()); // 输出 andy<br>
+解释：字符串提供了多种方法，如获取长度、转换大小写等。<br>
+5.3 字符串拼接<br>
+HTML复制<br>
+var str = 'andy';<br>
+console.log(str + 'red'); // 输出 andyred<br>
+解释：使用 + 运算符可以拼接字符串。<br>
+5.4 字符串查找<br>
+HTML复制<br>
+var str = '改革春风吹满地,春风吹满地';<br>
+console.log(str.indexOf('春', 3)); // 输出 5<br>
+解释：使用 indexOf 方法查找字符串中指定内容的位置。<br>
+5.5 字符串截取<br>
+HTML复制<br>
+var str = '改革春风吹满地';<br>
+console.log(str.slice(2, 4)); // 输出 春风<br>
+console.log(str.substring(2, 4)); // 输出 春风<br>
+console.log(str.substr(2, 4)); // 输出 春风地<br>
+解释：使用 slice、substring 和 substr 方法截取字符串。<br>
+5.6 字符串替换<br>
+HTML复制<br>
+var str = 'andy';<br>
+console.log(str.replace('a', 'A')); // 输出 Andy<br>
+解释：使用 replace 方法替换字符串中的指定内容。<br>
+5.7 字符串分割<br>
+HTML复制<br>
+var str = 'red,blue,green';<br>
+console.log(str.split(',')); // 输出 ["red", "blue", "green"]<br>
+解释：使用 split 方法将字符串分割成数组。<br>
+6. 数据类型<br>
+JavaScript 中的数据类型分为简单数据类型和复杂数据类型。<br>
+6.1 简单数据类型<br>
+简单数据类型包括数字、字符串、布尔值等。<br>
+HTML复制<br>
+var temp = null;<br>
+console.log(typeof temp); // 输出 object<br>
+解释：null 是一个特殊的简单数据类型，表示空值。<br>
+6.2 复杂数据类型<br>
+复杂数据类型包括对象、数组等。<br>
+HTML复制<br>
+var arr = [1, 2, 3];<br>
+console.log(arr instanceof Array); // 输出 true<br>
+console.log(Array.isArray(arr)); // 输出 true<br>
+解释：使用 instanceof 和 Array.isArray 方法检测变量是否为数组。<br>
+7. 内存存储<br>
+简单数据类型存储在栈中，复杂数据类型存储在堆中。<br>
+HTML复制<br>
+var str = 'andy';<br>
+var obj = { name: 'andy' };<br>
+解释：简单数据类型直接存储值，复杂数据类型存储的是地址。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
