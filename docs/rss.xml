@@ -1,5 +1,77 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Mon, 10 Feb 2025 08:42:13 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>JavaScript 基础知识笔记</title><link>https://blog.adouzi.eu.org/post/56.html</link><description>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Fri, 28 Feb 2025 17:29:57 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>三月份了欸</title><link>https://blog.adouzi.eu.org/post/57.html</link><description>时间过得真快...
+
+明明开学才两周，感觉过去了很久的样子...
+
+
+
+先说说博客为什么两周没更了吧..
+
+一方面是真的忙，开学那几天跑东跑西的，一会去电信教务科跑，一会跑去体育学院教务科，跑去建工的档案室，一会又跑到哪个老师办公室签字盖章，还有一堆流程要走..然后...手上的项目也开始忙了，，，
+
+寒假那会我自告奋勇的加入了糖画打印机的项目，开学汇报了一下工作，然后马上就开会了...开会前期是写报告，调环境，开完会定好方向我硬件这边也写个交互，去把软著拿下...然后就在忙活这事了
+
+后续就是开会，参加比赛，参加项目...揽了一堆活，甚至去兼职当老师
+
+
+
+明天上午就去那边试课，没错，这篇文章是在凌晨写的
+
+
+
+关于博客咕咕，另一方面就是不知道发啥，其实能发的东西不少，我笔记里也有个十篇八篇的存稿，嗯，究其原因大概是懒吧...后续我的更新大概会比较佛系，但是半个月一更应该是有的，不知道有没有一直订阅我博客的读者，大概没人看吧，，，
+
+
+
+我觉得应该致力于提升文章质量，我前期的文章也有很多是给 ai 调了格式发的，但是 ai 删了很多东西，多了很多废话（
+
+感觉和看国内教科书一样又臭又长，可能以后会更随和一点吧
+
+
+
+
+
+我的 MBTI 是 INTP，都说 INTP 像人机…好吧，确实挺人机的，我的文风确实和 ai 挺像的，甚至是很多思维方式也很靠近 ai
+
+
+
+我想想我的博客和 ai 的区别，看我的博客，能保证能复现，ai 的话……谁用谁知道
+
+
+
+
+
+三月份我也差不多该开始备考 n2 了，赶紧把证书拿下，后续只会更忙，但我还是想记录些什么，这期就随便氵篇闲聊吧
+
+
+
+
+
+
+
+另外给你们看看我折的纸飞机
+
+![](https://cdn.nlark.com/yuque/0/2025/jpeg/49455411/1740763061063-e6cd533e-d9a8-4131-9e4a-ff49d6a2e280.jpeg)
+
+![](https://cdn.nlark.com/yuque/0/2025/jpeg/49455411/1740763067172-9ea24fca-38a3-4c2c-813c-46e875bf48b3.jpeg)
+
+![](https://cdn.nlark.com/yuque/0/2025/jpeg/49455411/1740763073662-c3c56433-ce7f-4406-8d31-0ae43008c32f.jpeg)
+
+![](https://cdn.nlark.com/yuque/0/2025/jpeg/49455411/1740763079750-9e2c5c2e-53fc-40a0-a2fd-d2fd043d0ce6.jpeg)
+
+明天当孩子王(u‿ฺu✿)
+
+
+
+
+
+INTP 能不能当老师...要知道 INTP 的另一面是 ENTJ ，起码是个 e 了，别强求太多╮( •́ω•̀ )╭
+
+
+
+或许我下次测 MBTI 真的就成 e 人了呢₍˄·͈༝·͈˄*₎◞ ̑̑
+
+。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/57.html</guid><pubDate>Fri, 28 Feb 2025 17:29:24 +0000</pubDate></item><item><title>JavaScript 基础知识笔记</title><link>https://blog.adouzi.eu.org/post/56.html</link><description>
 #### 1. 基本操作
 + **alert**：浏览器弹出框，用于显示提示信息。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/56.html</guid><pubDate>Mon, 10 Feb 2025 08:41:46 +0000</pubDate></item><item><title>本地部署体验AI大模型</title><link>https://blog.adouzi.eu.org/post/55.html</link><description># Tools：Ollama 、Conda、 Open-WebUI
 ## Ollama
