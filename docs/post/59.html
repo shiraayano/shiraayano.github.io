@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="## 前言
+3月16日
+
+开完了会议，确定好了方向，我需要提供的是控制打印机的代码，还有监控程序...
+
+哦对了，还有渲染视频
+
+
+
+本人开发方向主要偏向后端，前端写的依托答辩
+
+于是...开启了vue的学习之旅...
+
+为什么不学react呢...来不及了啊喂!!!
+
+
+
+## Vue 启动！
+### 速读开发文档
+let me see see开发文档
+
+[https://cn.vuejs.org/guide/quick-start](https://cn.vuejs.org/guide/quick-start)
+
+
+
+文档中提到了，可以通过script标签引入vue，这太棒了，这意味我能省很多测试时间，甚至不用搭建专门的测试环境
+
+```php
+<script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
+```
+
+> 注意:
+>
+> <font style='color:rgb(33, 53, 71);'>“这里我们使用了 </font>[unpkg](https://unpkg.com/)<font style='color:rgb(33, 53, 71);'>，但你也可以使用任何提供 npm 包服务的 CDN，例如 </font>[jsdelivr](https://www.jsdelivr.com/package/npm/vue)<font style='color:rgb(33, 53, 71);'> 或 </font>[cdnjs](https://cdnjs.com/libraries/vue)<font style='color:rgb(33, 53, 71);'>。">
+<meta property="og:title" content="Vue 启动！ (开发日志1)">
+<meta property="og:description" content="## 前言
+3月16日
+
+开完了会议，确定好了方向，我需要提供的是控制打印机的代码，还有监控程序...
+
+哦对了，还有渲染视频
+
+
+
+本人开发方向主要偏向后端，前端写的依托答辩
+
+于是...开启了vue的学习之旅...
+
+为什么不学react呢...来不及了啊喂!!!
+
+
+
+## Vue 启动！
+### 速读开发文档
+let me see see开发文档
+
+[https://cn.vuejs.org/guide/quick-start](https://cn.vuejs.org/guide/quick-start)
+
+
+
+文档中提到了，可以通过script标签引入vue，这太棒了，这意味我能省很多测试时间，甚至不用搭建专门的测试环境
+
+```php
+<script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
+```
+
+> 注意:
+>
+> <font style='color:rgb(33, 53, 71);'>“这里我们使用了 </font>[unpkg](https://unpkg.com/)<font style='color:rgb(33, 53, 71);'>，但你也可以使用任何提供 npm 包服务的 CDN，例如 </font>[jsdelivr](https://www.jsdelivr.com/package/npm/vue)<font style='color:rgb(33, 53, 71);'> 或 </font>[cdnjs](https://cdnjs.com/libraries/vue)<font style='color:rgb(33, 53, 71);'>。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/59.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Vue 启动！ (开发日志1)</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Vue 启动！ (开发日志1)</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/59" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h2>前言</h2>
+<p>3月16日</p>
+<p>开完了会议，确定好了方向，我需要提供的是控制打印机的代码，还有监控程序...</p>
+<p>哦对了，还有渲染视频</p>
+<p>本人开发方向主要偏向后端，前端写的依托答辩</p>
+<p>于是...开启了vue的学习之旅...</p>
+<p>为什么不学react呢...来不及了啊喂!!!</p>
+<h2>Vue 启动！</h2>
+<h3>速读开发文档</h3>
+<p>let me see see开发文档</p>
+<p><a href="https://cn.vuejs.org/guide/quick-start" rel="nofollow">https://cn.vuejs.org/guide/quick-start</a></p>
+<p>文档中提到了，可以通过script标签引入vue，这太棒了，这意味我能省很多测试时间，甚至不用搭建专门的测试环境</p>
+<div class="highlight highlight-text-html-php"><pre class="notranslate">&lt;script src="https:<span class="pl-c">//unpkg.com/vue@3/dist/vue.global.js"&gt;&lt;/script&gt;</span></pre></div>
+<blockquote>
+<p>注意:</p>
+<p>“这里我们使用了 <a href="https://unpkg.com/" rel="nofollow">unpkg</a>，但你也可以使用任何提供 npm 包服务的 CDN，例如 <a href="https://www.jsdelivr.com/package/npm/vue" rel="nofollow">jsdelivr</a> 或 <a href="https://cdnjs.com/libraries/vue" rel="nofollow">cdnjs</a>。当然，你也可以下载此文件并自行提供服务。</p>
+<p>通过 CDN 使用 Vue 时，不涉及“构建步骤”。这使得设置更加简单，并且可以用于增强静态的 HTML 或与后端框架集成。但是，你将无法使用单文件组件 (SFC) 语法。”</p>
+</blockquote>
+<h5>一些基本的操作</h5>
+<p>安装好node.js 创建vue项目</p>
+<div class="highlight highlight-text-html-php"><pre class="notranslate">npm create vue@latest</pre></div>
+<p>嗯...看起来是个脚手架</p>
+<div class="highlight highlight-text-html-php"><pre class="notranslate">✔ Project name: … &lt;your-project-name&gt;
+✔ Add TypeScript? … No / Yes
+✔ Add <span class="pl-c1">JSX</span> Support? … No / Yes
+✔ Add Vue Router <span class="pl-k">for</span> Single Page Application development? … No / Yes
+✔ Add Pinia <span class="pl-k">for</span> state management? … No / Yes
+✔ Add Vitest <span class="pl-k">for</span> Unit testing? … No / Yes
+✔ Add an End-to-End Testing Solution? … No / Cypress / Nightwatch / Playwright
+✔ Add ESLint <span class="pl-k">for</span> code quality? … No / Yes
+✔ Add Prettier <span class="pl-k">for</span> code formatting? … No / Yes
+✔ Add Vue DevTools <span class="pl-c1">7</span> extension <span class="pl-k">for</span> debugging? (experimental) … No / Yes
+
+Scaffolding project in ./&lt;your-project-name&gt;<span class="pl-c1">.</span>.<span class="pl-c1">.</span>
+Done.</pre></div>
+<blockquote>
+<p>“如果不确定是否要开启某个功能，你可以直接按下回车键选择 <code class="notranslate">No</code>。”</p>
+</blockquote>
+<p></p>
+<blockquote>
+<p>运行dev</p>
+</blockquote>
+<div class="highlight highlight-text-html-php"><pre class="notranslate">cd &lt;your-project-name&gt;
+npm install
+npm run dev</pre></div>
+<blockquote>
+<p>发布</p>
+</blockquote>
+<div class="highlight highlight-text-html-php"><pre class="notranslate">npm run build</pre></div>
+<h2>通过 CDN 使用 Vue</h2>
+<p>上文也提到了可以直接使用script标签引入Vue框架，现在来看看</p>
+<div class="highlight highlight-text-html-php"><pre class="notranslate">&lt;script src="https:<span class="pl-c">//unpkg.com/vue@3/dist/vue.global.js"&gt;&lt;/script&gt;</span></pre></div>
+<h3>使用全局构建版本</h3>
+<div class="highlight highlight-text-html-php"><pre class="notranslate">&lt;script src="https:<span class="pl-c">//unpkg.com/vue@3/dist/vue.global.js"&gt;&lt;/script&gt;</span>
+
+&lt;div id="app"&gt;{{ message }}&lt;/div&gt;
+
+&lt;script&gt;
+  const { createApp, ref } = Vue
+
+  createApp({
+    <span class="pl-en">setup</span>() {
+      <span class="pl-k">const</span> message = <span class="pl-en">ref</span>(<span class="pl-s">'<span class="pl-s">Hello vue!</span>'</span>)
+      return {
+        message
+      }
+    }
+  }).<span class="pl-en">mount</span>(<span class="pl-s">'<span class="pl-s">#app</span>'</span>)
+&lt;/script&gt;</pre></div>
+<h3>使用 ES 模块构建版本</h3>
+<div class="highlight highlight-text-html-php"><pre class="notranslate">&lt;div id="app"&gt;{{ message }}&lt;/div&gt;
+
+&lt;script type="module"&gt;
+  import { createApp, ref } from <span class="pl-s">'<span class="pl-s">https://unpkg.com/vue@3/dist/vue.esm-browser.js</span>'</span>
+
+  createApp({
+    <span class="pl-en">setup</span>() {
+      <span class="pl-k">const</span> message = <span class="pl-en">ref</span>(<span class="pl-s">'<span class="pl-s">Hello Vue!</span>'</span>)
+      return {
+        message
+      }
+    }
+  }).<span class="pl-en">mount</span>(<span class="pl-s">'<span class="pl-s">#app</span>'</span>)
+&lt;/script&gt;</pre></div>
+<blockquote>
+<h5>需要注意</h5>
+<p>如果直接在浏览器中打开了上面的 <code class="notranslate">index.html</code>，你会发现它抛出了一个错误，因为 ES 模块不能通过 <code class="notranslate">file://</code> 协议工作，也即是当你打开一个本地文件时浏览器使用的协议。</p>
+<p>由于安全原因，ES 模块只能通过 <code class="notranslate">http://</code> 协议工作，也即是浏览器在打开网页时使用的协议。为了使 ES 模块在我们的本地机器上工作，我们需要使用本地的 HTTP 服务器，通过 <code class="notranslate">http://</code> 协议来提供 <code class="notranslate">index.html</code>。</p>
+</blockquote>
+<p></p>
+<h5>二者的区别</h5>
+<h6>使用全局构建版本</h6>
+<ul>
+<li><strong>引入方式</strong>：通过 <code class="notranslate">&lt;script&gt;</code> 标签直接引入 <code class="notranslate">vue.global.js</code> 文件。</li>
+<li><strong>使用特点</strong>：
+<ul>
+<li>所有顶层 API 都挂在全局对象 <code class="notranslate">Vue</code> 上，可以直接通过 <code class="notranslate">Vue</code> 访问和使用。</li>
+<li>示例：</li>
+</ul>
+</li>
+</ul>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate"><span class="pl-kos">&lt;</span><span class="pl-ent">script</span> <span class="pl-c1">src</span>="<span class="pl-s">https://unpkg.com/vue@3/dist/vue.global.js</span>"<span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">script</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">div</span> <span class="pl-c1">id</span>="<span class="pl-s">app</span>"<span class="pl-kos">&gt;</span>{{ message }}<span class="pl-kos">&lt;/</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">script</span><span class="pl-kos">&gt;</span>
+  <span class="pl-k">const</span> <span class="pl-kos">{</span> createApp<span class="pl-kos">,</span> ref <span class="pl-kos">}</span> <span class="pl-c1">=</span> <span class="pl-v">Vue</span><span class="pl-kos">;</span>
+  <span class="pl-en">createApp</span><span class="pl-kos">(</span><span class="pl-kos">{</span>
+    <span class="pl-en">setup</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-k">const</span> <span class="pl-s1">message</span> <span class="pl-c1">=</span> <span class="pl-en">ref</span><span class="pl-kos">(</span><span class="pl-s">'Hello vue!'</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+      <span class="pl-k">return</span> <span class="pl-kos">{</span> message <span class="pl-kos">}</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+  <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">mount</span><span class="pl-kos">(</span><span class="pl-s">'#app'</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">script</span><span class="pl-kos">&gt;</span></pre></div>
+<ul>
+<li><strong>优点</strong>：简单直接，无需额外配置，适合快速上手和小型项目。</li>
+<li><strong>缺点</strong>：无法使用单文件组件（SFC）语法，代码组织和复用性受限。</li>
+</ul>
+<h6>使用 ES 模块构建版本</h6>
+<ul>
+<li><strong>引入方式</strong>：通过 <code class="notranslate">&lt;script type="module"&gt;</code> 标签，并使用 <code class="notranslate">import</code> 语句引入 <code class="notranslate">vue.esm-browser.js</code> 文件。</li>
+<li><strong>使用特点</strong>：
+<ul>
+<li>使用 ES 模块语法，支持现代 JavaScript 的模块化开发。</li>
+<li>示例：</li>
+</ul>
+</li>
+</ul>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate"><span class="pl-kos">&lt;</span><span class="pl-ent">div</span> <span class="pl-c1">id</span>="<span class="pl-s">app</span>"<span class="pl-kos">&gt;</span>{{ message }}<span class="pl-kos">&lt;/</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">script</span> <span class="pl-c1">type</span>="<span class="pl-s">module</span>"<span class="pl-kos">&gt;</span>
+  <span class="pl-k">import</span> <span class="pl-kos">{</span> <span class="pl-s1">createApp</span><span class="pl-kos">,</span> <span class="pl-s1">ref</span> <span class="pl-kos">}</span> <span class="pl-k">from</span> <span class="pl-s">'https://unpkg.com/vue@3/dist/vue.esm-browser.js'</span><span class="pl-kos">;</span>
+  <span class="pl-en">createApp</span><span class="pl-kos">(</span><span class="pl-kos">{</span>
+    <span class="pl-en">setup</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-k">const</span> <span class="pl-s1">message</span> <span class="pl-c1">=</span> <span class="pl-en">ref</span><span class="pl-kos">(</span><span class="pl-s">'Hello Vue!'</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+      <span class="pl-k">return</span> <span class="pl-kos">{</span> message <span class="pl-kos">}</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+  <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">mount</span><span class="pl-kos">(</span><span class="pl-s">'#app'</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">script</span><span class="pl-kos">&gt;</span></pre></div>
+<ul>
+<li><strong>优点</strong>：支持更灵活的模块化开发，可以结合构建工具使用，适合大型项目。</li>
+<li><strong>缺点</strong>：需要浏览器支持 ES 模块，且代码结构相对复杂。</li>
+</ul>
+<blockquote>
+<p>现在项目时间这么赶　仕方がないなぁ</p>
+<p>似乎只能选全局构建了呢</p>
+</blockquote>
+<h5>题外</h5>
+<p>嗯...有点没看懂，滚回去翻简介了</p>
+<p>真的，在开始项目之前真心建议好好看看简介</p>
+<p><a href="https://cn.vuejs.org/guide/introduction" rel="nofollow">https://cn.vuejs.org/guide/introduction</a></p>
+<p>嗯...</p>
+<p>我看到了什么声明式开发，组件，这让我想起了Spring</p>
+<blockquote>
+<h6>1. 声明式开发</h6>
+<ul>
+<li><strong>Java SSM 框架</strong>：在 Java 的 SSM 框架（Spring、Spring MVC、MyBatis）中，开发人员通过配置文件（如 XML）或注解来声明组件的行为和关系。例如，在 Spring 中，可以通过 <code class="notranslate">@Controller</code>、<code class="notranslate">@Service</code>、<code class="notranslate">@Repository</code> 等注解来声明不同层次的组件。</li>
+<li><strong>Vue</strong>：在 Vue 中，通过模板语法（如 <code class="notranslate">{{ }}</code>）和组件选项（如 <code class="notranslate">data</code>、<code class="notranslate">methods</code>）来声明界面和数据的关系。这种声明式的方式使得开发更加直观和高效。</li>
+</ul>
+<h6>2. 组件化开发</h6>
+<ul>
+<li><strong>Java SSM 框架</strong>：在 SSM 框架中，可以将应用分解为多个模块，每个模块负责不同的功能。例如，Spring 的 IoC 容器管理着各个 Bean 的生命周期和依赖关系，实现了模块间的松耦合。</li>
+<li><strong>Vue</strong>：Vue 的组件化开发允许将界面分解为独立的组件，每个组件有自己的模板、逻辑和样式。这与 SSM 框架中的模块化开发思想相似，都强调代码的复用性和可维护性。</li>
+</ul>
+<h6>3. 配置与约定</h6>
+<ul>
+<li><strong>Java SSM 框架</strong>：SSM 框架通过配置文件或注解来定义应用的行为，同时也遵循一定的约定（如 Spring 的自动配置）。这使得开发更加灵活，同时减少了样板代码的编写。</li>
+<li><strong>Vue</strong>：Vue 也提供了一些约定，如组件的命名规则、选项的定义等。同时，Vue 的配置文件（如 <code class="notranslate">vue.config.js</code>）允许开发者根据需要进行定制化配置。</li>
+</ul>
+</blockquote>
+<p>看起来有些相似...很好，这让我对接下来的工作充满信心</p>
+<p></p>
+<p>单文件组件：“在大多数启用了构建工具的 Vue 项目中，我们可以使用一种类似 HTML 格式的文件来书写 Vue 组件，它被称为<strong>单文件组件</strong> (也被称为 <code class="notranslate">*.vue</code> 文件，英文 Single-File Components，缩写为 <strong>SFC</strong>)。顾名思义，Vue 的单文件组件会将一个组件的逻辑 (JavaScript)，模板 (HTML) 和样式 (CSS) 封装在同一个文件里。下面我们将用单文件组件的格式重写上面的计数器示例：”</p>
+<blockquote>
+<p>这看起来就是把前端三大件封装在了一起</p>
+</blockquote>
+<h5>Vue的两种Api风格</h5>
+<h6>选项式 API 与组合式 API</h6>
+<p>Vue 提供了两种主要的 API 风格来书写组件逻辑：选项式 API（Options API）和组合式 API（Composition API）。</p>
+<h6>选择建议</h6>
+<p>学习阶段</p>
+<ul>
+<li>如果你是 Vue 的新手，或者更习惯面向对象的编程风格，<strong>选项式 API</strong> 可能更容易上手。它的结构清晰，符合传统的组件化思维。</li>
+<li>如果你对函数式编程更熟悉，或者希望更灵活地组织和复用逻辑，可以尝试 <strong>组合式 API</strong>。它提供了更强大的逻辑复用能力。</li>
+</ul>
+<p>生产项目</p>
+<ul>
+<li><strong>低复杂度场景</strong>：如果你的项目不需要复杂的逻辑复用，或者主要是一些渐进增强的应用场景，<strong>选项式 API</strong> 是一个不错的选择，简单直接。</li>
+<li><strong>高复杂度场景</strong>：如果你打算用 Vue 构建完整的单页应用，尤其是需要处理复杂的业务逻辑和状态管理，<strong>组合式 API + 单文件组件</strong> 是更推荐的方式，它提供了更高的灵活性和代码复用性。</li>
+</ul>
+<blockquote>
+<p>嗯，做单页应用吧，组合式，决定了</p>
+</blockquote>
+<h3>剩下的区域以后再来探索吧~</h3>
+<p>累了，收工</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
