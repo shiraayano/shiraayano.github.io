@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sun, 16 Mar 2025 14:42:35 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>Vue 启动！ (开发日志1)</title><link>https://blog.adouzi.eu.org/post/59.html</link><description>## 前言
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sat, 12 Apr 2025 14:55:16 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>阿绫十周年生日快乐！</title><link>https://blog.adouzi.eu.org/post/60.html</link><description>绫绫十周年了 （QAQ
+算下来我入坑好像也有五六年了...
+最初是怎么入坑的呢...我想想，好像是疫情那会宅在家？
+
+在网抑云偶然刷到了《白石溪》，后面又收藏了《霜雪千年》、《世末歌者》...
+第一次听到元气少女个歌唱时，生命好像渐渐有了色彩（
+不知不觉之间..我的歌单已经完全变成她们的模样了
+
+后面也渐渐的了解了她们，也是以此为契机，我接触了很多东西，学习了很多技能。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/60.html</guid><pubDate>Sat, 12 Apr 2025 14:54:49 +0000</pubDate></item><item><title>Vue 启动！ (开发日志1)</title><link>https://blog.adouzi.eu.org/post/59.html</link><description>## 前言
 3月16日
 
 开完了会议，确定好了方向，我需要提供的是控制打印机的代码，还有监控程序...
