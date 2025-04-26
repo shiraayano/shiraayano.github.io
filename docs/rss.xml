@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sat, 12 Apr 2025 14:55:16 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>阿绫十周年生日快乐！</title><link>https://blog.adouzi.eu.org/post/60.html</link><description>绫绫十周年了 （QAQ
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sat, 26 Apr 2025 19:21:50 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>把Python代码打包成exe</title><link>https://blog.adouzi.eu.org/post/61.html</link><description>
+---
+
+### **1. 创建虚拟环境**
+运行以下命令来创建一个虚拟环境：
+```bash
+python -m venv myvenv
+```
+- **作用**：`venv` 模块会在当前目录下创建一个名为 `myvenv` 的文件夹，文件夹内包含独立的 Python 解释器和库。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/61.html</guid><pubDate>Sat, 26 Apr 2025 19:21:27 +0000</pubDate></item><item><title>阿绫十周年生日快乐！</title><link>https://blog.adouzi.eu.org/post/60.html</link><description>绫绫十周年了 （QAQ
 算下来我入坑好像也有五六年了...
 最初是怎么入坑的呢...我想想，好像是疫情那会宅在家？
 
