@@ -488,7 +488,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>如果想让一个成员变量被类的所有实例所共享，就用static修饰即可，称为类变量（或类属性）！</strong></p>
 <h3>1.1 类属性、类方法的设计思想</h3>
 <p>当我们编写一个类时，其实就是在描述其对象的属性和行为，而并没有产生实质上的对象，只有通过new关键字才会产出对象，这时系统才会分配内存空间给对象，其方法才可以供外部调用。我们有时候希望无论是否产生了对象或无论产生了多少对象的情况下，<code class="notranslate">某些特定的数据在内存空间里只有一份</code>。例如，所有的中国人都有个国家名称，每一个中国人都共享这个国家名称，不必在每一个中国人的实例对象中都单独分配一个用于代表国家名称的变量。</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220325213629311.png"><img src="images/image-20220325213629311.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220325213629311.png"><img src="images/image-20220325213629311.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>此外，在类中声明的实例方法，在类的外面必须要先创建对象，才能调用。但是有些方法的调用者和当前类的对象无关，这样的方法通常被声明为<code class="notranslate">类方法</code>，由于不需要创建对象就可以调用类方法，从而简化了方法的调用。</p>
 <p>这里的类变量、类方法，只需要使用<code class="notranslate">static</code>修饰即可。所以也称为静态变量、静态方法。</p>
 <h3>1.2 static关键字</h3>
@@ -1730,7 +1730,7 @@ abstract 不能与哪些关键字共用?(自治)<br>
 <h3>6.1 由来</h3>
 <p>举例1：</p>
 <p>随着继承层次中一个个新子类的定义，类变得越来越具体，而父类则更一般，更通用。类的设计应该保证父类和子类能够共享特征。有时将一个父类设计得非常抽象，以至于它没有具体的实例，这样的类叫做抽象类。</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220325231608838.png"><img src="images/image-20220325231608838.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220325231608838.png"><img src="images/image-20220325231608838.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>举例2：</p>
 <p>我们声明一些几何图形类：圆、矩形、三角形类等，发现这些类都有共同特征：求面积、求周长。那么这些共同特征应该抽取到一个共同父类：几何图形类中。但是这些方法在父类中又<code class="notranslate">无法给出具体的实现</code>，而是应该交给子类各自具体实现。那么父类在声明这些方法时，<code class="notranslate">就只有方法签名，没有方法体</code>，我们把没有方法体的方法称为<strong>抽象方法</strong>。Java语法规定，包含抽象方法的类必须是<strong>抽象类</strong>。</p>
 <h3>6.2 语法格式</h3>
@@ -1750,7 +1750,7 @@ abstract 不能与哪些关键字共用?(自治)<br>
 <blockquote>
 <p>注意：抽象方法没有方法体</p>
 </blockquote>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220517204707255.png"><img src="images/image-20220517204707255.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220517204707255.png"><img src="images/image-20220517204707255.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>代码举例：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-k">class</span> <span class="pl-smi">Animal</span> {
     <span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-smi">void</span> <span class="pl-en">eat</span>();
@@ -1802,7 +1802,7 @@ abstract 不能与哪些关键字共用?(自治)<br>
 <li>不能用abstract修饰私有方法、静态方法、final的方法、final的类。</li>
 </ul>
 <h3>6.5 应用举例1</h3>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220325232847872.png"><img src="images/image-20220325232847872.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220325232847872.png"><img src="images/image-20220325232847872.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>在航运公司系统中，Vehicle类需要定义两个方法分别<code class="notranslate">计算运输工具的燃料效率</code>和<code class="notranslate">行驶距离</code>。</p>
 <p>**问题：**卡车(Truck)和驳船(RiverBarge)的燃料效率和行驶距离的计算方法完全不同。Vehicle类不能提供计算方法，但子类可以。</p>
 <p>**解决方案：**Java允许类设计者指定：超类声明一个方法但不提供实现，该方法的实现由子类提供。这样的方法称为抽象方法。有一个或更多抽象方法的类称为抽象类。</p>
@@ -1912,7 +1912,7 @@ abstract 不能与哪些关键字共用?(自治)<br>
 <p>请使用继承的思想，设计CommonEmployee类和Manager类，要求类中提供必要的方法进行属性访问。</p>
 <p><strong>练习2：软件外包公司外派管理</strong></p>
 <p>有一家软件外包公司，可以外派开发人员，该公司有两个角色：普通开发人员Developer和项目经理Manager。他们的关系如下图：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220504164925878.png"><img src="images/image-20220504164925878.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220504164925878.png"><img src="images/image-20220504164925878.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>普通开发人员的工作内容是“开发项目”，项目经理的工作内容是“项目管理”。对外的报价是普通开发人员每天500,元，超过60天每天400元。项目经理每天800元，超过60天每天700元。</p>
 <p>有一家银行需要1名项目经理、2名开发人员，现场开发90天，计算银行需要付给软件公司的总金额。</p>
 <p>提示：创建数组 Employee[] emps = new Employee[3]。其中存储驻场的3名员工。</p>
@@ -2012,7 +2012,7 @@ jdk9:声明私有方法</p>
 <pre lang="plain" class="notranslate"><code class="notranslate"> USB，（Universal Serial Bus，通用串行总线）是Intel公司开发的总线架构，使得在计算机上添加串行设备（鼠标、键盘、打印机、扫描仪、摄像头、充电器、MP3机、手机、数码相机、移动硬盘等）非常容易。
 </code></pre>
 <p>其实，不管是电脑上的USB插口，还是其他设备上的USB插口都只是<code class="notranslate">遵循了USB规范</code>的一种具体设备而已。</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/bbcc80f541000c71b81650cfaa770c86.png"><img src="images/bbcc80f541000c71b81650cfaa770c86.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/bbcc80f541000c71b81650cfaa770c86.png"><img src="images/bbcc80f541000c71b81650cfaa770c86.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>只要设备遵循USB规范的，那么就可以与电脑互联，并正常通信。至于这个设备、电脑是哪个厂家制造的，内部是如何实现的，我们都无需关心。</p>
 <p>Java的软件系统会有很多模块组成，那么各个模块之间也应该采用这种<code class="notranslate">面向接口</code>的<code class="notranslate">低耦合</code>，为系统提供更好的可扩展性和可维护性。</p>
 <h3>7.2 概述</h3>
@@ -2159,7 +2159,7 @@ jdk9:声明私有方法</p>
 <p>接口中，有多个抽象方法时，实现类必须重写所有抽象方法。<strong>如果抽象方法有重名的，只需要重写一次</strong>。</p>
 </blockquote>
 <p>举例：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/1562216188519.png"><img src="images/1562216188519.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1562216188519.png"><img src="images/1562216188519.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>定义多个接口：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">interfacetype</span>;
 
@@ -2432,7 +2432,7 @@ jdk9:声明私有方法</p>
 <ul>
 <li>当一个类同时实现了多个父接口，而多个父接口中包含方法签名相同的默认方法时，怎么办呢？</li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer" href="images/%E9%80%89%E6%8B%A9%E5%9B%B0%E9%9A%BE.jpg"><img src="images/%E9%80%89%E6%8B%A9%E5%9B%B0%E9%9A%BE.jpg" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/%E9%80%89%E6%8B%A9%E5%9B%B0%E9%9A%BE.jpg"><img src="images/%E9%80%89%E6%8B%A9%E5%9B%B0%E9%9A%BE.jpg" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>无论你多难抉择，最终都是要做出选择的。</p>
 <p>声明接口：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">interfacetype</span>;
@@ -2577,7 +2577,7 @@ jdk9:声明私有方法</p>
 <p><strong>3、为什么JDK1.9要允许接口定义私有方法呢？因为我们说接口是规范，规范是需要公开让大家遵守的。</strong></p>
 <p><strong>私有方法</strong>：因为有了默认方法和静态方法这样具有具体实现的方法，那么就可能出现多个方法由共同的代码可以抽取，而这些共同的代码抽取出来的方法又只希望在接口内部使用，所以就增加了私有方法。</p>
 <h3>7.7 接口与抽象类之间的对比</h3>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220328002053452.png"><img src="images/image-20220328002053452.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220328002053452.png"><img src="images/image-20220328002053452.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <blockquote>
 <p>在开发中，常看到一个类不是去继承一个已经实现好的类，而是要么继承抽象类，要么实现接口。</p>
 </blockquote>
@@ -2639,9 +2639,9 @@ jdk9:声明私有方法</p>
 <p>思考：参照上述做法定义矩形类Rectangle和ComparableRectangle类，在ComparableRectangle类中给出compareTo方法的实现，比较两个矩形的面积大小。</p>
 <p><strong>练习2：交通工具案例</strong></p>
 <p>阿里的一个工程师，声明的属性和方法如下：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220504172547709.png"><img src="images/image-20220504172547709.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220504172547709.png"><img src="images/image-20220504172547709.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>其中，有一个乘坐交通工具的方法takingVehicle()，在此方法中调用交通工具的run()。为了出行方便，他买了一辆捷安特自行车、一辆雅迪电动车和一辆奔驰轿车。这里涉及到的相关类及接口关系如下：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220504172918861.png"><img src="images/image-20220504172918861.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220504172918861.png"><img src="images/image-20220504172918861.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>其中，电动车增加动力的方式是充电，轿车增加动力的方式是加油。在具体交通工具的run()中调用其所在类的相关属性信息。</p>
 <p>请编写相关代码，并测试。</p>
 <p>提示：创建Vehicle[]数组，保存阿里工程师的三辆交通工具，并分别在工程师的takingVehicle()中调用。</p>
@@ -2829,7 +2829,7 @@ jdk9:声明私有方法</p>
 <p>总的来说，遵循<code class="notranslate">高内聚、低耦合</code>的面向对象开发原则。</p>
 <h4>8.1.3 内部类的分类</h4>
 <p>根据内部类声明的位置（如同变量的分类），我们可以分为：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20221124223912529.png"><img src="images/image-20221124223912529.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20221124223912529.png"><img src="images/image-20221124223912529.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <h3>8.2 成员内部类</h3>
 <h4>8.2.1 概述</h4>
 <p>如果成员内部类中不使用外部类的非静态成员，那么通常将内部类声明为静态内部类，否则声明为非静态内部类。</p>

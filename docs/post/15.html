@@ -445,26 +445,26 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>10.6.1 测试分类</h4>
 <p>**黑盒测试：**不需要写代码，给输入值，看程序是否能够输出期望的值。</p>
 <p>**白盒测试：**需要写代码的。关注程序具体的执行流程。</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220524102038600.png"><img src="images/image-20220524102038600.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220524102038600.png"><img src="images/image-20220524102038600.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <h4>10.6.2 JUnit单元测试介绍</h4>
 <p>JUnit 是由 Erich Gamma 和 Kent Beck 编写的一个测试框架（regression testing framework），供Java开发人员编写单元测试之用。</p>
 <p><strong>JUnit测试是程序员测试，即所谓白盒测试，因为程序员知道被测试的软件如何（How）完成功能和完成什么样（What）的功能。</strong></p>
 <p>要使用JUnit，必须在项目的编译路径中<code class="notranslate">引入JUnit的库</code>，即相关的.class文件组成的jar包。jar就是一个压缩包，压缩包都是开发好的第三方（Oracle公司第一方，我们自己第二方，其他都是第三方）工具类，都是以class文件形式存在的。</p>
 <h4>10.6.3 引入本地JUnit.jar</h4>
 <p>第1步：在项目中File-Project Structure中操作：添加Libraries库</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20221002195547325.png"><img src="images/image-20221002195547325.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20221002195547325.png"><img src="images/image-20221002195547325.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>其中，junit-libs包内容如下：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813005206452.png"><img src="images/image-20220813005206452.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813005206452.png"><img src="images/image-20220813005206452.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>第2步：选择要在哪些module中应用JUnit库</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813005511062.png"><img src="images/image-20220813005511062.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813005511062.png"><img src="images/image-20220813005511062.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>第3步：检查是否应用成功</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813005729233.png"><img src="images/image-20220813005729233.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813005729233.png"><img src="images/image-20220813005729233.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p><strong>注意Scope：选择Compile，否则编译时，无法使用JUnit。</strong></p>
 <p>第4步：下次如果有新的模块要使用该libs库，这样操作即可</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813005944022.png"><img src="images/image-20220813005944022.png" alt="" style="max-width: 100%;"></a></p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813010018152.png"><img src="images/image-20220813010018152.png" alt="" style="max-width: 100%;"></a></p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813010055217.png"><img src="images/image-20220813010055217.png" alt="" style="max-width: 100%;"></a></p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813010124381.png"><img src="images/image-20220813010124381.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813005944022.png"><img src="images/image-20220813005944022.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813010018152.png"><img src="images/image-20220813010018152.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813010055217.png"><img src="images/image-20220813010055217.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813010124381.png"><img src="images/image-20220813010124381.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <h4>10.6.4 编写和运行<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/test/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/test">@test</a>单元测试方法</h4>
 <p>JUnit4版本，要求<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/test/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/test">@test</a>标记的方法必须满足如下要求：</p>
 <ul>
@@ -491,22 +491,22 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"TestJUnit.test03"</span>);
     }
 }</pre></div>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220106152412245.png"><img src="images/image-20220106152412245.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220106152412245.png"><img src="images/image-20220106152412245.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <h4>10.6.5 设置执行JUnit用例时支持控制台输入</h4>
 <p><strong>1. 设置数据：</strong></p>
 <p>默认情况下，在单元测试方法中使用Scanner时，并不能实现控制台数据的输入。需要做如下设置：</p>
 <p>在<code class="notranslate">idea64.exe.vmoptions配置文件</code>中加入下面一行设置，重启idea后生效。</p>
 <div class="highlight highlight-source-ini"><pre class="notranslate">-<span class="pl-k">Deditable.java.test.console</span>=true</pre></div>
 <p><strong>2. 配置文件位置：</strong></p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813011625546.png"><img src="images/image-20220813011625546.png" alt="" style="max-width: 100%;"></a></p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813011642180.png"><img src="images/image-20220813011642180.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813011625546.png"><img src="images/image-20220813011625546.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813011642180.png"><img src="images/image-20220813011642180.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>添加完成之后，重启IDEA即可。</p>
 <p><strong>3. 如果上述位置设置不成功，需要继续修改如下位置</strong></p>
 <p>修改位置1：IDEA安装目录的bin目录（例如：<code class="notranslate">D:\develop_tools\IDEA\IntelliJ IDEA 2022.1.2\bin</code>）下的idea64.exe.vmoptions文件。</p>
 <p>修改位置2：C盘的用户目录<code class="notranslate">C:\Users\用户名\AppData\Roaming\JetBrains\IntelliJIdea2022.1</code> 下的idea64.exe.vmoptions`件。</p>
 <h4>10.6.6 定义test测试方法模板</h4>
 <p>选中自定义的模板组，点击”+”（1.Live Template）来定义模板。</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20211229100040505.png"><img src="images/image-20211229100040505.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20211229100040505.png"><img src="images/image-20211229100040505.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>框架 = 注解 + 反射 + 设计模式</p>
 <h2>11. 包装类</h2>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">WrapperTest</span> {
@@ -718,7 +718,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(“<span class="pl-c1">12</span>”);</pre></div>
 <div class="highlight highlight-source-java"><pre class="notranslate"></pre></div>
 <p>其他方式小结：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813012801907.png"><img src="images/image-20220813012801907.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813012801907.png"><img src="images/image-20220813012801907.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <h3>11.6 包装类的其它API</h3>
 <h4>11.6.1 数据类型的最大最小值</h4>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span>.<span class="pl-smi">MAX_VALUE和Integer</span>.<span class="pl-smi">MIN_VALUE</span>
@@ -932,7 +932,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h2>1. 异常概述</h2>
 <h3>1.1 什么是生活的异常</h3>
 <p>男主角小明每天开车上班，正常车程1小时。但是，不出意外的话，可能会出现意外。</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220814203918560.png"><img src="images/image-20220814203918560.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220814203918560.png"><img src="images/image-20220814203918560.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <p>出现意外，即为异常情况。我们会做相应的处理。如果不处理，到不了公司。处理完了，就可以正常开车去公司。</p>
 <p>4.异常的体系结构</p>
 <p>java.lang.Throwable:异常体系的根父类</p>
@@ -1025,7 +1025,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     }
 }</pre></div>
 <p>上述程序执行过程图解：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B.png"><img src="images/%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B.png"><img src="images/%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <h3>1.4 如何对待异常</h3>
 <p>对于程序出现的异常，一般有两种解决方法：一是遇到错误就终止程序的运行。另一种方法是程序员在编写程序时，就充分考虑到各种可能发生的异常和错误，极力预防和避免。实在无法避免的，要编写相应的代码进行异常的检测、以及<code class="notranslate">异常的处理</code>，保证代码的<code class="notranslate">健壮性</code>。</p>
 <h2>2. Java异常体系</h2>
@@ -1067,7 +1067,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer" href="images/1562771528807.png"><img src="images/1562771528807.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1562771528807.png"><img src="images/1562771528807.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <h2>3. 常见的错误和异常</h2>
 <h3>3.1 Error</h3>
 <p>最常见的就是VirtualMachineError，它有两个经典的子类：StackOverflowError、OutOfMemoryError。</p>
@@ -1206,7 +1206,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>Java异常处理的方式：</strong></p>
 <p>方式一：try-catch-finally</p>
 <p>方式二：throws + 异常类型</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220331111051496.png"><img src="images/image-20220331111051496.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220331111051496.png"><img src="images/image-20220331111051496.png" alt="" style="max-width: 100%; height: auto;"></a></p>
 <h3>4.2 方式1：捕获异常（try-catch-finally）</h3>
 <p>Java提供了异常处理的<strong>抓抛模型</strong>。</p>
 <ul>
@@ -1920,7 +1920,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>世界上最真情的<code class="notranslate">相依</code>，是你在<code class="notranslate">try</code>我在<code class="notranslate">catch</code>。无论你发神马脾气，我都默默承受，静静处理。到那时，再来期待我们的<code class="notranslate">finally</code>。</p>
 <hr>
 <hr>
-<p><a target="_blank" rel="noopener noreferrer" href="images/try.png"><img src="images/try.png" alt="" style="max-width: 100%;"></a></p></div>
+<p><a target="_blank" rel="noopener noreferrer" href="images/try.png"><img src="images/try.png" alt="" style="max-width: 100%; height: auto;"></a></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style=padding:10px 15px;text-align:center;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href=https://blog.adouzi.eu.org/post/21.html style=color:#0078d7;text-decoration:none>关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href=https://adouzi.eu.org style=color:#0078d7;text-decoration:none>https://adouzi.eu.org</a></span><span> | Email：<a href=mailto:shiraayano@adouzi.eu.org style=color:#0078d7;text-decoration:none>shiraayano@adouzi.eu.org</a></span></footer></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
