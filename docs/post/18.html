@@ -102,7 +102,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <blockquote>
 <ul>
 <li>当append和insert时，如果原来value数组长度不够，可扩容。</li>
-<li>如上(1)(2)(3)(4)(9)这些方法支持<code class="notranslate">方法链操作</code>。原理： <a target="_blank" rel="noopener noreferrer" href="images/image-20220405223542750.png"><img src="images/image-20220405223542750.png" alt="" style="max-width: 100%; height: auto;"></a></li>
+<li>如上(1)(2)(3)(4)(9)这些方法支持<code class="notranslate">方法链操作</code>。原理： <a target="_blank" rel="noopener noreferrer" href="images/image-20220405223542750.png"><img src="images/image-20220405223542750.png" alt="" style="max-width: 100%;"></a></li>
 </ul>
 </blockquote>
 <p><strong>2、其它API</strong></p>
@@ -397,7 +397,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer" href="images/1572599023197.png"><img src="images/1572599023197.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1572599023197.png"><img src="images/1572599023197.png" alt="" style="max-width: 100%;"></a></p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//格式化</span>
 <span class="pl-c1">@</span><span class="pl-c1">Test</span>
 <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
@@ -422,8 +422,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">Calendar</code> 类是一个抽象类，主用用于完成日期字段之间相互操作的功能。</li>
 <li>获取Calendar实例的方法
 <ul>
-<li>使用<code class="notranslate">Calendar.getInstance()</code>方法<a target="_blank" rel="noopener noreferrer" href="images/image-20220123184906903.png"><img src="images/image-20220123184906903.png" alt="" style="max-width: 100%; height: auto;"></a></li>
-<li>调用它的子类GregorianCalendar（公历）的构造器。<a target="_blank" rel="noopener noreferrer" href="images/image-20220405225828816.png"><img src="images/image-20220405225828816.png" alt="" style="max-width: 100%; height: auto;"></a></li>
+<li>使用<code class="notranslate">Calendar.getInstance()</code>方法<a target="_blank" rel="noopener noreferrer" href="images/image-20220123184906903.png"><img src="images/image-20220123184906903.png" alt="" style="max-width: 100%;"></a></li>
+<li>调用它的子类GregorianCalendar（公历）的构造器。<a target="_blank" rel="noopener noreferrer" href="images/image-20220405225828816.png"><img src="images/image-20220405225828816.png" alt="" style="max-width: 100%;"></a></li>
 </ul>
 </li>
 <li>一个Calendar的实例是系统时间的抽象表示，可以修改或获取 YEAR、MONTH、DAY_OF_WEEK、HOUR_OF_DAY 、MINUTE、SECOND等 <code class="notranslate">日历字段</code>对应的时间值。
@@ -435,7 +435,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>public final void setTime(Date date)：使用指定的Date对象重置Calendar的时间</li>
 </ul>
 </li>
-<li>常用字段<a target="_blank" rel="noopener noreferrer" href="images/1620277709044.png"><img src="images/1620277709044.png" alt="" style="max-width: 100%; height: auto;"></a></li>
+<li>常用字段<a target="_blank" rel="noopener noreferrer" href="images/1620277709044.png"><img src="images/1620277709044.png" alt="" style="max-width: 100%;"></a></li>
 <li>注意：
 <ul>
 <li>获取月份时：一月是0，二月是1，以此类推，12月是11</li>
@@ -682,7 +682,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>中国大陆、中国香港、中国澳门、中国台湾、蒙古国、新加坡、马来西亚、菲律宾、西澳大利亚州的时间与UTC的时差均为+8，也就是UTC+8。</p>
 <p>instant.atOffset(ZoneOffset.ofHours(8));</p>
 </blockquote>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220406000442908.png"><img src="images/image-20220406000442908.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220406000442908.png"><img src="images/image-20220406000442908.png" alt="" style="max-width: 100%;"></a></p>
 <blockquote>
 <p>整个地球分为二十四时区，每个时区都有自己的本地时间。北京时区是东八区，领先UTC八个小时，在电子邮件信头的Date域记为+0800。如果在电子邮件的信头中有这么一行：</p>
 <p>Date: Fri, 08 Nov 2002 09:42:22 +0800</p>
@@ -984,7 +984,7 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 </table></markdown-accessiblity-table>
 <h2>5. Java比较器</h2>
 <p>我们知道基本数据类型的数据（除boolean类型外）需要比较大小的话，之间使用比较运算符即可，但是引用数据类型是不能直接使用比较运算符来比较大小的。那么，如何解决这个问题呢？</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220406001726285.png"><img src="images/image-20220406001726285.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220406001726285.png"><img src="images/image-20220406001726285.png" alt="" style="max-width: 100%;"></a></p>
 <ul>
 <li>在Java中经常会涉及到对象数组的排序问题，那么就涉及到对象之间的比较问题。</li>
 <li>Java实现对象排序的方式有两种：
@@ -1492,7 +1492,7 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 <li><code class="notranslate">void gc()</code>：<br>
 该方法的作用是请求系统进行垃圾回收。至于系统是否立刻回收，则取决于系统中垃圾回收算法的实现以及系统执行时的情况。</li>
 <li><code class="notranslate">String getProperty(String key)</code>：<br>
-该方法的作用是获得系统中属性名为key的属性对应的值。系统中常见的属性名以及属性的作用如下表所示：<a target="_blank" rel="noopener noreferrer" href="images/image-20220406003340258.png"><img src="images/image-20220406003340258.png" alt="" style="max-width: 100%; height: auto;"></a></li>
+该方法的作用是获得系统中属性名为key的属性对应的值。系统中常见的属性名以及属性的作用如下表所示：<a target="_blank" rel="noopener noreferrer" href="images/image-20220406003340258.png"><img src="images/image-20220406003340258.png" alt="" style="max-width: 100%;"></a></li>
 </ul>
 </li>
 <li>举例</li>

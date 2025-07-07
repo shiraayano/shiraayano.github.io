@@ -702,7 +702,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>你可以根据具体需求选择适合的实现方式。希望这些示例对你有所帮助！</p>
 <h3>6.2 死锁</h3>
 <p>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁。</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/thread-lock.png"><img src="images/thread-lock.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/thread-lock.png"><img src="images/thread-lock.png" alt="" style="max-width: 100%;"></a></p>
 <blockquote>
 <p>【小故事】</p>
 <p>面试官：你能解释清楚什么是死锁，我就录取你！<br>
@@ -1417,7 +1417,7 @@ Callable使用了泛型参数，可以指明具体的call()的返回值类型，
 <p>如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。</p>
 <p>那么有没有一种办法使得线程可以复用，即执行完一个任务，并不被销毁，而是可以继续执行其他的任务？</p>
 <p>**思路：**提前创建好多个线程，放入线程池中，使用时直接获取，使用完放回池中。可以避免频繁创建销毁、实现重复利用。类似生活中的公共交通工具。</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%90%86%E8%A7%A3.jpg"><img src="images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%90%86%E8%A7%A3.jpg" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%90%86%E8%A7%A3.jpg"><img src="images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%90%86%E8%A7%A3.jpg" alt="" style="max-width: 100%;"></a></p>
 <p><strong>好处：</strong></p>
 <ul>
 <li>提高响应速度（减少了创建新线程的时间）</li>
@@ -1603,7 +1603,7 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 <p>因为字符串对象设计为不可变，那么所以字符串有常量池来保存很多常量对象。</p>
 <p>JDK6中，字符串常量池在方法区。JDK7开始，就移到堆空间，直到目前JDK17版本。</p>
 <p>举例内存结构分配：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/1562945799274.png"><img src="images/1562945799274.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1562945799274.png"><img src="images/1562945799274.png" alt="" style="max-width: 100%;"></a></p>
 <h4>1.2.2 练习类型1：拼接</h4>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
 <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"hello"</span>;
@@ -2249,11 +2249,11 @@ str1 = "abcwerthelloyuiodef“;str2 = "cvhellobnm"<br>
 <span class="pl-c">//情况2：</span>
 <span class="pl-smi">StringBuffer</span> <span class="pl-s1">buffer</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s">"我喜欢学习"</span>); 
 <span class="pl-s1">buffer</span>.<span class="pl-en">append</span>(<span class="pl-s">"数学"</span>); </pre></div>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220405221714261.png"><img src="images/image-20220405221714261.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220405221714261.png"><img src="images/image-20220405221714261.png" alt="" style="max-width: 100%;"></a></p>
 <ul>
 <li>继承结构：</li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220405174233055.png"><img src="images/image-20220405174233055.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220405174233055.png"><img src="images/image-20220405174233055.png" alt="" style="max-width: 100%;"></a></p>
 <ul>
 <li>StringBuilder 和 StringBuffer 非常类似，均代表可变的字符序列，而且提供相关功能的方法也一样。</li>
 <li>区分String、StringBuffer、StringBuilder

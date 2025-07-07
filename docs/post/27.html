@@ -364,14 +364,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>JDK提供的集合API位于java.util包内</li>
 <li>图示：集合框架全图</li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer" href="images/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%85%A8%E5%9B%BE.png"><img src="images/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%85%A8%E5%9B%BE.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%85%A8%E5%9B%BE.png"><img src="images/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%85%A8%E5%9B%BE.png" alt="" style="max-width: 100%;"></a></p>
 <ul>
 <li>简图1：<strong>Collection接口继承树</strong></li>
 <li>简图2：<strong>Map接口继承树</strong></li>
 </ul>
 <h3>1.4 集合的使用场景</h3>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220407202630027.png"><img src="images/image-20220407202630027.png" alt="" style="max-width: 100%; height: auto;"></a></p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/%E7%AC%AC12%E7%AB%A0_%E9%9B%86%E5%90%88%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF.png"><img src="images/%E7%AC%AC12%E7%AB%A0_%E9%9B%86%E5%90%88%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220407202630027.png"><img src="images/image-20220407202630027.png" alt="" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/%E7%AC%AC12%E7%AB%A0_%E9%9B%86%E5%90%88%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF.png"><img src="images/%E7%AC%AC12%E7%AB%A0_%E9%9B%86%E5%90%88%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF.png" alt="" style="max-width: 100%;"></a></p>
 <h2>2. Collection接口及方法</h2>
 <ul>
 <li>JDK不提供此接口的任何直接实现，而是提供更具体的子接口（如：Set和List）去实现。</li>
@@ -433,7 +433,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <blockquote>
 <p>注意：coll.addAll(other);与coll.add(other);</p>
 </blockquote>
-<p><a target="_blank" rel="noopener noreferrer" href="images/1563548078274.png"><img src="images/1563548078274.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1563548078274.png"><img src="images/1563548078274.png" alt="" style="max-width: 100%;"></a></p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
 <span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Arrays</span>;
 <span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">List</span>;
@@ -932,7 +932,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 }</pre></div>
 <h3>3.2 迭代器的执行原理</h3>
 <p>Iterator迭代器对象在遍历集合时，内部采用指针的方式来跟踪集合中的元素，接下来通过一个图例来演示Iterator对象迭代元素的过程：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220407235130988.png"><img src="images/image-20220407235130988.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220407235130988.png"><img src="images/image-20220407235130988.png" alt="" style="max-width: 100%;"></a></p>
 <p>使用Iterator迭代器删除元素：java.util.Iterator迭代器中有一个方法：void remove() ;</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Iterator</span> <span class="pl-s1">iter</span> = <span class="pl-s1">coll</span>.<span class="pl-en">iterator</span>();<span class="pl-c">//回到起点</span>
 <span class="pl-k">while</span>(<span class="pl-s1">iter</span>.<span class="pl-en">hasNext</span>()){
@@ -1053,7 +1053,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>对于集合的遍历，增强for的内部原理其实是个Iterator迭代器。如下图。</li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220128010114124.png"><img src="images/image-20220128010114124.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220128010114124.png"><img src="images/image-20220128010114124.png" alt="" style="max-width: 100%;"></a></p>
 <ul>
 <li>它用于遍历Collection和数组。通常只进行遍历元素，不要在遍历的过程中对集合元素进行增删操作。
 <ul>
@@ -1083,7 +1083,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer" href="images/1563549818689.png"><img src="images/1563549818689.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1563549818689.png"><img src="images/1563549818689.png" alt="" style="max-width: 100%;"></a></p>
 <ul>
 <li>JDK API中List接口的实现类常用的有：<code class="notranslate">ArrayList</code>、<code class="notranslate">LinkedList</code>和<code class="notranslate">Vector</code>。</li>
 </ul>
@@ -1167,13 +1167,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>ArrayList 是 List 接口的<code class="notranslate">主要实现类</code></li>
 <li>本质上，ArrayList是对象引用的一个”变长”数组</li>
-<li>Arrays.asList(…) 方法返回的 List 集合，既不是 ArrayList 实例，也不是 Vector 实例。 Arrays.asList(…) 返回值是一个固定长度的 List 集合<a target="_blank" rel="noopener noreferrer" href="images/image-20220408210743342.png"><img src="images/image-20220408210743342.png" alt="" style="max-width: 100%; height: auto;"></a></li>
+<li>Arrays.asList(…) 方法返回的 List 集合，既不是 ArrayList 实例，也不是 Vector 实例。 Arrays.asList(…) 返回值是一个固定长度的 List 集合<a target="_blank" rel="noopener noreferrer" href="images/image-20220408210743342.png"><img src="images/image-20220408210743342.png" alt="" style="max-width: 100%;"></a></li>
 </ul>
 <h3>4.4 List的实现类之二：LinkedList</h3>
 <ul>
 <li>对于频繁的插入或删除元素的操作，建议使用LinkedList类，效率较高。这是由底层采用链表（双向链表）结构存储数据决定的。</li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220408225615829.png"><img src="images/image-20220408225615829.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/image-20220408225615829.png"><img src="images/image-20220408225615829.png" alt="" style="max-width: 100%;"></a></p>
 <ul>
 <li>特有方法：
 <ul>
@@ -1221,7 +1221,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>使用ArrayList集合，保存录入的多个学生对象。</li>
 <li>循环录入的方式，1：继续录入，0：结束录入。</li>
 <li>录入结束后，用foreach遍历集合。</li>
-<li>代码实现，效果如图所示：<a target="_blank" rel="noopener noreferrer" href="images/1559890098509.png"><img src="images/1559890098509.png" alt="" style="max-width: 100%; height: auto;"></a></li>
+<li>代码实现，效果如图所示：<a target="_blank" rel="noopener noreferrer" href="images/1559890098509.png"><img src="images/1559890098509.png" alt="" style="max-width: 100%;"></a></li>
 </ul>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">test01</span>;
 
@@ -1310,7 +1310,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 4、效果如下
 </code></pre>
-<p><a target="_blank" rel="noopener noreferrer" href="images/1559896150606.png"><img src="images/1559896150606.png" alt="" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="images/1559896150606.png"><img src="images/1559896150606.png" alt="" style="max-width: 100%;"></a></p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">test02</span>;
 
 <span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
