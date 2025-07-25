@@ -1,5 +1,56 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Thu, 01 May 2025 12:40:49 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>欲买桂花同载酒，终不似，少年游</title><link>https://blog.adouzi.eu.org/post/62.html</link><description>第一次参加漫展，应该算是第一次参加线下活动吧，和朋友一起去的。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/62.html</guid><pubDate>Thu, 01 May 2025 12:40:21 +0000</pubDate></item><item><title>把Python代码打包成exe</title><link>https://blog.adouzi.eu.org/post/61.html</link><description>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Fri, 25 Jul 2025 15:43:03 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>Linux &amp; Win 上创建Python虚拟环境与设置开机自启（自用）</title><link>https://blog.adouzi.eu.org/post/63.html</link><description>
+
+### **在 Linux 上结合虚拟环境设置开机自启**
+#### **步骤 1：创建虚拟环境并安装依赖**
+1. 创建虚拟环境：
+
+```bash
+python3 -m venv /path/to/venv
+```
+
+2. 激活虚拟环境：
+
+```bash
+source /path/to/venv/bin/activate
+```
+
+3. 安装项目依赖：
+
+```bash
+pip install -r /path/to/your/project/requirements.txt
+```
+
+```php
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+#### **步骤 2：创建 **`systemd`** 服务文件**
+1. 创建服务文件：
+
+```bash
+sudo nano /etc/systemd/system/myapp.service
+```
+
+2. 编辑服务文件，内容如下：
+
+```properties
+[Unit]
+Description=My Python Application
+After=network.target
+
+[Service]
+ExecStart=/path/to/venv/bin/python3 /path/to/your/project/main.py
+WorkingDirectory=/path/to/your/project
+Environment='PATH=/path/to/venv/bin'
+Restart=always
+User=your_username
+
+[Install]
+WantedBy=multi-user.target
+```
+
+    - 替换 `/path/to/venv` 为你的虚拟环境路径。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/63.html</guid><pubDate>Fri, 25 Jul 2025 15:42:31 +0000</pubDate></item><item><title>欲买桂花同载酒，终不似，少年游</title><link>https://blog.adouzi.eu.org/post/62.html</link><description>第一次参加漫展，应该算是第一次参加线下活动吧，和朋友一起去的。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/62.html</guid><pubDate>Thu, 01 May 2025 12:40:21 +0000</pubDate></item><item><title>把Python代码打包成exe</title><link>https://blog.adouzi.eu.org/post/61.html</link><description>
 ---
 
 ### **1. 创建虚拟环境**
