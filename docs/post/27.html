@@ -27,7 +27,7 @@
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/27.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 基础篇 016 集合1</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -107,17 +107,18 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <blockquote>
 <p>(优点)数组一旦初始化完成，其元素的类型就是确定的。不是此类型的元素，就不能添加到此数组中</p>
 </blockquote>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-s1">intllarr</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">10</span>];
+<pre lang="java" class="notranslate"><code class="notranslate">intllarr = new int[10];
 
-<span class="pl-s1">arr</span>[<span class="pl-c1">0</span>]= <span class="pl-c1">1</span>;
+arr[0]= 1;
 
-<span class="pl-s1">arr</span>[<span class="pl-c1">1</span>]=<span class="pl-s">"AA"</span>;<span class="pl-c">//编译报错</span>
+arr[1]="AA";//编译报错
 
-<span class="pl-c1">0</span><span class="pl-smi">bject</span>[]<span class="pl-s1">arr1</span> = <span class="pl-k">new</span> <span class="pl-c1">0</span><span class="pl-smi">bject</span>[<span class="pl-c1">10</span>];
+0bject[]arr1 = new 0bject[10];
 
-<span class="pl-s1">arr1</span>[<span class="pl-c1">0</span>]= <span class="pl-k">new</span> <span class="pl-smi">String</span>();
+arr1[0]= new String();
 
-<span class="pl-s1">arr1</span>[<span class="pl-c1">1</span>]= <span class="pl-k">new</span> <span class="pl-smi">Date</span>();</pre></div>
+arr1[1]= new Date();
+</code></pre>
 <blockquote>
 <p>（优点 ） 元素的类型既可以是基本数据类型，也可以是引用数据类型</p>
 </blockquote>
@@ -149,174 +150,179 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>java.util.Map:存储一对一对的数据（存储 key-value 键值对，（x1，y1）,（x2，y2）--&gt; y=F</p>
 <p>(x)，类似于函数）</p>
 <p>----HashMap、LinkedHashMap、TreeMap、Hashtable、Properties</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 向列表末尾添加一个元素</span>
+<pre lang="java" class="notranslate"><code class="notranslate">
+// 向列表末尾添加一个元素
 
-<span class="pl-smi">void</span> <span class="pl-en">add</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>, <span class="pl-smi">E</span> <span class="pl-s1">element</span>) <span class="pl-c">// 在指定位置插入一个元素</span>
+void add(int index, E element) // 在指定位置插入一个元素
 
 
 
-<span class="pl-c">// 在列表末尾添加一个元素</span>
+// 在列表末尾添加一个元素
 
-<span class="pl-smi">boolean</span> <span class="pl-en">add</span>(<span class="pl-smi">E</span> <span class="pl-s1">element</span>) <span class="pl-c">// 在列表末尾添加一个元素，并返回true</span>
+boolean add(E element) // 在列表末尾添加一个元素，并返回true
 
 
 
 
 
-<span class="pl-c">// 在列表末尾添加多个元素</span>
+// 在列表末尾添加多个元素
 
-<span class="pl-smi">boolean</span> <span class="pl-en">addAll</span>(<span class="pl-smi">Collection</span>&lt;? <span class="pl-k">extends</span> <span class="pl-smi">E</span>&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 将指定集合中的所有元素添加到列表末尾，并返回true如果列表被修改</span>
+boolean addAll(Collection&lt;? extends E&gt; c) // 将指定集合中的所有元素添加到列表末尾，并返回true如果列表被修改
 
 
 
-<span class="pl-c">// 在列表末尾添加多个元素</span>
+// 在列表末尾添加多个元素
 
-<span class="pl-smi">boolean</span> <span class="pl-en">addAll</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>, <span class="pl-smi">Collection</span>&lt;? <span class="pl-k">extends</span> <span class="pl-smi">E</span>&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 在指定位置插入指定集合中的所有元素，并返回true如果列表被修改</span>
+boolean addAll(int index, Collection&lt;? extends E&gt; c) // 在指定位置插入指定集合中的所有元素，并返回true如果列表被修改
 
 
 
-<span class="pl-c">// 清除列表中的所有元素</span>
+// 清除列表中的所有元素
 
-<span class="pl-smi">void</span> <span class="pl-en">clear</span>() <span class="pl-c">// 移除列表中的所有元素</span>
+void clear() // 移除列表中的所有元素
 
 
 
-<span class="pl-c">// 检查列表是否包含某个元素</span>
+// 检查列表是否包含某个元素
 
-<span class="pl-smi">boolean</span> <span class="pl-en">contains</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) <span class="pl-c">// 如果列表包含指定元素，则返回true</span>
+boolean contains(Object o) // 如果列表包含指定元素，则返回true
 
 
 
-<span class="pl-c">// 检查列表是否包含指定集合中的所有元素</span>
+// 检查列表是否包含指定集合中的所有元素
 
-<span class="pl-smi">boolean</span> <span class="pl-en">containsAll</span>(<span class="pl-smi">Collection</span>&lt;?&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 如果列表包含指定集合中的所有元素，则返回true</span>
+boolean containsAll(Collection&lt;?&gt; c) // 如果列表包含指定集合中的所有元素，则返回true
 
 
 
-<span class="pl-c">// 获取列表中的元素</span>
+// 获取列表中的元素
 
-<span class="pl-smi">E</span> <span class="pl-en">get</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>) <span class="pl-c">// 返回列表中指定位置的元素</span>
+E get(int index) // 返回列表中指定位置的元素
 
 
 
-<span class="pl-c">// 获取列表中的索引</span>
+// 获取列表中的索引
 
-<span class="pl-smi">int</span> <span class="pl-en">indexOf</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) <span class="pl-c">// 返回指定元素在列表中第一次出现的索引，如果未找到则返回-1</span>
+int indexOf(Object o) // 返回指定元素在列表中第一次出现的索引，如果未找到则返回-1
 
 
 
-<span class="pl-c">// 获取列表中的最后一个元素的索引</span>
+// 获取列表中的最后一个元素的索引
 
-<span class="pl-smi">int</span> <span class="pl-en">lastIndexOf</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) <span class="pl-c">// 返回指定元素在列表中最后一次出现的索引，如果未找到则返回-1</span>
+int lastIndexOf(Object o) // 返回指定元素在列表中最后一次出现的索引，如果未找到则返回-1
 
 
 
-<span class="pl-c">// 从列表中移除一个元素</span>
+// 从列表中移除一个元素
 
-<span class="pl-smi">E</span> <span class="pl-en">remove</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>) <span class="pl-c">// 移除列表中指定位置的元素，并返回被移除的元素</span>
+E remove(int index) // 移除列表中指定位置的元素，并返回被移除的元素
 
 
 
-<span class="pl-c">// 从列表中移除一个元素</span>
+// 从列表中移除一个元素
 
-<span class="pl-smi">boolean</span> <span class="pl-en">remove</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) <span class="pl-c">// 移除列表中第一次出现的指定元素，并返回true如果元素被移除</span>
+boolean remove(Object o) // 移除列表中第一次出现的指定元素，并返回true如果元素被移除
 
 
 
-<span class="pl-c">// 从列表中移除指定集合中的所有元素</span>
+// 从列表中移除指定集合中的所有元素
 
-<span class="pl-smi">boolean</span> <span class="pl-en">removeAll</span>(<span class="pl-smi">Collection</span>&lt;?&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 移除列表中所有包含在指定集合中的元素，并返回true如果列表被修改</span>
+boolean removeAll(Collection&lt;?&gt; c) // 移除列表中所有包含在指定集合中的元素，并返回true如果列表被修改
 
 
 
-<span class="pl-c">// 保留列表中不在指定集合中的元素</span>
+// 保留列表中不在指定集合中的元素
 
-<span class="pl-smi">boolean</span> <span class="pl-en">retainAll</span>(<span class="pl-smi">Collection</span>&lt;?&gt; <span class="pl-s1">c</span>) <span class="pl-c">// 保留列表中所有包含在指定集合中的元素，并返回true如果列表被修改</span>
+boolean retainAll(Collection&lt;?&gt; c) // 保留列表中所有包含在指定集合中的元素，并返回true如果列表被修改
 
 
 
-<span class="pl-c">// 替换列表中的元素</span>
+// 替换列表中的元素
 
-<span class="pl-smi">E</span> <span class="pl-en">set</span>(<span class="pl-smi">int</span> <span class="pl-s1">index</span>, <span class="pl-smi">E</span> <span class="pl-s1">element</span>) <span class="pl-c">// 替换列表中指定位置的元素，并返回被替换的元素</span>
+E set(int index, E element) // 替换列表中指定位置的元素，并返回被替换的元素
 
 
 
-<span class="pl-c">// 获取列表的大小</span>
+// 获取列表的大小
 
-<span class="pl-smi">int</span> <span class="pl-en">size</span>() <span class="pl-c">// 返回列表中的元素数量</span>
+int size() // 返回列表中的元素数量
 
 
 
-<span class="pl-c">// 将列表转换为数组</span>
+// 将列表转换为数组
 
-<span class="pl-smi">Object</span>[] <span class="pl-en">toArray</span>() <span class="pl-c">// 返回包含列表所有元素的数组</span>
+Object[] toArray() // 返回包含列表所有元素的数组
 
 
 
-<span class="pl-c">// 将列表转换为指定类型的数组</span>
+// 将列表转换为指定类型的数组
 
-&lt;<span class="pl-smi">T</span>&gt; <span class="pl-smi">T</span>[] <span class="pl-en">toArray</span>(<span class="pl-smi">T</span>[] <span class="pl-s1">a</span>) <span class="pl-c">// 返回包含列表所有元素的指定类型的数组</span></pre></div>
+&lt;T&gt; T[] toArray(T[] a) // 返回包含列表所有元素的指定类型的数组
+
+</code></pre>
 <p>学习的程度把握:</p>
 <p>层次1:针对于具体特点的多个数据，知道选择相应的适合的接口的主要实现类，会实例化，会调用常用的方法</p>
 <p>层次2:区分接口中不同实现类的区别</p>
 <p>层次三：1，针对于常见类，需要熟悉底层源码</p>
 <p>2，熟悉常见的数据结构</p>
 <p>数组/集合的遍历</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Collection</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">//创建数组</span>
-        <span class="pl-smi">String</span> [] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>[]{<span class="pl-s">"hello"</span>,<span class="pl-s">"world"</span>};
-        <span class="pl-c">//遍历数组</span>
-        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">s</span> : <span class="pl-s1">arr</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">public class Collection {
+    public static void main(String[] args) {
+        //创建数组
+        String [] arr = new String[]{"hello","world"};
+        //遍历数组
+        for (String s : arr) {
+            System.out.println(s);
         }
     }
 }
 
-<span class="pl-c">/*</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * 格式</span>
-<span class="pl-c"> * 数据类型[] 数组名 = new 数据类型[]{元素1,元素2,元素3...};</span>
-<span class="pl-c"> * for（数据类型 变量名 : 数组名）{ }</span>
-<span class="pl-c"> * for(要遍历的集合 临时变量 ： 要遍历的集合或数组变量)</span>
-<span class="pl-c"> * 说明</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> */</span></pre></div>
+/*
+ * 
+ * 格式
+ * 数据类型[] 数组名 = new 数据类型[]{元素1,元素2,元素3...};
+ * for（数据类型 变量名 : 数组名）{ }
+ * for(要遍历的集合 临时变量 ： 要遍历的集合或数组变量)
+ * 说明
+ * 
+ */
+</code></pre>
 <p>例 2</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Collection</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">// 创建数组</span>
-        <span class="pl-smi">String</span>[] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>[] { <span class="pl-s">"hello"</span>, <span class="pl-s">"world"</span> };
-        <span class="pl-c">// 遍历数组</span>
-        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">s</span> : <span class="pl-s1">arr</span>) {
-            <span class="pl-s1">s</span> = <span class="pl-s">"MM"</span>;
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">public class Collection {
+    public static void main(String[] args) {
+        // 创建数组
+        String[] arr = new String[] { "hello", "world" };
+        // 遍历数组
+        for (String s : arr) {
+            s = "MM";
+            System.out.println(s);
         }
 
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-c">// arr[i] = "MM";</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        for (int i = 0; i &lt; arr.length; i++) {
+            // arr[i] = "MM";
+            System.out.println(arr[i]);
         }
     }
 }
 
-<span class="pl-c">/*</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * 格式</span>
-<span class="pl-c"> * 数据类型[] 数组名 = new 数据类型[]{元素1,元素2,元素3...};</span>
-<span class="pl-c"> * for（数据类型 变量名 : 数组名）{ }</span>
-<span class="pl-c"> * for(要遍历的集合 临时变量 ： 要遍历的集合或数组变量)</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * 输出</span>
-<span class="pl-c"> * MM</span>
-<span class="pl-c"> * MM</span>
-<span class="pl-c"> * hello</span>
-<span class="pl-c"> * world</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * 说明</span>
-<span class="pl-c"> * 增强for循环遍历数组时，不能修改数组中元素的值，因为增强for循环遍历数组时，数组元素的值是拷贝的，不是数组中元素的引用</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> */</span></pre></div>
+/*
+ * 
+ * 格式
+ * 数据类型[] 数组名 = new 数据类型[]{元素1,元素2,元素3...};
+ * for（数据类型 变量名 : 数组名）{ }
+ * for(要遍历的集合 临时变量 ： 要遍历的集合或数组变量)
+ * 
+ * 输出
+ * MM
+ * MM
+ * hello
+ * world
+ * 
+ * 说明
+ * 增强for循环遍历数组时，不能修改数组中元素的值，因为增强for循环遍历数组时，数组元素的值是拷贝的，不是数组中元素的引用
+ * 
+ */
+</code></pre>
 <h3>1.1 生活中的容器</h3>
 <h3>1.2 数组的特点与弊端</h3>
 <ul>
@@ -381,495 +387,502 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>（1）add(E obj)：添加元素对象到当前集合中<br>
 （2）addAll(Collection other)：添加other集合中的所有元素对象到当前集合中，即this = this ∪ other</p>
 <p>注意：add和addAll的区别</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">collection</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.collection;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
+import java.util.ArrayList;
+import java.util.Collection;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestCollectionAdd</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testAdd</span>(){
-        <span class="pl-c">//ArrayList是Collection的子接口List的实现类之一。</span>
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">coll</span>);
+public class TestCollectionAdd {
+    @Test
+    public void testAdd(){
+        //ArrayList是Collection的子接口List的实现类之一。
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        System.out.println(coll);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testAddAll</span>(){
-        <span class="pl-smi">Collection</span> <span class="pl-s1">c1</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">c1</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">c1</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1集合元素的个数："</span> + <span class="pl-s1">c1</span>.<span class="pl-en">size</span>());<span class="pl-c">//2</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1 = "</span> + <span class="pl-s1">c1</span>);
+    @Test
+    public void testAddAll(){
+        Collection c1 = new ArrayList();
+        c1.add(1);
+        c1.add(2);
+        System.out.println("c1集合元素的个数：" + c1.size());//2
+        System.out.println("c1 = " + c1);
 
-        <span class="pl-smi">Collection</span> <span class="pl-s1">c2</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">c2</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">c2</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2集合元素的个数："</span> + <span class="pl-s1">c2</span>.<span class="pl-en">size</span>());<span class="pl-c">//2</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2 = "</span> + <span class="pl-s1">c2</span>);
+        Collection c2 = new ArrayList();
+        c2.add(1);
+        c2.add(2);
+        System.out.println("c2集合元素的个数：" + c2.size());//2
+        System.out.println("c2 = " + c2);
 
-        <span class="pl-smi">Collection</span> <span class="pl-s1">other</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-c1">3</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"other集合元素的个数："</span> + <span class="pl-s1">other</span>.<span class="pl-en">size</span>());<span class="pl-c">//3</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"other = "</span> + <span class="pl-s1">other</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>();
+        Collection other = new ArrayList();
+        other.add(1);
+        other.add(2);
+        other.add(3);
+        System.out.println("other集合元素的个数：" + other.size());//3
+        System.out.println("other = " + other);
+        System.out.println();
 
-        <span class="pl-s1">c1</span>.<span class="pl-en">addAll</span>(<span class="pl-s1">other</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1集合元素的个数："</span> + <span class="pl-s1">c1</span>.<span class="pl-en">size</span>());<span class="pl-c">//5</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1.addAll(other) = "</span> + <span class="pl-s1">c1</span>);
+        c1.addAll(other);
+        System.out.println("c1集合元素的个数：" + c1.size());//5
+        System.out.println("c1.addAll(other) = " + c1);
 
-        <span class="pl-s1">c2</span>.<span class="pl-en">add</span>(<span class="pl-s1">other</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2集合元素的个数："</span> + <span class="pl-s1">c2</span>.<span class="pl-en">size</span>());<span class="pl-c">//3</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2.add(other) = "</span> + <span class="pl-s1">c2</span>);
+        c2.add(other);
+        System.out.println("c2集合元素的个数：" + c2.size());//3
+        System.out.println("c2.add(other) = " + c2);
     }
-}</pre></div>
+}
+</code></pre>
 <blockquote>
 <p>注意：coll.addAll(other);与coll.add(other);</p>
 </blockquote>
 <p><a target="_blank" rel="noopener noreferrer" href="images/1563548078274.png"><img src="images/1563548078274.png" alt="" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Arrays</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">List</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ListTest</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">SuppressWarnings</span>(<span class="pl-s">"unchecked"</span>)
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+public class ListTest {
+    @SuppressWarnings("unchecked")
+    public static void main(String[] args) {
 
-        <span class="pl-c">// List&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
+        // List&lt;String&gt; list = new ArrayList&lt;&gt;();
 
 
-        <span class="pl-smi">List</span> <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"Hello"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"World"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">111</span>);<span class="pl-c">//自动装箱</span>
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">222</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">// [Hello, World, 111, 222]</span>
+        List list = new ArrayList&lt;&gt;();
+        list.add("Hello");
+        list.add("World");
+        list.add(111);//自动装箱
+        list.add(222);
+        System.out.println(list);
+        // [Hello, World, 111, 222]
 
-        <span class="pl-s1">list</span>.<span class="pl-en">remove</span>(<span class="pl-c1">1</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">// [Hello, 111, 222]</span>
+        list.remove(1);
+        System.out.println(list);
+        // [Hello, 111, 222]
 
-        <span class="pl-smi">List</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">list2</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;(<span class="pl-smi">Arrays</span>.<span class="pl-en">asList</span>(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list2</span>);
-        <span class="pl-c">// [1, 2, 3]</span>
+        List&lt;Integer&gt; list2 = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3));
+        System.out.println(list2);
+        // [1, 2, 3]
 
-        <span class="pl-s1">list</span>.<span class="pl-en">addAll</span>(<span class="pl-s1">list2</span>);
-        <span class="pl-c">//将list2中的所有元素添加到list中</span>
+        list.addAll(list2);
+        //将list2中的所有元素添加到list中
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">// [Hello, 111, 222, 1, 2, 3]</span>
+        System.out.println(list);
+        // [Hello, 111, 222, 1, 2, 3]
 
-        <span class="pl-s1">list</span>.<span class="pl-en">addAll</span>(<span class="pl-c1">1</span>, <span class="pl-s1">list2</span>);
-        <span class="pl-c">//将list2中的所有元素添加到list的索引1的位置</span>
+        list.addAll(1, list2);
+        //将list2中的所有元素添加到list的索引1的位置
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">//[Hello, 1, 2, 3, 111, 222, 1, 2, 3]</span>
+        System.out.println(list);
+        //[Hello, 1, 2, 3, 111, 222, 1, 2, 3]
 
-        <span class="pl-s1">list</span>.<span class="pl-en">remove</span>(<span class="pl-c1">1</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">//[Hello, 2, 3, 111, 222, 1, 2, 3]</span>
+        list.remove(1);
+        System.out.println(list);
+        //[Hello, 2, 3, 111, 222, 1, 2, 3]
 
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s">"Tom"</span>, <span class="pl-c1">18</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">//[Hello, 2, 3, 111, 222, 1, 2, 3, Person@5caf905d]</span>
+        list.add(new Person("Tom", 18));
+        System.out.println(list);
+        //[Hello, 2, 3, 111, 222, 1, 2, 3, Person@5caf905d]
 
-        <span class="pl-c">//删除list中所有的Person对象</span>
-        <span class="pl-s1">list</span>.<span class="pl-en">removeAll</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">asList</span>(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s">"Tom"</span>, <span class="pl-c1">18</span>)));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">//[Hello, 2, 3, 111, 222, 1, 2, 3]</span>
+        //删除list中所有的Person对象
+        list.removeAll(Arrays.asList(new Person("Tom", 18)));
+        System.out.println(list);
+        //[Hello, 2, 3, 111, 222, 1, 2, 3]
     }
 }
-<span class="pl-k">class</span> <span class="pl-smi">Person</span>{
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+class Person{
+    private String name;
+    private int age;
 
-    <span class="pl-k">public</span> <span class="pl-smi">Person</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"Person{"</span> +
-                <span class="pl-s">"name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
-                <span class="pl-s">", age="</span> + <span class="pl-s1">age</span> +
-                <span class="pl-s">'}'</span>;
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
-}</pre></div>
+}
+</code></pre>
 <h3>2.2 判断</h3>
 <p>（3）int size()：获取当前集合中实际存储的元素个数<br>
 （4）boolean isEmpty()：判断当前集合是否为空集合<br>
 （5）boolean contains(Object obj)：判断当前集合中是否存在一个与obj对象equals返回true的元素<br>
 （6）boolean containsAll(Collection coll)：判断coll集合中的元素是否在当前集合中都存在。即coll集合是否是当前集合的“子集”<br>
 （7）boolean equals(Object obj)：判断当前集合与obj是否相等</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">collection</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.collection;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Arrays</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestCollectionContains</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>() {
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll在添加元素之前，isEmpty = "</span> + <span class="pl-s1">coll</span>.<span class="pl-en">isEmpty</span>());
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"佛地魔"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll的元素个数"</span> + <span class="pl-s1">coll</span>.<span class="pl-en">size</span>());
+public class TestCollectionContains {
+    @Test
+    public void test01() {
+        Collection coll = new ArrayList();
+        System.out.println("coll在添加元素之前，isEmpty = " + coll.isEmpty());
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        coll.add("佛地魔");
+        System.out.println("coll的元素个数" + coll.size());
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll在添加元素之后，isEmpty = "</span> + <span class="pl-s1">coll</span>.<span class="pl-en">isEmpty</span>());
+        System.out.println("coll在添加元素之后，isEmpty = " + coll.isEmpty());
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>() {
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"佛地魔"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll = "</span> + <span class="pl-s1">coll</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll是否包含“小李广” = "</span> + <span class="pl-s1">coll</span>.<span class="pl-en">contains</span>(<span class="pl-s">"小李广"</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll是否包含“宋红康” = "</span> + <span class="pl-s1">coll</span>.<span class="pl-en">contains</span>(<span class="pl-s">"宋红康"</span>));
+    @Test
+    public void test02() {
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        coll.add("佛地魔");
+        System.out.println("coll = " + coll);
+        System.out.println("coll是否包含“小李广” = " + coll.contains("小李广"));
+        System.out.println("coll是否包含“宋红康” = " + coll.contains("宋红康"));
 
-        <span class="pl-smi">Collection</span> <span class="pl-s1">other</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"尚硅谷"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"other = "</span> + <span class="pl-s1">other</span>);
+        Collection other = new ArrayList();
+        other.add("小李广");
+        other.add("扫地僧");
+        other.add("尚硅谷");
+        System.out.println("other = " + other);
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll.containsAll(other) = "</span> + <span class="pl-s1">coll</span>.<span class="pl-en">containsAll</span>(<span class="pl-s1">other</span>));
+        System.out.println("coll.containsAll(other) = " + coll.containsAll(other));
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
-        <span class="pl-smi">Collection</span> <span class="pl-s1">c1</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">c1</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">c1</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1集合元素的个数："</span> + <span class="pl-s1">c1</span>.<span class="pl-en">size</span>());<span class="pl-c">//2</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1 = "</span> + <span class="pl-s1">c1</span>);
+    @Test
+    public void test03(){
+        Collection c1 = new ArrayList();
+        c1.add(1);
+        c1.add(2);
+        System.out.println("c1集合元素的个数：" + c1.size());//2
+        System.out.println("c1 = " + c1);
 
-        <span class="pl-smi">Collection</span> <span class="pl-s1">c2</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">c2</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">c2</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2集合元素的个数："</span> + <span class="pl-s1">c2</span>.<span class="pl-en">size</span>());<span class="pl-c">//2</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2 = "</span> + <span class="pl-s1">c2</span>);
+        Collection c2 = new ArrayList();
+        c2.add(1);
+        c2.add(2);
+        System.out.println("c2集合元素的个数：" + c2.size());//2
+        System.out.println("c2 = " + c2);
 
-        <span class="pl-smi">Collection</span> <span class="pl-s1">other</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-c1">3</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"other集合元素的个数："</span> + <span class="pl-s1">other</span>.<span class="pl-en">size</span>());<span class="pl-c">//3</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"other = "</span> + <span class="pl-s1">other</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>();
+        Collection other = new ArrayList();
+        other.add(1);
+        other.add(2);
+        other.add(3);
+        System.out.println("other集合元素的个数：" + other.size());//3
+        System.out.println("other = " + other);
+        System.out.println();
 
-        <span class="pl-s1">c1</span>.<span class="pl-en">addAll</span>(<span class="pl-s1">other</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1集合元素的个数："</span> + <span class="pl-s1">c1</span>.<span class="pl-en">size</span>());<span class="pl-c">//5</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1.addAll(other) = "</span> + <span class="pl-s1">c1</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1.contains(other) = "</span> + <span class="pl-s1">c1</span>.<span class="pl-en">contains</span>(<span class="pl-s1">other</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c1.containsAll(other) = "</span> + <span class="pl-s1">c1</span>.<span class="pl-en">containsAll</span>(<span class="pl-s1">other</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>();
+        c1.addAll(other);
+        System.out.println("c1集合元素的个数：" + c1.size());//5
+        System.out.println("c1.addAll(other) = " + c1);
+        System.out.println("c1.contains(other) = " + c1.contains(other));
+        System.out.println("c1.containsAll(other) = " + c1.containsAll(other));
+        System.out.println();
 
-        <span class="pl-s1">c2</span>.<span class="pl-en">add</span>(<span class="pl-s1">other</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2集合元素的个数："</span> + <span class="pl-s1">c2</span>.<span class="pl-en">size</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2.add(other) = "</span> + <span class="pl-s1">c2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2.contains(other) = "</span> + <span class="pl-s1">c2</span>.<span class="pl-en">contains</span>(<span class="pl-s1">other</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c2.containsAll(other) = "</span> + <span class="pl-s1">c2</span>.<span class="pl-en">containsAll</span>(<span class="pl-s1">other</span>));
+        c2.add(other);
+        System.out.println("c2集合元素的个数：" + c2.size());
+        System.out.println("c2.add(other) = " + c2);
+        System.out.println("c2.contains(other) = " + c2.contains(other));
+        System.out.println("c2.containsAll(other) = " + c2.containsAll(other));
     }
 
-}</pre></div>
+}
+</code></pre>
 <h3>2.3 删除</h3>
 <p>（8）void clear()：清空集合元素<br>
 （9） boolean remove(Object obj) ：从当前集合中删除第一个找到的与obj对象equals返回true的元素。<br>
 （10）boolean removeAll(Collection coll)：从当前集合中删除所有与coll集合中相同的元素。即this = this - this ∩ coll<br>
 （11）boolean retainAll(Collection coll)：从当前集合中删除两个集合中不同的元素，使得当前集合仅保留与coll集合中的元素相同的元素，即当前集合中仅保留两个集合的交集，即this  = this ∩ coll；</p>
 <p>注意几种删除方法的区别</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">collection</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.collection;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">function</span>.<span class="pl-s1">Predicate</span>;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Predicate;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestCollectionRemove</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"佛地魔"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll = "</span> + <span class="pl-s1">coll</span>);
+public class TestCollectionRemove {
+    @Test
+    public void test01(){
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        coll.add("佛地魔");
+        System.out.println("coll = " + coll);
 
-        <span class="pl-s1">coll</span>.<span class="pl-en">remove</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"删除元素<span class="pl-cce">\"</span>小李广<span class="pl-cce">\"</span>之后coll = "</span> + <span class="pl-s1">coll</span>);
+        coll.remove("小李广");
+        System.out.println("删除元素\"小李广\"之后coll = " + coll);
         
-        <span class="pl-s1">coll</span>.<span class="pl-en">clear</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll清空之后，coll = "</span> + <span class="pl-s1">coll</span>);
+        coll.clear();
+        System.out.println("coll清空之后，coll = " + coll);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>() {
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"佛地魔"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll = "</span> + <span class="pl-s1">coll</span>);
+    @Test
+    public void test02() {
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        coll.add("佛地魔");
+        System.out.println("coll = " + coll);
 
-        <span class="pl-smi">Collection</span> <span class="pl-s1">other</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"尚硅谷"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"other = "</span> + <span class="pl-s1">other</span>);
+        Collection other = new ArrayList();
+        other.add("小李广");
+        other.add("扫地僧");
+        other.add("尚硅谷");
+        System.out.println("other = " + other);
 
-        <span class="pl-s1">coll</span>.<span class="pl-en">removeAll</span>(<span class="pl-s1">other</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll.removeAll(other)之后，coll = "</span> + <span class="pl-s1">coll</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll.removeAll(other)之后，other = "</span> + <span class="pl-s1">other</span>);
+        coll.removeAll(other);
+        System.out.println("coll.removeAll(other)之后，coll = " + coll);
+        System.out.println("coll.removeAll(other)之后，other = " + other);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>() {
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"佛地魔"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll = "</span> + <span class="pl-s1">coll</span>);
+    @Test
+    public void test03() {
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        coll.add("佛地魔");
+        System.out.println("coll = " + coll);
 
-        <span class="pl-smi">Collection</span> <span class="pl-s1">other</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">other</span>.<span class="pl-en">add</span>(<span class="pl-s">"尚硅谷"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"other = "</span> + <span class="pl-s1">other</span>);
+        Collection other = new ArrayList();
+        other.add("小李广");
+        other.add("扫地僧");
+        other.add("尚硅谷");
+        System.out.println("other = " + other);
 
-        <span class="pl-s1">coll</span>.<span class="pl-en">retainAll</span>(<span class="pl-s1">other</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll.retainAll(other)之后，coll = "</span> + <span class="pl-s1">coll</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll.retainAll(other)之后，other = "</span> + <span class="pl-s1">other</span>);
+        coll.retainAll(other);
+        System.out.println("coll.retainAll(other)之后，coll = " + coll);
+        System.out.println("coll.retainAll(other)之后，other = " + other);
     }
 
-}</pre></div>
+}
+</code></pre>
 <h3>2.4 其它</h3>
 <p>（12）Object[] toArray()：返回包含当前集合中所有元素的数组<br>
 （13）hashCode()：获取集合对象的哈希值<br>
 （14）iterator()：返回迭代器对象，用于集合遍历</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestCollectionContains</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>() {
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">public class TestCollectionContains {
+    @Test
+    public void test01() {
+        Collection coll = new ArrayList();
 
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"佛地魔"</span>);
-        <span class="pl-c">//集合转换为数组：集合的toArray()方法</span>
-        <span class="pl-smi">Object</span>[] <span class="pl-s1">objects</span> = <span class="pl-s1">coll</span>.<span class="pl-en">toArray</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"用数组返回coll中所有元素："</span> + <span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">objects</span>));
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        coll.add("佛地魔");
+        //集合转换为数组：集合的toArray()方法
+        Object[] objects = coll.toArray();
+        System.out.println("用数组返回coll中所有元素：" + Arrays.toString(objects));
         
-        <span class="pl-c">//对应的，数组转换为集合：调用Arrays的asList(Object ...objs)</span>
-        <span class="pl-smi">Object</span>[] <span class="pl-s1">arr1</span> = <span class="pl-k">new</span> <span class="pl-smi">Object</span>[]{<span class="pl-c1">123</span>,<span class="pl-s">"AA"</span>,<span class="pl-s">"CC"</span>};
-        <span class="pl-smi">Collection</span> <span class="pl-s1">list</span> = <span class="pl-smi">Arrays</span>.<span class="pl-en">asList</span>(<span class="pl-s1">arr1</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
+        //对应的，数组转换为集合：调用Arrays的asList(Object ...objs)
+        Object[] arr1 = new Object[]{123,"AA","CC"};
+        Collection list = Arrays.asList(arr1);
+        System.out.println(list);
     }
-}</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 亲例:键盘录入学生信息，保存到集合List中。</span>
-<span class="pl-c">// 1)定义学生类，属性为姓名、年龄，提供必要的getter、setter方法，构造器，toString()，equals()方法</span>
-<span class="pl-c">// 使用ArrayList集合，保存录入的多个学生对象。</span>
-<span class="pl-c">// 2)</span>
-<span class="pl-c">// 0，结束录入。</span>
-<span class="pl-c">// 3)循环录入的方式，1:继续录入，</span>
-<span class="pl-c">// 4)录入结束后，用foreach遍历集合</span>
+}
+</code></pre>
+<pre lang="java" class="notranslate"><code class="notranslate">// 亲例:键盘录入学生信息，保存到集合List中。
+// 1)定义学生类，属性为姓名、年龄，提供必要的getter、setter方法，构造器，toString()，equals()方法
+// 使用ArrayList集合，保存录入的多个学生对象。
+// 2)
+// 0，结束录入。
+// 3)循环录入的方式，1:继续录入，
+// 4)录入结束后，用foreach遍历集合
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Scanner</span>;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Student</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+public class Student {
+    private String name;
+    private int age;
 
-    <span class="pl-k">public</span> <span class="pl-smi">Student</span>() {
+    public Student() {
 
-    }
-
-    <span class="pl-k">public</span> <span class="pl-smi">Student</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         
     }
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getAge</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">age</span>;
+    public int getAge() {
+        return age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setAge</span>(<span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    public void setAge(int age) {
+        this.age = age;
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">o</span>) <span class="pl-k">return</span> <span class="pl-c1">true</span>;
-        <span class="pl-k">if</span> (<span class="pl-s1">o</span> == <span class="pl-c1">null</span> || <span class="pl-en">getClass</span>() != <span class="pl-s1">o</span>.<span class="pl-en">getClass</span>()) <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        <span class="pl-smi">Student</span> <span class="pl-s1">student</span> = (<span class="pl-smi">Student</span>) <span class="pl-s1">o</span>;
+        Student student = (Student) o;
 
-        <span class="pl-k">if</span> (<span class="pl-s1">age</span> != <span class="pl-s1">student</span>.<span class="pl-s1">age</span>) <span class="pl-k">return</span> <span class="pl-c1">false</span>;
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>.<span class="pl-en">equals</span>(<span class="pl-s1">student</span>.<span class="pl-s1">name</span>);
+        if (age != student.age) return false;
+        return name.equals(student.name);
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"Student{"</span> +
-                <span class="pl-s">"name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
-                <span class="pl-s">", age="</span> + <span class="pl-s1">age</span> +
-                <span class="pl-s">'}'</span>;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
 
     }
 
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">ArrayList</span>&lt;<span class="pl-smi">Student</span>&gt; <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
-        <span class="pl-smi">Scanner</span> <span class="pl-s1">sc</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
-        <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请输入学生姓名"</span>);
-            <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-s1">sc</span>.<span class="pl-en">next</span>();
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请输入学生年龄"</span>);
-            <span class="pl-smi">int</span> <span class="pl-s1">age</span> = <span class="pl-s1">sc</span>.<span class="pl-en">nextInt</span>();
+    public static void main(String[] args) {
+        ArrayList&lt;Student&gt; list = new ArrayList&lt;&gt;();
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("请输入学生姓名");
+            String name = sc.next();
+            System.out.println("请输入学生年龄");
+            int age = sc.nextInt();
 
-            <span class="pl-smi">Student</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-s1">name</span>,<span class="pl-s1">age</span>);
-            <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s1">s</span>);
+            Student s = new Student(name,age);
+            list.add(s);
 
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"是否继续录入？1/0"</span>);
-            <span class="pl-k">if</span> (<span class="pl-s1">sc</span>.<span class="pl-en">nextInt</span>() == <span class="pl-c1">0</span>) {
-                <span class="pl-c">//输出成绩</span>
-                <span class="pl-k">for</span> (<span class="pl-smi">Student</span> <span class="pl-s1">student</span> : <span class="pl-s1">list</span>) {
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">student</span>);
+            System.out.println("是否继续录入？1/0");
+            if (sc.nextInt() == 0) {
+                //输出成绩
+                for (Student student : list) {
+                    System.out.println(student);
                 }
-                <span class="pl-k">break</span>;
+                break;
                 
             }
     }
     
 }
-}</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//音乐菜单</span>
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Scanner</span>;
+}
+</code></pre>
+<pre lang="java" class="notranslate"><code class="notranslate">//音乐菜单
+import java.util.ArrayList;
+import java.util.Scanner;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Music</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">singer</span>;
+public class Music {
+    private String name;
+    private String singer;
 
-    <span class="pl-k">public</span> <span class="pl-smi">Music</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">String</span> <span class="pl-s1">singer</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">singer</span> = <span class="pl-s1">singer</span>;
+    public Music(String name, String singer) {
+        this.name = name;
+        this.singer = singer;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    public String getName() {
+        return name;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    public void setName(String name) {
+        this.name = name;
     }
     
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getSinger</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">singer</span>;
+    public String getSinger() {
+        return singer;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setSinger</span>(<span class="pl-smi">String</span> <span class="pl-s1">singer</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">singer</span> = <span class="pl-s1">singer</span>;
+    public void setSinger(String singer) {
+        this.singer = singer;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"歌曲名:"</span> + <span class="pl-s1">name</span> + <span class="pl-s">",歌手:"</span> + <span class="pl-s1">singer</span>;
+    @Override
+    public String toString() {
+        return "歌曲名:" + name + ",歌手:" + singer;
     }
 
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">ArrayList</span>&lt;<span class="pl-smi">Music</span>&gt; <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
-        <span class="pl-smi">Scanner</span> <span class="pl-s1">sc</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
-        <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-            <span class="pl-c">// 输出歌曲</span>
-            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">list</span>.<span class="pl-en">size</span>(); <span class="pl-s1">i</span>++) {
-                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>((<span class="pl-s1">i</span> + <span class="pl-c1">1</span>) + <span class="pl-s">"."</span> + <span class="pl-s1">list</span>.<span class="pl-en">get</span>(<span class="pl-s1">i</span>).<span class="pl-en">toString</span>());
+    public static void main(String[] args) {
+        ArrayList&lt;Music&gt; list = new ArrayList&lt;&gt;();
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            // 输出歌曲
+            for (int i = 0; i &lt; list.size(); i++) {
+                System.out.println((i + 1) + "." + list.get(i).toString());
             }
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"-欢迎来到点歌系统--"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"1.添加歌曲至列表"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"2.将歌曲置顶"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"3.将歌曲前移一位"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"4.退出"</span>);
+            System.out.println("-欢迎来到点歌系统--");
+            System.out.println("1.添加歌曲至列表");
+            System.out.println("2.将歌曲置顶");
+            System.out.println("3.将歌曲前移一位");
+            System.out.println("4.退出");
 
-            <span class="pl-smi">int</span> <span class="pl-s1">choice</span> = <span class="pl-s1">sc</span>.<span class="pl-en">nextInt</span>();
-            <span class="pl-s1">sc</span>.<span class="pl-en">nextLine</span>(); <span class="pl-c">// 清除输入缓冲区中的换行符</span>
+            int choice = sc.nextInt();
+            sc.nextLine(); // 清除输入缓冲区中的换行符
 
-            <span class="pl-k">switch</span> (<span class="pl-s1">choice</span>) {
-                <span class="pl-k">case</span> <span class="pl-c1">1</span>:
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请输入歌曲名:"</span>);
-                    <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-s1">sc</span>.<span class="pl-en">nextLine</span>();
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请输入歌手名:"</span>);
-                    <span class="pl-smi">String</span> <span class="pl-s1">singer</span> = <span class="pl-s1">sc</span>.<span class="pl-en">nextLine</span>();
-                    <span class="pl-smi">Music</span> <span class="pl-s1">music</span> = <span class="pl-k">new</span> <span class="pl-smi">Music</span>(<span class="pl-s1">name</span>, <span class="pl-s1">singer</span>);
-                    <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s1">music</span>);
-                    <span class="pl-k">break</span>;
-                <span class="pl-k">case</span> <span class="pl-c1">2</span>:
-                    <span class="pl-k">if</span> (<span class="pl-s1">list</span>.<span class="pl-en">isEmpty</span>()) {
-                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"歌曲列表为空"</span>);
-                    } <span class="pl-k">else</span> {
-                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请输入要置顶的歌曲名:"</span>);
-                        <span class="pl-smi">String</span> <span class="pl-s1">songName</span> = <span class="pl-s1">sc</span>.<span class="pl-en">nextLine</span>();
-                        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">list</span>.<span class="pl-en">size</span>(); <span class="pl-s1">i</span>++) {
-                            <span class="pl-k">if</span> (<span class="pl-s1">list</span>.<span class="pl-en">get</span>(<span class="pl-s1">i</span>).<span class="pl-en">getName</span>().<span class="pl-en">equals</span>(<span class="pl-s1">songName</span>)) {
-                                <span class="pl-smi">Music</span> <span class="pl-s1">temp</span> = <span class="pl-s1">list</span>.<span class="pl-en">remove</span>(<span class="pl-s1">i</span>);
-                                <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">0</span>, <span class="pl-s1">temp</span>);
-                                <span class="pl-k">break</span>;
+            switch (choice) {
+                case 1:
+                    System.out.println("请输入歌曲名:");
+                    String name = sc.nextLine();
+                    System.out.println("请输入歌手名:");
+                    String singer = sc.nextLine();
+                    Music music = new Music(name, singer);
+                    list.add(music);
+                    break;
+                case 2:
+                    if (list.isEmpty()) {
+                        System.out.println("歌曲列表为空");
+                    } else {
+                        System.out.println("请输入要置顶的歌曲名:");
+                        String songName = sc.nextLine();
+                        for (int i = 0; i &lt; list.size(); i++) {
+                            if (list.get(i).getName().equals(songName)) {
+                                Music temp = list.remove(i);
+                                list.add(0, temp);
+                                break;
                             }
                         }
                     }
-                    <span class="pl-k">break</span>;
-                <span class="pl-k">case</span> <span class="pl-c1">3</span>:
-                    <span class="pl-k">if</span> (<span class="pl-s1">list</span>.<span class="pl-en">isEmpty</span>()) {
-                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"歌曲列表为空"</span>);
-                    } <span class="pl-k">else</span> {
-                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请输入要前移的歌曲名:"</span>);
-                        <span class="pl-smi">String</span> <span class="pl-s1">songName</span> = <span class="pl-s1">sc</span>.<span class="pl-en">nextLine</span>();
-                        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">list</span>.<span class="pl-en">size</span>(); <span class="pl-s1">i</span>++) {
-                            <span class="pl-k">if</span> (<span class="pl-s1">list</span>.<span class="pl-en">get</span>(<span class="pl-s1">i</span>).<span class="pl-en">getName</span>().<span class="pl-en">equals</span>(<span class="pl-s1">songName</span>)) {
-                                <span class="pl-k">if</span> (<span class="pl-s1">i</span> &gt; <span class="pl-c1">0</span>) {
-                                    <span class="pl-smi">Music</span> <span class="pl-s1">temp</span> = <span class="pl-s1">list</span>.<span class="pl-en">remove</span>(<span class="pl-s1">i</span>);
-                                    <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s1">i</span> - <span class="pl-c1">1</span>, <span class="pl-s1">temp</span>);
-                                } <span class="pl-k">else</span> {
-                                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"该歌曲已经在列表最前面"</span>);
+                    break;
+                case 3:
+                    if (list.isEmpty()) {
+                        System.out.println("歌曲列表为空");
+                    } else {
+                        System.out.println("请输入要前移的歌曲名:");
+                        String songName = sc.nextLine();
+                        for (int i = 0; i &lt; list.size(); i++) {
+                            if (list.get(i).getName().equals(songName)) {
+                                if (i &gt; 0) {
+                                    Music temp = list.remove(i);
+                                    list.add(i - 1, temp);
+                                } else {
+                                    System.out.println("该歌曲已经在列表最前面");
                                 }
-                                <span class="pl-k">break</span>;
+                                break;
                             }
                         }
                     }
-                    <span class="pl-k">break</span>;
-                <span class="pl-k">case</span> <span class="pl-c1">4</span>:
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"退出点歌系统"</span>);
-                    <span class="pl-s1">sc</span>.<span class="pl-en">close</span>();
-                    <span class="pl-k">return</span>;
-                <span class="pl-k">default</span>:
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"无效的指令，请重新输入"</span>);
+                    break;
+                case 4:
+                    System.out.println("退出点歌系统");
+                    sc.close();
+                    return;
+                default:
+                    System.out.println("无效的指令，请重新输入");
             }
         }
     }
-}</pre></div>
+}
+</code></pre>
 <h2>3. Iterator(迭代器)接口</h2>
 <h3>3.1 Iterator接口</h3>
 <ul>
@@ -894,53 +907,56 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>注意：在调用it.next()方法之前必须要调用it.hasNext()进行检测。若不调用，且下一条记录无效，直接调用it.next()会抛出<code class="notranslate">NoSuchElementException异常</code>。</li>
 </ul>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">iterator</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.iterator;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Iterator</span>;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestIterator</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
+public class TestIterator {
+    @Test
+    public void test01(){
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
 
-        <span class="pl-smi">Iterator</span> <span class="pl-s1">iterator</span> = <span class="pl-s1">coll</span>.<span class="pl-en">iterator</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>()); <span class="pl-c">//报NoSuchElementException异常</span>
+        Iterator iterator = coll.iterator();
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next()); //报NoSuchElementException异常
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
+    @Test
+    public void test02(){
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
 
-        <span class="pl-smi">Iterator</span> <span class="pl-s1">iterator</span> = <span class="pl-s1">coll</span>.<span class="pl-en">iterator</span>();<span class="pl-c">//获取迭代器对象</span>
-        <span class="pl-k">while</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">hasNext</span>()) {<span class="pl-c">//判断是否还有元素可迭代</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());<span class="pl-c">//取出下一个元素</span>
+        Iterator iterator = coll.iterator();//获取迭代器对象
+        while(iterator.hasNext()) {//判断是否还有元素可迭代
+            System.out.println(iterator.next());//取出下一个元素
         }
     }
-}</pre></div>
+}
+
+</code></pre>
 <h3>3.2 迭代器的执行原理</h3>
 <p>Iterator迭代器对象在遍历集合时，内部采用指针的方式来跟踪集合中的元素，接下来通过一个图例来演示Iterator对象迭代元素的过程：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220407235130988.png"><img src="images/image-20220407235130988.png" alt="" style="max-width: 100%;"></a></p>
 <p>使用Iterator迭代器删除元素：java.util.Iterator迭代器中有一个方法：void remove() ;</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Iterator</span> <span class="pl-s1">iter</span> = <span class="pl-s1">coll</span>.<span class="pl-en">iterator</span>();<span class="pl-c">//回到起点</span>
-<span class="pl-k">while</span>(<span class="pl-s1">iter</span>.<span class="pl-en">hasNext</span>()){
-    <span class="pl-smi">Object</span> <span class="pl-s1">obj</span> = <span class="pl-s1">iter</span>.<span class="pl-en">next</span>();
-    <span class="pl-k">if</span>(<span class="pl-s1">obj</span>.<span class="pl-en">equals</span>(<span class="pl-s">"Tom"</span>)){
-        <span class="pl-s1">iter</span>.<span class="pl-en">remove</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">Iterator iter = coll.iterator();//回到起点
+while(iter.hasNext()){
+    Object obj = iter.next();
+    if(obj.equals("Tom")){
+        iter.remove();
     }
-}</pre></div>
+}
+</code></pre>
 <p>注意：</p>
 <ul>
 <li>Iterator可以删除集合的元素，但是遍历过程中通过迭代器对象的remove方法，不是集合对象的remove方法。</li>
@@ -948,108 +964,113 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>Collection已经有remove(xx)方法了，为什么Iterator迭代器还要提供删除方法呢？因为迭代器的remove()可以按指定的条件进行删除。</li>
 </ul>
 <p>例如：要删除以下集合元素中的偶数</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">iterator</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.iterator;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Iterator</span>;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestIteratorRemove</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-c1">3</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-c1">4</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-c1">5</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-c1">6</span>);
+public class TestIteratorRemove {
+    @Test
+    public void test01(){
+        Collection coll = new ArrayList();
+        coll.add(1);
+        coll.add(2);
+        coll.add(3);
+        coll.add(4);
+        coll.add(5);
+        coll.add(6);
 
-        <span class="pl-smi">Iterator</span> <span class="pl-s1">iterator</span> = <span class="pl-s1">coll</span>.<span class="pl-en">iterator</span>();
-        <span class="pl-k">while</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">hasNext</span>()){
-            <span class="pl-smi">Integer</span> <span class="pl-s1">element</span> = (<span class="pl-smi">Integer</span>) <span class="pl-s1">iterator</span>.<span class="pl-en">next</span>();
-            <span class="pl-k">if</span>(<span class="pl-s1">element</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span>){
-                <span class="pl-s1">iterator</span>.<span class="pl-en">remove</span>();
+        Iterator iterator = coll.iterator();
+        while(iterator.hasNext()){
+            Integer element = (Integer) iterator.next();
+            if(element % 2 == 0){
+                iterator.remove();
             }
         }
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">coll</span>);
+        System.out.println(coll);
     }
-}</pre></div>
+}
+
+</code></pre>
 <p>在JDK8.0时，Collection接口有了removeIf 方法，即可以根据条件删除。（第18章中再讲）</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">collection</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.collection;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">function</span>.<span class="pl-s1">Predicate</span>;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Predicate;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestCollectionRemoveIf</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"佛地魔"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"coll = "</span> + <span class="pl-s1">coll</span>);
+public class TestCollectionRemoveIf {
+    @Test
+    public void test01(){
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        coll.add("佛地魔");
+        System.out.println("coll = " + coll);
 
-        <span class="pl-s1">coll</span>.<span class="pl-en">removeIf</span>(<span class="pl-k">new</span> <span class="pl-smi">Predicate</span>() {
-            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-            <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">test</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-                <span class="pl-smi">String</span> <span class="pl-s1">str</span> = (<span class="pl-smi">String</span>) <span class="pl-s1">o</span>;
-                <span class="pl-k">return</span> <span class="pl-s1">str</span>.<span class="pl-en">contains</span>(<span class="pl-s">"地"</span>);
+        coll.removeIf(new Predicate() {
+            @Override
+            public boolean test(Object o) {
+                String str = (String) o;
+                return str.contains("地");
             }
         });
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"删除包含<span class="pl-cce">\"</span>地<span class="pl-cce">\"</span>字的元素之后coll = "</span> + <span class="pl-s1">coll</span>);
+        System.out.println("删除包含\"地\"字的元素之后coll = " + coll);
     }
-}</pre></div>
+}
+</code></pre>
 <h3>3.3 foreach循环</h3>
 <ul>
 <li>foreach循环（也称增强for循环）是 JDK5.0 中定义的一个高级for循环，专门用来<code class="notranslate">遍历数组和集合</code>的。</li>
 <li>foreach循环的语法格式：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">for</span>(<span class="pl-smi">元素的数据类型</span> <span class="pl-s1">局部变量</span> : <span class="pl-s1">Collection集合或数组</span>){ 
-      <span class="pl-c">//操作局部变量的输出操作</span>
+<pre lang="java" class="notranslate"><code class="notranslate">for(元素的数据类型 局部变量 : Collection集合或数组){ 
+      //操作局部变量的输出操作
 }
-<span class="pl-c">//这里局部变量就是一个临时变量，自己命名就可以</span></pre></div>
+//这里局部变量就是一个临时变量，自己命名就可以
+</code></pre>
 <ul>
 <li>举例：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">iterator</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.iterator;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
+import java.util.ArrayList;
+import java.util.Collection;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestForeach</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">Collection</span> <span class="pl-s1">coll</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"小李广"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"扫地僧"</span>);
-        <span class="pl-s1">coll</span>.<span class="pl-en">add</span>(<span class="pl-s">"石破天"</span>);
-        <span class="pl-c">//foreach循环其实就是使用Iterator迭代器来完成元素的遍历的。</span>
-        <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">o</span> : <span class="pl-s1">coll</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">o</span>);
+public class TestForeach {
+    @Test
+    public void test01(){
+        Collection coll = new ArrayList();
+        coll.add("小李广");
+        coll.add("扫地僧");
+        coll.add("石破天");
+        //foreach循环其实就是使用Iterator迭代器来完成元素的遍历的。
+        for (Object o : coll) {
+            System.out.println(o);
         }
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
-        <span class="pl-smi">int</span>[] <span class="pl-s1">nums</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>};
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">num</span> : <span class="pl-s1">nums</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">num</span>);
+    @Test
+    public void test02(){
+        int[] nums = {1,2,3,4,5};
+        for (int num : nums) {
+            System.out.println(num);
         }
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"-----------------"</span>);
-        <span class="pl-smi">String</span>[] <span class="pl-s1">names</span> = {<span class="pl-s">"张三"</span>,<span class="pl-s">"李四"</span>,<span class="pl-s">"王五"</span>};
-        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">name</span> : <span class="pl-s1">names</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">name</span>);
+        System.out.println("-----------------");
+        String[] names = {"张三","李四","王五"};
+        for (String name : names) {
+            System.out.println(name);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <ul>
 <li>对于集合的遍历，增强for的内部原理其实是个Iterator迭代器。如下图。</li>
 </ul>
@@ -1061,18 +1082,20 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ForTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">String</span>[] <span class="pl-s1">str</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>[<span class="pl-c1">5</span>];
-        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">myStr</span> : <span class="pl-s1">str</span>) {
-            <span class="pl-s1">myStr</span> = <span class="pl-s">"atguigu"</span>;
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">myStr</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">public class ForTest {
+    public static void main(String[] args) {
+        String[] str = new String[5];
+        for (String myStr : str) {
+            myStr = "atguigu";
+            System.out.println(myStr);
         }
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">str</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>[<span class="pl-s1">i</span>]);
+        for (int i = 0; i &lt; str.length; i++) {
+            System.out.println(str[i]);
         }
     }
-}</pre></div>
+}
+
+</code></pre>
 <h2>4. Collection子接口1：List</h2>
 <h3>4.1 List接口特点</h3>
 <ul>
@@ -1116,50 +1139,51 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ul>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">list</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.list;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">List</span>;
+import java.util.ArrayList;
+import java.util.List;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestListMethod</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">// 创建List集合对象</span>
-        <span class="pl-smi">List</span>&lt;<span class="pl-smi">String</span>&gt; <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;<span class="pl-smi">String</span>&gt;();
+public class TestListMethod {
+    public static void main(String[] args) {
+        // 创建List集合对象
+        List&lt;String&gt; list = new ArrayList&lt;String&gt;();
 
-        <span class="pl-c">// 往 尾部添加 指定元素</span>
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"图图"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"小美"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"不高兴"</span>);
+        // 往 尾部添加 指定元素
+        list.add("图图");
+        list.add("小美");
+        list.add("不高兴");
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">// add(int index,String s) 往指定位置添加</span>
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>,<span class="pl-s">"没头脑"</span>);
+        System.out.println(list);
+        // add(int index,String s) 往指定位置添加
+        list.add(1,"没头脑");
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-c">// String remove(int index) 删除指定位置元素  返回被删除元素</span>
-        <span class="pl-c">// 删除索引位置为2的元素</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"删除索引位置为2的元素"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>.<span class="pl-en">remove</span>(<span class="pl-c1">2</span>));
+        System.out.println(list);
+        // String remove(int index) 删除指定位置元素  返回被删除元素
+        // 删除索引位置为2的元素
+        System.out.println("删除索引位置为2的元素");
+        System.out.println(list.remove(2));
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
+        System.out.println(list);
 
-        <span class="pl-c">// String set(int index,String s)</span>
-        <span class="pl-c">// 在指定位置 进行 元素替代（改）</span>
-        <span class="pl-c">// 修改指定位置元素</span>
-        <span class="pl-s1">list</span>.<span class="pl-en">set</span>(<span class="pl-c1">0</span>, <span class="pl-s">"三毛"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
+        // String set(int index,String s)
+        // 在指定位置 进行 元素替代（改）
+        // 修改指定位置元素
+        list.set(0, "三毛");
+        System.out.println(list);
 
-        <span class="pl-c">// String get(int index)  获取指定位置元素</span>
-        <span class="pl-c">// 跟size() 方法一起用  来 遍历的</span>
-        <span class="pl-k">for</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>;<span class="pl-s1">i</span>&lt;<span class="pl-s1">list</span>.<span class="pl-en">size</span>();<span class="pl-s1">i</span>++){
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>.<span class="pl-en">get</span>(<span class="pl-s1">i</span>));
+        // String get(int index)  获取指定位置元素
+        // 跟size() 方法一起用  来 遍历的
+        for(int i = 0;i&lt;list.size();i++){
+            System.out.println(list.get(i));
         }
-        <span class="pl-c">//还可以使用增强for</span>
-        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">string</span> : <span class="pl-s1">list</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">string</span>);
+        //还可以使用增强for
+        for (String string : list) {
+            System.out.println(string);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <blockquote>
 <p>注意：在JavaSE中List名称的类型有两个，一个是java.util.List集合接口，一个是java.awt.List图形界面的组件，别导错包了。</p>
 </blockquote>
@@ -1202,19 +1226,21 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h3>4.6 练习</h3>
 <p><strong>面试题：</strong></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testListRemove</span>() {
-    <span class="pl-smi">List</span> <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-    <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-    <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-    <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">3</span>);
-    <span class="pl-en">updateList</span>(<span class="pl-s1">list</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);<span class="pl-c">//[1,2]</span>
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void testListRemove() {
+    List list = new ArrayList();
+    list.add(1);
+    list.add(2);
+    list.add(3);
+    updateList(list);
+    System.out.println(list);//[1,2]
 }
 
-<span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">updateList</span>(<span class="pl-smi">List</span> <span class="pl-s1">list</span>) {
-    <span class="pl-s1">list</span>.<span class="pl-en">remove</span>(<span class="pl-c1">2</span>);  
-}</pre></div>
+private static void updateList(List list) {
+    list.remove(2);  
+}
+
+</code></pre>
 <p><strong>练习1：</strong></p>
 <ul>
 <li>定义学生类，属性为姓名、年龄，提供必要的getter、setter方法，构造器，toString()，equals()方法。</li>
@@ -1223,84 +1249,85 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>录入结束后，用foreach遍历集合。</li>
 <li>代码实现，效果如图所示：<a target="_blank" rel="noopener noreferrer" href="images/1559890098509.png"><img src="images/1559890098509.png" alt="" style="max-width: 100%;"></a></li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">test01</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.test01;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Scanner</span>;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">StudentTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+public class StudentTest {
+    public static void main(String[] args) {
 
-        <span class="pl-smi">Scanner</span> <span class="pl-s1">scanner</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
-        <span class="pl-smi">ArrayList</span> <span class="pl-s1">stuList</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
+        Scanner scanner = new Scanner(System.in);
+        ArrayList stuList = new ArrayList();
 
-        <span class="pl-k">for</span> (;;) {
+        for (;;) {
 
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"选择（录入 1 ；结束 0）"</span>);
-            <span class="pl-smi">int</span> <span class="pl-s1">x</span> = <span class="pl-s1">scanner</span>.<span class="pl-en">nextInt</span>();<span class="pl-c">//根据x的值，判断是否需要继续循环</span>
+            System.out.println("选择（录入 1 ；结束 0）");
+            int x = scanner.nextInt();//根据x的值，判断是否需要继续循环
 
-            <span class="pl-k">if</span> (<span class="pl-s1">x</span> == <span class="pl-c1">1</span>) {
-                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"姓名"</span>);
-                <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-s1">scanner</span>.<span class="pl-en">next</span>();
-                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"年龄"</span>);
-                <span class="pl-smi">int</span> <span class="pl-s1">age</span> = <span class="pl-s1">scanner</span>.<span class="pl-en">nextInt</span>();
-                <span class="pl-smi">Student</span> <span class="pl-s1">stu</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-s1">age</span>, <span class="pl-s1">name</span>);
-                <span class="pl-s1">stuList</span>.<span class="pl-en">add</span>(<span class="pl-s1">stu</span>);
+            if (x == 1) {
+                System.out.println("姓名");
+                String name = scanner.next();
+                System.out.println("年龄");
+                int age = scanner.nextInt();
+                Student stu = new Student(age, name);
+                stuList.add(stu);
 
-            } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">x</span> == <span class="pl-c1">0</span>) {
-                <span class="pl-k">break</span>;
+            } else if (x == 0) {
+                break;
 
-            } <span class="pl-k">else</span> {
+            } else {
 
-                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"输入有误，请重新输入"</span>);
+                System.out.println("输入有误，请重新输入");
             }
         }
 
-        <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">stu</span> : <span class="pl-s1">stuList</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">stu</span>);
+        for (Object stu : stuList) {
+            System.out.println(stu);
         }
     }
 }
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Student</span> {
+public class Student {
 
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    private int age;
+    private String name;
 
-    <span class="pl-k">public</span> <span class="pl-smi">Student</span>() {
+    public Student() {
     }
 
     
-    <span class="pl-k">public</span> <span class="pl-smi">Student</span>(<span class="pl-smi">int</span> <span class="pl-s1">age</span>, <span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-en">super</span>();
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    public Student(int age, String name) {
+        super();
+        this.age = age;
+        this.name = name;
     }
 
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getAge</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">age</span>;
+    public int getAge() {
+        return age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setAge</span>(<span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    public String getName() {
+        return name;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    public void setName(String name) {
+        this.name = name;
 
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"Student [age="</span> + <span class="pl-s1">age</span> + <span class="pl-s">", name="</span> + <span class="pl-s1">name</span> + <span class="pl-s">"]"</span>;
+    @Override
+    public String toString() {
+        return "Student [age=" + age + ", name=" + name + "]";
     }
 
-}</pre></div>
+}
+</code></pre>
 <p><strong>练习2：</strong></p>
 <pre class="notranslate"><code class="notranslate">1、请定义方法public static int listTest(Collection list,String s)统计集合中指定元素出现的次数
 
@@ -1311,36 +1338,38 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 4、效果如下
 </code></pre>
 <p><a target="_blank" rel="noopener noreferrer" href="images/1559896150606.png"><img src="images/1559896150606.png" alt="" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">test02</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.test02;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Random</span>;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Test02</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">Collection</span> <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-smi">Random</span> <span class="pl-s1">rand</span> = <span class="pl-k">new</span> <span class="pl-smi">Random</span>();
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">30</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-s1">list</span>.<span class="pl-en">add</span>((<span class="pl-smi">char</span>)(<span class="pl-s1">rand</span>.<span class="pl-en">nextInt</span>(<span class="pl-c1">26</span>)+<span class="pl-c1">97</span>)+<span class="pl-s">""</span>);
+public class Test02 {
+    public static void main(String[] args) {
+        Collection list = new ArrayList();
+        Random rand = new Random();
+        for (int i = 0; i &lt; 30; i++) {
+            list.add((char)(rand.nextInt(26)+97)+"");
         }
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"a:"</span>+<span class="pl-en">listTest</span>(<span class="pl-s1">list</span>, <span class="pl-s">"a"</span>));	
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"b:"</span>+<span class="pl-en">listTest</span>(<span class="pl-s1">list</span>, <span class="pl-s">"b"</span>));	
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c:"</span>+<span class="pl-en">listTest</span>(<span class="pl-s1">list</span>, <span class="pl-s">"c"</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"x:"</span>+<span class="pl-en">listTest</span>(<span class="pl-s1">list</span>, <span class="pl-s">"x"</span>));	
+        System.out.println(list);
+        System.out.println("a:"+listTest(list, "a"));	
+        System.out.println("b:"+listTest(list, "b"));	
+        System.out.println("c:"+listTest(list, "c"));
+        System.out.println("x:"+listTest(list, "x"));	
     }
 
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">listTest</span>(<span class="pl-smi">Collection</span> <span class="pl-s1">list</span>, <span class="pl-smi">String</span> <span class="pl-s1">string</span>) {
-        <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-c1">0</span>;
-        <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">object</span> : <span class="pl-s1">list</span>) {
-            <span class="pl-k">if</span>(<span class="pl-s1">string</span>.<span class="pl-en">equals</span>(<span class="pl-s1">object</span>)){
-                <span class="pl-s1">count</span>++;
+    public static int listTest(Collection list, String string) {
+        int count = 0;
+        for (Object object : list) {
+            if(string.equals(object)){
+                count++;
             }
         }
-        <span class="pl-k">return</span> <span class="pl-s1">count</span>;
+        return count;
     }
-}</pre></div>
+}
+
+</code></pre>
 <p><strong>练习3：KTV点歌系统</strong></p>
 <p><strong>描述</strong></p>
 <p>分别使用ArrayList和LinkedList集合，编写一个**<code class="notranslate">KTV点歌系统</code>**的程序。在程序中：</p>
@@ -1355,11 +1384,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>为了指引用户操作，首先要将各个指令所表示的含义打印到控制台</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"-------------欢迎来到点歌系统------------"</span>);
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"1.添加歌曲至列表"</span>);
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"2.将歌曲置顶"</span>);
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"3.将歌曲前移一位"</span>);
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"4.退出"</span>);</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">System.out.println("-------------欢迎来到点歌系统------------");
+System.out.println("1.添加歌曲至列表");
+System.out.println("2.将歌曲置顶");
+System.out.println("3.将歌曲前移一位");
+System.out.println("4.退出");
+</code></pre>
 <ul>
 <li>程序中需要创建一个集合作为歌曲列表，并向其添加一部分歌曲</li>
 <li>通过ArrayList或LinkedList集合定义的方法操作歌曲列表</li>
@@ -1368,101 +1398,102 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>使用ArrayList集合模拟点歌系统的实现代码，如下所示：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @create 20:26</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">KTVByArrayList</span> {
-    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">ArrayList</span> <span class="pl-s1">musicList</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();<span class="pl-c">// 创建歌曲列表</span>
-    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">Scanner</span> <span class="pl-s1">sc</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * @author 尚硅谷-宋红康
+ * @create 20:26
+ */
+public class KTVByArrayList {
+    private static ArrayList musicList = new ArrayList();// 创建歌曲列表
+    private static Scanner sc = new Scanner(System.in);
 
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-en">addMusicList</span>();<span class="pl-c">// 添加一部分歌曲至歌曲列表</span>
-        <span class="pl-smi">boolean</span> <span class="pl-s1">flag</span> = <span class="pl-c1">true</span>;
-        <span class="pl-k">while</span> (<span class="pl-s1">flag</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前歌曲列表："</span> + <span class="pl-s1">musicList</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"-------------欢迎来到点歌系统------------"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"1.添加歌曲至列表"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"2.将歌曲置顶"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"3.将歌曲前移一位"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"4.退出"</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入操作序号："</span>);
-            <span class="pl-smi">int</span> <span class="pl-s1">key</span> = <span class="pl-s1">sc</span>.<span class="pl-en">nextInt</span>();<span class="pl-c">// //接收键盘输入的功能选项序号</span>
-            <span class="pl-c">// 执行序号对应的功能</span>
-            <span class="pl-k">switch</span> (<span class="pl-s1">key</span>) {
-                <span class="pl-k">case</span> <span class="pl-c1">1</span>:<span class="pl-c">// 添加歌曲至列表</span>
-                    <span class="pl-en">addMusic</span>();
-                    <span class="pl-k">break</span>;
-                <span class="pl-k">case</span> <span class="pl-c1">2</span>:<span class="pl-c">// 将歌曲置顶</span>
-                    <span class="pl-en">setTop</span>();
-                    <span class="pl-k">break</span>;
-                <span class="pl-k">case</span> <span class="pl-c1">3</span>:<span class="pl-c">// 将歌曲前移一位</span>
-                    <span class="pl-en">setBefore</span>();
-                    <span class="pl-k">break</span>;
-                <span class="pl-k">case</span> <span class="pl-c1">4</span>:<span class="pl-c">// 退出</span>
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"----------------退出---------------"</span>);
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"您已退出系统"</span>);
-                    <span class="pl-s1">flag</span> = <span class="pl-c1">false</span>;
-                    <span class="pl-k">break</span>;
-                <span class="pl-k">default</span>:
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"----------------------------------"</span>);
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"功能选择有误，请输入正确的功能序号!"</span>);
-                    <span class="pl-k">break</span>;
+    public static void main(String[] args) {
+        addMusicList();// 添加一部分歌曲至歌曲列表
+        boolean flag = true;
+        while (flag) {
+            System.out.println("当前歌曲列表：" + musicList);
+            System.out.println("-------------欢迎来到点歌系统------------");
+            System.out.println("1.添加歌曲至列表");
+            System.out.println("2.将歌曲置顶");
+            System.out.println("3.将歌曲前移一位");
+            System.out.println("4.退出");
+            System.out.print("请输入操作序号：");
+            int key = sc.nextInt();// //接收键盘输入的功能选项序号
+            // 执行序号对应的功能
+            switch (key) {
+                case 1:// 添加歌曲至列表
+                    addMusic();
+                    break;
+                case 2:// 将歌曲置顶
+                    setTop();
+                    break;
+                case 3:// 将歌曲前移一位
+                    setBefore();
+                    break;
+                case 4:// 退出
+                    System.out.println("----------------退出---------------");
+                    System.out.println("您已退出系统");
+                    flag = false;
+                    break;
+                default:
+                    System.out.println("----------------------------------");
+                    System.out.println("功能选择有误，请输入正确的功能序号!");
+                    break;
             }
 
         }
     }
 
-    <span class="pl-c">// 初始时添加歌曲名称</span>
-    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">addMusicList</span>() {
-        <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-s">"本草纲目"</span>);
-        <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-s">"你是我的眼"</span>);
-        <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-s">"老男孩"</span>);
-        <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-s">"白月光与朱砂痣"</span>);
-        <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-s">"不谓侠"</span>);
-        <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-s">"爱你"</span>);
+    // 初始时添加歌曲名称
+    private static void addMusicList() {
+        musicList.add("本草纲目");
+        musicList.add("你是我的眼");
+        musicList.add("老男孩");
+        musicList.add("白月光与朱砂痣");
+        musicList.add("不谓侠");
+        musicList.add("爱你");
     }
 
-    <span class="pl-c">// 执行添加歌曲</span>
-    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">addMusic</span>() {
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入要添加的歌曲名称："</span>);
-        <span class="pl-smi">String</span> <span class="pl-s1">musicName</span> = <span class="pl-s1">sc</span>.<span class="pl-en">next</span>();<span class="pl-c">// 获取键盘输入内容</span>
-        <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-s1">musicName</span>);<span class="pl-c">// 添加歌曲到列表的最后</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"已添加歌曲："</span> + <span class="pl-s1">musicName</span>);
+    // 执行添加歌曲
+    private static void addMusic() {
+        System.out.print("请输入要添加的歌曲名称：");
+        String musicName = sc.next();// 获取键盘输入内容
+        musicList.add(musicName);// 添加歌曲到列表的最后
+        System.out.println("已添加歌曲：" + musicName);
     }
 
-    <span class="pl-c">// 执行将歌曲置顶</span>
-    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">setTop</span>() {
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入要置顶的歌曲名称："</span>);
-        <span class="pl-smi">String</span> <span class="pl-s1">musicName</span> = <span class="pl-s1">sc</span>.<span class="pl-en">next</span>();<span class="pl-c">// 获取键盘输入内容</span>
-        <span class="pl-smi">int</span> <span class="pl-s1">musicIndex</span> = <span class="pl-s1">musicList</span>.<span class="pl-en">indexOf</span>(<span class="pl-s1">musicName</span>);<span class="pl-c">// 查找指定歌曲位置</span>
-        <span class="pl-k">if</span> (<span class="pl-s1">musicIndex</span> &lt; <span class="pl-c1">0</span>) {<span class="pl-c">// 判断输入歌曲是否存在</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前列表中没有输入的歌曲！"</span>);
-        }<span class="pl-k">else</span> <span class="pl-k">if</span>(<span class="pl-s1">musicIndex</span> == <span class="pl-c1">0</span>){
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前歌曲默认已置顶！"</span>);
-        }<span class="pl-k">else</span> {
-            <span class="pl-s1">musicList</span>.<span class="pl-en">remove</span>(<span class="pl-s1">musicName</span>);<span class="pl-c">// 移除指定的歌曲</span>
-            <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-c1">0</span>, <span class="pl-s1">musicName</span>);<span class="pl-c">// 将指定的歌曲放到第一位</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"已将歌曲《"</span> + <span class="pl-s1">musicName</span> + <span class="pl-s">"》置顶"</span>);
+    // 执行将歌曲置顶
+    private static void setTop() {
+        System.out.print("请输入要置顶的歌曲名称：");
+        String musicName = sc.next();// 获取键盘输入内容
+        int musicIndex = musicList.indexOf(musicName);// 查找指定歌曲位置
+        if (musicIndex &lt; 0) {// 判断输入歌曲是否存在
+            System.out.println("当前列表中没有输入的歌曲！");
+        }else if(musicIndex == 0){
+            System.out.println("当前歌曲默认已置顶！");
+        }else {
+            musicList.remove(musicName);// 移除指定的歌曲
+            musicList.add(0, musicName);// 将指定的歌曲放到第一位
+            System.out.println("已将歌曲《" + musicName + "》置顶");
         }
     }
 
-    <span class="pl-c">// 执行将歌曲置前一位</span>
-    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">setBefore</span>() {
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入要置前的歌曲名称："</span>);
-        <span class="pl-smi">String</span> <span class="pl-s1">musicName</span> = <span class="pl-s1">sc</span>.<span class="pl-en">next</span>();<span class="pl-c">// 获取键盘输入内容</span>
-        <span class="pl-smi">int</span> <span class="pl-s1">musicIndex</span> = <span class="pl-s1">musicList</span>.<span class="pl-en">indexOf</span>(<span class="pl-s1">musicName</span>);<span class="pl-c">// 查找指定歌曲位置</span>
-        <span class="pl-k">if</span> (<span class="pl-s1">musicIndex</span> &lt; <span class="pl-c1">0</span>) {<span class="pl-c">// 判断输入歌曲是否存在</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前列表中没有输入的歌曲！"</span>);
-        } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">musicIndex</span> == <span class="pl-c1">0</span>) {<span class="pl-c">// 判断歌曲是否已在第一位</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前歌曲已在最顶部！"</span>);
-        } <span class="pl-k">else</span> {
-            <span class="pl-s1">musicList</span>.<span class="pl-en">remove</span>(<span class="pl-s1">musicName</span>);<span class="pl-c">// 移除指定的歌曲</span>
-            <span class="pl-s1">musicList</span>.<span class="pl-en">add</span>(<span class="pl-s1">musicIndex</span> - <span class="pl-c1">1</span>, <span class="pl-s1">musicName</span>);<span class="pl-c">// 将指定的歌曲放到前一位</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"已将歌曲《"</span> + <span class="pl-s1">musicName</span> + <span class="pl-s">"》置前一位"</span>);
+    // 执行将歌曲置前一位
+    private static void setBefore() {
+        System.out.print("请输入要置前的歌曲名称：");
+        String musicName = sc.next();// 获取键盘输入内容
+        int musicIndex = musicList.indexOf(musicName);// 查找指定歌曲位置
+        if (musicIndex &lt; 0) {// 判断输入歌曲是否存在
+            System.out.println("当前列表中没有输入的歌曲！");
+        } else if (musicIndex == 0) {// 判断歌曲是否已在第一位
+            System.out.println("当前歌曲已在最顶部！");
+        } else {
+            musicList.remove(musicName);// 移除指定的歌曲
+            musicList.add(musicIndex - 1, musicName);// 将指定的歌曲放到前一位
+            System.out.println("已将歌曲《" + musicName + "》置前一位");
         }
     }
-}</pre></div></div>
+}
+</code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style="padding:10px 15px;text-align:left;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif"><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href="https://blog.adouzi.eu.org/post/21.html" style="color:#0078d7;text-decoration:none">关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href="https://adouzi.eu.org" style="color:#0078d7;text-decoration:none">https://adouzi.eu.org</a></span><span> | Email：<a href="mailto:shiraayano@adouzi.eu.org" style="color:#0078d7;text-decoration:none">shiraayano@adouzi.eu.org</a><br><br><br>支持笔者：<a href="https://www.profitableratecpm.com/euxxr69t?key=f815bdc51cd258ab9f699175b0ef4446" style="color:#0078d7;text-decoration:none">点击广告</a><br>广告收入是本站唯一的收入，若本站内容帮到了您，可以点击广告支持笔者。</span><script async data-cfasync="false" src="//pl27420049.profitableratecpm.com/0f4f9e716ea5257a380097bb2d39a0bb/invoke.js"></script><div id="container-0f4f9e716ea5257a380097bb2d39a0bb"></div><br><script type="text/javascript">
 atOptions = {
 	'key' : '7a765266e94fd2cc53f429f1806bfa33',
