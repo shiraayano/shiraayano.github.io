@@ -27,7 +27,7 @@
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/15.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java学习笔记 基础篇 005</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -97,12 +97,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>10.1 注解概述</h3>
 <h4>10.1.1 什么是注解</h4>
 <p>注解（Annotation）是从<code class="notranslate">JDK5.0</code>开始引入，以“<code class="notranslate">@注解名</code>”在代码中存在。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Override
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">@Deprecated
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">@SuppressWarnings(value=”unchecked”)
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Override</span></pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Deprecated</span></pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">SuppressWarnings</span>(<span class="pl-s1">value</span>=”<span class="pl-s1">unchecked</span>”)</pre></div>
 <p>Annotation 可以像修饰符一样被使用，可用于修饰包、类、构造器、方法、成员变量、参数、局部变量的声明。还可以添加一些参数值，这些信息被保存在 Annotation 的 “name=value” 对中。</p>
 <p>注解可以在类编译、运行时进行加载，体现不同的功能。</p>
 <h4>10.1.2 注解与注释</h4>
@@ -137,132 +134,119 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">@Transactional</code>：Spring框架中的注解，用于声明事务。</li>
 </ul>
 <p>注解的基本语法如下：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public @interface MyAnnotation {
-    String value();
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> @interface <span class="pl-s1">MyAnnotation</span> {
+    <span class="pl-smi">String</span> <span class="pl-s1">value</span>();
+}</pre></div>
 <p>使用注解：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@MyAnnotation(value = "SomeValue")
-public class MyClass {
-    // ...
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">MyAnnotation</span>(<span class="pl-s1">value</span> = <span class="pl-s">"SomeValue"</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyClass</span> {
+    <span class="pl-c">// ...</span>
+}</pre></div>
 <p>注解可以有参数，这些参数在声明注解时必须指定。注解也可以没有参数</p>
 <h3>10.2 常见的Annotation作用</h3>
 <p><strong>示例1：生成文档相关的注解</strong></p>
-<pre lang="java" class="notranslate"><code class="notranslate">@author 标明开发该类模块的作者，多个作者之间使用,分割
-@version 标明该类模块的版本
-@see 参考转向，也就是相关主题
-@since 从哪个版本开始增加的
-@param 对方法中某参数的说明，如果没有参数就不能写
-@return 对方法返回值的说明，如果方法的返回值类型是void就不能写
-@exception 对方法可能抛出的异常进行说明 ，如果方法没有用throws显式抛出的异常就不能写
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.annotation.javadoc;
-/**
- * @author 尚硅谷-宋红康
- * @version 1.0
- * @see Math.java
- */
-public class JavadocTest {
-    /**
-     * 程序的主方法，程序的入口
-     * @param args String[] 命令行参数
-     */
-    public static void main(String[] args) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">author</span> <span class="pl-smi">标明开发该类模块的作者</span>，<span class="pl-s1">多个作者之间使用</span>,<span class="pl-s1">分割</span>
+<span class="pl-c1">@</span><span class="pl-c1">version</span> <span class="pl-s1">标明该类模块的版本</span>
+<span class="pl-c1">@</span><span class="pl-c1">see</span> <span class="pl-s1">参考转向</span>，<span class="pl-s1">也就是相关主题</span>
+<span class="pl-c1">@</span><span class="pl-c1">since</span> <span class="pl-s1">从哪个版本开始增加的</span>
+<span class="pl-c1">@</span><span class="pl-c1">param</span> <span class="pl-s1">对方法中某参数的说明</span>，<span class="pl-s1">如果没有参数就不能写</span>
+<span class="pl-c1">@</span><span class="pl-c1">return</span> <span class="pl-s1">对方法返回值的说明</span>，<span class="pl-s1">如果方法的返回值类型是void就不能写</span>
+<span class="pl-c1">@</span><span class="pl-c1">exception</span> <span class="pl-s1">对方法可能抛出的异常进行说明</span> ，<span class="pl-s1">如果方法没有用throws显式抛出的异常就不能写</span></pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">javadoc</span>;
+<span class="pl-c">/**</span>
+<span class="pl-c"> * @author 尚硅谷-宋红康</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @see Math.java</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">JavadocTest</span> {
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 程序的主方法，程序的入口</span>
+<span class="pl-c">     * @param args String[] 命令行参数</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
     }
     
-    /**
-     * 求圆面积的方法
-     * @param radius double 半径值
-     * @return double 圆的面积
-     */
-    public static double getArea(double radius){
-        return Math.PI * radius * radius;
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 求圆面积的方法</span>
+<span class="pl-c">     * @param radius double 半径值</span>
+<span class="pl-c">     * @return double 圆的面积</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">double</span> <span class="pl-en">getArea</span>(<span class="pl-smi">double</span> <span class="pl-s1">radius</span>){
+        <span class="pl-k">return</span> <span class="pl-smi">Math</span>.<span class="pl-c1">PI</span> * <span class="pl-s1">radius</span> * <span class="pl-s1">radius</span>;
     }
-}
-
-</code></pre>
+}</pre></div>
 <p><strong>示例2：在编译时进行格式检查(JDK内置的三个基本注解)</strong></p>
 <p><code class="notranslate">@Override</code>: 限定重写父类方法，该注解只能用于方法</p>
 <p><code class="notranslate">@Deprecated</code>: 用于表示所修饰的元素(类，方法等)已过时。通常是因为所修饰的结构危险或存在更好的选择</p>
 <p><code class="notranslate">@SuppressWarnings</code>: 抑制编译器警告</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.annotation.javadoc;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">javadoc</span>;
  
-public class AnnotationTest{
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">AnnotationTest</span>{
  
-    public static void main(String[] args) {
-        @SuppressWarnings("unused")
-        int a = 10;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c1">@</span><span class="pl-c1">SuppressWarnings</span>(<span class="pl-s">"unused"</span>)
+        <span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-c1">10</span>;
     }
-    @Deprecated
-    public void print(){
-        System.out.println("过时的方法");
+    <span class="pl-c1">@</span><span class="pl-c1">Deprecated</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">print</span>(){
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"过时的方法"</span>);
     }
  
-    @Override
-    public String toString() {
-        return "重写的toString方法()";
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"重写的toString方法()"</span>;
     }
-}
-
-</code></pre>
+}</pre></div>
 <p><strong>示例3：跟踪代码依赖性，实现替代配置文件功能</strong></p>
 <ul>
 <li>Servlet3.0提供了注解(annotation)，使得不再需要在web.xml文件中进行Servlet的部署。</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">WebServlet</span>(<span class="pl-s">"/login"</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LoginServlet</span> <span class="pl-k">extends</span> <span class="pl-smi">HttpServlet</span> {
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">long</span> <span class="pl-s1">serialVersionUID</span> = <span class="pl-c1">1L</span>;
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) { }
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">doGet</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>) { }
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        doGet(request, response);
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">doPost</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>) {
+        <span class="pl-en">doGet</span>(<span class="pl-s1">request</span>, <span class="pl-s1">response</span>);
     }  
-}
+}</pre></div>
+<div class="highlight highlight-text-xml"><pre class="notranslate"> &lt;<span class="pl-ent">servlet</span>&gt;
+    &lt;<span class="pl-ent">servlet-name</span>&gt;LoginServlet&lt;/<span class="pl-ent">servlet-name</span>&gt;
 
-</code></pre>
-<pre lang="xml" class="notranslate"><code class="notranslate"> &lt;servlet&gt;
-    &lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;
+    &lt;<span class="pl-ent">servlet-class</span>&gt;com.servlet.LoginServlet&lt;/<span class="pl-ent">servlet-class</span>&gt;
 
-    &lt;servlet-class&gt;com.servlet.LoginServlet&lt;/servlet-class&gt;
+  &lt;/<span class="pl-ent">servlet</span>&gt;
 
-  &lt;/servlet&gt;
+  &lt;<span class="pl-ent">servlet-mapping</span>&gt;
+    &lt;<span class="pl-ent">servlet-name</span>&gt;LoginServlet&lt;/<span class="pl-ent">servlet-name</span>&gt;
 
-  &lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;
+    &lt;<span class="pl-ent">url-pattern</span>&gt;/login&lt;/<span class="pl-ent">url-pattern</span>&gt;
 
-    &lt;url-pattern&gt;/login&lt;/url-pattern&gt;
-
-  &lt;/servlet-mapping&gt;
-
-</code></pre>
+  &lt;/<span class="pl-ent">servlet-mapping</span>&gt;
+</pre></div>
 <ul>
 <li>Spring框架中关于“事务”的管理</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">@Transactional(propagation=Propagation.REQUIRES_NEW,isolation=Isolation.READ_COMMITTED,readOnly=false,timeout=3)
-public void buyBook(String username, String isbn) {
-    //1.查询书的单价
-    int price = bookShopDao.findBookPriceByIsbn(isbn);
-    //2. 更新库存
-    bookShopDao.updateBookStock(isbn);	
-    //3. 更新用户的余额
-    bookShopDao.updateUserAccount(username, price);
-}
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Transactional</span>(<span class="pl-s1">propagation</span>=<span class="pl-smi">Propagation</span>.<span class="pl-c1">REQUIRES_NEW</span>,<span class="pl-s1">isolation</span>=<span class="pl-smi">Isolation</span>.<span class="pl-c1">READ_COMMITTED</span>,<span class="pl-s1">readOnly</span>=<span class="pl-c1">false</span>,<span class="pl-s1">timeout</span>=<span class="pl-c1">3</span>)
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">buyBook</span>(<span class="pl-smi">String</span> <span class="pl-s1">username</span>, <span class="pl-smi">String</span> <span class="pl-s1">isbn</span>) {
+    <span class="pl-c">//1.查询书的单价</span>
+    <span class="pl-smi">int</span> <span class="pl-s1">price</span> = <span class="pl-s1">bookShopDao</span>.<span class="pl-en">findBookPriceByIsbn</span>(<span class="pl-s1">isbn</span>);
+    <span class="pl-c">//2. 更新库存</span>
+    <span class="pl-s1">bookShopDao</span>.<span class="pl-en">updateBookStock</span>(<span class="pl-s1">isbn</span>);	
+    <span class="pl-c">//3. 更新用户的余额</span>
+    <span class="pl-s1">bookShopDao</span>.<span class="pl-en">updateUserAccount</span>(<span class="pl-s1">username</span>, <span class="pl-s1">price</span>);
+}</pre></div>
+<div class="highlight highlight-text-xml"><pre class="notranslate"><span class="pl-c"><span class="pl-c">&lt;!--</span> 配置事务属性 <span class="pl-c">--&gt;</span></span>
+&lt;<span class="pl-ent">tx</span><span class="pl-ent">:</span><span class="pl-ent">advice</span> <span class="pl-e">transaction-manager</span>=<span class="pl-s"><span class="pl-pds">"</span>dataSourceTransactionManager<span class="pl-pds">"</span></span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>txAdvice<span class="pl-pds">"</span></span>&gt;
+       &lt;<span class="pl-ent">tx</span><span class="pl-ent">:</span><span class="pl-ent">attributes</span>&gt;
+       <span class="pl-c"><span class="pl-c">&lt;!--</span> 配置每个方法使用的事务属性 <span class="pl-c">--&gt;</span></span>
+       &lt;<span class="pl-ent">tx</span><span class="pl-ent">:</span><span class="pl-ent">method</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>buyBook<span class="pl-pds">"</span></span> <span class="pl-e">propagation</span>=<span class="pl-s"><span class="pl-pds">"</span>REQUIRES_NEW<span class="pl-pds">"</span></span> 
+     <span class="pl-e">isolation</span>=<span class="pl-s"><span class="pl-pds">"</span>READ_COMMITTED<span class="pl-pds">"</span></span>  <span class="pl-e">read-only</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>  <span class="pl-e">timeout</span>=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> /&gt;
+       &lt;/<span class="pl-ent">tx</span><span class="pl-ent">:</span><span class="pl-ent">attributes</span>&gt;
 
-</code></pre>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;!-- 配置事务属性 --&gt;
-&lt;tx:advice transaction-manager="dataSourceTransactionManager" id="txAdvice"&gt;
-       &lt;tx:attributes&gt;
-       &lt;!-- 配置每个方法使用的事务属性 --&gt;
-       &lt;tx:method name="buyBook" propagation="REQUIRES_NEW" 
-     isolation="READ_COMMITTED"  read-only="false"  timeout="3" /&gt;
-       &lt;/tx:attributes&gt;
-
-&lt;/tx:advice&gt;
-
-</code></pre>
+&lt;/<span class="pl-ent">tx</span><span class="pl-ent">:</span><span class="pl-ent">advice</span>&gt;
+</pre></div>
 <h3>10.3 三个最基本的注解</h3>
 <h4>10.3.1 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/OverRide/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/OverRide">@OverRide</a></h4>
 <ul>
@@ -298,43 +282,42 @@ public void buyBook(String username, String isbn) {
 </li>
 </ul>
 <p>示例代码：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.annotation;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">annotation</span>;
 
-import java.util.ArrayList;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
 
-public class TestAnnotation {
-    @SuppressWarnings("all")
-    public static void main(String[] args) {
-        int i;
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestAnnotation</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">SuppressWarnings</span>(<span class="pl-s">"all"</span>)
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">i</span>;
 
-        ArrayList list = new ArrayList();
-        list.add("hello");
-        list.add(123);
-        list.add("world");
+        <span class="pl-smi">ArrayList</span> <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
+        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"hello"</span>);
+        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">123</span>);
+        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"world"</span>);
 
-        Father f = new Son();
-        f.show();
-        f.methodOl();
+        <span class="pl-smi">Father</span> <span class="pl-s1">f</span> = <span class="pl-k">new</span> <span class="pl-smi">Son</span>();
+        <span class="pl-s1">f</span>.<span class="pl-en">show</span>();
+        <span class="pl-s1">f</span>.<span class="pl-en">methodOl</span>();
     }
 }
 
-class Father{
-    @Deprecated
-    void show() {
-        System.out.println("Father.show");
+<span class="pl-k">class</span> <span class="pl-smi">Father</span>{
+    <span class="pl-c1">@</span><span class="pl-c1">Deprecated</span>
+    <span class="pl-smi">void</span> <span class="pl-en">show</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Father.show"</span>);
     }
-    void methodOl() {
-        System.out.println("Father Method");
+    <span class="pl-smi">void</span> <span class="pl-en">methodOl</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Father Method"</span>);
     }
 }
 
-class Son extends Father{
-/*	@Override
-    void method01() {
-        System.out.println("Son Method");
-    }*/
-}
-</code></pre>
+<span class="pl-k">class</span> <span class="pl-smi">Son</span> <span class="pl-k">extends</span> <span class="pl-smi">Father</span>{
+<span class="pl-c">/*	@Override</span>
+<span class="pl-c">    void method01() {</span>
+<span class="pl-c">        System.out.println("Son Method");</span>
+<span class="pl-c">    }*/</span>
+}</pre></div>
 <h3>10.4 元注解</h3>
 <p>JDK1.5在java.lang.annotation包定义了4个标准的meta-annotation类型，它们被用来提供对其它 annotation类型作说明。</p>
 <p>（1）**<a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/target/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/target">@target</a>：**用于描述注解的使用范围</p>
@@ -351,37 +334,34 @@ class Son extends Father{
 <p>（3）<strong><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/documented/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/documented">@documented</a></strong>：表明这个注解应该被 javadoc工具记录。</p>
 <p>（4）**<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/inherited/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/inherited">@inherited</a>：**允许子类继承父类中的注解</p>
 <p>示例代码：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package java.lang;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>;
 
-import java.lang.annotation.*;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>.<span class="pl-s1">annotation</span>.*;
 
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.SOURCE)
-public @interface Override {
-}
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">package java.lang;
+<span class="pl-c1">@</span><span class="pl-c1">Target</span>(<span class="pl-smi">ElementType</span>.<span class="pl-c1">METHOD</span>)
+<span class="pl-c1">@</span><span class="pl-c1">Retention</span>(<span class="pl-smi">RetentionPolicy</span>.<span class="pl-c1">SOURCE</span>)
+<span class="pl-k">public</span> @interface <span class="pl-s1">Override</span> {
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>;
 
-import java.lang.annotation.*;
-import static java.lang.annotation.ElementType.*;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>.<span class="pl-s1">annotation</span>.*;
+<span class="pl-k">import</span> <span class="pl-k">static</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">ElementType</span>.*;
 
-@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
-@Retention(RetentionPolicy.SOURCE)
-public @interface SuppressWarnings {
-    String[] value();
-}
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">package java.lang;
+<span class="pl-c1">@</span><span class="pl-c1">Target</span>({<span class="pl-c1">TYPE</span>, <span class="pl-c1">FIELD</span>, <span class="pl-c1">METHOD</span>, <span class="pl-c1">PARAMETER</span>, <span class="pl-c1">CONSTRUCTOR</span>, <span class="pl-c1">LOCAL_VARIABLE</span>})
+<span class="pl-c1">@</span><span class="pl-c1">Retention</span>(<span class="pl-smi">RetentionPolicy</span>.<span class="pl-c1">SOURCE</span>)
+<span class="pl-k">public</span> @interface <span class="pl-s1">SuppressWarnings</span> {
+    <span class="pl-smi">String</span>[] <span class="pl-s1">value</span>();
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>;
 
-import java.lang.annotation.*;
-import static java.lang.annotation.ElementType.*;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>.<span class="pl-s1">annotation</span>.*;
+<span class="pl-k">import</span> <span class="pl-k">static</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">ElementType</span>.*;
 
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(value={CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE})
-public @interface Deprecated {
-}
-</code></pre>
+<span class="pl-c1">@</span><span class="pl-c1">Documented</span>
+<span class="pl-c1">@</span><span class="pl-c1">Retention</span>(<span class="pl-smi">RetentionPolicy</span>.<span class="pl-c1">RUNTIME</span>)
+<span class="pl-c1">@</span><span class="pl-c1">Target</span>(<span class="pl-s1">value</span>={<span class="pl-c1">CONSTRUCTOR</span>, <span class="pl-c1">FIELD</span>, <span class="pl-c1">LOCAL_VARIABLE</span>, <span class="pl-c1">METHOD</span>, <span class="pl-c1">PACKAGE</span>, <span class="pl-c1">PARAMETER</span>, <span class="pl-c1">TYPE</span>})
+<span class="pl-k">public</span> @interface <span class="pl-s1">Deprecated</span> {
+}</pre></div>
 <blockquote>
 <p>拓展：元数据</p>
 <p>String name = "Tom";</p>
@@ -392,76 +372,71 @@ public @interface Deprecated {
 （2）使用<br>
 （3）读取</p>
 <h4>10.5.1 声明自定义注解</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">【元注解】
-【修饰符】 @interface 注解名{
-    【成员列表】
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate">【<span class="pl-smi">元注解</span>】
+【<span class="pl-s1">修饰符</span>】 @interface <span class="pl-s1">注解名</span>{
+    【<span class="pl-s1">成员列表</span>】
+}</pre></div>
 <ul>
 <li>自定义注解可以通过四个元注解<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/retention/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/retention">@retention</a>,<a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/target/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/target">@target</a>，<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/inherited/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/inherited">@inherited</a>,<a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/documented/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/documented">@documented</a>，分别说明它的声明周期，使用位置，是否被继承，是否被生成到API文档中。</li>
 <li>Annotation 的成员在 Annotation 定义中以无参数有返回值的抽象方法的形式来声明，我们又称为配置参数。返回值类型只能是八种基本数据类型、String类型、Class类型、enum类型、Annotation类型、以上所有类型的数组</li>
 <li>可以使用 default 关键字为抽象方法指定默认返回值</li>
 <li>如果定义的注解含有抽象方法，那么使用时必须指定返回值，除非它有默认值。格式是“方法名 = 返回值”，如果只有一个抽象方法需要赋值，且方法名为value，可以省略“value=”，所以如果注解只有一个抽象方法成员，建议使用方法名value。</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.annotation;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">annotation</span>;
 
-import java.lang.annotation.*;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>.<span class="pl-s1">annotation</span>.*;
 
-@Inherited
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Table {
-    String value();
-}
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.annotation;
+<span class="pl-c1">@</span><span class="pl-c1">Inherited</span>
+<span class="pl-c1">@</span><span class="pl-c1">Target</span>(<span class="pl-smi">ElementType</span>.<span class="pl-c1">TYPE</span>)
+<span class="pl-c1">@</span><span class="pl-c1">Retention</span>(<span class="pl-smi">RetentionPolicy</span>.<span class="pl-c1">RUNTIME</span>)
+<span class="pl-k">public</span> @interface <span class="pl-s1">Table</span> {
+    <span class="pl-smi">String</span> <span class="pl-s1">value</span>();
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">annotation</span>;
 
-import java.lang.annotation.*;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>.<span class="pl-s1">annotation</span>.*;
 
-@Inherited
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Column {
-    String columnName();
-    String columnType();
-}
-</code></pre>
+<span class="pl-c1">@</span><span class="pl-c1">Inherited</span>
+<span class="pl-c1">@</span><span class="pl-c1">Target</span>(<span class="pl-smi">ElementType</span>.<span class="pl-c1">FIELD</span>)
+<span class="pl-c1">@</span><span class="pl-c1">Retention</span>(<span class="pl-smi">RetentionPolicy</span>.<span class="pl-c1">RUNTIME</span>)
+<span class="pl-k">public</span> @interface <span class="pl-s1">Column</span> {
+    <span class="pl-smi">String</span> <span class="pl-s1">columnName</span>();
+    <span class="pl-smi">String</span> <span class="pl-s1">columnType</span>();
+}</pre></div>
 <h4>10.5.2 使用自定义注解</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.annotation;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">annotation</span>;
 
-@Table("t_stu")
-public class Student {
-    @Column(columnName = "sid",columnType = "int")
-    private int id;
-    @Column(columnName = "sname",columnType = "varchar(20)")
-    private String name;
+<span class="pl-c1">@</span><span class="pl-c1">Table</span>(<span class="pl-s">"t_stu"</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Student</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Column</span>(<span class="pl-s1">columnName</span> = <span class="pl-s">"sid"</span>,<span class="pl-s1">columnType</span> = <span class="pl-s">"int"</span>)
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">id</span>;
+    <span class="pl-c1">@</span><span class="pl-c1">Column</span>(<span class="pl-s1">columnName</span> = <span class="pl-s">"sname"</span>,<span class="pl-s1">columnType</span> = <span class="pl-s">"varchar(20)"</span>)
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
 
-    public int getId() {
-        return id;
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getId</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">id</span>;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setId</span>(<span class="pl-smi">int</span> <span class="pl-s1">id</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">id</span> = <span class="pl-s1">id</span>;
     }
 
-    public String getName() {
-        return name;
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"Student{"</span> +
+                <span class="pl-s">"id="</span> + <span class="pl-s1">id</span> +
+                <span class="pl-s">", name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
+                <span class="pl-s">'}'</span>;
     }
-}
-
-</code></pre>
+}</pre></div>
 <h4>10.5.3 读取和处理自定义注解</h4>
 <p>自定义注解必须配上注解的信息处理流程才有意义。</p>
 <p>我们自己定义的注解，只能使用反射的代码读取。所以自定义注解的声明周期必须是RetentionPolicy.RUNTIME。</p>
@@ -496,34 +471,32 @@ public class Student {
 <li>所在的类必须是public的，非抽象的，包含唯一的无参构造器。</li>
 <li><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/test/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/test">@test</a>标记的方法本身必须是public，非抽象的，非静态的，void无返回值，()无参数的。</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.junit;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">junit</span>;
 
-import org.junit.Test;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
 
-public class TestJUnit {
-    @Test
-    public void test01(){
-        System.out.println("TestJUnit.test01");
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestJUnit</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"TestJUnit.test01"</span>);
     }
 
-    @Test
-    public void test02(){
-        System.out.println("TestJUnit.test02");
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"TestJUnit.test02"</span>);
     }
 
-    @Test
-    public void test03(){
-        System.out.println("TestJUnit.test03");
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"TestJUnit.test03"</span>);
     }
-}
-</code></pre>
+}</pre></div>
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220106152412245.png"><img src="images/image-20220106152412245.png" alt="" style="max-width: 100%;"></a></p>
 <h4>10.6.5 设置执行JUnit用例时支持控制台输入</h4>
 <p><strong>1. 设置数据：</strong></p>
 <p>默认情况下，在单元测试方法中使用Scanner时，并不能实现控制台数据的输入。需要做如下设置：</p>
 <p>在<code class="notranslate">idea64.exe.vmoptions配置文件</code>中加入下面一行设置，重启idea后生效。</p>
-<pre lang="properties" class="notranslate"><code class="notranslate">-Deditable.java.test.console=true
-</code></pre>
+<div class="highlight highlight-source-ini"><pre class="notranslate">-<span class="pl-k">Deditable.java.test.console</span>=true</pre></div>
 <p><strong>2. 配置文件位置：</strong></p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813011625546.png"><img src="images/image-20220813011625546.png" alt="" style="max-width: 100%;"></a></p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813011642180.png"><img src="images/image-20220813011642180.png" alt="" style="max-width: 100%;"></a></p>
@@ -536,62 +509,60 @@ public class TestJUnit {
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20211229100040505.png"><img src="images/image-20211229100040505.png" alt="" style="max-width: 100%;"></a></p>
 <p>框架 = 注解 + 反射 + 设计模式</p>
 <h2>11. 包装类</h2>
-<pre lang="java" class="notranslate"><code class="notranslate">public class WrapperTest {
-    public static void main(String[] args) {
-        //基本数据类型-&gt;包装类
-        int num1 = 10;
-        //将基本数据类型int转换为包装类Integer
-        Integer integer = num1;
-        //输出包装类Integer的字符串表示
-        System.out.println(integer.toString());
-        //输出包装类Integer的值
-        System.out.println(integer);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">WrapperTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">//基本数据类型-&gt;包装类</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">num1</span> = <span class="pl-c1">10</span>;
+        <span class="pl-c">//将基本数据类型int转换为包装类Integer</span>
+        <span class="pl-smi">Integer</span> <span class="pl-s1">integer</span> = <span class="pl-s1">num1</span>;
+        <span class="pl-c">//输出包装类Integer的字符串表示</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">integer</span>.<span class="pl-en">toString</span>());
+        <span class="pl-c">//输出包装类Integer的值</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">integer</span>);
 
-        //包装类-&gt;基本数据类型
-        Integer integer1 = new Integer(100);
-        //将包装类Integer转换为基本数据类型int
-        int num2 = integer1.intValue();
-        //输出基本数据类型int的值
-        System.out.println(num2);
+        <span class="pl-c">//包装类-&gt;基本数据类型</span>
+        <span class="pl-smi">Integer</span> <span class="pl-s1">integer1</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">100</span>);
+        <span class="pl-c">//将包装类Integer转换为基本数据类型int</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">num2</span> = <span class="pl-s1">integer1</span>.<span class="pl-en">intValue</span>();
+        <span class="pl-c">//输出基本数据类型int的值</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">num2</span>);
 
-        boolean b = true;
-        //将基本数据类型boolean转换为包装类Boolean
-        Boolean boolean1 = b;
-        //输出包装类Boolean的字符串表示
-        System.out.println(boolean1.toString());
-        //输出包装类Boolean的值
-        System.out.println(boolean1);
+        <span class="pl-smi">boolean</span> <span class="pl-s1">b</span> = <span class="pl-c1">true</span>;
+        <span class="pl-c">//将基本数据类型boolean转换为包装类Boolean</span>
+        <span class="pl-smi">Boolean</span> <span class="pl-s1">boolean1</span> = <span class="pl-s1">b</span>;
+        <span class="pl-c">//输出包装类Boolean的字符串表示</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">boolean1</span>.<span class="pl-en">toString</span>());
+        <span class="pl-c">//输出包装类Boolean的值</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">boolean1</span>);
 
-        Boolean boolean2 = new Boolean(true);
-        //将包装类Boolean转换为基本数据类型boolean
-        boolean b1 = boolean2.booleanValue();
-        //输出基本数据类型boolean的值
-        System.out.println(b1);
+        <span class="pl-smi">Boolean</span> <span class="pl-s1">boolean2</span> = <span class="pl-k">new</span> <span class="pl-smi">Boolean</span>(<span class="pl-c1">true</span>);
+        <span class="pl-c">//将包装类Boolean转换为基本数据类型boolean</span>
+        <span class="pl-smi">boolean</span> <span class="pl-s1">b1</span> = <span class="pl-s1">boolean2</span>.<span class="pl-en">booleanValue</span>();
+        <span class="pl-c">//输出基本数据类型boolean的值</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">b1</span>);
 
-        String str = "false";
-        //将字符串转换为包装类Boolean
-        Boolean boolean3 = Boolean.valueOf(str);
-        //输出包装类Boolean的值
-        System.out.println(boolean3);
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"false"</span>;
+        <span class="pl-c">//将字符串转换为包装类Boolean</span>
+        <span class="pl-smi">Boolean</span> <span class="pl-s1">boolean3</span> = <span class="pl-smi">Boolean</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">str</span>);
+        <span class="pl-c">//输出包装类Boolean的值</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">boolean3</span>);
 
-        String str1 = "123";
-        //将字符串转换为包装类Boolean
-        Boolean boolean4 = Boolean.valueOf(str1);
-        System.out.println(boolean4);//输出为false
-        //只要不是true 就转化为false
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"123"</span>;
+        <span class="pl-c">//将字符串转换为包装类Boolean</span>
+        <span class="pl-smi">Boolean</span> <span class="pl-s1">boolean4</span> = <span class="pl-smi">Boolean</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">str1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">boolean4</span>);<span class="pl-c">//输出为false</span>
+        <span class="pl-c">//只要不是true 就转化为false</span>
 
-        String str2 = "True";
-        //将字符串转换为包装类Boolean
-        Boolean boolean5 = Boolean.valueOf(str2);
-        System.out.println(boolean5);//输出为true
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"True"</span>;
+        <span class="pl-c">//将字符串转换为包装类Boolean</span>
+        <span class="pl-smi">Boolean</span> <span class="pl-s1">boolean5</span> = <span class="pl-smi">Boolean</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">str2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">boolean5</span>);<span class="pl-c">//输出为true</span>
 
     }
-}
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">//包装类转化为基本数据类型
-        int num3 = boolean5.intValue();
-        System.out.println(num3);//输出为1
-</code></pre>
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//包装类转化为基本数据类型</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">num3</span> = <span class="pl-s1">boolean5</span>.<span class="pl-en">intValue</span>();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">num3</span>);<span class="pl-c">//输出为1</span></pre></div>
 <h3>11.1 为什么需要包装类</h3>
 <p>Java提供了两个类型系统，<code class="notranslate">基本数据类型</code>与<code class="notranslate">引用数据类型</code>。使用基本数据类型在于效率，然而当要使用只针对对象设计的API或新特性（例如泛型），怎么办呢？例如：</p>
 <p>为了使得基本数据类型的变量具有引用数据类型的特征（比如 封装性 多态性），我们给各个基本类型都提供包装类以获得引用数据类型的特征</p>
@@ -618,120 +589,109 @@ public class TestJUnit {
 <li>int - Integer</li>
 <li>char - Char</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">//情况1：方法形参
-Object类的equals(Object obj)
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//情况1：方法形参</span>
+<span class="pl-en">Object类的equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>)
 
-//情况2：方法形参
-ArrayList类的add(Object obj)
-//没有如下的方法：
-add(int number)
-add(double d)
-add(boolean b)
+<span class="pl-c">//情况2：方法形参</span>
+<span class="pl-en">ArrayList类的add</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>)
+<span class="pl-c">//没有如下的方法：</span>
+<span class="pl-en">add</span>(<span class="pl-smi">int</span> <span class="pl-s1">number</span>)
+<span class="pl-s1">add</span>(<span class="pl-smi">double</span> <span class="pl-s1">d</span>)
+<span class="pl-s1">add</span>(<span class="pl-smi">boolean</span> <span class="pl-s1">b</span>)
 
-//情况3：泛型
-Set&lt;T&gt;
-List&lt;T&gt;
-Cllection&lt;T&gt;
-Map&lt;K,V&gt;
-</code></pre>
+<span class="pl-c">//情况3：泛型</span>
+<span class="pl-s1">Set</span>&lt;<span class="pl-s1">T</span>&gt;
+<span class="pl-s1">List</span>&lt;<span class="pl-s1">T</span>&gt;
+<span class="pl-s1">Cllection</span>&lt;<span class="pl-s1">T</span>&gt;
+<span class="pl-smi">Map</span>&lt;<span class="pl-smi">K</span>,<span class="pl-smi">V</span>&gt;</pre></div>
 <h3>11.2 有哪些包装类</h3>
 <p>Java针对八种基本数据类型定义了相应的引用类型：包装类（封装类）。有了类的特点，就可以调用类中的方法，Java才是真正的面向对象。</p>
 <p>封装以后的，内存结构对比：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public static void main(String[] args){
-    int num = 520;
-    Integer obj = new Integer(520);
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>){
+    <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-c1">520</span>;
+    <span class="pl-smi">Integer</span> <span class="pl-s1">obj</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">520</span>);
+}</pre></div>
 <h3>11.3 自定义包装类</h3>
-<pre lang="java" class="notranslate"><code class="notranslate">public class MyInteger {
-    int value;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyInteger</span> {
+    <span class="pl-smi">int</span> <span class="pl-s1">value</span>;
 
-    public MyInteger() {
+    <span class="pl-k">public</span> <span class="pl-smi">MyInteger</span>() {
     }
 
-    public MyInteger(int value) {
-        this.value = value;
+    <span class="pl-k">public</span> <span class="pl-smi">MyInteger</span>(<span class="pl-smi">int</span> <span class="pl-s1">value</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">value</span> = <span class="pl-s1">value</span>;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">value</span>);
     }
-}
-
-</code></pre>
+}</pre></div>
 <h3>11.4 包装类与基本数据类型间的转换</h3>
-<pre lang="java" class="notranslate"><code class="notranslate">public class WaperTest {
-    public static void main(String[] args) {
-        //基本数据类型，包装类 -&gt; String类型
-        //方式一
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">WaperTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">//基本数据类型，包装类 -&gt; String类型</span>
+        <span class="pl-c">//方式一</span>
         
-        int a = 10;
-        //将基本数据类型a转换为字符串类型
-        String str = a + "";
-        System.out.println(str);
+        <span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-c1">10</span>;
+        <span class="pl-c">//将基本数据类型a转换为字符串类型</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s1">a</span> + <span class="pl-s">""</span>;
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>);
 
-        //方式二
-        //将基本数据类型a转换为字符串类型
-        String str1 = String.valueOf(a);
-        System.out.println(str1);
+        <span class="pl-c">//方式二</span>
+        <span class="pl-c">//将基本数据类型a转换为字符串类型</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">a</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>);
 
-        //String转化为基本数据类型
-        //调用包装类的parseXxx方法
-        String str2 = "123";
-        //将字符串类型str2转换为int类型
-        int i = Integer.parseInt(str2);
-        System.out.println(i);
+        <span class="pl-c">//String转化为基本数据类型</span>
+        <span class="pl-c">//调用包装类的parseXxx方法</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"123"</span>;
+        <span class="pl-c">//将字符串类型str2转换为int类型</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-smi">Integer</span>.<span class="pl-en">parseInt</span>(<span class="pl-s1">str2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);
         
     }
-}
-</code></pre>
+}</pre></div>
 <h4>11.4.1 装箱</h4>
 <p><strong>装箱：把基本数据类型转为包装类对象</strong></p>
 <blockquote>
 <p>转为包装类的对象，是为了使用专门为对象设计的API和特性</p>
 </blockquote>
 <p>基本数值----&gt;包装对象</p>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer obj1 = new Integer(4);//使用构造函数函数
-Float f = new Float(“4.56”);
-Long l = new Long(“asdf”);  //NumberFormatException
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">obj1</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">4</span>);<span class="pl-c">//使用构造函数函数</span>
+<span class="pl-smi">Float</span> <span class="pl-s1">f</span> = <span class="pl-k">new</span> <span class="pl-smi">Float</span>(“<span class="pl-c1">4.56</span>”);
+<span class="pl-smi">Long</span> <span class="pl-s1">l</span> = <span class="pl-k">new</span> <span class="pl-smi">Long</span>(“<span class="pl-s1">asdf</span>”);  <span class="pl-c">//NumberFormatException</span>
 
-Integer obj2 = Integer.valueOf(4);//使用包装类中的valueOf方法
-</code></pre>
+<span class="pl-smi">Integer</span> <span class="pl-s1">obj2</span> = <span class="pl-smi">Integer</span>.<span class="pl-en">valueOf</span>(<span class="pl-c1">4</span>);<span class="pl-c">//使用包装类中的valueOf方法</span></pre></div>
 <h4>11.4.2 拆箱</h4>
 <p><strong>拆箱：把包装类对象拆为基本数据类型</strong></p>
 <blockquote>
 <p>转为基本数据类型，一般是因为需要运算，Java中的大多数运算符是为基本数据类型设计的。比较、算术等</p>
 </blockquote>
 <p>包装对象----&gt;基本数值</p>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer obj = new Integer(4);
-int num1 = obj.intValue();
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">obj</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">4</span>);
+<span class="pl-smi">int</span> <span class="pl-s1">num1</span> = <span class="pl-s1">obj</span>.<span class="pl-en">intValue</span>();</pre></div>
 <p><strong>自动装箱与拆箱：</strong></p>
 <p>由于我们经常要做基本类型与包装类之间的转换，从<code class="notranslate">JDK5.0 </code>开始，基本类型与包装类的装箱、拆箱动作可以自动完成。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer i = 4;//自动装箱。相当于Integer i = Integer.valueOf(4);
-i = i + 5;//等号右边：将i对象转成基本数值(自动拆箱) i.intValue() + 5;
-//加法运算完成后，再次装箱，把基本数值转成对象。
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">i</span> = <span class="pl-c1">4</span>;<span class="pl-c">//自动装箱。相当于Integer i = Integer.valueOf(4);</span>
+<span class="pl-s1">i</span> = <span class="pl-s1">i</span> + <span class="pl-c1">5</span>;<span class="pl-c">//等号右边：将i对象转成基本数值(自动拆箱) i.intValue() + 5;</span>
+<span class="pl-c">//加法运算完成后，再次装箱，把基本数值转成对象。</span></pre></div>
 <blockquote>
 <p>注意：只能与自己对应的类型之间才能实现自动装箱与拆箱。</p>
 </blockquote>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer i = 1;
-Double d = 1;//错误的，1是int类型
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>;
+<span class="pl-smi">Double</span> <span class="pl-s1">d</span> = <span class="pl-c1">1</span>;<span class="pl-c">//错误的，1是int类型</span></pre></div>
 <h3>11.5 基本数据类型、包装类与字符串间的转换</h3>
 <p><strong>（1）基本数据类型转为字符串</strong></p>
 <p>**方式1：**调用字符串重载的valueOf()方法</p>
-<pre lang="java" class="notranslate"><code class="notranslate">int a = 10;
-//String str = a;//错误的
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-c1">10</span>;
+<span class="pl-c">//String str = a;//错误的</span>
 
-String str = String.valueOf(a);
-</code></pre>
+<span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">a</span>);</pre></div>
 <p>**方式2：**更直接的方式</p>
-<pre lang="java" class="notranslate"><code class="notranslate">int a = 10;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-c1">10</span>;
 
-String str = a + "";
-</code></pre>
+<span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s1">a</span> + <span class="pl-s">""</span>;</pre></div>
 <p><strong>（2）字符串转为基本数据类型</strong></p>
 <p>**方式1：**除了Character类之外，其他所有包装类都具有parseXxx静态方法可以将字符串参数转换为对应的基本类型，例如：</p>
 <ul>
@@ -747,46 +707,39 @@ String str = a + "";
 </ul>
 <p>注意:如果字符串参数的内容无法正确转换为对应的基本类型，则会抛出<code class="notranslate">java.lang.NumberFormatException</code>异常。</p>
 <p>**方式3：**通过包装类的构造器实现</p>
-<pre lang="java" class="notranslate"><code class="notranslate">int a = Integer.parseInt("整数的字符串");
-double d = Double.parseDouble("小数的字符串");
-boolean b = Boolean.parseBoolean("true或false");
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-smi">Integer</span>.<span class="pl-en">parseInt</span>(<span class="pl-s">"整数的字符串"</span>);
+<span class="pl-smi">double</span> <span class="pl-s1">d</span> = <span class="pl-smi">Double</span>.<span class="pl-en">parseDouble</span>(<span class="pl-s">"小数的字符串"</span>);
+<span class="pl-smi">boolean</span> <span class="pl-s1">b</span> = <span class="pl-smi">Boolean</span>.<span class="pl-en">parseBoolean</span>(<span class="pl-s">"true或false"</span>);
 
-int a = Integer.valueOf("整数的字符串");
-double d = Double.valueOf("小数的字符串");
-boolean b = Boolean.valueOf("true或false");
+<span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-smi">Integer</span>.<span class="pl-en">valueOf</span>(<span class="pl-s">"整数的字符串"</span>);
+<span class="pl-smi">double</span> <span class="pl-s1">d</span> = <span class="pl-smi">Double</span>.<span class="pl-en">valueOf</span>(<span class="pl-s">"小数的字符串"</span>);
+<span class="pl-smi">boolean</span> <span class="pl-s1">b</span> = <span class="pl-smi">Boolean</span>.<span class="pl-en">valueOf</span>(<span class="pl-s">"true或false"</span>);
 
-int i = new Integer(“12”);
-
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">
-</code></pre>
+<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(“<span class="pl-c1">12</span>”);</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"></pre></div>
 <p>其他方式小结：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220813012801907.png"><img src="images/image-20220813012801907.png" alt="" style="max-width: 100%;"></a></p>
 <h3>11.6 包装类的其它API</h3>
 <h4>11.6.1 数据类型的最大最小值</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer.MAX_VALUE和Integer.MIN_VALUE
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span>.<span class="pl-smi">MAX_VALUE和Integer</span>.<span class="pl-smi">MIN_VALUE</span>
     
-Long.MAX_VALUE和Long.MIN_VALUE
+<span class="pl-s1">Long</span>.<span class="pl-s1">MAX_VALUE和Long</span>.<span class="pl-c1">MIN_VALUE</span>
     
-Double.MAX_VALUE和Double.MIN_VALUE
-</code></pre>
+<span class="pl-smi">Double</span>.<span class="pl-smi">MAX_VALUE和Double</span>.<span class="pl-smi">MIN_VALUE</span></pre></div>
 <h4>11.6.2 字符转大小写</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">Character.toUpperCase('x');
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Character</span>.<span class="pl-en">toUpperCase</span>(<span class="pl-s">'x'</span>);
 
-Character.toLowerCase('X');
-</code></pre>
+<span class="pl-smi">Character</span>.<span class="pl-en">toLowerCase</span>(<span class="pl-s">'X'</span>);</pre></div>
 <h4>11.6.3 整数转进制</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer.toBinaryString(int i) 
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span>.<span class="pl-en">toBinaryString</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span>) 
     
-Integer.toHexString(int i)
+<span class="pl-s1">Integer</span>.<span class="pl-en">toHexString</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span>)
     
-Integer.toOctalString(int i)
-</code></pre>
+<span class="pl-s1">Integer</span>.<span class="pl-en">toOctalString</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span>)</pre></div>
 <h4>11.6.4 比较的方法</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">Double.compare(double d1, double d2)
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Double</span>.<span class="pl-en">compare</span>(<span class="pl-smi">double</span> <span class="pl-s1">d1</span>, <span class="pl-smi">double</span> <span class="pl-s1">d2</span>)
     
-Integer.compare(int x, int y) 
-</code></pre>
+<span class="pl-s1">Integer</span>.<span class="pl-en">compare</span>(<span class="pl-smi">int</span> <span class="pl-s1">x</span>, <span class="pl-smi">int</span> <span class="pl-s1">y</span>) </pre></div>
 <h3>11.7 包装类对象的特点</h3>
 <h4>11.7.1 包装类缓存对象</h4>
 <markdown-accessiblity-table><table role="table">
@@ -831,99 +784,87 @@ Integer.compare(int x, int y)
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer a = 1;
-Integer b = 1;
-System.out.println(a == b);//true
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">a</span> = <span class="pl-c1">1</span>;
+<span class="pl-smi">Integer</span> <span class="pl-s1">b</span> = <span class="pl-c1">1</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">a</span> == <span class="pl-s1">b</span>);<span class="pl-c">//true</span>
 
-Integer i = 128;
-Integer j = 128;
-System.out.println(i == j);//false
+<span class="pl-smi">Integer</span> <span class="pl-s1">i</span> = <span class="pl-c1">128</span>;
+<span class="pl-smi">Integer</span> <span class="pl-s1">j</span> = <span class="pl-c1">128</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span> == <span class="pl-s1">j</span>);<span class="pl-c">//false</span>
 
-Integer m = new Integer(1);//新new的在堆中
-Integer n = 1;//这个用的是缓冲的常量对象，在方法区
-System.out.println(m == n);//false
+<span class="pl-smi">Integer</span> <span class="pl-s1">m</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>);<span class="pl-c">//新new的在堆中</span>
+<span class="pl-smi">Integer</span> <span class="pl-s1">n</span> = <span class="pl-c1">1</span>;<span class="pl-c">//这个用的是缓冲的常量对象，在方法区</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">m</span> == <span class="pl-s1">n</span>);<span class="pl-c">//false</span>
 
-Integer x = new Integer(1);//新new的在堆中
-Integer y = new Integer(1);//另一个新new的在堆中
-System.out.println(x == y);//false
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">Double d1 = 1.0;
-Double d2 = 1.0;
-System.out.println(d1==d2);//false 比较地址，没有缓存对象，每一个都是新new的
-</code></pre>
+<span class="pl-smi">Integer</span> <span class="pl-s1">x</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>);<span class="pl-c">//新new的在堆中</span>
+<span class="pl-smi">Integer</span> <span class="pl-s1">y</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>);<span class="pl-c">//另一个新new的在堆中</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">x</span> == <span class="pl-s1">y</span>);<span class="pl-c">//false</span></pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Double</span> <span class="pl-s1">d1</span> = <span class="pl-c1">1.0</span>;
+<span class="pl-smi">Double</span> <span class="pl-s1">d2</span> = <span class="pl-c1">1.0</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d1</span>==<span class="pl-s1">d2</span>);<span class="pl-c">//false 比较地址，没有缓存对象，每一个都是新new的</span></pre></div>
 <h4>11.7.2 类型转换问题</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer i = 1000;
-double j = 1000;
-System.out.println(i==j);//true  会先将i自动拆箱为int，然后根据基本数据类型“自动类型转换”规则，转为double比较
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer i = 1000;
-int j = 1000;
-System.out.println(i==j);//true 会自动拆箱，按照基本数据类型进行比较
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">Integer i = 1;
-Double d = 1.0
-System.out.println(i==d);//编译报错
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">i</span> = <span class="pl-c1">1000</span>;
+<span class="pl-smi">double</span> <span class="pl-s1">j</span> = <span class="pl-c1">1000</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>==<span class="pl-s1">j</span>);<span class="pl-c">//true  会先将i自动拆箱为int，然后根据基本数据类型“自动类型转换”规则，转为double比较</span></pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">i</span> = <span class="pl-c1">1000</span>;
+<span class="pl-smi">int</span> <span class="pl-s1">j</span> = <span class="pl-c1">1000</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>==<span class="pl-s1">j</span>);<span class="pl-c">//true 会自动拆箱，按照基本数据类型进行比较</span></pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>;
+<span class="pl-smi">Double</span> <span class="pl-s1">d</span> = <span class="pl-c1">1.0</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>==<span class="pl-s1">d</span>);<span class="pl-c">//编译报错</span></pre></div>
 <h4>11.7.3 包装类对象不可变</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">public class TestExam {
-    public static void main(String[] args) {
-        int i = 1;
-        Integer j = new Integer(2);
-        Circle c = new Circle();
-        change(i,j,c);
-        System.out.println("i = " + i);//1
-        System.out.println("j = " + j);//2
-        System.out.println("c.radius = " + c.radius);//10.0
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestExam</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>;
+        <span class="pl-smi">Integer</span> <span class="pl-s1">j</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">2</span>);
+        <span class="pl-smi">Circle</span> <span class="pl-s1">c</span> = <span class="pl-k">new</span> <span class="pl-smi">Circle</span>();
+        <span class="pl-en">change</span>(<span class="pl-s1">i</span>,<span class="pl-s1">j</span>,<span class="pl-s1">c</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"i = "</span> + <span class="pl-s1">i</span>);<span class="pl-c">//1</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"j = "</span> + <span class="pl-s1">j</span>);<span class="pl-c">//2</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"c.radius = "</span> + <span class="pl-s1">c</span>.<span class="pl-s1">radius</span>);<span class="pl-c">//10.0</span>
     }
     
-    /*
-     * 方法的参数传递机制：
-     * （1）基本数据类型：形参的修改完全不影响实参
-     * （2）引用数据类型：通过形参修改对象的属性值，会影响实参的属性值
-     * 这类Integer等包装类对象是“不可变”对象，即一旦修改，就是新对象，和实参就无关了
-     */
-    public static void change(int a ,Integer b,Circle c ){
-        a += 10;
-//		b += 10;//等价于  b = new Integer(b+10);
-        c.radius += 10;
-        /*c = new Circle();
-        c.radius+=10;*/
+    <span class="pl-c">/*</span>
+<span class="pl-c">     * 方法的参数传递机制：</span>
+<span class="pl-c">     * （1）基本数据类型：形参的修改完全不影响实参</span>
+<span class="pl-c">     * （2）引用数据类型：通过形参修改对象的属性值，会影响实参的属性值</span>
+<span class="pl-c">     * 这类Integer等包装类对象是“不可变”对象，即一旦修改，就是新对象，和实参就无关了</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">change</span>(<span class="pl-smi">int</span> <span class="pl-s1">a</span> ,<span class="pl-smi">Integer</span> <span class="pl-s1">b</span>,<span class="pl-smi">Circle</span> <span class="pl-s1">c</span> ){
+        <span class="pl-s1">a</span> += <span class="pl-c1">10</span>;
+<span class="pl-c">//		b += 10;//等价于  b = new Integer(b+10);</span>
+        <span class="pl-s1">c</span>.<span class="pl-s1">radius</span> += <span class="pl-c1">10</span>;
+        <span class="pl-c">/*c = new Circle();</span>
+<span class="pl-c">        c.radius+=10;*/</span>
     }
 }
-class Circle{
-    double radius;
-}
-</code></pre>
+<span class="pl-k">class</span> <span class="pl-smi">Circle</span>{
+    <span class="pl-smi">double</span> <span class="pl-s1">radius</span>;
+}</pre></div>
 <h3>11.8 练习</h3>
 <p>笔试题：如下两个题目输出结果相同吗？各是什么。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">Object o1 = true ? new Integer(1) : new Double(2.0);
-System.out.println(o1);//1.0
-
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">Object o2;
-if (true)
-    o2 = new Integer(1);
-else
-    o2 = new Double(2.0);
-System.out.println(o2);//1
-
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Object</span> <span class="pl-s1">o1</span> = <span class="pl-c1">true</span> ? <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>) : <span class="pl-k">new</span> <span class="pl-smi">Double</span>(<span class="pl-c1">2.0</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">o1</span>);<span class="pl-c">//1.0</span></pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Object</span> <span class="pl-s1">o2</span>;
+<span class="pl-k">if</span> (<span class="pl-c1">true</span>)
+    <span class="pl-s1">o2</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>);
+<span class="pl-k">else</span>
+    <span class="pl-s1">o2</span> = <span class="pl-k">new</span> <span class="pl-smi">Double</span>(<span class="pl-c1">2.0</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">o2</span>);<span class="pl-c">//1</span></pre></div>
 <p>面试题：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public void method1() {
-    Integer i = new Integer(1);
-    Integer j = new Integer(1);
-    System.out.println(i == j);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method1</span>() {
+    <span class="pl-smi">Integer</span> <span class="pl-s1">i</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>);
+    <span class="pl-smi">Integer</span> <span class="pl-s1">j</span> = <span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span> == <span class="pl-s1">j</span>);
 
-    Integer m = 1;
-    Integer n = 1;
-    System.out.println(m == n);//
+    <span class="pl-smi">Integer</span> <span class="pl-s1">m</span> = <span class="pl-c1">1</span>;
+    <span class="pl-smi">Integer</span> <span class="pl-s1">n</span> = <span class="pl-c1">1</span>;
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">m</span> == <span class="pl-s1">n</span>);<span class="pl-c">//</span>
 
-    Integer x = 128;
-    Integer y = 128;
-    System.out.println(x == y);//
-}
-
-</code></pre>
+    <span class="pl-smi">Integer</span> <span class="pl-s1">x</span> = <span class="pl-c1">128</span>;
+    <span class="pl-smi">Integer</span> <span class="pl-s1">y</span> = <span class="pl-c1">128</span>;
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">x</span> == <span class="pl-s1">y</span>);<span class="pl-c">//</span>
+}</pre></div>
 <p>练习：</p>
 <p>利用Vector代替数组处理：从键盘读入学生成绩（以负数代表输入结束），找出最高分，并输出学生成绩等级。</p>
 <ul>
@@ -938,57 +879,56 @@ System.out.println(o2);//1
 <li>计算向量的长度：v.size();</li>
 <li>若与最高分相差10分内：A等；20分内：B等；30分内：C等；其它：D等</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">import java.util.Scanner;
-import java.util.Vector;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Scanner</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Vector</span>;
 
-public class ScoreTest {
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ScoreTest</span> {
 
-    public static void main(String[] args) {/*...*/
-        //创建Vector对象
-        Vector v = new Vector();
-        //从键盘获取多个学生成绩
-        Scanner input = new Scanner(System.in);
-        int Max = 0;
-        while (true) {
-            //输入学生成绩，直到负数结束
-            int score = input.nextInt();
-            if (score &lt; 0) {
-                break;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {<span class="pl-c">/*...*/</span>
+        <span class="pl-c">//创建Vector对象</span>
+        <span class="pl-smi">Vector</span> <span class="pl-s1">v</span> = <span class="pl-k">new</span> <span class="pl-smi">Vector</span>();
+        <span class="pl-c">//从键盘获取多个学生成绩</span>
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">Max</span> = <span class="pl-c1">0</span>;
+        <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
+            <span class="pl-c">//输入学生成绩，直到负数结束</span>
+            <span class="pl-smi">int</span> <span class="pl-s1">score</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextInt</span>();
+            <span class="pl-k">if</span> (<span class="pl-s1">score</span> &lt; <span class="pl-c1">0</span>) {
+                <span class="pl-k">break</span>;
             }
 
-            //将学生成绩添加到Vector中
-            v.add(score);
+            <span class="pl-c">//将学生成绩添加到Vector中</span>
+            <span class="pl-s1">v</span>.<span class="pl-en">add</span>(<span class="pl-s1">score</span>);
 
-            if (score &gt; Max) {
-                Max = score;
+            <span class="pl-k">if</span> (<span class="pl-s1">score</span> &gt; <span class="pl-s1">Max</span>) {
+                <span class="pl-s1">Max</span> = <span class="pl-s1">score</span>;
             }
         }
-        input.close();
-        //输出Vector中所有学生成绩
-        for (int i = 0; i &lt; v.size(); i++) {
-            //拆箱
-            Object obj = v.get(i);
-            int score = (Integer) obj;
-            System.out.println(score);
+        <span class="pl-s1">input</span>.<span class="pl-en">close</span>();
+        <span class="pl-c">//输出Vector中所有学生成绩</span>
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">v</span>.<span class="pl-en">size</span>(); <span class="pl-s1">i</span>++) {
+            <span class="pl-c">//拆箱</span>
+            <span class="pl-smi">Object</span> <span class="pl-s1">obj</span> = <span class="pl-s1">v</span>.<span class="pl-en">get</span>(<span class="pl-s1">i</span>);
+            <span class="pl-smi">int</span> <span class="pl-s1">score</span> = (<span class="pl-smi">Integer</span>) <span class="pl-s1">obj</span>;
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">score</span>);
 
-            //System.out.println(v.get(i));
-            if (Max - score &lt; 10) {
-                System.out.println("A");
-            } else if (Max - score &lt; 20) {
-                System.out.println("B");
-            } else if (Max - score &lt; 30) {
-                System.out.println("C");
-            } else {
-                System.out.println("D");
+            <span class="pl-c">//System.out.println(v.get(i));</span>
+            <span class="pl-k">if</span> (<span class="pl-s1">Max</span> - <span class="pl-s1">score</span> &lt; <span class="pl-c1">10</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"A"</span>);
+            } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">Max</span> - <span class="pl-s1">score</span> &lt; <span class="pl-c1">20</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"B"</span>);
+            } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">Max</span> - <span class="pl-s1">score</span> &lt; <span class="pl-c1">30</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"C"</span>);
+            } <span class="pl-k">else</span> {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"D"</span>);
             }
 
-            System.out.println("Student" + i + " score is " + score);
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Student"</span> + <span class="pl-s1">i</span> + <span class="pl-s">" score is "</span> + <span class="pl-s1">score</span>);
         }
-        System.out.println("Max score is " + Max);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Max score is "</span> + <span class="pl-s1">Max</span>);
     }
 
-}
-</code></pre>
+}</pre></div>
 <h2>1. 异常概述</h2>
 <h3>1.1 什么是生活的异常</h3>
 <p>男主角小明每天开车上班，正常车程1小时。但是，不出意外的话，可能会出现意外。</p>
@@ -1030,25 +970,23 @@ public class ScoreTest {
 <li><strong>资源清理</strong>：在finally块中进行资源清理，如关闭文件流或数据库连接。</li>
 </ol>
 <h3>4. 异常处理示例</h3>
-<pre lang="java" class="notranslate"><code class="notranslate">try {
-    // 可能抛出异常的代码
-    int division = 10 / 0;
-} catch (ArithmeticException e) {
-    // 处理除以零的异常
-    System.out.println("Cannot divide by zero!");
-} finally {
-    // 资源清理代码
-    System.out.println("Cleanup resources");
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span> {
+    <span class="pl-c">// 可能抛出异常的代码</span>
+    <span class="pl-smi">int</span> <span class="pl-s1">division</span> = <span class="pl-c1">10</span> / <span class="pl-c1">0</span>;
+} <span class="pl-k">catch</span> (<span class="pl-smi">ArithmeticException</span> <span class="pl-s1">e</span>) {
+    <span class="pl-c">// 处理除以零的异常</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Cannot divide by zero!"</span>);
+} <span class="pl-k">finally</span> {
+    <span class="pl-c">// 资源清理代码</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Cleanup resources"</span>);
+}</pre></div>
 <h3>5. 自定义异常</h3>
 <p>你可以创建自己的异常类来表示特定的错误情况，这通常是通过继承<code class="notranslate">Exception</code>类或其子类来实现的。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class MyCustomException extends Exception {
-    public MyCustomException(String message) {
-        super(message);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyCustomException</span> <span class="pl-k">extends</span> <span class="pl-smi">Exception</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">MyCustomException</span>(<span class="pl-smi">String</span> <span class="pl-s1">message</span>) {
+        <span class="pl-en">super</span>(<span class="pl-s1">message</span>);
     }
-}
-</code></pre>
+}</pre></div>
 <h3>6. 异常传播</h3>
 <ul>
 <li><strong>声明异常</strong>：使用<code class="notranslate">throws</code>关键字声明方法可能抛出的异常。</li>
@@ -1070,24 +1008,22 @@ public class ScoreTest {
 <p>Java中把不同的异常用不同的类表示，一旦发生某种异常，就<code class="notranslate">创建该异常类型的对象</code>，并且抛出（throw）。然后程序员可以捕获(catch)到这个异常对象，并处理；如果没有捕获(catch)这个异常对象，那么这个异常对象将会导致程序终止。</p>
 <p>举例：</p>
 <p>运行下面的程序，程序会产生一个数组角标越界异常<code class="notranslate">ArrayIndexOfBoundsException</code>。我们通过图解来解析下异常产生和抛出的过程。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class ArrayTools {
-    // 对给定的数组通过给定的角标获取元素。
-    public static int getElement(int[] arr, int index) {
-        int element = arr[index];
-        return element;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ArrayTools</span> {
+    <span class="pl-c">// 对给定的数组通过给定的角标获取元素。</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">getElement</span>(<span class="pl-smi">int</span>[] <span class="pl-s1">arr</span>, <span class="pl-smi">int</span> <span class="pl-s1">index</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">element</span> = <span class="pl-s1">arr</span>[<span class="pl-s1">index</span>];
+        <span class="pl-k">return</span> <span class="pl-s1">element</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <p>测试类</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class ExceptionDemo {
-    public static void main(String[] args) {
-        int[] arr = { 34, 12, 67 };
-        intnum = ArrayTools.getElement(arr, 4)
-        System.out.println("num=" + num);
-        System.out.println("over");
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ExceptionDemo</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = { <span class="pl-c1">34</span>, <span class="pl-c1">12</span>, <span class="pl-c1">67</span> };
+        <span class="pl-s1">intnum</span> = <span class="pl-smi">ArrayTools</span>.<span class="pl-en">getElement</span>(<span class="pl-s1">arr</span>, <span class="pl-c1">4</span>)
+        <span class="pl-s1">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"num="</span> + <span class="pl-s1">num</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"over"</span>);
     }
-}
-</code></pre>
+}</pre></div>
 <p>上述程序执行过程图解：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B.png"><img src="images/%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B.png" alt="" style="max-width: 100%;"></a></p>
 <h3>1.4 如何对待异常</h3>
@@ -1135,140 +1071,133 @@ public class ScoreTest {
 <h2>3. 常见的错误和异常</h2>
 <h3>3.1 Error</h3>
 <p>最常见的就是VirtualMachineError，它有两个经典的子类：StackOverflowError、OutOfMemoryError。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.exception;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">exception</span>;
 
-import org.junit.Test;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
 
-public class TestStackOverflowError {
-    @Test
-    public void test01(){
-        //StackOverflowError
-        recursion();
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestStackOverflowError</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-c">//StackOverflowError</span>
+        <span class="pl-en">recursion</span>();
     }
 
-    public void recursion(){ //递归方法
-        recursion(); 
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">recursion</span>(){ <span class="pl-c">//递归方法</span>
+        <span class="pl-en">recursion</span>(); 
     }
-}
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">exception</span>;
 
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.exception;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
 
-import org.junit.Test;
-
-public class TestOutOfMemoryError {
-    @Test
-    public void test02(){
-        //OutOfMemoryError
-        //方式一：
-        int[] arr = new int[Integer.MAX_VALUE];
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestOutOfMemoryError</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-c">//OutOfMemoryError</span>
+        <span class="pl-c">//方式一：</span>
+        <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-smi">Integer</span>.<span class="pl-c1">MAX_VALUE</span>];
     }
-    @Test
-    public void test03(){
-        //OutOfMemoryError
-        //方式二：
-        StringBuilder s = new StringBuilder();
-        while(true){
-            s.append("atguigu");
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-c">//OutOfMemoryError</span>
+        <span class="pl-c">//方式二：</span>
+        <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
+            <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s">"atguigu"</span>);
         }
     }
-}
-
-</code></pre>
+}</pre></div>
 <h3>3.2 运行时异常</h3>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.exception;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">exception</span>;
 
-import org.junit.Test;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
 
-import java.util.Scanner;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Scanner</span>;
 
-public class TestRuntimeException {
-    @Test
-    public void test01(){
-        //NullPointerException
-        int[][] arr = new int[3][];
-        System.out.println(arr[0].length);
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestRuntimeException</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-c">//NullPointerException</span>
+        <span class="pl-smi">int</span>[][] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">3</span>][];
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">0</span>].<span class="pl-s1">length</span>);
     }
 
-    @Test
-    public void test02(){
-        //ClassCastException
-        Object obj = 15;
-        String str = (String) obj;
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-c">//ClassCastException</span>
+        <span class="pl-smi">Object</span> <span class="pl-s1">obj</span> = <span class="pl-c1">15</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = (<span class="pl-smi">String</span>) <span class="pl-s1">obj</span>;
     }
 
-    @Test
-    public void test03(){
-        //ArrayIndexOutOfBoundsException
-        int[] arr = new int[5];
-        for (int i = 1; i &lt;= 5; i++) {
-            System.out.println(arr[i]);
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-c">//ArrayIndexOutOfBoundsException</span>
+        <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">5</span>];
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">5</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
         }
     }
 
-    @Test
-    public void test04(){
-        //InputMismatchException
-        Scanner input = new Scanner(System.in);
-        System.out.print("请输入一个整数：");//输入非整数
-        int num = input.nextInt();
-        input.close();
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test04</span>(){
+        <span class="pl-c">//InputMismatchException</span>
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入一个整数："</span>);<span class="pl-c">//输入非整数</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextInt</span>();
+        <span class="pl-s1">input</span>.<span class="pl-en">close</span>();
     }
 
-    @Test
-    public void test05(){
-        int a = 1;
-        int b = 0;
-        //ArithmeticException
-        System.out.println(a/b);
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test05</span>(){
+        <span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-c1">1</span>;
+        <span class="pl-smi">int</span> <span class="pl-s1">b</span> = <span class="pl-c1">0</span>;
+        <span class="pl-c">//ArithmeticException</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">a</span>/<span class="pl-s1">b</span>);
     }
-}
-
-</code></pre>
+}</pre></div>
 <h3>3.3 编译时异常</h3>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.exception;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">exception</span>;
 
-import org.junit.Test;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">FileInputStream</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">FileNotFoundException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">sql</span>.<span class="pl-s1">Connection</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">sql</span>.<span class="pl-s1">DriverManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">sql</span>.<span class="pl-s1">SQLException</span>;
 
-public class TestCheckedException {
-    @Test
-    public void test06() {
-        Thread.sleep(1000);//休眠1秒  InterruptedException
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestCheckedException</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test06</span>() {
+        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">1000</span>);<span class="pl-c">//休眠1秒  InterruptedException</span>
     }
 
-    @Test
-    public void test07(){
-        Class c = Class.forName("java.lang.String");//ClassNotFoundException
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test07</span>(){
+        <span class="pl-smi">Class</span> <span class="pl-s1">c</span> = <span class="pl-smi">Class</span>.<span class="pl-en">forName</span>(<span class="pl-s">"java.lang.String"</span>);<span class="pl-c">//ClassNotFoundException</span>
     }
 
-    @Test
-    public void test08() {
-        Connection conn = DriverManager.getConnection("....");  //SQLException
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test08</span>() {
+        <span class="pl-smi">Connection</span> <span class="pl-s1">conn</span> = <span class="pl-smi">DriverManager</span>.<span class="pl-en">getConnection</span>(<span class="pl-s">"...."</span>);  <span class="pl-c">//SQLException</span>
     }
-    @Test
-    public void test09()  {
-        FileInputStream fis = new FileInputStream("尚硅谷Java秘籍.txt"); //FileNotFoundException
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test09</span>()  {
+        <span class="pl-smi">FileInputStream</span> <span class="pl-s1">fis</span> = <span class="pl-k">new</span> <span class="pl-smi">FileInputStream</span>(<span class="pl-s">"尚硅谷Java秘籍.txt"</span>); <span class="pl-c">//FileNotFoundException</span>
     }
-    @Test
-    public void test10() {
-        File file = new File("尚硅谷Java秘籍.txt");
-        FileInputStream fis = new FileInputStream(file);//FileNotFoundException
-        int b = fis.read();//IOException
-        while(b != -1){
-            System.out.print((char)b);
-            b = fis.read();//IOException
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test10</span>() {
+        <span class="pl-smi">File</span> <span class="pl-s1">file</span> = <span class="pl-k">new</span> <span class="pl-smi">File</span>(<span class="pl-s">"尚硅谷Java秘籍.txt"</span>);
+        <span class="pl-smi">FileInputStream</span> <span class="pl-s1">fis</span> = <span class="pl-k">new</span> <span class="pl-smi">FileInputStream</span>(<span class="pl-s1">file</span>);<span class="pl-c">//FileNotFoundException</span>
+        <span class="pl-smi">int</span> <span class="pl-s1">b</span> = <span class="pl-s1">fis</span>.<span class="pl-en">read</span>();<span class="pl-c">//IOException</span>
+        <span class="pl-k">while</span>(<span class="pl-s1">b</span> != -<span class="pl-c1">1</span>){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>((<span class="pl-smi">char</span>)<span class="pl-s1">b</span>);
+            <span class="pl-s1">b</span> = <span class="pl-s1">fis</span>.<span class="pl-en">read</span>();<span class="pl-c">//IOException</span>
         }
         
-        fis.close();//IOException
+        <span class="pl-s1">fis</span>.<span class="pl-en">close</span>();<span class="pl-c">//IOException</span>
     }
-}
-</code></pre>
+}</pre></div>
 <h2>4. 异常的处理</h2>
 <h3>4.1 异常处理概述</h3>
 <p>在编写程序时，经常要在可能出现错误的地方加上检测的代码，如进行x/y运算时，要<code class="notranslate">检测分母为0</code>，<code class="notranslate">数据为空</code>，<code class="notranslate">输入的不是数据而是字符</code>等。过多的if-else分支会导致程序的<code class="notranslate">代码加长</code>、<code class="notranslate">臃肿</code>，<code class="notranslate">可读性差</code>，程序员需要花很大的精力“<code class="notranslate">堵漏洞</code>”。因此采用异常处理机制。</p>
@@ -1287,20 +1216,18 @@ public class TestCheckedException {
 </ul>
 <h4>4.2.1 try-catch-finally基本格式</h4>
 <p>捕获异常语法如下：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">try{
-    ......	//可能产生异常的代码
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span>{
+    ......	<span class="pl-c">//可能产生异常的代码</span>
 }
-catch( 异常类型1 e ){
-    ......	//当产生异常类型1型异常时的处置措施
+<span class="pl-k">catch</span>( <span class="pl-smi">异常类型1</span> <span class="pl-s1">e</span> ){
+    ......	<span class="pl-c">//当产生异常类型1型异常时的处置措施</span>
 }
-catch( 异常类型2 e ){
-    ...... 	//当产生异常类型2型异常时的处置措施
+<span class="pl-k">catch</span>( <span class="pl-smi">异常类型2</span> <span class="pl-s1">e</span> ){
+    ...... 	<span class="pl-c">//当产生异常类型2型异常时的处置措施</span>
 }  
-finally{
-    ...... //无论是否发生异常，都无条件执行的语句
-} 
-
-</code></pre>
+<span class="pl-k">finally</span>{
+    ...... <span class="pl-c">//无论是否发生异常，都无条件执行的语句</span>
+} </pre></div>
 <p><strong>1、整体执行过程：</strong></p>
 <p>当某段代码可能发生异常，不管这个异常是编译时异常（受检异常）还是运行时异常（非受检异常），我们都可以使用try块将它括起来，并在try块下面编写catch分支尝试捕获对应的异常对象。</p>
 <ul>
@@ -1345,61 +1272,55 @@ finally{
 </blockquote>
 <h4>4.2.2 使用举例</h4>
 <p>举例1：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class IndexOutExp {
-    public static void main(String[] args) {
-        String friends[] = { "lisa", "bily", "kessy" };
-        try {
-            for (int i = 0; i &lt; 5; i++) {
-            System.out.println(friends[i]);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">IndexOutExp</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">String</span> <span class="pl-s1">friends</span>[] = { <span class="pl-s">"lisa"</span>, <span class="pl-s">"bily"</span>, <span class="pl-s">"kessy"</span> };
+        <span class="pl-k">try</span> {
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">5</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">friends</span>[<span class="pl-s1">i</span>]);
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("index err");
+        } <span class="pl-k">catch</span> (<span class="pl-smi">ArrayIndexOutOfBoundsException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"index err"</span>);
         }
-        System.out.println("\nthis is the end");
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"<span class="pl-cce">\n</span>this is the end"</span>);
     }
-}
-
-</code></pre>
+}</pre></div>
 <p>举例2：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class DivideZero1 {
-    int x;
-    public static void main(String[] args) {
-        int y;
-        DivideZero1 c = new DivideZero1();
-        try {
-            y = 3 / c.x;
-        } catch (ArithmeticException e) {
-            System.out.println("divide by zero error!");
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">DivideZero1</span> {
+    <span class="pl-smi">int</span> <span class="pl-s1">x</span>;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">y</span>;
+        <span class="pl-smi">DivideZero1</span> <span class="pl-s1">c</span> = <span class="pl-k">new</span> <span class="pl-smi">DivideZero1</span>();
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">y</span> = <span class="pl-c1">3</span> / <span class="pl-s1">c</span>.<span class="pl-s1">x</span>;
+        } <span class="pl-k">catch</span> (<span class="pl-smi">ArithmeticException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"divide by zero error!"</span>);
         }
-        System.out.println("program ends ok!");
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"program ends ok!"</span>);
     }
-}
-
-</code></pre>
+}</pre></div>
 <p>举例3：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Test
-public void test1(){
-    try{
-        String str1 = "atguigu.com";
-        str1 = null;
-        System.out.println(str1.charAt(0));
-    }catch(NullPointerException e){
-        //异常的处理方式1
-        System.out.println("不好意思，亲~出现了小问题，正在加紧解决...");	
-    }catch(ClassCastException e){
-        //异常的处理方式2
-        System.out.println("出现了类型转换的异常");
-    }catch(RuntimeException e){
-        //异常的处理方式3
-        System.out.println("出现了运行时异常");
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
+    <span class="pl-k">try</span>{
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"atguigu.com"</span>;
+        <span class="pl-s1">str1</span> = <span class="pl-c1">null</span>;
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>.<span class="pl-en">charAt</span>(<span class="pl-c1">0</span>));
+    }<span class="pl-k">catch</span>(<span class="pl-smi">NullPointerException</span> <span class="pl-s1">e</span>){
+        <span class="pl-c">//异常的处理方式1</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"不好意思，亲~出现了小问题，正在加紧解决..."</span>);	
+    }<span class="pl-k">catch</span>(<span class="pl-smi">ClassCastException</span> <span class="pl-s1">e</span>){
+        <span class="pl-c">//异常的处理方式2</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"出现了类型转换的异常"</span>);
+    }<span class="pl-k">catch</span>(<span class="pl-smi">RuntimeException</span> <span class="pl-s1">e</span>){
+        <span class="pl-c">//异常的处理方式3</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"出现了运行时异常"</span>);
     }
-    //此处的代码，在异常被处理了以后，是可以正常执行的
-    System.out.println("hello");
-}
-</code></pre>
+    <span class="pl-c">//此处的代码，在异常被处理了以后，是可以正常执行的</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"hello"</span>);
+}</pre></div>
 <p>举例4：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"></pre></div>
 <h4>4.2.3 finally使用及举例</h4>
 <p>finally的使用说明:</p>
 <p>finally的理解</p>
@@ -1423,138 +1344,132 @@ public void test1(){
 为了保证这些资源在使用完以后，不管是否出现了未被处理的异常的情况下，这些资源能被关闭。我们必须将这些操作声明<br>
 在finally中!</p>
 </blockquote>
-<pre lang="java" class="notranslate"><code class="notranslate">try{
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span>{
      
-}finally{
+}<span class="pl-k">finally</span>{
     
-} 
-</code></pre>
+} </pre></div>
 <p>举例1：确保资源关闭</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.keyword;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">keyword</span>;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">InputMismatchException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Scanner</span>;
 
-public class TestFinally {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        try {
-            System.out.print("请输入第一个整数：");
-            int a = input.nextInt();
-            System.out.print("请输入第二个整数：");
-            int b = input.nextInt();
-            int result = a/b;
-            System.out.println(a + "/" + b +"=" + result);
-        } catch (InputMismatchException e) {
-            System.out.println("数字格式不正确，请输入两个整数");
-        }catch (ArithmeticException e){
-            System.out.println("第二个整数不能为0");
-        } finally {
-            System.out.println("程序结束，释放资源");
-            input.close();
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestFinally</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入第一个整数："</span>);
+            <span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextInt</span>();
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入第二个整数："</span>);
+            <span class="pl-smi">int</span> <span class="pl-s1">b</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextInt</span>();
+            <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-s1">a</span>/<span class="pl-s1">b</span>;
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">a</span> + <span class="pl-s">"/"</span> + <span class="pl-s1">b</span> +<span class="pl-s">"="</span> + <span class="pl-s1">result</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InputMismatchException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"数字格式不正确，请输入两个整数"</span>);
+        }<span class="pl-k">catch</span> (<span class="pl-smi">ArithmeticException</span> <span class="pl-s1">e</span>){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"第二个整数不能为0"</span>);
+        } <span class="pl-k">finally</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"程序结束，释放资源"</span>);
+            <span class="pl-s1">input</span>.<span class="pl-en">close</span>();
         }
     }
     
-    @Test
-    public void test1(){
-        FileInputStream fis = null;
-        try{
-            File file = new File("hello1.txt");
-            fis = new FileInputStream(file);//FileNotFoundException
-            int b = fis.read();//IOException
-            while(b != -1){
-                System.out.print((char)b);
-                b = fis.read();//IOException
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
+        <span class="pl-smi">FileInputStream</span> <span class="pl-s1">fis</span> = <span class="pl-c1">null</span>;
+        <span class="pl-k">try</span>{
+            <span class="pl-smi">File</span> <span class="pl-s1">file</span> = <span class="pl-k">new</span> <span class="pl-smi">File</span>(<span class="pl-s">"hello1.txt"</span>);
+            <span class="pl-s1">fis</span> = <span class="pl-k">new</span> <span class="pl-smi">FileInputStream</span>(<span class="pl-s1">file</span>);<span class="pl-c">//FileNotFoundException</span>
+            <span class="pl-smi">int</span> <span class="pl-s1">b</span> = <span class="pl-s1">fis</span>.<span class="pl-en">read</span>();<span class="pl-c">//IOException</span>
+            <span class="pl-k">while</span>(<span class="pl-s1">b</span> != -<span class="pl-c1">1</span>){
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>((<span class="pl-smi">char</span>)<span class="pl-s1">b</span>);
+                <span class="pl-s1">b</span> = <span class="pl-s1">fis</span>.<span class="pl-en">read</span>();<span class="pl-c">//IOException</span>
             }
 
-        }catch(IOException e){
-            e.printStackTrace();
-        }finally{
-            try {
-                if(fis != null)
-                    fis.close();//IOException
-            } catch (IOException e) {
-                e.printStackTrace();
+        }<span class="pl-k">catch</span>(<span class="pl-smi">IOException</span> <span class="pl-s1">e</span>){
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        }<span class="pl-k">finally</span>{
+            <span class="pl-k">try</span> {
+                <span class="pl-k">if</span>(<span class="pl-s1">fis</span> != <span class="pl-c1">null</span>)
+                    <span class="pl-s1">fis</span>.<span class="pl-en">close</span>();<span class="pl-c">//IOException</span>
+            } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
             }	
         }
     }
-}
-</code></pre>
+}</pre></div>
 <p>举例2：从try回来</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class FinallyTest1 {
-    public static void main(String[] args) {
-        int result = test("12");
-        System.out.println(result);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">FinallyTest1</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-en">test</span>(<span class="pl-s">"12"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">result</span>);
     }
 
-    public static int test(String str){
-        try{
-            Integer.parseInt(str);
-            return 1;
-        }catch(NumberFormatException e){
-            return -1;
-        }finally{
-            System.out.println("test结束");
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">test</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>){
+        <span class="pl-k">try</span>{
+            <span class="pl-smi">Integer</span>.<span class="pl-en">parseInt</span>(<span class="pl-s1">str</span>);
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        }<span class="pl-k">catch</span>(<span class="pl-smi">NumberFormatException</span> <span class="pl-s1">e</span>){
+            <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
+        }<span class="pl-k">finally</span>{
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"test结束"</span>);
         }
     }
-}
-</code></pre>
+}</pre></div>
 <p>举例3：从catch回来</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class FinallyTest2 {
-    public static void main(String[] args) {
-        int result = test("a");
-        System.out.println(result);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">FinallyTest2</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-en">test</span>(<span class="pl-s">"a"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">result</span>);
     }
 
-    public static int test(String str) {
-        try {
-            Integer.parseInt(str);
-            return 1;
-        } catch (NumberFormatException e) {
-            return -1;
-        } finally {
-            System.out.println("test结束");
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">test</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>) {
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Integer</span>.<span class="pl-en">parseInt</span>(<span class="pl-s1">str</span>);
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        } <span class="pl-k">catch</span> (<span class="pl-smi">NumberFormatException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
+        } <span class="pl-k">finally</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"test结束"</span>);
         }
     }
-}
-</code></pre>
+}</pre></div>
 <p>举例4：从finally回来</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class FinallyTest3 {
-    public static void main(String[] args) {
-        int result = test("a");
-        System.out.println(result);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">FinallyTest3</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-en">test</span>(<span class="pl-s">"a"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">result</span>);
     }
 
-    public static int test(String str) {
-        try {
-            Integer.parseInt(str);
-            return 1;
-        } catch (NumberFormatException e) {
-            return -1;
-        } finally {
-            System.out.println("test结束");
-            return 0;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">test</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>) {
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Integer</span>.<span class="pl-en">parseInt</span>(<span class="pl-s1">str</span>);
+            <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+        } <span class="pl-k">catch</span> (<span class="pl-smi">NumberFormatException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
+        } <span class="pl-k">finally</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"test结束"</span>);
+            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
         }
     }
-}
-</code></pre>
+}</pre></div>
 <p>笔试题：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class ExceptionTest {
-    public static void main(String[] args) {
-        int result = test();
-        System.out.println(result); //100
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ExceptionTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-en">test</span>();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">result</span>); <span class="pl-c">//100</span>
     }
 
-    public static int test(){
-        int i = 100;
-        try {
-            return i;
-        } finally {
-            i++;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">test</span>(){
+        <span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">100</span>;
+        <span class="pl-k">try</span> {
+            <span class="pl-k">return</span> <span class="pl-s1">i</span>;
+        } <span class="pl-k">finally</span> {
+            <span class="pl-s1">i</span>++;
         }
     }
-}
-</code></pre>
+}</pre></div>
 <blockquote>
 <p>笔试题：final、finally、finalize有什么区别？</p>
 </blockquote>
@@ -1581,73 +1496,67 @@ public class TestFinally {
 </code></pre>
 <p>在throws后面可以写多个异常类型，用逗号隔开。</p>
 <p>举例：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public void readFile(String file)  throws FileNotFoundException,IOException {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">readFile</span>(<span class="pl-smi">String</span> <span class="pl-s1">file</span>)  <span class="pl-k">throws</span> <span class="pl-smi">FileNotFoundException</span>,<span class="pl-smi">IOException</span> {
     ...
-    // 读文件的操作可能产生FileNotFoundException或IOException类型的异常
-    FileInputStream fis = new FileInputStream(file);
-    //...
-}
-
-</code></pre>
+    <span class="pl-c">// 读文件的操作可能产生FileNotFoundException或IOException类型的异常</span>
+    <span class="pl-smi">FileInputStream</span> <span class="pl-s1">fis</span> = <span class="pl-k">new</span> <span class="pl-smi">FileInputStream</span>(<span class="pl-s1">file</span>);
+    <span class="pl-c">//...</span>
+}</pre></div>
 <h4>4.3.2 throws 使用举例</h4>
 <p>是否真正处理了异常?</p>
 <p>从编译是否能通过的角度看，看成是给出了异常万一要是出现时候的解决方案。此方案就是，继续向上抛出(throws)</p>
 <p>但是，此throws的方式，仅是将可能出现的异常抛给了此方法的调用者。此调用者仍然需要考虑如何处理相关异常。</p>
 <p>从这个角度来看，throws的方式不算是真正意义上处理了异常。</p>
 <p><strong>举例：针对于编译时异常</strong></p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.keyword;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">keyword</span>;
 
-public class TestThrowsCheckedException {
-    public static void main(String[] args) {
-        System.out.println("上课.....");
-        try {
-            afterClass();//换到这里处理异常
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            System.out.println("准备提前上课");
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestThrowsCheckedException</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"上课....."</span>);
+        <span class="pl-k">try</span> {
+            <span class="pl-en">afterClass</span>();<span class="pl-c">//换到这里处理异常</span>
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"准备提前上课"</span>);
         }
-        System.out.println("上课.....");
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"上课....."</span>);
     }
 
-    public static void afterClass() throws InterruptedException {
-        for(int i=10; i&gt;=1; i--){
-            Thread.sleep(1000);//本来应该在这里处理异常
-            System.out.println("距离上课还有：" + i + "分钟");
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">afterClass</span>() <span class="pl-k">throws</span> <span class="pl-smi">InterruptedException</span> {
+        <span class="pl-k">for</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span>=<span class="pl-c1">10</span>; <span class="pl-s1">i</span>&gt;=<span class="pl-c1">1</span>; <span class="pl-s1">i</span>--){
+            <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">1000</span>);<span class="pl-c">//本来应该在这里处理异常</span>
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"距离上课还有："</span> + <span class="pl-s1">i</span> + <span class="pl-s">"分钟"</span>);
         }
     }
-}
-
-</code></pre>
+}</pre></div>
 <p><strong>举例：针对于运行时异常：</strong></p>
 <p>throws后面也可以写运行时异常类型，只是运行时异常类型，写或不写对于编译器和程序执行来说都没有任何区别。如果写了，唯一的区别就是调用者调用该方法后，使用try...catch结构时，IDEA可以获得更多的信息，需要添加哪种catch分支。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.keyword;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">keyword</span>;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">InputMismatchException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Scanner</span>;
 
-public class TestThrowsRuntimeException {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        try {
-            System.out.print("请输入第一个整数：");
-            int a = input.nextInt();
-            System.out.print("请输入第二个整数：");
-            int b = input.nextInt();
-            int result = divide(a,b);
-            System.out.println(a + "/" + b +"=" + result);
-        } catch (ArithmeticException | InputMismatchException e) {
-            e.printStackTrace();
-        } finally {
-            input.close();
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestThrowsRuntimeException</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入第一个整数："</span>);
+            <span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextInt</span>();
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入第二个整数："</span>);
+            <span class="pl-smi">int</span> <span class="pl-s1">b</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextInt</span>();
+            <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-en">divide</span>(<span class="pl-s1">a</span>,<span class="pl-s1">b</span>);
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">a</span> + <span class="pl-s">"/"</span> + <span class="pl-s1">b</span> +<span class="pl-s">"="</span> + <span class="pl-s1">result</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">ArithmeticException</span> | <span class="pl-smi">InputMismatchException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        } <span class="pl-k">finally</span> {
+            <span class="pl-s1">input</span>.<span class="pl-en">close</span>();
         }
     }
 
-    public static int divide(int a, int b)throws ArithmeticException{
-        return a/b;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">divide</span>(<span class="pl-smi">int</span> <span class="pl-s1">a</span>, <span class="pl-smi">int</span> <span class="pl-s1">b</span>)<span class="pl-k">throws</span> <span class="pl-smi">ArithmeticException</span>{
+        <span class="pl-k">return</span> <span class="pl-s1">a</span>/<span class="pl-s1">b</span>;
     }
-}
-
-</code></pre>
+}</pre></div>
 <h4>4.3.3 方法重写中throws的要求</h4>
 <p>方法重写时，对于方法签名是有严格要求的。复习：</p>
 <pre lang="plain" class="notranslate"><code class="notranslate">（1）方法名必须相同
@@ -1664,50 +1573,48 @@ public class TestThrowsRuntimeException {
 <li>如果父类被重写方法的方法签名后面有 “<code class="notranslate">throws  编译时异常类型</code>”，那么重写方法时，throws的编译时异常类型必须 &lt;= 被重写方法throws的编译时异常类型，或者不throws编译时异常。</li>
 <li>方法重写，对于“<code class="notranslate">throws 运行时异常类型</code>”没有要求。</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.keyword;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">keyword</span>;
 
-import java.io.IOException;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">IOException</span>;
 
-class Father{
-    public void method()throws Exception{
-        System.out.println("Father.method");
+<span class="pl-k">class</span> <span class="pl-smi">Father</span>{
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method</span>()<span class="pl-k">throws</span> <span class="pl-smi">Exception</span>{
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Father.method"</span>);
     }
 }
-class Son extends Father{
-    @Override
-    public void method() throws IOException,ClassCastException {
-        System.out.println("Son.method");
+<span class="pl-k">class</span> <span class="pl-smi">Son</span> <span class="pl-k">extends</span> <span class="pl-smi">Father</span>{
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method</span>() <span class="pl-k">throws</span> <span class="pl-smi">IOException</span>,<span class="pl-smi">ClassCastException</span> {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Son.method"</span>);
     }
-}
-</code></pre>
+}</pre></div>
 <h4>方法的重写的要求:</h4>
 <p>子类重写的方法抛出的异常类型可以与父类被重写的方法抛出的异常类型相同，或是父类被重写的方法抛出的异常类型的子类。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">import java.io.IOException;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">IOException</span>;
 
-public class OverrideTest {
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">OverrideTest</span> {
 
-    public static void main(String[] args) {
-        // ...
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">// ...</span>
     }
 }
 
-class Father {
+<span class="pl-k">class</span> <span class="pl-smi">Father</span> {
 
-    public void method1() throws IOException {
-        // ...
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method1</span>() <span class="pl-k">throws</span> <span class="pl-smi">IOException</span> {
+        <span class="pl-c">// ...</span>
     }
 }
 
-class Son extends Father {
+<span class="pl-k">class</span> <span class="pl-smi">Son</span> <span class="pl-k">extends</span> <span class="pl-smi">Father</span> {
 
-    @Override
-    public void method1() throws IOException {
-        // ...
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method1</span>() <span class="pl-k">throws</span> <span class="pl-smi">IOException</span> {
+        <span class="pl-c">// ...</span>
     }
-    //抛出与父类相同
-    //抛出父类更小范围
-}
-</code></pre>
+    <span class="pl-c">//抛出与父类相同</span>
+    <span class="pl-c">//抛出父类更小范围</span>
+}</pre></div>
 <h3>4.4 两种异常处理方式的选择</h3>
 <p>前提：对于异常，使用相应的处理方式。此时的异常，主要指的是编译时异常。</p>
 <ul>
@@ -1723,56 +1630,52 @@ class Son extends Father {
 <li>由开发人员<strong>手动创建</strong>：<code class="notranslate">new 异常类型([实参列表]);</code>，如果创建好的异常对象不抛出对程序没有任何影响，和创建一个普通对象一样，但是一旦throw抛出，就会对程序运行产生影响了。</li>
 </ul>
 <h3>5.1 使用格式</h3>
-<pre lang="java" class="notranslate"><code class="notranslate">throw new 异常类名(参数);
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">异常类名</span>(<span class="pl-s1">参数</span>);</pre></div>
 <p>throw语句抛出的异常对象，和JVM自动创建和抛出的异常对象一样。</p>
 <ul>
 <li>如果是编译时异常类型的对象，同样需要使用throws或者try...catch处理，否则编译不通过。</li>
 <li>如果是运行时异常类型的对象，编译器不提示。</li>
 <li>可以抛出的异常必须是Throwable或其子类的实例。下面的语句在编译时将会产生语法错误：</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">throw new String("want to throw");
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"want to throw"</span>);</pre></div>
 <h3>5.2 使用注意点：</h3>
 <p>无论是编译时异常类型的对象，还是运行时异常类型的对象，如果没有被try..catch合理的处理，都会导致程序崩溃。</p>
 <p>throw语句会导致程序执行流程被改变，throw语句是明确抛出一个异常对象，因此它<code class="notranslate">下面的代码将不会执行</code>。</p>
 <p>如果当前方法没有try...catch处理这个异常对象，throw语句就会<code class="notranslate">代替return语句</code>提前终止当前方法的执行，并返回一个异常对象给调用者。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.keyword;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">keyword</span>;
 
-public class TestThrow {
-    public static void main(String[] args) {
-        try {
-            System.out.println(max(4,2,31,1));
-        } catch (Exception e) {
-            e.printStackTrace();
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestThrow</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">max</span>(<span class="pl-c1">4</span>,<span class="pl-c1">2</span>,<span class="pl-c1">31</span>,<span class="pl-c1">1</span>));
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
-        try {
-            System.out.println(max(4));
-        } catch (Exception e) {
-            e.printStackTrace();
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">max</span>(<span class="pl-c1">4</span>));
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
-        try {
-            System.out.println(max());
-        } catch (Exception e) {
-            e.printStackTrace();
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">max</span>());
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
     }
 
-    public static int max(int... nums){
-        if(nums == null || nums.length==0){
-            throw new IllegalArgumentException("没有传入任何整数，无法获取最大值");
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-en">max</span>(<span class="pl-smi">int</span>... <span class="pl-s1">nums</span>){
+        <span class="pl-k">if</span>(<span class="pl-s1">nums</span> == <span class="pl-c1">null</span> || <span class="pl-s1">nums</span>.<span class="pl-s1">length</span>==<span class="pl-c1">0</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">IllegalArgumentException</span>(<span class="pl-s">"没有传入任何整数，无法获取最大值"</span>);
         }
-        int max = nums[0];
-        for (int i = 1; i &lt; nums.length; i++) {
-            if(nums[i] &gt; max){
-                max = nums[i];
+        <span class="pl-smi">int</span> <span class="pl-s1">max</span> = <span class="pl-s1">nums</span>[<span class="pl-c1">0</span>];
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">nums</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-k">if</span>(<span class="pl-s1">nums</span>[<span class="pl-s1">i</span>] &gt; <span class="pl-s1">max</span>){
+                <span class="pl-s1">max</span> = <span class="pl-s1">nums</span>[<span class="pl-s1">i</span>];
             }
         }
-        return max;
+        <span class="pl-k">return</span> <span class="pl-s1">max</span>;
     }
-}
-
-</code></pre>
+}</pre></div>
 <h2>6. 自定义异常</h2>
 <h3>6.1 为什么需要自定义异常类</h3>
 <p>Java中不同的异常类，分别表示着某一种具体的异常情况。那么在开发中总是有些异常情况是核心类库中没有定义好的，此时我们需要根据自己业务的异常情况来定义异常类。例如年龄负数问题，考试成绩负数问题，某员工已在团队中等。</p>
@@ -1792,155 +1695,147 @@ public class TestThrow {
 </ol>
 <h3>6.4 举例</h3>
 <p>举例1：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">class MyException extends Exception {
-    static final long serialVersionUID = 23423423435L;
-    private int idnumber;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">MyException</span> <span class="pl-k">extends</span> <span class="pl-smi">Exception</span> {
+    <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">long</span> <span class="pl-s1">serialVersionUID</span> = <span class="pl-c1">23423423435L</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">idnumber</span>;
 
-    public MyException(String message, int id) {
-        super(message);
-        this.idnumber = id;
+    <span class="pl-k">public</span> <span class="pl-smi">MyException</span>(<span class="pl-smi">String</span> <span class="pl-s1">message</span>, <span class="pl-smi">int</span> <span class="pl-s1">id</span>) {
+        <span class="pl-en">super</span>(<span class="pl-s1">message</span>);
+        <span class="pl-smi">this</span>.<span class="pl-s1">idnumber</span> = <span class="pl-s1">id</span>;
     }
 
-    public int getId() {
-        return idnumber;
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getId</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">idnumber</span>;
     }
-}
-
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">public class MyExpTest {
-    public void regist(int num) throws MyException {
-        if (num &lt; 0)
-            throw new MyException("人数为负值，不合理", 3);
-        else
-            System.out.println("登记人数" + num);
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyExpTest</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">regist</span>(<span class="pl-smi">int</span> <span class="pl-s1">num</span>) <span class="pl-k">throws</span> <span class="pl-smi">MyException</span> {
+        <span class="pl-k">if</span> (<span class="pl-s1">num</span> &lt; <span class="pl-c1">0</span>)
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">MyException</span>(<span class="pl-s">"人数为负值，不合理"</span>, <span class="pl-c1">3</span>);
+        <span class="pl-k">else</span>
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"登记人数"</span> + <span class="pl-s1">num</span>);
     }
-    public void manager() {
-        try {
-            regist(100);
-        } catch (MyException e) {
-            System.out.print("登记失败，出错种类" + e.getId());
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">manager</span>() {
+        <span class="pl-k">try</span> {
+            <span class="pl-en">regist</span>(<span class="pl-c1">100</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">MyException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"登记失败，出错种类"</span> + <span class="pl-s1">e</span>.<span class="pl-en">getId</span>());
         }
-        System.out.print("本次登记操作结束");
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"本次登记操作结束"</span>);
     }
-    public static void main(String args[]) {
-        MyExpTest t = new MyExpTest();
-        t.manager();
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span> <span class="pl-s1">args</span>[]) {
+        <span class="pl-smi">MyExpTest</span> <span class="pl-s1">t</span> = <span class="pl-k">new</span> <span class="pl-smi">MyExpTest</span>();
+        <span class="pl-s1">t</span>.<span class="pl-en">manager</span>();
     }
-}
-
-</code></pre>
+}</pre></div>
 <p>举例2：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.define;
-//自定义异常：
-public class NotTriangleException extends Exception{
-    static final long serialVersionUID = 13465653435L;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">define</span>;
+<span class="pl-c">//自定义异常：</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">NotTriangleException</span> <span class="pl-k">extends</span> <span class="pl-smi">Exception</span>{
+    <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">long</span> <span class="pl-s1">serialVersionUID</span> = <span class="pl-c1">13465653435L</span>;
 
-    public NotTriangleException() {
+    <span class="pl-k">public</span> <span class="pl-smi">NotTriangleException</span>() {
     }
 
-    public NotTriangleException(String message) {
-        super(message);
+    <span class="pl-k">public</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-smi">String</span> <span class="pl-s1">message</span>) {
+        <span class="pl-en">super</span>(<span class="pl-s1">message</span>);
     }
-}
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">define</span>;
 
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.define;
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Triangle</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">double</span> <span class="pl-s1">a</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">double</span> <span class="pl-s1">b</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">double</span> <span class="pl-s1">c</span>;
 
-public class Triangle {
-    private double a;
-    private double b;
-    private double c;
-
-    public Triangle(double a, double b, double c) throws NotTriangleException {
-        if(a&lt;=0 || b&lt;=0 || c&lt;=0){
-            throw new NotTriangleException("三角形的边长必须是正数");
+    <span class="pl-k">public</span> <span class="pl-smi">Triangle</span>(<span class="pl-smi">double</span> <span class="pl-s1">a</span>, <span class="pl-smi">double</span> <span class="pl-s1">b</span>, <span class="pl-smi">double</span> <span class="pl-s1">c</span>) <span class="pl-k">throws</span> <span class="pl-smi">NotTriangleException</span> {
+        <span class="pl-k">if</span>(<span class="pl-s1">a</span>&lt;=<span class="pl-c1">0</span> || <span class="pl-s1">b</span>&lt;=<span class="pl-c1">0</span> || <span class="pl-s1">c</span>&lt;=<span class="pl-c1">0</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-s">"三角形的边长必须是正数"</span>);
         }
-        if(a+b&lt;=c || b+c&lt;=a || a+c&lt;=b){
-            throw new NotTriangleException(a+"," + b +"," + c +"不能构造三角形，三角形任意两边之后必须大于第三边");
+        <span class="pl-k">if</span>(<span class="pl-s1">a</span>+<span class="pl-s1">b</span>&lt;=<span class="pl-s1">c</span> || <span class="pl-s1">b</span>+<span class="pl-s1">c</span>&lt;=<span class="pl-s1">a</span> || <span class="pl-s1">a</span>+<span class="pl-s1">c</span>&lt;=<span class="pl-s1">b</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-s1">a</span>+<span class="pl-s">","</span> + <span class="pl-s1">b</span> +<span class="pl-s">","</span> + <span class="pl-s1">c</span> +<span class="pl-s">"不能构造三角形，三角形任意两边之后必须大于第三边"</span>);
         }
-        this.a = a;
-        this.b = b;
-        this.c = c;
+        <span class="pl-smi">this</span>.<span class="pl-s1">a</span> = <span class="pl-s1">a</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">b</span> = <span class="pl-s1">b</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">c</span> = <span class="pl-s1">c</span>;
     }
 
-    public double getA() {
-        return a;
+    <span class="pl-k">public</span> <span class="pl-smi">double</span> <span class="pl-en">getA</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">a</span>;
     }
 
-    public void setA(double a) throws NotTriangleException{
-        if(a&lt;=0){
-            throw new NotTriangleException("三角形的边长必须是正数");
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setA</span>(<span class="pl-smi">double</span> <span class="pl-s1">a</span>) <span class="pl-k">throws</span> <span class="pl-smi">NotTriangleException</span>{
+        <span class="pl-k">if</span>(<span class="pl-s1">a</span>&lt;=<span class="pl-c1">0</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-s">"三角形的边长必须是正数"</span>);
         }
-        if(a+b&lt;=c || b+c&lt;=a || a+c&lt;=b){
-            throw new NotTriangleException(a+"," + b +"," + c +"不能构造三角形，三角形任意两边之后必须大于第三边");
+        <span class="pl-k">if</span>(<span class="pl-s1">a</span>+<span class="pl-s1">b</span>&lt;=<span class="pl-s1">c</span> || <span class="pl-s1">b</span>+<span class="pl-s1">c</span>&lt;=<span class="pl-s1">a</span> || <span class="pl-s1">a</span>+<span class="pl-s1">c</span>&lt;=<span class="pl-s1">b</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-s1">a</span>+<span class="pl-s">","</span> + <span class="pl-s1">b</span> +<span class="pl-s">","</span> + <span class="pl-s1">c</span> +<span class="pl-s">"不能构造三角形，三角形任意两边之后必须大于第三边"</span>);
         }
-        this.a = a;
+        <span class="pl-smi">this</span>.<span class="pl-s1">a</span> = <span class="pl-s1">a</span>;
     }
 
-    public double getB() {
-        return b;
+    <span class="pl-k">public</span> <span class="pl-smi">double</span> <span class="pl-en">getB</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">b</span>;
     }
 
-    public void setB(double b) throws NotTriangleException {
-        if(b&lt;=0){
-            throw new NotTriangleException("三角形的边长必须是正数");
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setB</span>(<span class="pl-smi">double</span> <span class="pl-s1">b</span>) <span class="pl-k">throws</span> <span class="pl-smi">NotTriangleException</span> {
+        <span class="pl-k">if</span>(<span class="pl-s1">b</span>&lt;=<span class="pl-c1">0</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-s">"三角形的边长必须是正数"</span>);
         }
-        if(a+b&lt;=c || b+c&lt;=a || a+c&lt;=b){
-            throw new NotTriangleException(a+"," + b +"," + c +"不能构造三角形，三角形任意两边之后必须大于第三边");
+        <span class="pl-k">if</span>(<span class="pl-s1">a</span>+<span class="pl-s1">b</span>&lt;=<span class="pl-s1">c</span> || <span class="pl-s1">b</span>+<span class="pl-s1">c</span>&lt;=<span class="pl-s1">a</span> || <span class="pl-s1">a</span>+<span class="pl-s1">c</span>&lt;=<span class="pl-s1">b</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-s1">a</span>+<span class="pl-s">","</span> + <span class="pl-s1">b</span> +<span class="pl-s">","</span> + <span class="pl-s1">c</span> +<span class="pl-s">"不能构造三角形，三角形任意两边之后必须大于第三边"</span>);
         }
-        this.b = b;
+        <span class="pl-smi">this</span>.<span class="pl-s1">b</span> = <span class="pl-s1">b</span>;
     }
 
-    public double getC() {
-        return c;
+    <span class="pl-k">public</span> <span class="pl-smi">double</span> <span class="pl-en">getC</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">c</span>;
     }
 
-    public void setC(double c) throws NotTriangleException {
-        if(c&lt;=0){
-            throw new NotTriangleException("三角形的边长必须是正数");
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setC</span>(<span class="pl-smi">double</span> <span class="pl-s1">c</span>) <span class="pl-k">throws</span> <span class="pl-smi">NotTriangleException</span> {
+        <span class="pl-k">if</span>(<span class="pl-s1">c</span>&lt;=<span class="pl-c1">0</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-s">"三角形的边长必须是正数"</span>);
         }
-        if(a+b&lt;=c || b+c&lt;=a || a+c&lt;=b){
-            throw new NotTriangleException(a+"," + b +"," + c +"不能构造三角形，三角形任意两边之后必须大于第三边");
+        <span class="pl-k">if</span>(<span class="pl-s1">a</span>+<span class="pl-s1">b</span>&lt;=<span class="pl-s1">c</span> || <span class="pl-s1">b</span>+<span class="pl-s1">c</span>&lt;=<span class="pl-s1">a</span> || <span class="pl-s1">a</span>+<span class="pl-s1">c</span>&lt;=<span class="pl-s1">b</span>){
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">NotTriangleException</span>(<span class="pl-s1">a</span>+<span class="pl-s">","</span> + <span class="pl-s1">b</span> +<span class="pl-s">","</span> + <span class="pl-s1">c</span> +<span class="pl-s">"不能构造三角形，三角形任意两边之后必须大于第三边"</span>);
         }
-        this.c = c;
+        <span class="pl-smi">this</span>.<span class="pl-s1">c</span> = <span class="pl-s1">c</span>;
     }
 
-    @Override
-    public String toString() {
-        return "Triangle{" +
-                "a=" + a +
-                ", b=" + b +
-                ", c=" + c +
-                '}';
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"Triangle{"</span> +
+                <span class="pl-s">"a="</span> + <span class="pl-s1">a</span> +
+                <span class="pl-s">", b="</span> + <span class="pl-s1">b</span> +
+                <span class="pl-s">", c="</span> + <span class="pl-s1">c</span> +
+                <span class="pl-s">'}'</span>;
     }
-}
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.define;
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">define</span>;
 
-public class TestTriangle {
-    public static void main(String[] args) {
-        Triangle t = null;
-        try {
-            t = new Triangle(2,2,3);
-            System.out.println("三角形创建成功：");
-            System.out.println(t);
-        } catch (NotTriangleException e) {
-            System.err.println("三角形创建失败");
-            e.printStackTrace();
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestTriangle</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Triangle</span> <span class="pl-s1">t</span> = <span class="pl-c1">null</span>;
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t</span> = <span class="pl-k">new</span> <span class="pl-smi">Triangle</span>(<span class="pl-c1">2</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>);
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"三角形创建成功："</span>);
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">t</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">NotTriangleException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">err</span>.<span class="pl-en">println</span>(<span class="pl-s">"三角形创建失败"</span>);
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
 
-        try {
-            if(t != null) {
-                t.setA(1);
+        <span class="pl-k">try</span> {
+            <span class="pl-k">if</span>(<span class="pl-s1">t</span> != <span class="pl-c1">null</span>) {
+                <span class="pl-s1">t</span>.<span class="pl-en">setA</span>(<span class="pl-c1">1</span>);
             }
-            System.out.println("三角形边长修改成功");
-        } catch (NotTriangleException e) {
-            System.out.println("三角形边长修改失败");
-            e.printStackTrace();
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"三角形边长修改成功"</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">NotTriangleException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"三角形边长修改失败"</span>);
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
     }
-}
-</code></pre>
+}</pre></div>
 <p>面试 throw 和 throws 的区别</p>
 <ul>
 <li>throw 我们主动抛出异常</li>
@@ -1971,35 +1866,33 @@ public class TestTriangle {
 <p></p>
 <h2>7. 练习</h2>
 <p><strong>练习1：</strong></p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class ReturnExceptionDemo {
-    static void methodA() {
-        try {
-            System.out.println("进入方法A");
-            throw new RuntimeException("制造异常");
-        }finally {
-            System.out.println("用A方法的finally");
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ReturnExceptionDemo</span> {
+    <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">methodA</span>() {
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入方法A"</span>);
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"制造异常"</span>);
+        }<span class="pl-k">finally</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"用A方法的finally"</span>);
         }
     }
 
-    static void methodB() {
-        try {
-            System.out.println("进入方法B");
-            return;
-        } finally {
-            System.out.println("调用B方法的finally");
+    <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">methodB</span>() {
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入方法B"</span>);
+            <span class="pl-k">return</span>;
+        } <span class="pl-k">finally</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"调用B方法的finally"</span>);
         }
     }
-    public static void main(String[] args) {
-        try {
-            methodA();
-           } catch (Exception e) {
-          	System.out.println(e.getMessage());
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-k">try</span> {
+            <span class="pl-en">methodA</span>();
+           } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+          	<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">e</span>.<span class="pl-en">getMessage</span>());
         }
-        methodB();
+        <span class="pl-en">methodB</span>();
       }
-}
-
-</code></pre>
+}</pre></div>
 <p><strong>练习2：</strong></p>
 <p>从键盘接收学生成绩，成绩必须在0~100之间。</p>
 <p>自定义成绩无效异常。</p>
