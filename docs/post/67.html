@@ -86,7 +86,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-body" id="postBody"><p>在 Linux 服务器运维中，Swap（交换分区/文件）是物理内存的重要“备用资源”，但有时会遇到“Swap 已配置却始终未使用”的情况。本文结合实际操作场景，详细拆解 Swap 未使用问题的排查思路、原因定位及解决方法，适用于各类 Linux 发行版（如 Ubuntu、CentOS、Debian 等）。</p>
 <h2>一、问题背景：线上业务频繁卡死</h2>
 <p>----------------问题背景--------------</p>
-<p>笔者线上服务经常卡死，后续审查发现连日志都无了，完全没有故障时期的记录，这时候笔者怀是内存爆了</p>
+<p>笔者线上服务经常卡死，线上业务很慢甚至直接报错，SSH超时，后续审查发现连日志都无了，完全没有故障时期的记录，这时候笔者怀疑是内存爆了</p>
 <p>笔者尝试通过增大swap解决问题，这时候发现不对劲了，swap完全没用起来！！！</p>
 <p>----------------真実はいつも一つ-------------</p>
 <p>那么就尝试从swap开始排查趴</p>
@@ -187,6 +187,7 @@ sudo sysctl -p</pre></div>
 NAME      TYPE SIZE   USED PRIO
 /www/swap file   3G 959.2M   -2</pre></div>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/dbb7dd6c932cb53e7867f2b07f00028d26cce4cbce9d7af741930e1a0c3d678f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313735393536313530313536352d64626333376535322d646662382d346366652d623162662d3337663864373232353265302e706e67"><img src="https://camo.githubusercontent.com/dbb7dd6c932cb53e7867f2b07f00028d26cce4cbce9d7af741930e1a0c3d678f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313735393536313530313536352d64626333376535322d646662382d346366652d623162662d3337663864373232353265302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1759561501565-dbc37e52-dfb8-4cfe-b1bf-37f8d72252e0.png" style="max-width: 100%;"></a></p>
+<p>搞定~</p>
 <h2>五、补充：Swap 文件创建步骤（适用于未配置 Swap 的场景）</h2>
 <p>若服务器未配置 Swap，需手动创建交换文件，步骤如下（以创建 3GB Swap 为例）：</p>
 <ol>
