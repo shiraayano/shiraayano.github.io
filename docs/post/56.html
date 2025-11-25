@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/56.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>JavaScript 基础知识笔记</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -45,17 +45,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-.copy-feedback {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 50px;
-    color: var(--color-fg-on-emphasis);
-    background-color: var(--color-fg-muted);
-    border-radius: 3px;
-    padding: 5px 8px;
-    font-size: 12px;
-}
+
 </style>
 <style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
 
@@ -95,15 +85,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var myname = 'shiraayano';
+<pre lang="html" class="notranslate"><code class="notranslate">var myname = 'shiraayano';
 var address = '地球村';
 var age = 18;
 var emial = 'shiraayano@adouzi.eu.org';
-console.log(myname, address, age, emial);</pre></div>
+console.log(myname, address, age, emial);
+</code></pre>
 <p><strong>解释</strong>：定义了几个变量并使用 <code class="notranslate">console.log</code> 打印到控制台。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var myname = prompt("请输入你的姓名");
-alert(myname + "欢迎回家");</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var myname = prompt("请输入你的姓名");
+alert(myname + "欢迎回家");
+</code></pre>
 <p><strong>解释</strong>：通过 <code class="notranslate">prompt</code> 获取用户输入的姓名，并通过 <code class="notranslate">alert</code> 弹出欢迎信息。</p>
 <hr>
 <h4>2. 变量声明</h4>
@@ -115,26 +107,30 @@ alert(myname + "欢迎回家");</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 同时申明多个变量
+<pre lang="html" class="notranslate"><code class="notranslate">// 同时申明多个变量
 var age = 18, sex = "男", address = "北京";
 
 var age = 18,
     sex = "男",
-    address = "北京";</pre></div>
+    address = "北京";
+</code></pre>
 <p><strong>解释</strong>：展示了两种同时声明多个变量的方式。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 声明未赋值结果为undefined
+<pre lang="html" class="notranslate"><code class="notranslate">// 声明未赋值结果为undefined
 var a;
-console.log(a);</pre></div>
+console.log(a);
+</code></pre>
 <p><strong>解释</strong>：声明了一个变量 <code class="notranslate">a</code>，但未赋值，打印结果为 <code class="notranslate">undefined</code>。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 不申明不赋值会报错
-console.log(b);</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">// 不申明不赋值会报错
+console.log(b);
+</code></pre>
 <p><strong>解释</strong>：尝试打印未声明的变量 <code class="notranslate">b</code>，会导致错误。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 不声明赋值可以使用，但是不建议
+<pre lang="html" class="notranslate"><code class="notranslate">// 不声明赋值可以使用，但是不建议
 c = 100;
-console.log(c);</pre></div>
+console.log(c);
+</code></pre>
 <p><strong>解释</strong>：未声明直接赋值给变量 <code class="notranslate">c</code>，虽然可以使用，但不建议。</p>
 <hr>
 <h4>3. 变量命名规则</h4>
@@ -148,7 +144,7 @@ console.log(c);</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 变量命名规则
+<pre lang="html" class="notranslate"><code class="notranslate">// 变量命名规则
 // 1.变量名必须由字母、数字、下划线、$组成，不能以数字开头
 // 2.变量名区分大小写
 // 3.不能是关键字和保留字
@@ -161,7 +157,8 @@ console.log(c);</pre></div>
 // console.log(age);
 // var name = "张三";
 // console.log(name);
-// 另外，我们尽量不要用name作为变量名，有些浏览器name有含义</pre></div>
+// 另外，我们尽量不要用name作为变量名，有些浏览器name有含义
+</code></pre>
 <hr>
 <h4>4. 变量交换</h4>
 <ul>
@@ -169,7 +166,7 @@ console.log(c);</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var a;
+<pre lang="html" class="notranslate"><code class="notranslate">var a;
 var b;
 var temp;
 
@@ -183,7 +180,8 @@ a = b;
 b = temp;
 
 console.log(a); // 输出 2
-console.log(b); // 输出 1</pre></div>
+console.log(b); // 输出 1
+</code></pre>
 <p><strong>解释</strong>：通过临时变量 <code class="notranslate">temp</code> 实现了 <code class="notranslate">a</code> 和 <code class="notranslate">b</code> 的值交换。</p>
 <hr>
 <h4>5. 数据类型</h4>
@@ -194,7 +192,7 @@ console.log(b); // 输出 1</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// JS中的数据类型
+<pre lang="html" class="notranslate"><code class="notranslate">// JS中的数据类型
 // JS是一种弱类型语言，变量没有类型，值才有类型。只有在运行过程中才能确定类型
 // JS是动态语言，变量的数据类型是可以变化的
 // 1.基本数据类型
@@ -205,7 +203,8 @@ console.log(b); // 输出 1</pre></div>
 // 2.字符串类型 string
 // 3.布尔类型 boolean
 // 4.未定义类型 undefined
-// 5.空类型 null</pre></div>
+// 5.空类型 null
+</code></pre>
 <hr>
 <h4>6. 简单数据类型介绍</h4>
 <ul>
@@ -217,7 +216,7 @@ console.log(b); // 输出 1</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 简单数据类型介绍
+<pre lang="html" class="notranslate"><code class="notranslate">// 简单数据类型介绍
 // 1.数字类型 number
 // 2.字符串类型 string
 // 3.布尔类型 boolean
@@ -250,15 +249,17 @@ console.log(Number.MIN_VALUE); // 数字型的最小值
 console.log(Number.MAX_VALUE * 2); // Infinity
 console.log(-Number.MAX_VALUE * 2); // -Infinity
 console.log("abc" - 10); // NaN
-console.log(isNaN(10)); // false</pre></div>
+console.log(isNaN(10)); // false
+</code></pre>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 字符串型 加了引号都是字符串型 String
+<pre lang="html" class="notranslate"><code class="notranslate">// 字符串型 加了引号都是字符串型 String
 var str = "我的名字叫白绫乃";
 console.log(str); // 输出 "我的名字叫白绫乃"
 // 字符串拼接
 var str1 = "我的名字叫";
 var str2 = "白绫乃";
-console.log(str1 + str2); // 输出 "我的名字叫白绫乃"</pre></div>
+console.log(str1 + str2); // 输出 "我的名字叫白绫乃"
+</code></pre>
 <hr>
 <h4>7. 字符串长度</h4>
 <ul>
@@ -266,11 +267,12 @@ console.log(str1 + str2); // 输出 "我的名字叫白绫乃"</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// JS中通过length获取字符串长度
+<pre lang="html" class="notranslate"><code class="notranslate">// JS中通过length获取字符串长度
 var str = "123";
 var str1 = "你好";
 console.log(str.length); // 输出 3
-console.log(str1.length); // 输出 2</pre></div>
+console.log(str1.length); // 输出 2
+</code></pre>
 <hr>
 <h4>8. 用户交互</h4>
 <ul>
@@ -279,8 +281,9 @@ console.log(str1.length); // 输出 2</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var age = prompt("请输入年龄：");
-alert("你" + age);</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var age = prompt("请输入年龄：");
+alert("你" + age);
+</code></pre>
 <p><strong>解释</strong>：通过 <code class="notranslate">prompt</code> 获取用户输入的年龄，并通过 <code class="notranslate">alert</code> 显示。</p>
 <hr>
 <h4>9. 布尔类型</h4>
@@ -290,10 +293,11 @@ alert("你" + age);</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var flag = true;
+<pre lang="html" class="notranslate"><code class="notranslate">var flag = true;
 var flag1 = false;
 console.log(flag); // 输出 true
-console.log(flag + 1); // 输出 2</pre></div>
+console.log(flag + 1); // 输出 2
+</code></pre>
 <hr>
 <h4>10. 类型转换</h4>
 <ul>
@@ -304,7 +308,7 @@ console.log(flag + 1); // 输出 2</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var num = 1;
+<pre lang="html" class="notranslate"><code class="notranslate">var num = 1;
 console.log(typeof num); // 输出 "number"
 num = "hello";
 console.log(typeof num); // 输出 "string"
@@ -338,7 +342,8 @@ var num5 = "10.98";
 console.log(parseInt(num5)); // 输出 10
 var num6 = "10.98";
 console.log(parseInt(num6, 10)); // 输出 10
-console.log(parseInt("120px")); // 输出 120</pre></div>
+console.log(parseInt("120px")); // 输出 120
+</code></pre>
 <hr>
 <h4>11. 计算年龄</h4>
 <ul>
@@ -346,9 +351,10 @@ console.log(parseInt("120px")); // 输出 120</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var year = prompt("输入出生年份");
+<pre lang="html" class="notranslate"><code class="notranslate">var year = prompt("输入出生年份");
 var age = 2025 - year; // 隐式转换
-alert("您的年龄是" + age + "岁");</pre></div>
+alert("您的年龄是" + age + "岁");
+</code></pre>
 <p><strong>解释</strong>：通过 <code class="notranslate">prompt</code> 获取用户输入的出生年份，计算当前年龄并显示。</p>
 <hr>
 <h4>12. 布尔类型转换</h4>
@@ -358,7 +364,7 @@ alert("您的年龄是" + age + "岁");</pre></div>
 </ul>
 <h4>示例代码</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 转化为布尔类型
+<pre lang="html" class="notranslate"><code class="notranslate">// 转化为布尔类型
 // Boolean()函数
 // 代表空、否定的值会被转化为false，如：0，NaN，null，undefined，空字符串
 // 其余值都会被转化为true
@@ -368,7 +374,8 @@ console.log(Boolean(NaN)); // 输出 false
 console.log(Boolean(null)); // 输出 false
 console.log(Boolean(undefined)); // 输出 false
 console.log(Boolean(" ")); // 输出 true
-console.log(Boolean("hello")); // 输出 true</pre></div>
+console.log(Boolean("hello")); // 输出 true
+</code></pre>
 <hr>
 <h4>1. 运算符</h4>
 <p>运算符是用于执行特定操作的符号，JavaScript 中常见的运算符包括算术运算符、比较运算符、逻辑运算符和赋值运算符。</p>
@@ -385,18 +392,20 @@ console.log(Boolean("hello")); // 输出 true</pre></div>
 </ul>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 算术运算符
+<pre lang="html" class="notranslate"><code class="notranslate">// 算术运算符
 console.log(1 + 1); // 2
 console.log(5 % 3); // 2
-console.log(0.1 + 0.2); // 0.30000000000000004 浮点数精度问题</pre></div>
+console.log(0.1 + 0.2); // 0.30000000000000004 浮点数精度问题
+</code></pre>
 <p><strong>解释</strong>：展示了基本的算术运算，包括加法、取余和浮点数运算。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 递增和递减
+<pre lang="html" class="notranslate"><code class="notranslate">// 递增和递减
 var num = 10;
 console.log(num++); // 10，先输出再加1
 console.log(++num); // 12，先加1再输出
 console.log(num--); // 12，先输出再减1
-console.log(--num); // 10，先减1再输出</pre></div>
+console.log(--num); // 10，先减1再输出
+</code></pre>
 <p><strong>解释</strong>：展示了自增和自减运算符的使用，注意它们在表达式中的位置会影响运算结果。</p>
 <hr>
 <h5>1.2 比较运算符</h5>
@@ -413,10 +422,11 @@ console.log(--num); // 10，先减1再输出</pre></div>
 </ul>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 比较运算符
-console.log(9 <span class="pl-kos">&gt;</span> 10); // false
+<pre lang="html" class="notranslate"><code class="notranslate">// 比较运算符
+console.log(9 &gt; 10); // false
 console.log(10 == '10'); // true
-console.log(10 === '10'); // false</pre></div>
+console.log(10 === '10'); // false
+</code></pre>
 <p><strong>解释</strong>：展示了比较运算符的使用，注意 <code class="notranslate">==</code> 和 <code class="notranslate">===</code> 的区别。</p>
 <hr>
 <h5>1.3 逻辑运算符</h5>
@@ -428,11 +438,12 @@ console.log(10 === '10'); // false</pre></div>
 </ul>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 逻辑运算符
-console.log(4 <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">5</span> <span class="pl-kos">&lt;</span> 6); // true
-console.log(4 <span class="pl-kos">&lt;</span> 5 &amp;&amp; 5 <span class="pl-kos">&gt;</span> 6); // false
-console.log(4 <span class="pl-kos">&gt;</span> 5 || 5 <span class="pl-kos">&lt;</span> <span class="pl-ent">6</span><span class="pl-c1">);</span> // true
-console.log(!true); // false</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">// 逻辑运算符
+console.log(4 &lt; 5 &amp;&amp; 5 &lt; 6); // true
+console.log(4 &lt; 5 &amp;&amp; 5 &gt; 6); // false
+console.log(4 &gt; 5 || 5 &lt; 6); // true
+console.log(!true); // false
+</code></pre>
 <p><strong>解释</strong>：展示了逻辑运算符的使用，包括逻辑与、逻辑或和逻辑非。</p>
 <hr>
 <h5>1.4 短路运算</h5>
@@ -443,11 +454,12 @@ console.log(!true); // false</pre></div>
 </ul>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 短路运算
-console.log(4 <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">alert(</span>"hello1")); // true，第一个为真，执行第二个
-console.log(4 <span class="pl-kos">&gt;</span> 5 &amp;&amp; alert("hello2")); // false，第一个为假，不执行第二个
-console.log(4 <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span> <span class="pl-c1">||</span> <span class="pl-c1">alert(</span>"hello3")); // true，第一个为真，不执行第二个
-console.log(4 <span class="pl-kos">&gt;</span> 5 || alert("hello4")); // false，第一个为假，执行第二个</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">// 短路运算
+console.log(4 &lt; 5 &amp;&amp; alert("hello1")); // true，第一个为真，执行第二个
+console.log(4 &gt; 5 &amp;&amp; alert("hello2")); // false，第一个为假，不执行第二个
+console.log(4 &lt; 5 || alert("hello3")); // true，第一个为真，不执行第二个
+console.log(4 &gt; 5 || alert("hello4")); // false，第一个为假，执行第二个
+</code></pre>
 <p><strong>解释</strong>：展示了短路运算的特性，注意 <code class="notranslate">alert</code> 的执行情况。</p>
 <hr>
 <h5>1.5 赋值运算符</h5>
@@ -462,10 +474,11 @@ console.log(4 <span class="pl-kos">&gt;</span> 5 || alert("hello4")); // false�
 </ul>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 赋值运算符
+<pre lang="html" class="notranslate"><code class="notranslate">// 赋值运算符
 var num = 10;
 num += 5; // num = num + 5
-console.log(num); // 15</pre></div>
+console.log(num); // 15
+</code></pre>
 <p><strong>解释</strong>：展示了赋值运算符的使用，可以简化代码。</p>
 <hr>
 <h5>1.6 运算符优先级</h5>
@@ -483,19 +496,20 @@ console.log(num); // 15</pre></div>
 <p><code class="notranslate">if</code> 语句用于根据条件判断执行不同的代码块。</p>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// if 语句
-if (10 <span class="pl-kos">&gt;</span> 5) {
+<pre lang="html" class="notranslate"><code class="notranslate">// if 语句
+if (10 &gt; 5) {
     console.log("10 大于 5");
 } else {
     console.log("10 不大于 5");
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：展示了 <code class="notranslate">if</code> 语句的基本用法，根据条件的真假执行不同的代码块。</p>
 <hr>
 <h5>2.2 switch 语句</h5>
 <p><code class="notranslate">switch</code> 语句用于多分支选择，根据不同的条件执行不同的代码块。</p>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// switch 语句
+<pre lang="html" class="notranslate"><code class="notranslate">// switch 语句
 var day = 3;
 switch (day) {
     case 1:
@@ -521,7 +535,8 @@ switch (day) {
         break;
     default:
         console.log("输入有误");
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：展示了 <code class="notranslate">switch</code> 语句的用法，根据变量的值选择执行不同的代码块。</p>
 <hr>
 <h4>3. 实例应用</h4>
@@ -529,23 +544,25 @@ switch (day) {
 <p>判断一个年份是否为闰年。</p>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 闰年判断
+<pre lang="html" class="notranslate"><code class="notranslate">// 闰年判断
 var year = prompt("请输入年份");
 if (year % 4 == 0 &amp;&amp; year % 100 !== 0 || year % 400 == 0) {
     alert(year + " 是闰年");
 } else {
     alert(year + " 不是闰年");
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：根据闰年的定义（能被4整除但不能被100整除，或者能被400整除），使用 <code class="notranslate">if</code> 语句进行判断。</p>
 <hr>
 <h5>3.2 三元表达式</h5>
 <p>三元表达式是一种简化的条件表达式，格式为 <code class="notranslate">条件 ? 表达式1 : 表达式2</code>。</p>
 <h5>示例代码</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 三元表达式
+<pre lang="html" class="notranslate"><code class="notranslate">// 三元表达式
 var age = 18;
-var result = age <span class="pl-kos">&gt;</span>= 18 ? "成年" : "未成年";
-console.log(result);</pre></div>
+var result = age &gt;= 18 ? "成年" : "未成年";
+console.log(result);
+</code></pre>
 <p><strong>解释</strong>：根据年龄是否大于等于18，使用三元表达式输出“成年”或“未成年”。</p>
 <hr>
 <h3></h3>
@@ -554,33 +571,35 @@ console.log(result);</pre></div>
 <h5>1.1 for 循环</h5>
 <p><code class="notranslate">for</code> 循环是最常用的循环结构，适用于已知循环次数的情况。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// for循环
+<pre lang="html" class="notranslate"><code class="notranslate">// for循环
 // for(初始化变量;条件表达式;操作表达式){
 //     循环体
 // }
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span><span class="pl-c1">;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">console.log(i);</span>
-<span class="pl-c1">}</span><span class="pl-kos"></span></pre></div>
+for (var i = 0; i &lt; 5; i++) {
+    console.log(i);
+}
+</code></pre>
 <p><strong>解释</strong>：<code class="notranslate">for</code> 循环初始化一个变量 <code class="notranslate">i</code>，在每次循环开始时检查条件 <code class="notranslate">i &lt; 5</code>，如果条件为真，则执行循环体，然后执行操作表达式 <code class="notranslate">i++</code>。</p>
 <hr>
 <h5>1.2 while 循环</h5>
 <p><code class="notranslate">while</code> 循环在每次循环开始时检查条件，只有条件为真时才会执行循环体。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// while循环
+<pre lang="html" class="notranslate"><code class="notranslate">// while循环
 // while(条件表达式){
 //     循环体
 // }
 var i = 0;
-while (i <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span><span class="pl-c1">)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">console.log(i);</span>
-    <span class="pl-c1">i++;</span>
-<span class="pl-c1">}</span><span class="pl-kos"></span></pre></div>
+while (i &lt; 5) {
+    console.log(i);
+    i++;
+}
+</code></pre>
 <p><strong>解释</strong>：<code class="notranslate">while</code> 循环在每次循环开始时检查条件 <code class="notranslate">i &lt; 5</code>，如果条件为真，则执行循环体并更新变量 <code class="notranslate">i</code>。</p>
 <hr>
 <h5>1.3 do...while 循环</h5>
 <p><code class="notranslate">do...while</code> 循环至少执行一次循环体，然后检查条件，如果条件为真，则继续执行循环。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// do while循环
+<pre lang="html" class="notranslate"><code class="notranslate">// do while循环
 // do {
 //    循环体
 // } while(条件表达式)
@@ -588,7 +607,8 @@ var i = 1;
 do {
     console.log(i);
     i++;
-} while (i <span class="pl-kos">&lt;</span> <span class="pl-ent">99</span><span class="pl-c1">);</span><span class="pl-kos"></span></pre></div>
+} while (i &lt; 99);
+</code></pre>
 <p><strong>解释</strong>：<code class="notranslate">do...while</code> 循环先执行一次循环体，然后检查条件 <code class="notranslate">i &lt; 99</code>，如果条件为真，则继续执行循环。</p>
 <hr>
 <h4>2. break 和 continue</h4>
@@ -601,31 +621,33 @@ do {
 <p>循环常用于处理数组、计算累加值等场景。</p>
 <h5>3.1 累加和</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 递加
+<pre lang="html" class="notranslate"><code class="notranslate">// 递加
 var sum = 0;
-for (var i = 1; i <span class="pl-kos">&lt;</span> <span class="pl-ent">10</span><span class="pl-c1">;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">sum</span> = <span class="pl-s">sum</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
-<span class="pl-c1">}</span>
-<span class="pl-c1">console.log(sum);</span><span class="pl-kos"></span></pre></div>
+for (var i = 1; i &lt; 10; i++) {
+    sum = sum + i;
+}
+console.log(sum);
+</code></pre>
 <p><strong>解释</strong>：计算从 1 到 9 的累加和。</p>
 <hr>
 <h5>3.2 平均数</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 平均数
+<pre lang="html" class="notranslate"><code class="notranslate">// 平均数
 sum = 0;
-for (var i = 1; i <span class="pl-kos">&lt;</span>= 100; i++) {
+for (var i = 1; i &lt;= 100; i++) {
     sum = sum + i;
 }
 arg = sum / 100;
-console.log(arg);</pre></div>
+console.log(arg);
+</code></pre>
 <p><strong>解释</strong>：计算从 1 到 100 的平均数。</p>
 <hr>
 <h5>3.3 奇偶数和</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 奇偶数和
+<pre lang="html" class="notranslate"><code class="notranslate">// 奇偶数和
 var sum1 = 0;
 var sum2 = 0;
-for (var i = 1; i <span class="pl-kos">&lt;</span>= 100; i++) {
+for (var i = 1; i &lt;= 100; i++) {
     if (i % 2 == 0) {
         // 偶数
         sum1 = sum1 + i;
@@ -636,77 +658,84 @@ for (var i = 1; i <span class="pl-kos">&lt;</span>= 100; i++) {
 }
 console.log(sum1); // 偶数和
 console.log(sum2); // 奇数和
-console.log(sum1 + sum2); // 总和</pre></div>
+console.log(sum1 + sum2); // 总和
+</code></pre>
 <p><strong>解释</strong>：分别计算从 1 到 100 的奇数和与偶数和。</p>
 <hr>
 <h5>3.4 被 3 整除的数的和</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 1-100能被3整除的数的和
+<pre lang="html" class="notranslate"><code class="notranslate">// 1-100能被3整除的数的和
 sum = 0;
-for (var i = 1; i <span class="pl-kos">&lt;</span>= 100; i++) {
+for (var i = 1; i &lt;= 100; i++) {
     if (i % 3 == 0) {
         sum = sum + i;
     }
 }
-console.log(sum);</pre></div>
+console.log(sum);
+</code></pre>
 <p><strong>解释</strong>：计算从 1 到 100 中能被 3 整除的数的和。</p>
 <hr>
 <h5>3.5 九九乘法表</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 九九乘法表
-for (var i = 1; i <span class="pl-kos">&lt;</span>= 9; i++) {
-    for (var j = 1; j <span class="pl-kos">&lt;</span>= i; j++) {
+<pre lang="html" class="notranslate"><code class="notranslate">// 九九乘法表
+for (var i = 1; i &lt;= 9; i++) {
+    for (var j = 1; j &lt;= i; j++) {
         document.write(j + '*' + i + '=' + i * j + ' ');
     }
-    document.write('<span class="pl-kos">&lt;</span><span class="pl-ent">br</span><span class="pl-kos">&gt;</span>');
-}</pre></div>
+    document.write('&lt;br&gt;');
+}
+</code></pre>
 <p><strong>解释</strong>：使用嵌套循环输出九九乘法表。</p>
 <hr>
 <h5>3.6 心形图案</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 心形图案
+<pre lang="html" class="notranslate"><code class="notranslate">// 心形图案
 var str = '';
-for (var i = 1; i <span class="pl-kos">&lt;</span>= 9; i++) {
+for (var i = 1; i &lt;= 9; i++) {
     str = str + '❤';
     console.log(str);
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：逐行打印心形图案。</p>
 <hr>
 <h5>3.7 倒三角图案</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 倒三角图案
-for (var i = 10; i <span class="pl-kos">&gt;</span>= 0; i--) {
+<pre lang="html" class="notranslate"><code class="notranslate">// 倒三角图案
+for (var i = 10; i &gt;= 0; i--) {
     var str = '';
-    for (var j = i; j <span class="pl-kos">&gt;</span>= 0; j--) {
+    for (var j = i; j &gt;= 0; j--) {
         str = str + '❤';
     }
     console.log(str);
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：逐行打印倒三角图案。</p>
 <hr>
 <h5>3.8 嵌套循环</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 嵌套循环
-for (var i = 1; i <span class="pl-kos">&lt;</span>= 9; i++) {
-    for (j = 1; j <span class="pl-kos">&lt;</span>= i; j++) {
+<pre lang="html" class="notranslate"><code class="notranslate">// 嵌套循环
+for (var i = 1; i &lt;= 9; i++) {
+    for (j = 1; j &lt;= i; j++) {
         document.write(j + '*' + i + '=' + i * j + ' ');
     }
-    document.write('<span class="pl-kos">&lt;</span><span class="pl-ent">br</span><span class="pl-kos">&gt;</span>');
-}</pre></div>
+    document.write('&lt;br&gt;');
+}
+</code></pre>
 <p><strong>解释</strong>：使用嵌套循环输出九九乘法表。</p>
 <hr>
 <h4>4. while 和 do...while 的应用</h4>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// while循环
+<pre lang="html" class="notranslate"><code class="notranslate">// while循环
 var i = 1;
-while (i <span class="pl-kos">&lt;</span>= 100) {
+while (i &lt;= 100) {
     console.log(i);
     i++;
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">while</code> 循环打印从 1 到 100 的数字。</p>
 <hr>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// do...while循环
+<pre lang="html" class="notranslate"><code class="notranslate">// do...while循环
 var i = 1;
 do {
     console.log(i + '岁了');
@@ -714,11 +743,12 @@ do {
     if (i == 2) {
         break;
     }
-} while (i <span class="pl-kos">&lt;</span>= 99);</pre></div>
+} while (i &lt;= 99);
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">do...while</code> 循环打印从 1 到 99 的数字，当 <code class="notranslate">i</code> 等于 2 时跳出循环。</p>
 <hr>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// do...while循环
+<pre lang="html" class="notranslate"><code class="notranslate">// do...while循环
 var i = 1;
 do {
     console.log(i + '岁了');
@@ -726,205 +756,222 @@ do {
     if (i == 2) {
         continue;
     }
-} while (i <span class="pl-kos">&lt;</span>= 99);</pre></div>
+} while (i &lt;= 99);
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">do...while</code> 循环打印从 1 到 99 的数字，当 <code class="notranslate">i</code> 等于 2 时跳过当前循环。</p>
 <hr>
 <h4>5. 数组</h4>
 <p>数组是一种用于存储一组数据的集合。</p>
 <h5>5.1 创建数组</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 两种创建方式
+<pre lang="html" class="notranslate"><code class="notranslate">// 两种创建方式
 new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-console.log(arr[0]);</pre></div>
+console.log(arr[0]);
+</code></pre>
 <p><strong>解释</strong>：展示了两种创建数组的方式，并访问数组的第一个元素。</p>
 <hr>
 <h5>5.2 遍历数组</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 遍历数组
-for (let index = 0; index <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">index++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">const</span> <span class="pl-c1">element</span> = <span class="pl-s">arr[index];</span>
-    <span class="pl-c1">console.log(element);</span>
-<span class="pl-c1">}</span><span class="pl-kos"></span></pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">// 遍历数组
+for (let index = 0; index &lt; arr.length; index++) {
+    const element = arr[index];
+    console.log(element);
+}
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">for</code> 循环遍历数组并打印每个元素。</p>
 <hr>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 遍历数组
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">console.log(arr[i]);</span>
-<span class="pl-c1">}</span><span class="pl-kos"></span></pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">// 遍历数组
+for (var i = 0; i &lt; arr.length; i++) {
+    console.log(arr[i]);
+}
+</code></pre>
 <p><strong>解释</strong>：另一种方式使用 <code class="notranslate">for</code> 循环遍历数组并打印每个元素。</p>
 <hr>
 <h5>5.3 数组最大值和最小值</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 数组最大值和最小值
+<pre lang="html" class="notranslate"><code class="notranslate">// 数组最大值和最小值
 var arr = [11, 2, 33, 44, 5, 66, 77];
 var max = 0;
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">if</span> <span class="pl-c1">(arr[i]</span> <span class="pl-kos">&gt;</span> max) {
+for (var i = 0; i &lt; arr.length; i++) {
+    if (arr[i] &gt; max) {
         max = arr[i];
     }
 }
 console.log(max);
 
 var min = 999;
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">if</span> <span class="pl-c1">(arr[i]</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">min</span><span class="pl-c1">)</span> <span class="pl-c1">{</span>
-        <span class="pl-c1">min</span> = <span class="pl-s">arr[i];</span>
-    <span class="pl-c1">}</span>
-<span class="pl-c1">}</span>
-<span class="pl-c1">console.log(min);</span></pre></div>
+for (var i = 0; i &lt; arr.length; i++) {
+    if (arr[i] &lt; min) {
+        min = arr[i];
+    }
+}
+console.log(min);
+</code></pre>
 <p><strong>解释</strong>：遍历数组，找到最大值和最小值。</p>
 <hr>
 <h5>5.4 数组过滤</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 数组过滤
+<pre lang="html" class="notranslate"><code class="notranslate">// 数组过滤
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var arr1 = [];
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">if</span> <span class="pl-c1">(arr[i]</span> <span class="pl-kos">&gt;</span> 10) {
+for (var i = 0; i &lt; arr.length; i++) {
+    if (arr[i] &gt; 10) {
         arr1[arr1.length] = arr[i];
     }
 }
-console.log(arr1);</pre></div>
+console.log(arr1);
+</code></pre>
 <p><strong>解释</strong>：过滤数组中大于 10 的元素。</p>
 <hr>
 <h5>5.5 数组倒序</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 数组倒序
+<pre lang="html" class="notranslate"><code class="notranslate">// 数组倒序
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var arr1 = [];
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">arr1[arr1.length]</span> = <span class="pl-s">arr[arr.length</span> <span class="pl-c1">-</span> <span class="pl-c1">i</span> <span class="pl-c1">-</span> <span class="pl-c1">1];</span>
-<span class="pl-c1">}</span>
-<span class="pl-c1">console.log(arr1);</span><span class="pl-kos"></span></pre></div>
+for (var i = 0; i &lt; arr.length; i++) {
+    arr1[arr1.length] = arr[arr.length - i - 1];
+}
+console.log(arr1);
+</code></pre>
 <p><strong>解释</strong>：将数组倒序存储到另一个数组中。</p>
 <hr>
 <h5>5.6 倒序输出字符串</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 倒序输出字符串
+<pre lang="html" class="notranslate"><code class="notranslate">// 倒序输出字符串
 var a = 'index';
-for (var i = a.length - 1; i <span class="pl-kos">&gt;</span>= 0; i--) {
+for (var i = a.length - 1; i &gt;= 0; i--) {
     console.log(a[i]);
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：倒序输出字符串的每个字符。</p>
 <hr>
 <h5>5.7 数组去重</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 数组去重
+<pre lang="html" class="notranslate"><code class="notranslate">// 数组去重
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var arr1 = [];
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">if</span> <span class="pl-c1">(arr1.indexOf(arr[i])</span> == <span class="pl-s">-1)</span> <span class="pl-c1">{</span>
-        <span class="pl-c1">arr1[arr1.length]</span> = <span class="pl-s">arr[i];</span>
-    <span class="pl-c1">}</span>
-<span class="pl-c1">}</span>
-<span class="pl-c1">console.log(arr1);</span><span class="pl-kos"></span></pre></div>
+for (var i = 0; i &lt; arr.length; i++) {
+    if (arr1.indexOf(arr[i]) == -1) {
+        arr1[arr1.length] = arr[i];
+    }
+}
+console.log(arr1);
+</code></pre>
 <p><strong>解释</strong>：去除数组中的重复元素。</p>
 <hr>
 <h5>5.8 修改数组长度</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 修改数组长度
+<pre lang="html" class="notranslate"><code class="notranslate">// 修改数组长度
 // JS中数组长度是可变的
 arr.length = 10;
 // 修改索引号
 arr['你好'] = '666';
-console.log(arr['你好']);</pre></div>
+console.log(arr['你好']);
+</code></pre>
 <p><strong>解释</strong>：修改数组的长度和索引。</p>
 <hr>
 <h5>5.9 冒泡排序</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 冒泡排序
+<pre lang="html" class="notranslate"><code class="notranslate">// 冒泡排序
 arr = [44, 66, 11, 22, 33];
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">for</span> <span class="pl-c1">(var</span> <span class="pl-c1">j</span> = <span class="pl-s">0;</span> <span class="pl-c1">j</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span> <span class="pl-c1">-</span> <span class="pl-c1">i;</span> <span class="pl-c1">j++)</span> <span class="pl-c1">{</span>
-        <span class="pl-c1">if</span> <span class="pl-c1">(arr[j]</span> <span class="pl-kos">&gt;</span> arr[j + 1]) {
+for (var i = 0; i &lt; arr.length - 1; i++) {
+    for (var j = 0; j &lt; arr.length - 1 - i; j++) {
+        if (arr[j] &gt; arr[j + 1]) {
             var temp = arr[j];
             arr[j] = arr[j + 1];
             arr[j + 1] = temp;
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：使用冒泡排序对数组进行排序。</p>
 <hr>
 <h4>6. 函数</h4>
 <p>函数是封装可重复使用的代码块。</p>
 <h5>6.1 声明函数</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 函数：封装一段可重复使用的代码块
+<pre lang="html" class="notranslate"><code class="notranslate">// 函数：封装一段可重复使用的代码块
 function fn() {
     console.log('hello world');
 }
-fn();</pre></div>
+fn();
+</code></pre>
 <p><strong>解释</strong>：声明一个简单的函数并调用它。</p>
 <hr>
 <h5>6.2 函数参数</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 函数接收的实参小于形参 时，形参的值为undefined
+<pre lang="html" class="notranslate"><code class="notranslate">// 函数接收的实参小于形参 时，形参的值为undefined
 function fn(a, b) {
     console.log(a, b);
 }
-fn(1);</pre></div>
+fn(1);
+</code></pre>
 <p><strong>解释</strong>：如果传入的参数少于函数定义的参数，未传入的参数值为 <code class="notranslate">undefined</code>。</p>
 <hr>
 <h5>6.3 函数返回值</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 函数没有return 返回值时，返回值为undefined
-// return 不仅可以退出循环，还可以返回结果，结束当前函数</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">// 函数没有return 返回值时，返回值为undefined
+// return 不仅可以退出循环，还可以返回结果，结束当前函数
+</code></pre>
 <p><strong>解释</strong>：函数如果没有 <code class="notranslate">return</code> 语句，默认返回 <code class="notranslate">undefined</code>。</p>
 <hr>
 <h4>1. <code class="notranslate">arguments</code> 对象</h4>
 <p><code class="notranslate">arguments</code> 是一个类数组对象，存储了函数调用时传入的所有参数。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// arguments存储了所有实参
+<pre lang="html" class="notranslate"><code class="notranslate">// arguments存储了所有实参
 // 它是伪数组的形式
 function f() {
     console.log(arguments); // 打印所有参数
     console.log(arguments.length); // 打印参数个数
 }
-f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);</pre></div>
+f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+</code></pre>
 <p><strong>解释</strong>：<code class="notranslate">arguments</code> 对象可以用来访问函数调用时传入的所有参数。</p>
 <hr>
 <h4>2. 获取最大值</h4>
 <p>通过 <code class="notranslate">arguments</code> 对象获取传入参数中的最大值。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 获取最大数
+<pre lang="html" class="notranslate"><code class="notranslate">// 获取最大数
 function getMax() {
     var max = arguments[0]; // 先取第一个数
-    for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arguments</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-        <span class="pl-c1">if</span> <span class="pl-c1">(arguments[i]</span> <span class="pl-kos">&gt;</span> max) {
+    for (var i = 0; i &lt; arguments.length; i++) {
+        if (arguments[i] &gt; max) {
             max = arguments[i];
         }
     }
     return max;
 }
-console.log(getMax(22, 44, 66, 11)); // 输出 66</pre></div>
+console.log(getMax(22, 44, 66, 11)); // 输出 66
+</code></pre>
 <p><strong>解释</strong>：通过遍历 <code class="notranslate">arguments</code> 对象，找到最大值并返回。</p>
 <hr>
 <h4>3. 倒序输出字符串</h4>
 <p>将字符串倒序输出。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 倒序输出
+<pre lang="html" class="notranslate"><code class="notranslate">// 倒序输出
 function fun1() {
     var str = arguments[0];
     var str1 = [];
-    for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">str</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-        <span class="pl-c1">str1[i]</span> = <span class="pl-s">str[str.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span> <span class="pl-c1">-</span> <span class="pl-c1">i];</span>
-    <span class="pl-c1">}</span>
-    <span class="pl-c1">return</span> <span class="pl-c1">str1;</span>
-<span class="pl-c1">}</span>
-<span class="pl-c1">console.log(fun1(</span>"hello")); // 输出 ["o", "l", "l", "e", "h"]</pre></div>
+    for (var i = 0; i &lt; str.length; i++) {
+        str1[i] = str[str.length - 1 - i];
+    }
+    return str1;
+}
+console.log(fun1("hello")); // 输出 ["o", "l", "l", "e", "h"]
+</code></pre>
 <p><strong>解释</strong>：将字符串的每个字符倒序存储到数组中。</p>
 <hr>
 <h4>4. 冒泡排序</h4>
 <p>对数组进行冒泡排序。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 冒泡排序
+<pre lang="html" class="notranslate"><code class="notranslate">// 冒泡排序
 function fun2() {
     var arr = arguments[0];
-    for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-        <span class="pl-c1">for</span> <span class="pl-c1">(var</span> <span class="pl-c1">j</span> = <span class="pl-s">0;</span> <span class="pl-c1">j</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span> <span class="pl-c1">-</span> <span class="pl-c1">i;</span> <span class="pl-c1">j++)</span> <span class="pl-c1">{</span>
-            <span class="pl-c1">if</span> <span class="pl-c1">(arr[j]</span> <span class="pl-kos">&gt;</span> arr[j + 1]) {
+    for (var i = 0; i &lt; arr.length; i++) {
+        for (var j = 0; j &lt; arr.length - 1 - i; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
                 var temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
@@ -933,13 +980,14 @@ function fun2() {
     }
     return arr;
 }
-console.log(fun2([1, 3, 2, 5, 4])); // 输出 [1, 2, 3, 4, 5]</pre></div>
+console.log(fun2([1, 3, 2, 5, 4])); // 输出 [1, 2, 3, 4, 5]
+</code></pre>
 <p><strong>解释</strong>：通过嵌套循环实现冒泡排序，将数组从小到大排序。</p>
 <hr>
 <h4>5. 闰年判断</h4>
 <p>判断一个年份是否为闰年。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">function isRunYear() {
+<pre lang="html" class="notranslate"><code class="notranslate">function isRunYear() {
     var year = arguments[0];
     if (year % 4 == 0 &amp;&amp; year % 100 != 0 || year % 400 == 0) {
         return true;
@@ -947,13 +995,14 @@ console.log(fun2([1, 3, 2, 5, 4])); // 输出 [1, 2, 3, 4, 5]</pre></div>
         return false;
     }
 }
-console.log(isRunYear(2000)); // 输出 true</pre></div>
+console.log(isRunYear(2000)); // 输出 true
+</code></pre>
 <p><strong>解释</strong>：根据闰年的条件（能被4整除但不能被100整除，或者能被400整除）判断一个年份是否为闰年。</p>
 <hr>
 <h4>6. 函数的声明方式</h4>
 <p>JavaScript 中有两种声明函数的方式。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 函数的两种声明方式
+<pre lang="html" class="notranslate"><code class="notranslate">// 函数的两种声明方式
 // 1. function关键字声明
 function fn() {
     console.log("hello");
@@ -964,35 +1013,38 @@ fn(); // 正常调用
 var f = function() {
     console.log("hello");
 }
-f(); // 调用方式 f();</pre></div>
+f(); // 调用方式 f();
+</code></pre>
 <p><strong>解释</strong>：函数可以通过 <code class="notranslate">function</code> 关键字声明，也可以通过函数表达式声明。</p>
 <hr>
 <h4>7. 作用域</h4>
 <p>作用域决定了变量的可访问范围。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 全局变量
+<pre lang="html" class="notranslate"><code class="notranslate">// 全局变量
 var num = 10;
 console.log(num); // 输出 10
 
 function fun() {
     console.log(num); // 输出 10
 }
-fun();</pre></div>
+fun();
+</code></pre>
 <p><strong>解释</strong>：全局变量在全局范围内都可以访问。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 局部变量
+<pre lang="html" class="notranslate"><code class="notranslate">// 局部变量
 function fun1() {
     var num1 = 20;
     console.log(num1); // 输出 20
 }
 fun1();
-// console.log(num1); // 报错</pre></div>
+// console.log(num1); // 报错
+</code></pre>
 <p><strong>解释</strong>：局部变量只在函数内部有效，函数外部无法访问。</p>
 <hr>
 <h4>8. 作用域链</h4>
 <p>在函数内部查找变量时，会先在当前函数作用域中查找，如果找不到，则向上查找，直到全局作用域。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 作用域链
+<pre lang="html" class="notranslate"><code class="notranslate">// 作用域链
 function fun2() {
     var num2 = 20;
     function fun3() {
@@ -1003,49 +1055,55 @@ function fun2() {
     }
     fun3();
 }
-fun2();</pre></div>
+fun2();
+</code></pre>
 <p><strong>解释</strong>：展示了作用域链的工作方式。</p>
 <hr>
 <h4>9. 预解析</h4>
 <p>JavaScript 在执行代码之前会进行预解析。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 预解析
+<pre lang="html" class="notranslate"><code class="notranslate">// 预解析
 console.log(num1); // 输出 undefined
-num1 = 10;</pre></div>
+num1 = 10;
+</code></pre>
 <p><strong>解释</strong>：变量声明会被提升到当前作用域的顶部，但赋值操作不会提升。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 函数提升
+<pre lang="html" class="notranslate"><code class="notranslate">// 函数提升
 fn(); // 正常调用
 function fn() {
     console.log('fn');
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：函数声明会被提升到当前作用域的顶部，可以直接调用。</p>
 <hr>
 <h4>10. 变量提升和函数提升</h4>
 <p>JavaScript 中的变量提升和函数提升。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 变量提升
+<pre lang="html" class="notranslate"><code class="notranslate">// 变量提升
 console.log(num1); // 输出 undefined
 var num1;
-num1 = 10;</pre></div>
+num1 = 10;
+</code></pre>
 <p><strong>解释</strong>：变量声明会被提升到当前作用域的顶部，但赋值操作不会提升。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 函数提升
+<pre lang="html" class="notranslate"><code class="notranslate">// 函数提升
 fn(); // 正常调用
 function fn() {
     console.log('fn');
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：函数声明会被提升到当前作用域的顶部，可以直接调用。</p>
 <hr>
 <h4>11. 函数表达式调用</h4>
 <p>函数表达式调用必须写在函数赋值之后。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 函数表达式调用
+<pre lang="html" class="notranslate"><code class="notranslate">// 函数表达式调用
 // fn1(); // 报错，fn1 is not a function
 var fn1 = function() {
     console.log('fn1');
 }
-fn1(); // 正常调用</pre></div>
+fn1(); // 正常调用
+</code></pre>
 <p><strong>解释</strong>：函数表达式调用必须写在函数赋值之后，否则会报错。</p>
 <hr>
 <hr>
@@ -1053,14 +1111,15 @@ fn1(); // 正常调用</pre></div>
 <h4>1. 变量作用域</h4>
 <p>变量的作用域决定了变量的可访问范围。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">function fun1() {
+<pre lang="html" class="notranslate"><code class="notranslate">function fun1() {
     var a = b = c = 9; // a 是局部变量，b 和 c 是全局变量
     console.log(a, b, c); // 输出 9 9 9
 }
 fun1(); // 要执行才会有 b 和 c
 // console.log(a); // 报错
 console.log(b); // 输出 9
-console.log(c); // 输出 9</pre></div>
+console.log(c); // 输出 9
+</code></pre>
 <p><strong>解释</strong>：在函数内部声明的变量 <code class="notranslate">a</code> 是局部变量，而 <code class="notranslate">b</code> 和 <code class="notranslate">c</code> 由于没有使用 <code class="notranslate">var</code> 声明，因此成为全局变量。</p>
 <hr>
 <h4>2. 对象</h4>
@@ -1069,7 +1128,7 @@ console.log(c); // 输出 9</pre></div>
 <p>JavaScript 提供了多种方式来创建对象。</p>
 <h6>2.1.1 字面量创建对象</h6>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var obj1 = {}; // 创建了一个空的对象
+<pre lang="html" class="notranslate"><code class="notranslate">var obj1 = {}; // 创建了一个空的对象
 var obj1 = {
     name: 'shiraayano',
     age: 3,
@@ -1080,21 +1139,23 @@ var obj1 = {
 };
 console.log(obj1.name); // 输出 shiraayano
 console.log(obj1['age']); // 输出 3
-obj1.sayHi(); // 调用方法，输出 hi</pre></div>
+obj1.sayHi(); // 调用方法，输出 hi
+</code></pre>
 <p><strong>解释</strong>：使用对象字面量方式创建对象，并访问其属性和方法。</p>
 <h6>2.1.2 使用 <code class="notranslate">new Object</code> 创建对象</h6>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var obj2 = new Object();
+<pre lang="html" class="notranslate"><code class="notranslate">var obj2 = new Object();
 obj2.name = 'shiraayano';
 obj2.age = 6;
 obj2.sex = 'Ta';
 obj2.sayHi = function() {
     console.log('hi');
-};</pre></div>
+};
+</code></pre>
 <p><strong>解释</strong>：通过 <code class="notranslate">new Object</code> 创建对象，属性和方法的写法与字面量方式相同。</p>
 <h6>2.1.3 使用构造函数创建对象</h6>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">function User(name, age, sex) {
+<pre lang="html" class="notranslate"><code class="notranslate">function User(name, age, sex) {
     this.name = name;
     this.age = age;
     this.sex = sex;
@@ -1104,7 +1165,8 @@ obj2.sayHi = function() {
 }
 var u1 = new User('shiraayano', 3, 'Ta');
 var u2 = new User('adouzi', 3, 'Ta');
-console.log(u1.name); // 输出 shiraayano</pre></div>
+console.log(u1.name); // 输出 shiraayano
+</code></pre>
 <p><strong>解释</strong>：通过构造函数创建对象，称为实例化。构造函数中使用 <code class="notranslate">this</code> 指代新创建的对象。</p>
 <hr>
 <h5>2.2 <code class="notranslate">new</code> 的执行过程</h5>
@@ -1119,10 +1181,11 @@ console.log(u1.name); // 输出 shiraayano</pre></div>
 <h5>2.3 遍历对象</h5>
 <p>使用 <code class="notranslate">for...in</code> 语句遍历对象的属性。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">for (var k in u1) {
+<pre lang="html" class="notranslate"><code class="notranslate">for (var k in u1) {
     console.log(k); // 输出属性名
     console.log(u1[k]); // 输出属性值
-}</pre></div>
+}
+</code></pre>
 <p><strong>解释</strong>：<code class="notranslate">for...in</code> 语句可以遍历对象的所有可枚举属性。</p>
 <hr>
 <h4>3. 内置对象</h4>
@@ -1130,19 +1193,20 @@ console.log(u1.name); // 输出 shiraayano</pre></div>
 <h5>3.1 <code class="notranslate">Math</code> 对象</h5>
 <p><code class="notranslate">Math</code> 对象提供了数学相关的属性和方法。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">console.log(Math.PI); // 输出圆周率
+<pre lang="html" class="notranslate"><code class="notranslate">console.log(Math.PI); // 输出圆周率
 console.log(Math.abs(-1)); // 输出绝对值 1
 console.log(Math.max(1, 2, 3, 4, 5)); // 输出最大值 5
 console.log(Math.floor(1.9)); // 向下取整，输出 1
 console.log(Math.ceil(1.1)); // 向上取整，输出 2
 console.log(Math.round(-1.5)); // 四舍五入，输出 -1
-console.log(Math.random()); // 输出随机数</pre></div>
+console.log(Math.random()); // 输出随机数
+</code></pre>
 <p><strong>解释</strong>：<code class="notranslate">Math</code> 对象提供了常用的数学功能，如绝对值、最大值、取整和随机数等。</p>
 <hr>
 <h5>3.2 <code class="notranslate">Date</code> 对象</h5>
 <p><code class="notranslate">Date</code> 对象用于处理日期和时间。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var d = new Date();
+<pre lang="html" class="notranslate"><code class="notranslate">var d = new Date();
 console.log(d); // 输出当前日期和时间
 console.log(d.getFullYear()); // 输出年份
 console.log(d.getMonth()); // 输出月份（0-11）
@@ -1153,13 +1217,14 @@ console.log(d.getMinutes()); // 输出分钟
 console.log(d.getSeconds()); // 输出秒数
 console.log(d.getTime()); // 输出时间戳
 console.log(d.toLocaleDateString()); // 输出本地日期
-console.log(d.toLocaleTimeString()); // 输出本地时间</pre></div>
+console.log(d.toLocaleTimeString()); // 输出本地时间
+</code></pre>
 <p><strong>解释</strong>：<code class="notranslate">Date</code> 对象提供了获取和设置日期和时间的方法。</p>
 <hr>
 <h5>3.3 自定义 <code class="notranslate">Math</code> 对象</h5>
 <p>可以自定义一个对象来封装常用的数学方法。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var mMath = {
+<pre lang="html" class="notranslate"><code class="notranslate">var mMath = {
     PI: Math.PI,
     max: function() {
         return Math.max.apply(null, arguments);
@@ -1169,9 +1234,9 @@ console.log(d.toLocaleTimeString()); // 输出本地时间</pre></div>
     },
     pai: function() {
         var arg = Array.prototype.slice.call(arguments);
-        for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arguments</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-            <span class="pl-c1">for</span> <span class="pl-c1">(var</span> <span class="pl-c1">j</span> = <span class="pl-s">0;</span> <span class="pl-c1">j</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arguments</span><span class="pl-c1">.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span> <span class="pl-c1">-</span> <span class="pl-c1">i;</span> <span class="pl-c1">j++)</span> <span class="pl-c1">{</span>
-                <span class="pl-c1">if</span> <span class="pl-c1">(arg[j]</span> <span class="pl-kos">&gt;</span> arg[j + 1]) {
+        for (var i = 0; i &lt; arguments.length; i++) {
+            for (var j = 0; j &lt; arguments.length - 1 - i; j++) {
+                if (arg[j] &gt; arg[j + 1]) {
                     var temp = arg[j];
                     arg[j] = arg[j + 1];
                     arg[j + 1] = temp;
@@ -1181,29 +1246,32 @@ console.log(d.toLocaleTimeString()); // 输出本地时间</pre></div>
         return arg;
     }
 };
-console.log(mMath.pai(66, 1, 2, 3, 4, 5)); // 输出 [1, 2, 3, 4, 5, 66]</pre></div>
+console.log(mMath.pai(66, 1, 2, 3, 4, 5)); // 输出 [1, 2, 3, 4, 5, 66]
+</code></pre>
 <p><strong>解释</strong>：自定义了一个 <code class="notranslate">mMath</code> 对象，封装了常用的数学方法。</p>
 <hr>
 <h4>4. 数组</h4>
 <p>数组用于存储一组数据。</p>
 <h5>4.1 创建数组</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+<pre lang="html" class="notranslate"><code class="notranslate">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var arr1 = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-var arr2 = new Array(10); // 创建一个长度为10的数组</pre></div>
+var arr2 = new Array(10); // 创建一个长度为10的数组
+</code></pre>
 <p><strong>解释</strong>：展示了三种创建数组的方式。</p>
 <hr>
 <h5>4.2 数组操作</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">arr.push(11); // 在数组末尾添加元素
+<pre lang="html" class="notranslate"><code class="notranslate">arr.push(11); // 在数组末尾添加元素
 console.log(arr); // 输出 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 arr.unshift(0); // 在数组开头添加元素
-console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]</pre></div>
+console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">push</code> 和 <code class="notranslate">unshift</code> 方法向数组中添加元素。</p>
 <hr>
 <h5>4.3 数组排序</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">// 升序排序
+<pre lang="html" class="notranslate"><code class="notranslate">// 升序排序
 arr.sort(function(a, b) {
     return a - b;
 });
@@ -1213,67 +1281,76 @@ console.log(arr); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 arr.sort(function(a, b) {
     return b - a;
 });
-console.log(arr); // 输出 [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</pre></div>
+console.log(arr); // 输出 [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">sort</code> 方法对数组进行升序或降序排序。</p>
 <hr>
 <h5>4.4 数组去重</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var arr1 = [];
-for (var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++)</span> <span class="pl-c1">{</span>
-    <span class="pl-c1">if</span> <span class="pl-c1">(arr.indexOf(arr[i])</span> == <span class="pl-s">i)</span> <span class="pl-c1">{</span>
-        <span class="pl-c1">arr1[arr1.length]</span> = <span class="pl-s">arr[i];</span>
-    <span class="pl-c1">}</span>
-<span class="pl-c1">}</span>
-<span class="pl-c1">console.log(arr1);</span> // 输出去重后的数组</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var arr1 = [];
+for (var i = 0; i &lt; arr.length; i++) {
+    if (arr.indexOf(arr[i]) == i) {
+        arr1[arr1.length] = arr[i];
+    }
+}
+console.log(arr1); // 输出去重后的数组
+</code></pre>
 <p><strong>解释</strong>：通过 <code class="notranslate">indexOf</code> 方法去除数组中的重复项。</p>
 <hr>
 <h4>5. 字符串</h4>
 <p>字符串用于存储文本数据。</p>
 <h5>5.1 字符串不可变</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
+<pre lang="html" class="notranslate"><code class="notranslate">var str = 'andy';
 str = 'red';
-console.log(str); // 输出 red</pre></div>
+console.log(str); // 输出 red
+</code></pre>
 <p><strong>解释</strong>：字符串是不可变的，每次修改字符串时，实际上是在创建一个新的字符串。</p>
 <hr>
 <h5>5.2 字符串方法</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
+<pre lang="html" class="notranslate"><code class="notranslate">var str = 'andy';
 console.log(str.length); // 输出 4
 console.log(str.toUpperCase()); // 输出 ANDY
-console.log(str.toLowerCase()); // 输出 andy</pre></div>
+console.log(str.toLowerCase()); // 输出 andy
+</code></pre>
 <p><strong>解释</strong>：字符串提供了多种方法，如获取长度、转换大小写等。</p>
 <hr>
 <h5>5.3 字符串拼接</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
-console.log(str + 'red'); // 输出 andyred</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var str = 'andy';
+console.log(str + 'red'); // 输出 andyred
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">+</code> 运算符可以拼接字符串。</p>
 <hr>
 <h5>5.4 字符串查找</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = '改革春风吹满地,春风吹满地';
-console.log(str.indexOf('春', 3)); // 输出 5</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var str = '改革春风吹满地,春风吹满地';
+console.log(str.indexOf('春', 3)); // 输出 5
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">indexOf</code> 方法查找字符串中指定内容的位置。</p>
 <hr>
 <h5>5.5 字符串截取</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = '改革春风吹满地';
+<pre lang="html" class="notranslate"><code class="notranslate">var str = '改革春风吹满地';
 console.log(str.slice(2, 4)); // 输出 春风
 console.log(str.substring(2, 4)); // 输出 春风
-console.log(str.substr(2, 4)); // 输出 春风地</pre></div>
+console.log(str.substr(2, 4)); // 输出 春风地
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">slice</code>、<code class="notranslate">substring</code> 和 <code class="notranslate">substr</code> 方法截取字符串。</p>
 <hr>
 <h5>5.6 字符串替换</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
-console.log(str.replace('a', 'A')); // 输出 Andy</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var str = 'andy';
+console.log(str.replace('a', 'A')); // 输出 Andy
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">replace</code> 方法替换字符串中的指定内容。</p>
 <hr>
 <h5>5.7 字符串分割</h5>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'red,blue,green';
-console.log(str.split(',')); // 输出 ["red", "blue", "green"]</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var str = 'red,blue,green';
+console.log(str.split(',')); // 输出 ["red", "blue", "green"]
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">split</code> 方法将字符串分割成数组。</p>
 <hr>
 <h4>6. 数据类型</h4>
@@ -1281,23 +1358,26 @@ console.log(str.split(',')); // 输出 ["red", "blue", "green"]</pre></div>
 <h5>6.1 简单数据类型</h5>
 <p>简单数据类型包括数字、字符串、布尔值等。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var temp = null;
-console.log(typeof temp); // 输出 object</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var temp = null;
+console.log(typeof temp); // 输出 object
+</code></pre>
 <p><strong>解释</strong>：<code class="notranslate">null</code> 是一个特殊的简单数据类型，表示空值。</p>
 <hr>
 <h5>6.2 复杂数据类型</h5>
 <p>复杂数据类型包括对象、数组等。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var arr = [1, 2, 3];
+<pre lang="html" class="notranslate"><code class="notranslate">var arr = [1, 2, 3];
 console.log(arr instanceof Array); // 输出 true
-console.log(Array.isArray(arr)); // 输出 true</pre></div>
+console.log(Array.isArray(arr)); // 输出 true
+</code></pre>
 <p><strong>解释</strong>：使用 <code class="notranslate">instanceof</code> 和 <code class="notranslate">Array.isArray</code> 方法检测变量是否为数组。</p>
 <hr>
 <h4>7. 内存存储</h4>
 <p>简单数据类型存储在栈中，复杂数据类型存储在堆中。</p>
 <p>HTML复制</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var str = 'andy';
-var obj = { name: 'andy' };</pre></div>
+<pre lang="html" class="notranslate"><code class="notranslate">var str = 'andy';
+var obj = { name: 'andy' };
+</code></pre>
 <p><strong>解释</strong>：简单数据类型直接存储值，复杂数据类型存储的是地址。</p>
 <hr>
 <h3>未整理的原笔记</h3>
@@ -1310,29 +1390,35 @@ var obj = { name: 'andy' };</pre></div>
 <p>age = 111;</p>
 <p>声明变量并'赋值称为变量的初始化</p>
 <p>var age = 'xxx';</p>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var myname = 'shiraayano';
+<pre lang="html" class="notranslate"><code class="notranslate">var myname = 'shiraayano';
         var address = '地球村';
         var age = 18;
         var emial = 'shiraayano@adouzi.eu.org';
-        console.log(myname,address,age,emial);</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var myname = prompt("请输入你的姓名");
-        alert( myname + "欢迎回家");</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//同时申明多个变量
+        console.log(myname,address,age,emial);
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">var myname = prompt("请输入你的姓名");
+        alert( myname + "欢迎回家");
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//同时申明多个变量
         var age = 18, sex = "男", address = "北京";
 
 
         var age = 18,
          sex = "男",
-         address = "北京";</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//申明未赋值结果为undefined
+         address = "北京";
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//申明未赋值结果为undefined
          var a;
-         console.log(a);</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//不申明不赋值会报错
-         console.log(b);</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//不声明赋值可以使用，但是不建议
+         console.log(a);
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//不申明不赋值会报错
+         console.log(b);
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//不声明赋值可以使用，但是不建议
          c = 100;
-         console.log(c);</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//变量命名规则
+         console.log(c);
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//变量命名规则
         //1.变量名必须由字母、数字、下划线、$组成，不能以数字开头
         //2.变量名区分大小写
         //3.不能是关键字和保留字
@@ -1345,8 +1431,9 @@ var obj = { name: 'andy' };</pre></div>
         //console.log(age);
         //var name = "张三";
         //console.log(name);
-        //另外，我们尽量不要用name作为变量名，有些浏览器name有含义</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">        var a;
+        //另外，我们尽量不要用name作为变量名，有些浏览器name有含义
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">        var a;
         var b;
         var temp;
 
@@ -1360,8 +1447,9 @@ var obj = { name: 'andy' };</pre></div>
         b = temp;
 
         console.log(a);
-        console.log(b);</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//JS中的数据类型
+        console.log(b);
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//JS中的数据类型
         //JS是一种弱类型语言，变量没有类型，值才有类型。只有在运行过程中才能确定类型
         //JS是动态语言，变量的数据类型是可以变化的
         //1.基本数据类型
@@ -1373,8 +1461,9 @@ var obj = { name: 'andy' };</pre></div>
         //2.字符串类型 string
         //3.布尔类型 boolean
         //4.未定义类型 undefined
-        //5.空类型 null</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//简单数据类型介绍
+        //5.空类型 null
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//简单数据类型介绍
         //1.数字类型 number
         //2.字符串类型 string
         //3.布尔类型 boolean
@@ -1427,19 +1516,23 @@ var obj = { name: 'andy' };</pre></div>
         //字符串拼接
         var str1 = "我的名字叫";
         var str2 = "白绫乃";
-        console.log(str1 + str2);</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//JS中通过length获取字符串长度
+        console.log(str1 + str2);
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//JS中通过length获取字符串长度
         var str = "123";
         var str1 = "你好";
         console.log(str.length);//3
-        console.log(str1.length);//2</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var age = prompt("请输入年龄：");
-        alert("你" + age);</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var flag = true;
+        console.log(str1.length);//2
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">var age = prompt("请输入年龄：");
+        alert("你" + age);
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">var flag = true;
         var flag1 = false;
         console.log(flag);//true
-        console.log(flag + 1);//2</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">var num = 1;
+        console.log(flag + 1);//2
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">var num = 1;
         console.log(typeof num);//number
         num = "hello";
         console.log(typeof num);//string
@@ -1484,12 +1577,14 @@ var obj = { name: 'andy' };</pre></div>
         console.log(parseInt(num5));//10
         var num6 = "10.98";
         console.log(parseInt(num6, 10));//10
-        console.log(parseInt("120px"));//120</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//计算年龄
+        console.log(parseInt("120px"));//120
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//计算年龄
         var year = prompt("输入出生年份");
         var age = 2025 - year;//隐式转换
-        alert("您的年龄是" + age + "岁");</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//转化为布尔类型
+        alert("您的年龄是" + age + "岁");
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//转化为布尔类型
         //Boolean()函数
         //代表空、否定的值会被转化为false，如：0，NaN，null，undefined，空字符串
         //其余值都会被转化为true
@@ -1500,8 +1595,9 @@ var obj = { name: 'andy' };</pre></div>
         console.log(Boolean(null));//false
         console.log(Boolean(undefined));//false
         console.log(Boolean(" "));//true
-        console.log(Boolean("hello"));//true</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//运算符
+        console.log(Boolean("hello"));//true
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//运算符
         //算术运算符
         // + - * / % ++ --
         // ++自增，--自减
@@ -1534,7 +1630,7 @@ var obj = { name: 'andy' };</pre></div>
 
 
         //比较运算符
-        // <span class="pl-kos">&gt;</span> <span class="pl-kos">&lt;</span> <span class="pl-kos">&gt;</span>= <span class="pl-kos">&lt;</span>= == != === !==
+        // &gt; &lt; &gt;= &lt;= == != === !==
         // == 只比较值，不比较类型
         // === 既比较值，又比较类型
         // != 只比较值，不比较类型
@@ -1542,7 +1638,7 @@ var obj = { name: 'andy' };</pre></div>
         //tips：== 和 === 的区别
         //tips：== 和 != 的区别
         //tips：=== 和 !== 的区别
-        console.log(9<span class="pl-kos">&gt;</span>10);//false
+        console.log(9&gt;10);//false
         console.log(10=='10');//true
         console.log(10==='10');//false
 
@@ -1554,17 +1650,17 @@ var obj = { name: 'andy' };</pre></div>
         //tips：短路运算
         //如果第一个条件为真，后面的条件就不执行了
         //如果第一个条件为假，后面的条件就执行了
-        console.log(4<span class="pl-kos">&lt;</span><span class="pl-ent">5</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">5</span><span class="pl-kos">&lt;</span>6);//true
-        console.log(4<span class="pl-kos">&lt;</span><span class="pl-ent">5</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">5</span><span class="pl-kos">&gt;</span>6);//false
-        console.log(4<span class="pl-kos">&gt;</span>5 || 5<span class="pl-kos">&lt;</span><span class="pl-ent">6</span><span class="pl-c1">);</span>//true
+        console.log(4&lt;5 &amp;&amp; 5&lt;6);//true
+        console.log(4&lt;5 &amp;&amp; 5&gt;6);//false
+        console.log(4&gt;5 || 5&lt;6);//true
         console.log(!true);//false
 
 
         //短路运算
-        console.log(4<span class="pl-kos">&lt;</span><span class="pl-ent">5</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">alert(</span>"hello1"));//true 第一个为真，返回第二个
-        console.log(4<span class="pl-kos">&gt;</span>5 &amp;&amp; alert("hello2"));//false 第一个为假，第二个不执行
-        console.log(4<span class="pl-kos">&lt;</span><span class="pl-ent">5</span> <span class="pl-c1">||</span> <span class="pl-c1">alert(</span>"hello3"));//true 第一个为真，第二个不执行
-        console.log(4<span class="pl-kos">&gt;</span>5 || alert("hello4"));//false 第一个为假，返回第二个
+        console.log(4&lt;5 &amp;&amp; alert("hello1"));//true 第一个为真，返回第二个
+        console.log(4&gt;5 &amp;&amp; alert("hello2"));//false 第一个为假，第二个不执行
+        console.log(4&lt;5 || alert("hello3"));//true 第一个为真，第二个不执行
+        console.log(4&gt;5 || alert("hello4"));//false 第一个为假，返回第二个
 
 
         //赋值运算符
@@ -1579,8 +1675,9 @@ var obj = { name: 'andy' };</pre></div>
         //先乘除后加减
         //先算括号里的
         //一元运算符 ++ -- 优先级最高
-        //逻辑运算符 &amp;&amp; || 优先级最低</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//流程控制 （顺序结构 分支结构 循环结构）
+        //逻辑运算符 &amp;&amp; || 优先级最低
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//流程控制 （顺序结构 分支结构 循环结构）
 
 
         //if语句
@@ -1607,16 +1704,18 @@ var obj = { name: 'andy' };</pre></div>
         //    case 值2:
         //        代码块2
         //        break;
-        //    ...</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//闰年
+        //    ...
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//闰年
         //能被四整除 不能被100整除 或者能被400整除
         var year = prompt("请输入年份");
         if(year % 4 == 0 &amp;&amp; year % 100 !==0 || year % 400 == 0){
             alert(year + "是闰年");
         }else{
             alert(year + "不是闰年");
-        }</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">switch(1){
+        }
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">switch(1){
             case 1:
                 console.log("星期一");
                 break;
@@ -1640,14 +1739,16 @@ var obj = { name: 'andy' };</pre></div>
                 break;
             default:
                 console.log("输入有误");
-        }</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//三元表达式
+        }
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//三元表达式
         //语法：条件 ? 表达式1 : 表达式2
         //如果条件为真，则执行表达式1，否则执行表达式2
         var age = 18;
-        var result = age <span class="pl-kos">&gt;</span>= 18 ? "成年" : "未成年";
-        console.log(result);</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//循环
+        var result = age &gt;= 18 ? "成年" : "未成年";
+        console.log(result);
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//循环
         //for循环
         //whie循环
         //do while循环
@@ -1667,9 +1768,9 @@ var obj = { name: 'andy' };</pre></div>
         //初始化变量：定义一个变量并赋初值
         //条件表达式：判断条件，如果为true，则执行循环体，如果为false，则跳出循环
         //操作表达式：每次循环结束后执行的操作
-        for(var i =0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
-            <span class="pl-c1">console.log(i)</span>
-        <span class="pl-c1">}</span>
+        for(var i =0; i &lt; 5 ; i++){
+            console.log(i)
+        }
 
 
         //while循环
@@ -1678,11 +1779,11 @@ var obj = { name: 'andy' };</pre></div>
         //}
         //条件表达式：判断条件，如果为true，则执行循环体，如果为false，则跳出循环
         //循环体：循环执行的代码
-        var i = <span class="pl-s">0;</span>
-        <span class="pl-c1">while(i</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">5</span><span class="pl-c1">){</span>
-            <span class="pl-c1">console.log(i)</span>
-            <span class="pl-c1">i++</span>
-        <span class="pl-c1">}</span>
+        var i = 0;
+        while(i &lt; 5){
+            console.log(i)
+            i++
+        }
 
 
         // do while循环
@@ -1690,54 +1791,54 @@ var obj = { name: 'andy' };</pre></div>
         //    循环体
         // }while(条件表达式)
         // do 
-        var i = <span class="pl-s">1;</span>
-        <span class="pl-c1">do</span> <span class="pl-c1">{</span>
-            <span class="pl-c1">console.log(i)</span>
-            <span class="pl-c1">i++;</span>
-        <span class="pl-c1">}</span> <span class="pl-c1">while</span> <span class="pl-c1">(i</span> <span class="pl-kos">&lt;</span> 99);
+        var i = 1;
+        do {
+            console.log(i)
+            i++;
+        } while (i &lt; 99);
 
 
 
 
         //递加
-        var sum = <span class="pl-s">0;</span>
-        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">1;</span> <span class="pl-c1">i</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span> <span class="pl-ent">10</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
-            <span class="pl-c1">sum</span> = <span class="pl-s">sum</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">console.log(sum);</span>
+        var sum = 0;
+        for(var i = 1; i&lt; 10 ; i++){
+            sum = sum + i;
+        }
+        console.log(sum);
         
         //平均数
-        sum = <span class="pl-s">0;</span>
-        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">1;</span> <span class="pl-c1">i</span> <span class="pl-kos">&lt;</span>= <span class="pl-s">100</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
-            <span class="pl-c1">sum</span> = <span class="pl-s">sum</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
+        sum = 0;
+        for(var i = 1; i &lt;= 100 ; i++){
+            sum = sum + i;
 
 
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">arg</span> = <span class="pl-s">sum/100;</span>
-        <span class="pl-c1">console.log(arg);</span>
+        }
+        arg = sum/100;
+        console.log(arg);
         
         //奇偶数和
-        var sum1 = <span class="pl-s">0;</span>
-        <span class="pl-c1">var</span> <span class="pl-c1">sum2</span> = <span class="pl-s">0;</span>
-        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">1;</span> <span class="pl-c1">i</span> <span class="pl-kos">&lt;</span>= <span class="pl-s">100</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
-            <span class="pl-c1">if(i</span> <span class="pl-c1">%</span> <span class="pl-c1">2</span> == 0){
+        var sum1 = 0;
+        var sum2 = 0;
+        for(var i = 1; i &lt;= 100 ; i++){
+            if(i % 2 == 0){
                 //偶数
-                sum1 = <span class="pl-s">sum1</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
-            <span class="pl-c1">}else{</span>
+                sum1 = sum1 + i;
+            }else{
                 //奇数
-                sum2 = <span class="pl-s">sum2</span> <span class="pl-c1">+</span> <span class="pl-c1">i;</span>
-            <span class="pl-c1">}</span>
+                sum2 = sum2 + i;
+            }
 
 
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">console.log(sum1);</span>
-        <span class="pl-c1">console.log(sum2);</span>
-        <span class="pl-c1">console.log(sum1</span> <span class="pl-c1">+</span> <span class="pl-c1">sum2);</span>
+        }
+        console.log(sum1);
+        console.log(sum2);
+        console.log(sum1 + sum2);
 
 
-        <span class="pl-c1">sum</span> = <span class="pl-s">0;</span>
+        sum = 0;
         //1-100能被3整除的数的和
-        for(var i = 1; i <span class="pl-kos">&lt;</span>= 100 ; i++){
+        for(var i = 1; i &lt;= 100 ; i++){
             if(i % 3 ==0){
                 sum = sum + i;
             }
@@ -1749,50 +1850,50 @@ var obj = { name: 'andy' };</pre></div>
         // var count = prompt('几个人');
         // var course;
         // sum = 0;
-        // for(var i = 1; i <span class="pl-kos">&lt;</span>= count ; i++){
+        // for(var i = 1; i &lt;= count ; i++){
         //     course = prompt('第'+i+'个人');
         //     sum = sum + parseInt(course);
         // }
         // console.log(sum/count);
 
 
-        for(var i = 1; i <span class="pl-kos">&lt;</span>= 9 ; i++){
+        for(var i = 1; i &lt;= 9 ; i++){
 
 
-            for(var j = 1; j <span class="pl-kos">&lt;</span>= i ; j++){
+            for(var j = 1; j &lt;= i ; j++){
                 document.write(j+'*'+i+'='+i*j+' ');//写入到网页
             }
-            document.write('<span class="pl-kos">&lt;</span>br<span class="pl-kos">&gt;</span>');
+            document.write('&lt;br&gt;');
         }
 
 
         var str = '';
-        for(var i = 1; i <span class="pl-kos">&lt;</span>= 9 ; i++){
+        for(var i = 1; i &lt;= 9 ; i++){
             str = str + '❤';
             console.log(str);
         }
 
 
         
-        for(var i = 10 ; i <span class="pl-kos">&gt;</span>= 0 ; i--){
+        for(var i = 10 ; i &gt;= 0 ; i--){
             var str = '';
-            for(var j = i;j <span class="pl-kos">&gt;</span>= 0 ; j--){
+            for(var j = i;j &gt;= 0 ; j--){
                 str = str + '❤';
             }
             console.log(str);
         }
 
 
-        for(var i = 1; i <span class="pl-kos">&lt;</span>= 9 ; i++){
-            for(j = 1; j <span class="pl-kos">&lt;</span>= i;j ++){
+        for(var i = 1; i &lt;= 9 ; i++){
+            for(j = 1; j &lt;= i;j ++){
                 document.write(j+'*'+i+'='+i*j+' ');
             }
-            document.write('<span class="pl-kos">&lt;</span><span class="pl-ent">br</span><span class="pl-kos">&gt;</span>');
+            document.write('&lt;br&gt;');
         }
 
 
         var i = 1;
-        while(i <span class="pl-kos">&lt;</span>= 100){
+        while(i &lt;= 100){
             
             console.log(i);
             i++;
@@ -1808,7 +1909,7 @@ var obj = { name: 'andy' };</pre></div>
             if (i == 2){
                 break;
             }
-        } while (i <span class="pl-kos">&lt;</span>= 99);
+        } while (i &lt;= 99);
 
 
         var i = 1;
@@ -1820,7 +1921,7 @@ var obj = { name: 'andy' };</pre></div>
             if (i == 2){
                 continue;
             }
-        } while (i <span class="pl-kos">&lt;</span>= 99);
+        } while (i &lt;= 99);
 
 
         
@@ -1835,43 +1936,43 @@ var obj = { name: 'andy' };</pre></div>
         console.log(arr[0]);
 
 
-        for (let index = 0; index <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">index++)</span> <span class="pl-c1">{</span>
-            <span class="pl-c1">const</span> <span class="pl-c1">element</span> = <span class="pl-s">arr[index];</span>
-            <span class="pl-c1">console.log(element);</span>
-        <span class="pl-c1">}</span>
+        for (let index = 0; index &lt; arr.length; index++) {
+            const element = arr[index];
+            console.log(element);
+        }
 
 
-        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">0</span> <span class="pl-c1">;</span> <span class="pl-c1">i</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
-            <span class="pl-c1">console.log(arr[i]);</span>
-        <span class="pl-c1">}</span>
+        for(var i = 0 ; i &lt; arr.length;i++){
+            console.log(arr[i]);
+        }
 
 
-        <span class="pl-c1">var</span> <span class="pl-c1">arr</span> = <span class="pl-s">[11,2,33,44,5,66,77];</span>
-        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">0;i</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
-            <span class="pl-c1">max</span> = <span class="pl-s">0;</span>
-            <span class="pl-c1">if(arr[i]</span> <span class="pl-kos">&gt;</span> max){
+        var arr = [11,2,33,44,5,66,77];
+        for(var i = 0;i&lt;arr.length;i++){
+            max = 0;
+            if(arr[i] &gt; max){
                 max = arr[i];
             }
      
         }
         console.log(max);
-        for(var i = 0;i<span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
-            <span class="pl-c1">min</span> = <span class="pl-s">999;</span>
-            <span class="pl-c1">if(arr[i]</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span><span class="pl-ent">min</span><span class="pl-c1">){</span>
-                <span class="pl-c1">min</span> = <span class="pl-s">arr[i];</span>
-            <span class="pl-c1">}</span>
+        for(var i = 0;i&lt;arr.length;i++){
+            min = 999;
+            if(arr[i]&lt;min){
+                min = arr[i];
+            }
 
 
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">console.log(min);</span>
+        }
+        console.log(min);
 
 
         //也可以使用array.lenth
-        var j = <span class="pl-s">0;</span>
-        <span class="pl-c1">var</span> <span class="pl-c1">arr1</span> = <span class="pl-s">new</span> <span class="pl-c1">Array();</span>
-        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span>=<span class="pl-s">0;i</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
-            <span class="pl-c1">console.log(arr[i]);</span>
-            <span class="pl-c1">if(arr[i]</span> <span class="pl-kos">&gt;</span> 10){
+        var j = 0;
+        var arr1 = new Array();
+        for(var i=0;i&lt;arr.length;i++){
+            console.log(arr[i]);
+            if(arr[i] &gt; 10){
                 console.log('大于10');
                 arr1[j] = arr[i];
                 j++;
@@ -1881,8 +1982,8 @@ var obj = { name: 'andy' };</pre></div>
 
 
         var arr1 = [];
-        for(var i = 0;i<span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length;i++){</span>
-            <span class="pl-c1">if(arr[i]</span> <span class="pl-kos">&gt;</span> 10){
+        for(var i = 0;i&lt;arr.length;i++){
+            if(arr[i] &gt; 10){
                 arr1[arr1.length] = arr[i];
             }
         }
@@ -1893,27 +1994,27 @@ var obj = { name: 'andy' };</pre></div>
         var arr2 = [];
 
 
-        for(var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.lenth;</span> <span class="pl-c1">i++){</span>
-            <span class="pl-c1">if(arr[i]</span> <span class="pl-c1">!</span>= <span class="pl-s">2){</span>
-                <span class="pl-c1">arr2[arr2.length]</span> = <span class="pl-s">arr[i];</span>
-            <span class="pl-c1">}</span>
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">console.log(arr2);</span>
+        for(var i = 0; i &lt; arr.lenth; i++){
+            if(arr[i] != 2){
+                arr2[arr2.length] = arr[i];
+            }
+        }
+        console.log(arr2);
 
 
-        <span class="pl-c1">var</span> <span class="pl-c1">arr</span> = <span class="pl-s">[1,2,3,4,5,6,7,8,9,10];</span>
-        <span class="pl-c1">console.log(arr);</span>
-        <span class="pl-c1">arr1</span> = <span class="pl-s">[];</span>
-        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">0;</span> <span class="pl-c1">i</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++){</span>
-            <span class="pl-c1">console.log(arr[arr.length</span> <span class="pl-c1">-</span> <span class="pl-c1">i</span> <span class="pl-c1">-1]);</span>
-            <span class="pl-c1">arr1[arr1.length]</span> = <span class="pl-s">arr[arr.length</span> <span class="pl-c1">-</span> <span class="pl-c1">i</span> <span class="pl-c1">-1];</span>
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">console.log(arr1);</span>
+        var arr = [1,2,3,4,5,6,7,8,9,10];
+        console.log(arr);
+        arr1 = [];
+        for(var i = 0; i &lt; arr.length; i++){
+            console.log(arr[arr.length - i -1]);
+            arr1[arr1.length] = arr[arr.length - i -1];
+        }
+        console.log(arr1);
 
 
         //倒序输出index
-        var a = '<span class="pl-s">index</span>'<span class="pl-c1">;</span>
-        <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">a.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1;</span> <span class="pl-c1">i</span> <span class="pl-kos">&gt;</span>= 0; i--){
+        var a = 'index';
+        for(var i = a.length - 1; i &gt;= 0; i--){
             console.log(a[i]);
         }
 
@@ -1924,12 +2025,12 @@ var obj = { name: 'andy' };</pre></div>
 
 
         var arr1 = [];
-        for(var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++){</span>
-            <span class="pl-c1">if(arr1.indexOf(arr[i])</span> == <span class="pl-s">-1){</span>
-                <span class="pl-c1">arr1[arr1.length]</span> = <span class="pl-s">arr[i];</span>
-            <span class="pl-c1">}</span>
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">console.log(arr1);</span>
+        for(var i = 0; i &lt; arr.length; i++){
+            if(arr1.indexOf(arr[i]) == -1){
+                arr1[arr1.length] = arr[i];
+            }
+        }
+        console.log(arr1);
 
 
 
@@ -1938,7 +2039,7 @@ var obj = { name: 'andy' };</pre></div>
 
         //修改数组长度
         //JS中数组长度是可变的
-        arr.length = <span class="pl-s">10;</span>
+        arr.length = 10;
         //修改索引号
         arr['你好']='666';
         console.log(arr['你好']);
@@ -1946,9 +2047,9 @@ var obj = { name: 'andy' };</pre></div>
 
         //冒泡排序
         arr = [44,66,11,22,33];
-        for(var i = 0; i <span class="pl-kos">&lt;</span> arr.length -1; i++){
-            for(var j = 0; j <span class="pl-kos">&lt;</span> arr.length - 1 -i; j++){
-                if(arr[j] <span class="pl-kos">&gt;</span> arr[j+1]){
+        for(var i = 0; i &lt; arr.length -1; i++){
+            for(var j = 0; j &lt; arr.length - 1 -i; j++){
+                if(arr[j] &gt; arr[j+1]){
                     var temp = arr[j];
                     arr[j] = arr[j+1];
                     arr[j+1] = temp;
@@ -1975,8 +2076,9 @@ var obj = { name: 'andy' };</pre></div>
         //函数没有return 返回值时，返回值为undefined
 
 
-        //return 不仅可以退出循环，还可以返回结果，结束当前函数</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">//arguments存储了所以实参
+        //return 不仅可以退出循环，还可以返回结果，结束当前函数
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">//arguments存储了所以实参
         //它是伪数组的形式
         function f(){
             console.log(arguments);
@@ -1989,8 +2091,8 @@ var obj = { name: 'andy' };</pre></div>
         //获取最大数
         function getMax(){
             var max = arguments[0];//先取第一个数
-            for(var i = 0;i<span class="pl-kos">&lt;</span><span class="pl-ent">arguments</span><span class="pl-c1">.length;i++){</span>
-                <span class="pl-c1">if(arguments[i]</span><span class="pl-kos">&gt;</span>max){
+            for(var i = 0;i&lt;arguments.length;i++){
+                if(arguments[i]&gt;max){
                     max = arguments[i];
                 }
             }
@@ -2002,20 +2104,20 @@ var obj = { name: 'andy' };</pre></div>
         function fun1(){
             var str = arguments[0];
             var str1 = [];
-            for(var i = 0;i<span class="pl-kos">&lt;</span><span class="pl-ent">str</span><span class="pl-c1">.length;i++){</span>
-                <span class="pl-c1">str1[i]</span> = <span class="pl-s">str[str.length-1-i];</span>
-            <span class="pl-c1">}</span>
-            <span class="pl-c1">return</span> <span class="pl-c1">str1;</span>
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">console.log(fun1(</span>"hello"));
+            for(var i = 0;i&lt;str.length;i++){
+                str1[i] = str[str.length-1-i];
+            }
+            return str1;
+        }
+        console.log(fun1("hello"));
 
 
         //冒泡排序
         function fun2(){
-            var arr = <span class="pl-s">arguments[0];</span>
-            <span class="pl-c1">for(var</span> <span class="pl-c1">i</span> = <span class="pl-s">0;i</span><span class="pl-kos"></span> <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length</span> <span class="pl-c1">;</span> <span class="pl-c1">i++){</span>
-                <span class="pl-c1">for(var</span> <span class="pl-c1">j</span> = <span class="pl-s">0;j</span><span class="pl-kos"></span><span class="pl-kos">&lt;</span><span class="pl-ent">arr</span><span class="pl-c1">.length</span> <span class="pl-c1">-1</span> <span class="pl-c1">-i;j++){</span>
-                    <span class="pl-c1">if(arr[j]</span> <span class="pl-kos">&gt;</span> arr[j+1]){
+            var arr = arguments[0];
+            for(var i = 0;i &lt; arr.length ; i++){
+                for(var j = 0;j&lt;arr.length -1 -i;j++){
+                    if(arr[j] &gt; arr[j+1]){
                         var temp = arr[j];
                         arr[j] = arr[j+1];
                         arr[j+1]= temp;
@@ -2144,8 +2246,9 @@ var obj = { name: 'andy' };</pre></div>
         //函数提升：将函数声明提升到当前作用域的最上面，不调用函数
 
 
-        //所以函数表达式调用必须写在函数赋值之后</pre></div>
-<div class="highlight highlight-text-html-basic"><pre class="notranslate">function fun1(){
+        //所以函数表达式调用必须写在函数赋值之后
+</code></pre>
+<pre lang="html" class="notranslate"><code class="notranslate">function fun1(){
             var a = b = c = 9;//a是局部变量，b和c是全局变量
             console.log(a,b,c);
         }
@@ -2249,18 +2352,18 @@ var obj = { name: 'andy' };</pre></div>
         // var game = true;
         // var count = 0;
         // var random = getRandom(1,10);
-        // while(game &amp;&amp; count <span class="pl-kos">&lt;</span> <span class="pl-ent">3</span><span class="pl-c1">){</span>
+        // while(game &amp;&amp; count &lt; 3){
         //     count++;
-        //     var num = <span class="pl-s">prompt(</span>'请输入1-10之间的数字');
+        //     var num = prompt('请输入1-10之间的数字');
 
 
-        //     if(num <span class="pl-kos">&gt;</span> random){
+        //     if(num &gt; random){
         //         alert('大了');
-        //     }else if(num <span class="pl-kos">&lt;</span> <span class="pl-ent">random</span><span class="pl-c1">){</span>
+        //     }else if(num &lt; random){
         //         alert('小了');
         //     }else{
         //         alert('恭喜你猜对了');
-        //         game = <span class="pl-s">false;</span>
+        //         game = false;
         //     }
         // }
 
@@ -2276,9 +2379,9 @@ var obj = { name: 'andy' };</pre></div>
             },
             pai: function() {
                 var arg = Array.prototype.slice.call(arguments);
-                for (var i = 0; i <span class="pl-kos">&lt;</span> arguments.length; i++) {
-                    for (var j = 0; j <span class="pl-kos">&lt;</span> <span class="pl-ent">arguments</span><span class="pl-c1">.length</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span> <span class="pl-c1">-</span> <span class="pl-c1">i;</span> <span class="pl-c1">j++)</span> <span class="pl-c1">{</span>
-                        <span class="pl-c1">if</span> <span class="pl-c1">(arg[j]</span> <span class="pl-kos">&gt;</span> arg[j + 1]) {
+                for (var i = 0; i &lt; arguments.length; i++) {
+                    for (var j = 0; j &lt; arguments.length - 1 - i; j++) {
+                        if (arg[j] &gt; arg[j + 1]) {
                             var temp = arg[j];
                             arg[j] = arg[j + 1];
                             arg[j + 1] = temp;
@@ -2330,13 +2433,13 @@ var obj = { name: 'andy' };</pre></div>
 
         //补零
         h = g.getSeconds();
-        h = h <span class="pl-kos">&lt;</span> <span class="pl-ent">10</span> <span class="pl-c1">?</span> '0' + h : h;//三元运算符
+        h = h &lt; 10 ? '0' + h : h;//三元运算符
         //等价于
-        if(h<span class="pl-kos">&lt;</span><span class="pl-ent">10</span><span class="pl-c1">){</span>
-            <span class="pl-c1">h</span> = '<span class="pl-s">0</span>' <span class="pl-c1">+</span> <span class="pl-c1">h;</span>
-        <span class="pl-c1">}else{</span>
-            <span class="pl-c1">h</span> = <span class="pl-s">h;</span>
-        <span class="pl-c1">}</span>
+        if(h&lt;10){
+            h = '0' + h;
+        }else{
+            h = h;
+        }
 
 
         //时间戳
@@ -2348,11 +2451,11 @@ var obj = { name: 'andy' };</pre></div>
 
 
         //倒计时
-        var time = <span class="pl-s">new</span> <span class="pl-c1">Date(</span>'2025-02-11 16:15:49');
-        var now = <span class="pl-s">+new</span> <span class="pl-c1">Date();</span>
-        <span class="pl-c1">var</span> <span class="pl-c1">target</span> = <span class="pl-s">+new</span> <span class="pl-c1">Date(time);</span>
-        <span class="pl-c1">var</span> <span class="pl-c1">s</span> = <span class="pl-s">(target</span> <span class="pl-c1">-</span> <span class="pl-c1">now)</span> / 1000;
-        var d = <span class="pl-s">Math.floor(s</span> / (60 * 60 * 24));
+        var time = new Date('2025-02-11 16:15:49');
+        var now = +new Date();
+        var target = +new Date(time);
+        var s = (target - now) / 1000;
+        var d = Math.floor(s / (60 * 60 * 24));
         var h = Math.floor(s % (60 * 60 * 24) / (60 * 60));
         var m = Math.floor(s % (60 * 60) / 60);
 
@@ -2366,10 +2469,10 @@ var obj = { name: 'andy' };</pre></div>
             var h = parseInt(times / 1000 / 60 / 60 % 24);
             var m = parseInt(times / 1000 / 60 % 60);
             var s = parseInt(times / 1000 % 60);
-            d = d <span class="pl-kos">&lt;</span> 10 ? '0' + d : d;
-            h = h <span class="pl-kos">&lt;</span> 10 ? '0' + h : h;
-            m = m <span class="pl-kos">&lt;</span> 10 ? '0' + m : m;
-            s = s <span class="pl-kos">&lt;</span> 10 ? '0' + s : s;
+            d = d &lt; 10 ? '0' + d : d;
+            h = h &lt; 10 ? '0' + h : h;
+            m = m &lt; 10 ? '0' + m : m;
+            s = s &lt; 10 ? '0' + s : s;
             re = d + '天' + h + '时' + m + '分' + s + '秒';
             return re;
 
@@ -2385,10 +2488,10 @@ var obj = { name: 'andy' };</pre></div>
 
 
         arr4 = [];
-        for(var i = 0; i <span class="pl-kos">&lt;</span> <span class="pl-ent">arr</span><span class="pl-c1">.length;</span> <span class="pl-c1">i++){</span>
-            <span class="pl-c1">arr4[i]</span> = <span class="pl-s">arr[arr.length</span> <span class="pl-c1">-</span> <span class="pl-c1">i</span> <span class="pl-c1">-</span> <span class="pl-c1">1];</span>
-        <span class="pl-c1">}</span>
-        <span class="pl-c1">console.log(arr4);</span>
+        for(var i = 0; i &lt; arr.length; i++){
+            arr4[i] = arr[arr.length - i - 1];
+        }
+        console.log(arr4);
 
 
         //检测是否为数组
@@ -2435,13 +2538,13 @@ var obj = { name: 'andy' };</pre></div>
 
 
         
-        arr = <span class="pl-s">[</span>'苹果', 'a', 'b', 'c', 'd','a', 'e', 'f', 'g', 'h', 'i', 'j'];
+        arr = ['苹果', 'a', 'b', 'c', 'd','a', 'e', 'f', 'g', 'h', 'i', 'j'];
         console.log(arr.indexOf('b'));
 
 
         //去除重复项
         var arr1 = [];
-        for(var i = 0; i <span class="pl-kos">&lt;</span> arr.length; i++) {
+        for(var i = 0; i &lt; arr.length; i++) {
             
                 if(arr.indexOf(arr[i]) == arr.lastIndexOf(arr[i])) {
                     arr1[arr1.length] = arr[i];
@@ -2456,8 +2559,8 @@ var obj = { name: 'andy' };</pre></div>
         //数组去重
         //利用indexOf遇到没有的时候返回-1
         // arr1 = [arr[0]];
-        // for(var i = 0; i <span class="pl-kos">&lt;</span> arr.length; i++) {
-        //     for(var j = 0; j <span class="pl-kos">&lt;</span> arr1.length; j++) {
+        // for(var i = 0; i &lt; arr.length; i++) {
+        //     for(var j = 0; j &lt; arr1.length; j++) {
         //         if(arr1.indexOf(arr[i]) == -1) {
         //             arr1[arr1.length] = arr[i];
         //         }
@@ -2465,7 +2568,7 @@ var obj = { name: 'andy' };</pre></div>
         // }
         // console.log(arr1);
         
-        for(var i = 0; i <span class="pl-kos">&lt;</span> arr.length; i++) {
+        for(var i = 0; i &lt; arr.length; i++) {
             if(arr.indexOf(arr[i]) == i) {
                 arr1[arr1.length] = arr[i];
             }
@@ -2582,7 +2685,7 @@ var obj = { name: 'andy' };</pre></div>
         //利用对象，属性名重复会覆盖
         var str = 'andyandyandy';
         var o = {};
-        for(var i = 0; i <span class="pl-kos">&lt;</span> str.length; i++) {
+        for(var i = 0; i &lt; str.length; i++) {
             var chars = str.charAt(i);
             if(o[chars]) {
                 o[chars]++;
@@ -2595,7 +2698,7 @@ var obj = { name: 'andy' };</pre></div>
         var maxname = '';
         //遍历对象
         for(var k in o) {
-            if(o[k] <span class="pl-kos">&gt;</span> max) {
+            if(o[k] &gt; max) {
                 max = o[k];
                 maxname = k;
             }
@@ -2649,7 +2752,8 @@ var obj = { name: 'andy' };</pre></div>
 
         //简单数据类型是直接操作值，复杂数据类型是操作地址
         //简单数据类型作为函数的参数时，传递的是值
-        //复杂数据类型作为函数的参数时，传递的是地址</pre></div></div>
+        //复杂数据类型作为函数的参数时，传递的是地址
+</code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style="padding:10px 15px;text-align:left;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif"><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href="https://blog.adouzi.eu.org/post/21.html" style="color:#0078d7;text-decoration:none">关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href="https://adouzi.eu.org" style="color:#0078d7;text-decoration:none">https://adouzi.eu.org</a></span><span> | Email：<a href="mailto:shiraayano@adouzi.eu.org" style="color:#0078d7;text-decoration:none">shiraayano@adouzi.eu.org</a><br><br><br>支持笔者：<a href="https://www.profitableratecpm.com/euxxr69t?key=f815bdc51cd258ab9f699175b0ef4446" style="color:#0078d7;text-decoration:none">点击广告</a><br>广告收入是本站唯一的收入，若本站内容帮到了您，可以点击广告支持笔者。</span><script async data-cfasync="false" src="//pl27420049.profitableratecpm.com/0f4f9e716ea5257a380097bb2d39a0bb/invoke.js"></script><div id="container-0f4f9e716ea5257a380097bb2d39a0bb"></div><br><script type="text/javascript">
 atOptions = {
 	'key' : '7a765266e94fd2cc53f429f1806bfa33',
@@ -2681,7 +2785,7 @@ if("07/12/2024"!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -2754,70 +2858,7 @@ function iFrameLoading(){
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const createClipboardHTML = (codeContent, additionalClasses = '') => `
-        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
-        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
-            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
-                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
-                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
-            </clipboard-copy>
-            <div class="copy-feedback">Copied!</div>
-        </div>
-    `;
 
-    const handleCodeElements = (selector = '') => {
-        document.querySelectorAll(selector).forEach(codeElement => {
-            const codeContent = codeElement.innerHTML;
-            const newStructure = document.createElement('div');
-            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
-            newStructure.innerHTML = createClipboardHTML(codeContent);
-
-            const parentElement = codeElement.parentElement;
-            if (selector.includes('highlight')) {
-                parentElement.insertBefore(newStructure, codeElement.nextSibling);
-                parentElement.removeChild(codeElement);
-            } else {
-                parentElement.parentElement.replaceChild(newStructure, parentElement);
-            }
-        });
-    };
-
-    handleCodeElements('pre.notranslate > code.notranslate');
-    handleCodeElements('div.highlight > pre.notranslate');
-
-    let currentFeedback = null;
-    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
-        copyButton.addEventListener('click', () => {
-            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = codeContent;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
-
-            const copyIcon = copyButton.querySelector('.octicon-copy');
-            const checkIcon = copyButton.querySelector('.octicon-check');
-            const copyFeedback = copyButton.nextElementSibling;
-
-            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
-            currentFeedback = copyFeedback;
-
-            copyIcon.classList.add('d-none');
-            checkIcon.classList.remove('d-none');
-            copyFeedback.style.display = 'block';
-            copyButton.style.borderColor = 'var(--color-success-fg)';
-
-            setTimeout(() => {
-                copyIcon.classList.remove('d-none');
-                checkIcon.classList.add('d-none');
-                copyFeedback.style.display = 'none';
-                copyButton.style.borderColor = '';
-            }, 2000);
-        });
-    });
-});
 
 </script>
 <script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
