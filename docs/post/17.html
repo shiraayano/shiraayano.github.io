@@ -287,7 +287,7 @@ public class LazyOne {
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/17.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java学习笔记基础篇 007</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -358,352 +358,341 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>6.1.1 饿汉式没有线程安全问题</h4>
 <p>饿汉式：在类初始化时就直接创建单例对象，而类初始化过程是没有线程安全问题的</p>
 <p>形式一：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.single.hungry;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">hungry</span>;
 
-public class HungrySingle {
-    private static HungrySingle INSTANCE = new HungrySingle(); //对象是否声明为final 都可以
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">HungrySingle</span> {
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">HungrySingle</span> <span class="pl-c1">INSTANCE</span> = <span class="pl-k">new</span> <span class="pl-smi">HungrySingle</span>(); <span class="pl-c">//对象是否声明为final 都可以</span>
     
-    private HungrySingle(){}
+    <span class="pl-k">private</span> <span class="pl-smi">HungrySingle</span>(){}
     
-    public static HungrySingle getInstance(){
-        return INSTANCE;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">HungrySingle</span> <span class="pl-en">getInstance</span>(){
+        <span class="pl-k">return</span> <span class="pl-c1">INSTANCE</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <p>形式二：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">/*
-public class HungryOne{
-    public static final HungryOne INSTANCE = new HungryOne();
-    private HungryOne(){}
-}*/
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/*</span>
+<span class="pl-c">public class HungryOne{</span>
+<span class="pl-c">    public static final HungryOne INSTANCE = new HungryOne();</span>
+<span class="pl-c">    private HungryOne(){}</span>
+<span class="pl-c">}*/</span>
 
-public enum HungryOne{
-    INSTANCE
-}
-</code></pre>
+<span class="pl-k">public</span> <span class="pl-k">enum</span> <span class="pl-smi">HungryOne</span>{
+    <span class="pl-c1">INSTANCE</span>
+}</pre></div>
 <p>测试类：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.single.hungry;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">hungry</span>;
 
-public class HungrySingleTest {
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">HungrySingleTest</span> {
 
-    static HungrySingle hs1 = null;
-    static HungrySingle hs2 = null;
+    <span class="pl-k">static</span> <span class="pl-smi">HungrySingle</span> <span class="pl-s1">hs1</span> = <span class="pl-c1">null</span>;
+    <span class="pl-k">static</span> <span class="pl-smi">HungrySingle</span> <span class="pl-s1">hs2</span> = <span class="pl-c1">null</span>;
 
-    //演示存在的线程安全问题
-    public static void main(String[] args) {
+    <span class="pl-c">//演示存在的线程安全问题</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
 
-        Thread t1 = new Thread() {
-            @Override
-            public void run() {
-                hs1 = HungrySingle.getInstance();
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-s1">hs1</span> = <span class="pl-smi">HungrySingle</span>.<span class="pl-en">getInstance</span>();
             }
         };
 
-        Thread t2 = new Thread() {
-            @Override
-            public void run() {
-                hs2 = HungrySingle.getInstance();
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-s1">hs2</span> = <span class="pl-smi">HungrySingle</span>.<span class="pl-en">getInstance</span>();
             }
         };
 
-        t1.start();
-        t2.start();
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
 
-        try {
-            t1.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t1</span>.<span class="pl-en">join</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
-        try {
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t2</span>.<span class="pl-en">join</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
 
-        System.out.println(hs1);
-        System.out.println(hs2);
-        System.out.println(hs1 == hs2);//true
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">hs1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">hs2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">hs1</span> == <span class="pl-s1">hs2</span>);<span class="pl-c">//true</span>
     }
 
-}
-</code></pre>
+}</pre></div>
 <h4>6.1.2 懒汉式线程安全问题</h4>
 <p>懒汉式：延迟创建对象，第一次调用getInstance方法再创建对象</p>
 <p>形式一：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.single.lazy;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">lazy</span>;
 
-public class LazyOne {
-    private static LazyOne instance;
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LazyOne</span> {
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">LazyOne</span> <span class="pl-s1">instance</span>;
 
-    private LazyOne(){}
+    <span class="pl-k">private</span> <span class="pl-smi">LazyOne</span>(){}
 
-    //方式1：
-    public static synchronized LazyOne getInstance1(){
-        if(instance == null){
-            instance = new LazyOne();
+    <span class="pl-c">//方式1：</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">synchronized</span> <span class="pl-smi">LazyOne</span> <span class="pl-en">getInstance1</span>(){
+        <span class="pl-k">if</span>(<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>){
+            <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">LazyOne</span>();
         }
-        return instance;
+        <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
     }
-    //方式2：
-    public static LazyOne getInstance2(){
-        synchronized(LazyOne.class) {
-            if (instance == null) {
-                instance = new LazyOne();
+    <span class="pl-c">//方式2：</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">LazyOne</span> <span class="pl-en">getInstance2</span>(){
+        <span class="pl-k">synchronized</span>(<span class="pl-smi">LazyOne</span>.<span class="pl-k">class</span>) {
+            <span class="pl-k">if</span> (<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>) {
+                <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">LazyOne</span>();
             }
-            return instance;
+            <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
         }
     }
-    //方式3：
-    public static LazyOne getInstance3(){
-        if(instance == null){
-            synchronized (LazyOne.class) {
-                try {
-                    Thread.sleep(10);//加这个代码，暴露问题
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+    <span class="pl-c">//方式3：</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">LazyOne</span> <span class="pl-en">getInstance3</span>(){
+        <span class="pl-k">if</span>(<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>){
+            <span class="pl-k">synchronized</span> (<span class="pl-smi">LazyOne</span>.<span class="pl-k">class</span>) {
+                <span class="pl-k">try</span> {
+                    <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);<span class="pl-c">//加这个代码，暴露问题</span>
+                } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                    <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
                 }
-                if(instance == null){
-                    instance = new LazyOne();
+                <span class="pl-k">if</span>(<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>){
+                    <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">LazyOne</span>();
                 }
             }
         }
 
-        return instance;
+        <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
     }
-    /*
-    注意：上述方式3中，有指令重排问题
-    mem = allocate(); 为单例对象分配内存空间
-    instance = mem;   instance引用现在非空，但还未初始化
-    ctorSingleton(instance); 为单例对象通过instance调用构造器
-    从JDK2开始，分配空间、初始化、调用构造器会在线程的工作存储区一次性完成，然后复制到主存储区。但是需要   
-    volatile关键字，避免指令重排。
-    */
+    <span class="pl-c">/*</span>
+<span class="pl-c">    注意：上述方式3中，有指令重排问题</span>
+<span class="pl-c">    mem = allocate(); 为单例对象分配内存空间</span>
+<span class="pl-c">    instance = mem;   instance引用现在非空，但还未初始化</span>
+<span class="pl-c">    ctorSingleton(instance); 为单例对象通过instance调用构造器</span>
+<span class="pl-c">    从JDK2开始，分配空间、初始化、调用构造器会在线程的工作存储区一次性完成，然后复制到主存储区。但是需要   </span>
+<span class="pl-c">    volatile关键字，避免指令重排。</span>
+<span class="pl-c">    */</span>
     
-}
-
-</code></pre>
+}</pre></div>
 <p>形式二：使用内部类</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.single.lazy;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">lazy</span>;
 
-public class LazySingle {
-    private LazySingle(){}
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LazySingle</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">LazySingle</span>(){}
     
-    public static LazySingle getInstance(){
-        return Inner.INSTANCE;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">LazySingle</span> <span class="pl-en">getInstance</span>(){
+        <span class="pl-k">return</span> <span class="pl-smi">Inner</span>.<span class="pl-c1">INSTANCE</span>;
     }
     
-    private static class Inner{
-        static final LazySingle INSTANCE = new LazySingle();
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-smi">Inner</span>{
+        <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">LazySingle</span> <span class="pl-c1">INSTANCE</span> = <span class="pl-k">new</span> <span class="pl-smi">LazySingle</span>();
     }
     
-}
-</code></pre>
+}</pre></div>
 <blockquote>
 <p>内部类只有在外部类被调用才加载，产生INSTANCE实例；又不用加锁。</p>
 <p>此模式具有之前两个模式的优点，同时屏蔽了它们的缺点，是最好的单例模式。</p>
 <p>此时的内部类，使用enum进行定义，也是可以的。</p>
 </blockquote>
 <p>测试类：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.single.lazy;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">single</span>.<span class="pl-s1">lazy</span>;
 
-import org.junit.Test;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
 
-public class TestLazy {
-    @Test
-    public void test01(){
-        LazyOne s1 = LazyOne.getInstance();
-        LazyOne s2 = LazyOne.getInstance();
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestLazy</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-smi">LazyOne</span> <span class="pl-s1">s1</span> = <span class="pl-smi">LazyOne</span>.<span class="pl-en">getInstance</span>();
+        <span class="pl-smi">LazyOne</span> <span class="pl-s1">s2</span> = <span class="pl-smi">LazyOne</span>.<span class="pl-en">getInstance</span>();
 
-        System.out.println(s1);
-        System.out.println(s2);
-        System.out.println(s1 == s2);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);
     }
 
-    //把s1和s2声明在外面，是想要在线程的匿名内部类中为s1和s2赋值
-    LazyOne s1;
-    LazyOne s2;
-    @Test
-    public void test02(){
-        Thread t1 = new Thread(){
-            public void run(){
-                s1 = LazyOne.getInstance();
+    <span class="pl-c">//把s1和s2声明在外面，是想要在线程的匿名内部类中为s1和s2赋值</span>
+    <span class="pl-smi">LazyOne</span> <span class="pl-s1">s1</span>;
+    <span class="pl-smi">LazyOne</span> <span class="pl-s1">s2</span>;
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+                <span class="pl-s1">s1</span> = <span class="pl-smi">LazyOne</span>.<span class="pl-en">getInstance</span>();
             }
         };
-        Thread t2 = new Thread(){
-            public void run(){
-                s2 = LazyOne.getInstance();
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+                <span class="pl-s1">s2</span> = <span class="pl-smi">LazyOne</span>.<span class="pl-en">getInstance</span>();
             }
         };
 
-        t1.start();
-        t2.start();
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
 
-        try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t1</span>.<span class="pl-en">join</span>();
+            <span class="pl-s1">t2</span>.<span class="pl-en">join</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
 
-        System.out.println(s1);
-        System.out.println(s2);
-        System.out.println(s1 == s2);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);
     }
 
 
-    LazySingle obj1;
-    LazySingle obj2;
-    @Test
-    public void test03(){
-        Thread t1 = new Thread(){
-            public void run(){
-                obj1 = LazySingle.getInstance();
+    <span class="pl-smi">LazySingle</span> <span class="pl-s1">obj1</span>;
+    <span class="pl-smi">LazySingle</span> <span class="pl-s1">obj2</span>;
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+                <span class="pl-s1">obj1</span> = <span class="pl-smi">LazySingle</span>.<span class="pl-en">getInstance</span>();
             }
         };
-        Thread t2 = new Thread(){
-            public void run(){
-                obj2 = LazySingle.getInstance();
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
+                <span class="pl-s1">obj2</span> = <span class="pl-smi">LazySingle</span>.<span class="pl-en">getInstance</span>();
             }
         };
 
-        t1.start();
-        t2.start();
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
 
-        try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        <span class="pl-k">try</span> {
+            <span class="pl-s1">t1</span>.<span class="pl-en">join</span>();
+            <span class="pl-s1">t2</span>.<span class="pl-en">join</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
 
-        System.out.println(obj1);
-        System.out.println(obj2);
-        System.out.println(obj1 == obj2);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj1</span> == <span class="pl-s1">obj2</span>);
     }
-}
-
-</code></pre>
+}</pre></div>
 <p>三种方案实现线程安全</p>
 <h3>1. 同步整个方法</h3>
 <p>这种方法简单直接，通过将<code class="notranslate">getInstance</code>方法声明为<code class="notranslate">synchronized</code>来保证线程安全。但是这样做会降低程序的性能，因为每次调用<code class="notranslate">getInstance</code>时都会锁住整个方法，即使<code class="notranslate">instance</code>已经被初始化了。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class BankTest {
-    //static Bank bank = new Bank();
-    //static Bank bank2 = new Bank();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">BankTest</span> {
+    <span class="pl-c">//static Bank bank = new Bank();</span>
+    <span class="pl-c">//static Bank bank2 = new Bank();</span>
 
-    public static void main(String[] args) {
-        Thread t1 = new Thread() {
-            @Override
-            public void run() {
-                System.out.println(Bank.getInstance());
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
             }
         };
 
-        Thread t2 = new Thread() {
-            @Override
-            public void run() {
-                System.out.println(Bank.getInstance());
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
             }
         };
 
-        t1.start();
-        t2.start();
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
     }
 }
 
-class Bank {
-    private Bank() {}
+<span class="pl-k">class</span> <span class="pl-smi">Bank</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">Bank</span>() {}
 
-    private static Bank instance = null;
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">Bank</span> <span class="pl-s1">instance</span> = <span class="pl-c1">null</span>;
 
-    public static synchronized Bank getInstance() {
-        if (instance == null) {
-            instance = new Bank();
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">synchronized</span> <span class="pl-smi">Bank</span> <span class="pl-en">getInstance</span>() {
+        <span class="pl-k">if</span> (<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">Bank</span>();
         }
-        return instance;
+        <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <h3>2. 双重检查锁定（Double-Check Locking）</h3>
 <p>这是更高效的实现方式，它只在<code class="notranslate">instance</code>未被初始化时进行同步操作。这样可以避免每次调用<code class="notranslate">getInstance</code>时都进行同步，提高了性能。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class BankTest {
-    //static Bank bank = new Bank();
-    //static Bank bank2 = new Bank();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">BankTest</span> {
+    <span class="pl-c">//static Bank bank = new Bank();</span>
+    <span class="pl-c">//static Bank bank2 = new Bank();</span>
 
-    public static void main(String[] args) {
-        Thread t1 = new Thread() {
-            @Override
-            public void run() {
-                System.out.println(Bank.getInstance());
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
             }
         };
 
-        Thread t2 = new Thread() {
-            @Override
-            public void run() {
-                System.out.println(Bank.getInstance());
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
             }
         };
 
-        t1.start();
-        t2.start();
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
     }
 }
 
-class Bank {
-    private Bank() {}
+<span class="pl-k">class</span> <span class="pl-smi">Bank</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">Bank</span>() {}
 
-    private static volatile Bank instance = null;
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">volatile</span> <span class="pl-smi">Bank</span> <span class="pl-s1">instance</span> = <span class="pl-c1">null</span>;
 
-    public static Bank getInstance() {
-        if (instance == null) { // 第一次检查
-            synchronized (Bank.class) {
-                if (instance == null) { // 第二次检查
-                    instance = new Bank();
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">Bank</span> <span class="pl-en">getInstance</span>() {
+        <span class="pl-k">if</span> (<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>) { <span class="pl-c">// 第一次检查</span>
+            <span class="pl-k">synchronized</span> (<span class="pl-smi">Bank</span>.<span class="pl-k">class</span>) {
+                <span class="pl-k">if</span> (<span class="pl-s1">instance</span> == <span class="pl-c1">null</span>) { <span class="pl-c">// 第二次检查</span>
+                    <span class="pl-s1">instance</span> = <span class="pl-k">new</span> <span class="pl-smi">Bank</span>();
                 }
             }
         }
-        return instance;
+        <span class="pl-k">return</span> <span class="pl-s1">instance</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <h3>3. 静态内部类</h3>
 <p>这是最推荐的方式，因为它既保证了线程安全，又避免了同步带来的性能损失。静态内部类在第一次被加载时才会初始化，因此是延迟加载的。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class BankTest {
-    //static Bank bank = new Bank();
-    //static Bank bank2 = new Bank();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">BankTest</span> {
+    <span class="pl-c">//static Bank bank = new Bank();</span>
+    <span class="pl-c">//static Bank bank2 = new Bank();</span>
 
-    public static void main(String[] args) {
-        Thread t1 = new Thread() {
-            @Override
-            public void run() {
-                System.out.println(Bank.getInstance());
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
             }
         };
 
-        Thread t2 = new Thread() {
-            @Override
-            public void run() {
-                System.out.println(Bank.getInstance());
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Bank</span>.<span class="pl-en">getInstance</span>());
             }
         };
 
-        t1.start();
-        t2.start();
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
     }
 }
 
-class Bank {
-    private Bank() {}
+<span class="pl-k">class</span> <span class="pl-smi">Bank</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">Bank</span>() {}
 
-    private static class BankHolder {
-        private static final Bank INSTANCE = new Bank();
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-smi">BankHolder</span> {
+        <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">Bank</span> <span class="pl-c1">INSTANCE</span> = <span class="pl-k">new</span> <span class="pl-smi">Bank</span>();
     }
 
-    public static Bank getInstance() {
-        return BankHolder.INSTANCE;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">Bank</span> <span class="pl-en">getInstance</span>() {
+        <span class="pl-k">return</span> <span class="pl-smi">BankHolder</span>.<span class="pl-c1">INSTANCE</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <h3>总结</h3>
 <ul>
 <li><strong>同步整个方法</strong>：简单但性能较差，每次调用<code class="notranslate">getInstance</code>都会加锁。</li>
@@ -746,181 +735,177 @@ class Bank {
 <p>Lock作为接口，提供了多种实现类，适合更多更复杂的场景，效率更高。</p>
 <p>一旦出现死锁，整个程序既不会发生异常，也不会给出任何提示，只是所有线程处于阻塞状态，无法继续。</p>
 <p>举例1：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class DeadLockTest {
-    public static void main(String[] args) {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">DeadLockTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
 
-        StringBuilder s1 = new StringBuilder();
-        StringBuilder s2 = new StringBuilder();
+        <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s1</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
+        <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s2</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
 
-        new Thread() {
-            public void run() {
-                synchronized (s1) {
-                    s1.append("a");
-                    s2.append("1");
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-k">synchronized</span> (<span class="pl-s1">s1</span>) {
+                    <span class="pl-s1">s1</span>.<span class="pl-en">append</span>(<span class="pl-s">"a"</span>);
+                    <span class="pl-s1">s2</span>.<span class="pl-en">append</span>(<span class="pl-s">"1"</span>);
                     
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    <span class="pl-k">try</span> {
+                        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);
+                    } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                        <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
                     }
 
-                    synchronized (s2) {
-                        s1.append("b");
-                        s2.append("2");
+                    <span class="pl-k">synchronized</span> (<span class="pl-s1">s2</span>) {
+                        <span class="pl-s1">s1</span>.<span class="pl-en">append</span>(<span class="pl-s">"b"</span>);
+                        <span class="pl-s1">s2</span>.<span class="pl-en">append</span>(<span class="pl-s">"2"</span>);
 
-                        System.out.println(s1);
-                        System.out.println(s2);
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
 
                     }
                 }
             }
-        }.start();
+        }.<span class="pl-en">start</span>();
 
-        new Thread() {
-            public void run() {
-                synchronized (s2) {
-                    s1.append("c");
-                    s2.append("3");
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
+            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+                <span class="pl-k">synchronized</span> (<span class="pl-s1">s2</span>) {
+                    <span class="pl-s1">s1</span>.<span class="pl-en">append</span>(<span class="pl-s">"c"</span>);
+                    <span class="pl-s1">s2</span>.<span class="pl-en">append</span>(<span class="pl-s">"3"</span>);
 
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    <span class="pl-k">try</span> {
+                        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);
+                    } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                        <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
                     }
                     
-                    synchronized (s1) {
-                        s1.append("d");
-                        s2.append("4");
+                    <span class="pl-k">synchronized</span> (<span class="pl-s1">s1</span>) {
+                        <span class="pl-s1">s1</span>.<span class="pl-en">append</span>(<span class="pl-s">"d"</span>);
+                        <span class="pl-s1">s2</span>.<span class="pl-en">append</span>(<span class="pl-s">"4"</span>);
 
-                        System.out.println(s1);
-                        System.out.println(s2);
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
 
                     }
 
                 }
             }
-        }.start();
+        }.<span class="pl-en">start</span>();
 
     }
-}
-</code></pre>
+}</pre></div>
 <p>举例2：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">
-class A {
-    public synchronized void foo(B b) {
-        System.out.println("当前线程名: " + Thread.currentThread().getName()
-                + " 进入了A实例的foo方法"); // ①
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">A</span> {
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">foo</span>(<span class="pl-smi">B</span> <span class="pl-s1">b</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前线程名: "</span> + <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()
+                + <span class="pl-s">" 进入了A实例的foo方法"</span>); <span class="pl-c">// ①</span>
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">200</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">ex</span>) {
+            <span class="pl-s1">ex</span>.<span class="pl-en">printStackTrace</span>();
         }
-        System.out.println("当前线程名: " + Thread.currentThread().getName()
-                + " 企图调用B实例的last方法"); // ③
-        b.last();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前线程名: "</span> + <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()
+                + <span class="pl-s">" 企图调用B实例的last方法"</span>); <span class="pl-c">// ③</span>
+        <span class="pl-s1">b</span>.<span class="pl-en">last</span>();
     }
 
-    public synchronized void last() {
-        System.out.println("进入了A类的last方法内部");
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">last</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入了A类的last方法内部"</span>);
     }
 }
 
-class B {
-    public synchronized void bar(A a) {
-        System.out.println("当前线程名: " + Thread.currentThread().getName()
-                + " 进入了B实例的bar方法"); // ②
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+<span class="pl-k">class</span> <span class="pl-smi">B</span> {
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">bar</span>(<span class="pl-smi">A</span> <span class="pl-s1">a</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前线程名: "</span> + <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()
+                + <span class="pl-s">" 进入了B实例的bar方法"</span>); <span class="pl-c">// ②</span>
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">200</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">ex</span>) {
+            <span class="pl-s1">ex</span>.<span class="pl-en">printStackTrace</span>();
         }
-        System.out.println("当前线程名: " + Thread.currentThread().getName()
-                + " 企图调用A实例的last方法"); // ④
-        a.last();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前线程名: "</span> + <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()
+                + <span class="pl-s">" 企图调用A实例的last方法"</span>); <span class="pl-c">// ④</span>
+        <span class="pl-s1">a</span>.<span class="pl-en">last</span>();
     }
 
-    public synchronized void last() {
-        System.out.println("进入了B类的last方法内部");
-    }
-}
-
-public class DeadLock implements Runnable {
-    A a = new A();
-    B b = new B();
-
-    public void init() {
-        Thread.currentThread().setName("主线程");
-        // 调用a对象的foo方法
-        a.foo(b);
-        System.out.println("进入了主线程之后");
-    }
-
-    public void run() {
-        Thread.currentThread().setName("副线程");
-        // 调用b对象的bar方法
-        b.bar(a);
-        System.out.println("进入了副线程之后");
-    }
-
-    public static void main(String[] args) {
-        DeadLock dl = new DeadLock();
-        new Thread(dl).start();
-        dl.init();
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">last</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入了B类的last方法内部"</span>);
     }
 }
-</code></pre>
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">DeadLock</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
+    <span class="pl-smi">A</span> <span class="pl-s1">a</span> = <span class="pl-k">new</span> <span class="pl-smi">A</span>();
+    <span class="pl-smi">B</span> <span class="pl-s1">b</span> = <span class="pl-k">new</span> <span class="pl-smi">B</span>();
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">init</span>() {
+        <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">setName</span>(<span class="pl-s">"主线程"</span>);
+        <span class="pl-c">// 调用a对象的foo方法</span>
+        <span class="pl-s1">a</span>.<span class="pl-en">foo</span>(<span class="pl-s1">b</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入了主线程之后"</span>);
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">setName</span>(<span class="pl-s">"副线程"</span>);
+        <span class="pl-c">// 调用b对象的bar方法</span>
+        <span class="pl-s1">b</span>.<span class="pl-en">bar</span>(<span class="pl-s1">a</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"进入了副线程之后"</span>);
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">DeadLock</span> <span class="pl-s1">dl</span> = <span class="pl-k">new</span> <span class="pl-smi">DeadLock</span>();
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">dl</span>).<span class="pl-en">start</span>();
+        <span class="pl-s1">dl</span>.<span class="pl-en">init</span>();
+    }
+}</pre></div>
 <p>举例3：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class TestDeadLock {
-    public static void main(String[] args) {
-        Object g = new Object();
-        Object m = new Object();
-        Owner s = new Owner(g,m);
-        Customer c = new Customer(g,m);
-        new Thread(s).start();
-        new Thread(c).start();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestDeadLock</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Object</span> <span class="pl-s1">g</span> = <span class="pl-k">new</span> <span class="pl-smi">Object</span>();
+        <span class="pl-smi">Object</span> <span class="pl-s1">m</span> = <span class="pl-k">new</span> <span class="pl-smi">Object</span>();
+        <span class="pl-smi">Owner</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">Owner</span>(<span class="pl-s1">g</span>,<span class="pl-s1">m</span>);
+        <span class="pl-smi">Customer</span> <span class="pl-s1">c</span> = <span class="pl-k">new</span> <span class="pl-smi">Customer</span>(<span class="pl-s1">g</span>,<span class="pl-s1">m</span>);
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">s</span>).<span class="pl-en">start</span>();
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">c</span>).<span class="pl-en">start</span>();
     }
 }
-class Owner implements Runnable{
-    private Object goods;
-    private Object money;
+<span class="pl-k">class</span> <span class="pl-smi">Owner</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">Object</span> <span class="pl-s1">goods</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">Object</span> <span class="pl-s1">money</span>;
 
-    public Owner(Object goods, Object money) {
-        super();
-        this.goods = goods;
-        this.money = money;
+    <span class="pl-k">public</span> <span class="pl-smi">Owner</span>(<span class="pl-smi">Object</span> <span class="pl-s1">goods</span>, <span class="pl-smi">Object</span> <span class="pl-s1">money</span>) {
+        <span class="pl-en">super</span>();
+        <span class="pl-smi">this</span>.<span class="pl-s1">goods</span> = <span class="pl-s1">goods</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">money</span> = <span class="pl-s1">money</span>;
     }
 
-    @Override
-    public void run() {
-        synchronized (goods) {
-            System.out.println("先给钱");
-            synchronized (money) {
-                System.out.println("发货");
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">synchronized</span> (<span class="pl-s1">goods</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"先给钱"</span>);
+            <span class="pl-k">synchronized</span> (<span class="pl-s1">money</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"发货"</span>);
             }
         }
     }
 }
-class Customer implements Runnable{
-    private Object goods;
-    private Object money;
+<span class="pl-k">class</span> <span class="pl-smi">Customer</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">Object</span> <span class="pl-s1">goods</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">Object</span> <span class="pl-s1">money</span>;
 
-    public Customer(Object goods, Object money) {
-        super();
-        this.goods = goods;
-        this.money = money;
+    <span class="pl-k">public</span> <span class="pl-smi">Customer</span>(<span class="pl-smi">Object</span> <span class="pl-s1">goods</span>, <span class="pl-smi">Object</span> <span class="pl-s1">money</span>) {
+        <span class="pl-en">super</span>();
+        <span class="pl-smi">this</span>.<span class="pl-s1">goods</span> = <span class="pl-s1">goods</span>;
+        <span class="pl-smi">this</span>.<span class="pl-s1">money</span> = <span class="pl-s1">money</span>;
     }
 
-    @Override
-    public void run() {
-        synchronized (money) {
-            System.out.println("先发货");
-            synchronized (goods) {
-                System.out.println("再给钱");
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">synchronized</span> (<span class="pl-s1">money</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"先发货"</span>);
+            <span class="pl-k">synchronized</span> (<span class="pl-s1">goods</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"再给钱"</span>);
             }
         }
     }
-}
-</code></pre>
+}</pre></div>
 <p><strong>诱发死锁的原因：</strong></p>
 <ul>
 <li>互斥条件</li>
@@ -952,68 +937,65 @@ class Customer implements Runnable{
 </li>
 <li>代码结构</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">class A{
-    //1. 创建Lock的实例，必须确保多个线程共享同一个Lock实例
-    private final ReentrantLock lock = new ReenTrantLock();
-    public void m(){
-        //2. 调动lock()，实现需共享的代码的锁定
-        lock.lock();
-        try{
-            //保证线程安全的代码;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">A</span>{
+    <span class="pl-c">//1. 创建Lock的实例，必须确保多个线程共享同一个Lock实例</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">ReentrantLock</span> <span class="pl-s1">lock</span> = <span class="pl-k">new</span> <span class="pl-smi">ReenTrantLock</span>();
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">m</span>(){
+        <span class="pl-c">//2. 调动lock()，实现需共享的代码的锁定</span>
+        <span class="pl-s1">lock</span>.<span class="pl-en">lock</span>();
+        <span class="pl-k">try</span>{
+            <span class="pl-c">//保证线程安全的代码;</span>
         }
-        finally{
-            //3. 调用unlock()，释放共享代码的锁定
-            lock.unlock();  
+        <span class="pl-k">finally</span>{
+            <span class="pl-c">//3. 调用unlock()，释放共享代码的锁定</span>
+            <span class="pl-s1">lock</span>.<span class="pl-en">unlock</span>();  
         }
     }
-}
-
-</code></pre>
+}</pre></div>
 <blockquote>
 <p>注意：如果同步代码有异常，要将unlock()写入finally语句块。</p>
 </blockquote>
 <p>举例：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">import java.util.concurrent.locks.ReentrantLock;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">concurrent</span>.<span class="pl-s1">locks</span>.<span class="pl-s1">ReentrantLock</span>;
 
-class Window implements Runnable{
-    int ticket = 100;
-    //1. 创建Lock的实例，必须确保多个线程共享同一个Lock实例
-    private final ReentrantLock lock = new ReentrantLock();
-    public void run(){
+<span class="pl-k">class</span> <span class="pl-smi">Window</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
+    <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
+    <span class="pl-c">//1. 创建Lock的实例，必须确保多个线程共享同一个Lock实例</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">ReentrantLock</span> <span class="pl-s1">lock</span> = <span class="pl-k">new</span> <span class="pl-smi">ReentrantLock</span>();
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
         
-        while(true){
-            try{
-                //2. 调动lock()，实现需共享的代码的锁定
-                lock.lock();
-                if(ticket &gt; 0){
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
+            <span class="pl-k">try</span>{
+                <span class="pl-c">//2. 调动lock()，实现需共享的代码的锁定</span>
+                <span class="pl-s1">lock</span>.<span class="pl-en">lock</span>();
+                <span class="pl-k">if</span>(<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>){
+                    <span class="pl-k">try</span> {
+                        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);
+                    } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                        <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
                     }
-                    System.out.println(ticket--);
-                }else{
-                    break;
+                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">ticket</span>--);
+                }<span class="pl-k">else</span>{
+                    <span class="pl-k">break</span>;
                 }
-            }finally{
-                //3. 调用unlock()，释放共享代码的锁定
-                lock.unlock();
+            }<span class="pl-k">finally</span>{
+                <span class="pl-c">//3. 调用unlock()，释放共享代码的锁定</span>
+                <span class="pl-s1">lock</span>.<span class="pl-en">unlock</span>();
             }
         }
     }
 }
 
-public class ThreadLock {
-    public static void main(String[] args) {
-        Window t = new Window();
-        Thread t1 = new Thread(t);
-        Thread t2 = new Thread(t);
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ThreadLock</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Window</span> <span class="pl-s1">t</span> = <span class="pl-k">new</span> <span class="pl-smi">Window</span>();
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">t</span>);
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">t</span>);
         
-        t1.start();
-        t2.start();
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
     }
-}
-</code></pre>
+}</pre></div>
 <p><strong>synchronized与Lock的对比</strong></p>
 <ol>
 <li>Lock是显式锁（手动开启和关闭锁，别忘记关闭锁），synchronized是隐式锁，出了作用域、遇到异常等自动解锁</li>
@@ -1050,79 +1032,77 @@ public class ThreadLock {
 </blockquote>
 <h3>7.3 举例</h3>
 <p>例题：使用两个线程打印 1-100。线程1, 线程2 交替打印</p>
-<pre lang="java" class="notranslate"><code class="notranslate">class Communication implements Runnable {
-    int i = 1;
-    public void run() {
-        while (true) {
-            synchronized (this) {
-                notify();
-                if (i &lt;= 100) {
-                    System.out.println(Thread.currentThread().getName() + ":" + i++);
-                } else
-                    break;
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">Communication</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
+    <span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>;
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
+            <span class="pl-k">synchronized</span> (<span class="pl-smi">this</span>) {
+                <span class="pl-en">notify</span>();
+                <span class="pl-k">if</span> (<span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>) {
+                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">":"</span> + <span class="pl-s1">i</span>++);
+                } <span class="pl-k">else</span>
+                    <span class="pl-k">break</span>;
+                <span class="pl-k">try</span> {
+                    <span class="pl-en">wait</span>();
+                } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                    <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
                 }
             }
         }
     }
-}
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">public class PrintNumber {
-    // 定义一个锁对象
-    private static final Object lock = new Object();
-    // 定义一个计数器
-    private static int count = 1;
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">PrintNumber</span> {
+    <span class="pl-c">// 定义一个锁对象</span>
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">Object</span> <span class="pl-s1">lock</span> = <span class="pl-k">new</span> <span class="pl-smi">Object</span>();
+    <span class="pl-c">// 定义一个计数器</span>
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-c1">1</span>;
 
-    public static void main(String[] args) {
-        // 创建两个线程，一个打印奇数，一个打印偶数
-        Thread t1 = new Thread(new PrintTask(true), "Thread-1");
-        Thread t2 = new Thread(new PrintTask(false), "Thread-2");
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">// 创建两个线程，一个打印奇数，一个打印偶数</span>
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-k">new</span> <span class="pl-smi">PrintTask</span>(<span class="pl-c1">true</span>), <span class="pl-s">"Thread-1"</span>);
+        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-k">new</span> <span class="pl-smi">PrintTask</span>(<span class="pl-c1">false</span>), <span class="pl-s">"Thread-2"</span>);
 
-        // 启动线程
-        t1.start();
-        t2.start();
+        <span class="pl-c">// 启动线程</span>
+        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
     }
 
-    // 定义一个打印任务的内部类
-    static class PrintTask implements Runnable {
-        // 定义一个布尔变量，用于判断是打印奇数还是偶数
-        private boolean isOdd;
+    <span class="pl-c">// 定义一个打印任务的内部类</span>
+    <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-smi">PrintTask</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
+        <span class="pl-c">// 定义一个布尔变量，用于判断是打印奇数还是偶数</span>
+        <span class="pl-k">private</span> <span class="pl-smi">boolean</span> <span class="pl-s1">isOdd</span>;
 
-        // 构造方法，传入布尔变量
-        public PrintTask(boolean isOdd) {
-            this.isOdd = isOdd;
+        <span class="pl-c">// 构造方法，传入布尔变量</span>
+        <span class="pl-k">public</span> <span class="pl-smi">PrintTask</span>(<span class="pl-smi">boolean</span> <span class="pl-s1">isOdd</span>) {
+            <span class="pl-smi">this</span>.<span class="pl-s1">isOdd</span> = <span class="pl-s1">isOdd</span>;
         }
 
-        @Override
-        // 实现Runnable接口的run方法
-        public void run() {
-            // 循环打印数字
-            while (count &lt;= 100) {
-                // 加锁
-                synchronized (lock) {
-                    // 判断是否打印奇数或偶数
-                    if ((count % 2 == 1 &amp;&amp; isOdd) || (count % 2 == 0 &amp;&amp; !isOdd)) {
-                        // 打印数字
-                        System.out.println(Thread.currentThread().getName() + ": " + count++);
-                        // 唤醒其他线程
-                        lock.notify();
-                    } else {
-                        // 如果不是当前线程应该打印的数字，则等待
-                        try {
-                            lock.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+        <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+        <span class="pl-c">// 实现Runnable接口的run方法</span>
+        <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+            <span class="pl-c">// 循环打印数字</span>
+            <span class="pl-k">while</span> (<span class="pl-s1">count</span> &lt;= <span class="pl-c1">100</span>) {
+                <span class="pl-c">// 加锁</span>
+                <span class="pl-k">synchronized</span> (<span class="pl-s1">lock</span>) {
+                    <span class="pl-c">// 判断是否打印奇数或偶数</span>
+                    <span class="pl-k">if</span> ((<span class="pl-s1">count</span> % <span class="pl-c1">2</span> == <span class="pl-c1">1</span> &amp;&amp; <span class="pl-s1">isOdd</span>) || (<span class="pl-s1">count</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span> &amp;&amp; !<span class="pl-s1">isOdd</span>)) {
+                        <span class="pl-c">// 打印数字</span>
+                        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">": "</span> + <span class="pl-s1">count</span>++);
+                        <span class="pl-c">// 唤醒其他线程</span>
+                        <span class="pl-s1">lock</span>.<span class="pl-en">notify</span>();
+                    } <span class="pl-k">else</span> {
+                        <span class="pl-c">// 如果不是当前线程应该打印的数字，则等待</span>
+                        <span class="pl-k">try</span> {
+                            <span class="pl-s1">lock</span>.<span class="pl-en">wait</span>();
+                        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
                         }
                     }
                 }
             }
         }
     }
-}
-</code></pre>
+}</pre></div>
 <p>sleep 和 wait 的区别 sleep 不会释放同步监视器</p>
 <h3>7.4 调用wait和notify需注意的细节</h3>
 <ol>
@@ -1158,25 +1138,24 @@ public class ThreadLock {
 </li>
 </ol>
 <p>下面是使用这些方法的代码示例：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class Example {
-    public synchronized void doSomething() {
-        while (conditionNotMet) {
-            try {
-                wait(); // 调用 wait() 方法，释放锁并等待
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Example</span> {
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">doSomething</span>() {
+        <span class="pl-k">while</span> (<span class="pl-s1">conditionNotMet</span>) {
+            <span class="pl-k">try</span> {
+                <span class="pl-en">wait</span>(); <span class="pl-c">// 调用 wait() 方法，释放锁并等待</span>
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
             }
         }
-        // 执行一些操作
+        <span class="pl-c">// 执行一些操作</span>
     }
 
-    public synchronized void changeCondition() {
-        // 改变条件
-        conditionNotMet = false;
-        notifyAll(); // 唤醒所有等待的线程
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">changeCondition</span>() {
+        <span class="pl-c">// 改变条件</span>
+        <span class="pl-s1">conditionNotMet</span> = <span class="pl-c1">false</span>;
+        <span class="pl-en">notifyAll</span>(); <span class="pl-c">// 唤醒所有等待的线程</span>
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">doSomething()</code> 方法是一个同步方法，它在条件不满足时调用 <code class="notranslate">wait()</code> 方法，使得当前线程等待，并且释放锁。<code class="notranslate">changeCondition()</code> 方法也是一个同步方法，它在条件改变时调用 <code class="notranslate">notifyAll()</code> 方法，唤醒所有等待的线程。</p>
 <p>请注意，<code class="notranslate">wait()</code> 方法会释放锁，允许其他线程进入同步块或方法，而 <code class="notranslate">notify()</code> 和 <code class="notranslate">notifyAll()</code> 方法则用于唤醒一个或所有等待的线程。</p>
 <p>对比</p>
@@ -1222,119 +1201,118 @@ public class ThreadLock {
 </li>
 </ul>
 <p><strong>代码实现：</strong></p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class ConsumerProducerTest {
-    public static void main(String[] args) {
-        Clerk clerk = new Clerk();
-        Producer p1 = new Producer(clerk);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ConsumerProducerTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span> = <span class="pl-k">new</span> <span class="pl-smi">Clerk</span>();
+        <span class="pl-smi">Producer</span> <span class="pl-s1">p1</span> = <span class="pl-k">new</span> <span class="pl-smi">Producer</span>(<span class="pl-s1">clerk</span>);
         
-        Consumer c1 = new Consumer(clerk);
-        Consumer c2 = new Consumer(clerk);
+        <span class="pl-smi">Consumer</span> <span class="pl-s1">c1</span> = <span class="pl-k">new</span> <span class="pl-smi">Consumer</span>(<span class="pl-s1">clerk</span>);
+        <span class="pl-smi">Consumer</span> <span class="pl-s1">c2</span> = <span class="pl-k">new</span> <span class="pl-smi">Consumer</span>(<span class="pl-s1">clerk</span>);
         
-        p1.setName("生产者1");
-        c1.setName("消费者1");
-        c2.setName("消费者2");
+        <span class="pl-s1">p1</span>.<span class="pl-en">setName</span>(<span class="pl-s">"生产者1"</span>);
+        <span class="pl-s1">c1</span>.<span class="pl-en">setName</span>(<span class="pl-s">"消费者1"</span>);
+        <span class="pl-s1">c2</span>.<span class="pl-en">setName</span>(<span class="pl-s">"消费者2"</span>);
         
-        p1.start();
-        c1.start();
-        c2.start();
+        <span class="pl-s1">p1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">c1</span>.<span class="pl-en">start</span>();
+        <span class="pl-s1">c2</span>.<span class="pl-en">start</span>();
     }
 }
 
-//生产者
-class Producer extends Thread{
-    private Clerk clerk;
+<span class="pl-c">//生产者</span>
+<span class="pl-k">class</span> <span class="pl-smi">Producer</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span>;
     
-    public Producer(Clerk clerk){
-        this.clerk = clerk;
+    <span class="pl-k">public</span> <span class="pl-smi">Producer</span>(<span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span>){
+        <span class="pl-smi">this</span>.<span class="pl-s1">clerk</span> = <span class="pl-s1">clerk</span>;
     }
     
-    @Override
-    public void run() {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
         
-        System.out.println("=========生产者开始生产产品========");
-        while(true){
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"=========生产者开始生产产品========"</span>);
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
             
-            try {
-                Thread.sleep(40);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            <span class="pl-k">try</span> {
+                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">40</span>);
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
             }
             
-            //要求clerk去增加产品
-            clerk.addProduct();
+            <span class="pl-c">//要求clerk去增加产品</span>
+            <span class="pl-s1">clerk</span>.<span class="pl-en">addProduct</span>();
         }
     }
 }
 
-//消费者
-class Consumer extends Thread{
-    private Clerk clerk;
+<span class="pl-c">//消费者</span>
+<span class="pl-k">class</span> <span class="pl-smi">Consumer</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span>;
     
-    public Consumer(Clerk clerk){
-        this.clerk = clerk;
+    <span class="pl-k">public</span> <span class="pl-smi">Consumer</span>(<span class="pl-smi">Clerk</span> <span class="pl-s1">clerk</span>){
+        <span class="pl-smi">this</span>.<span class="pl-s1">clerk</span> = <span class="pl-s1">clerk</span>;
     }
-    @Override
-    public void run() {
-        System.out.println("=========消费者开始消费产品========");
-        while(true){
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"=========消费者开始消费产品========"</span>);
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
             
-            try {
-                Thread.sleep(90);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            <span class="pl-k">try</span> {
+                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">90</span>);
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
             }
             
-            //要求clerk去减少产品
-            clerk.minusProduct();
+            <span class="pl-c">//要求clerk去减少产品</span>
+            <span class="pl-s1">clerk</span>.<span class="pl-en">minusProduct</span>();
         }
     }
 }
 
-//资源类
-class Clerk {
-    private int productNum = 0;//产品数量
-    private static final int MAX_PRODUCT = 20;
-    private static final int MIN_PRODUCT = 1;
+<span class="pl-c">//资源类</span>
+<span class="pl-k">class</span> <span class="pl-smi">Clerk</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">productNum</span> = <span class="pl-c1">0</span>;<span class="pl-c">//产品数量</span>
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">int</span> <span class="pl-c1">MAX_PRODUCT</span> = <span class="pl-c1">20</span>;
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">int</span> <span class="pl-c1">MIN_PRODUCT</span> = <span class="pl-c1">1</span>;
     
-    //增加产品
-    public synchronized void addProduct() {
-        if(productNum &lt; MAX_PRODUCT){
-            productNum++;
-            System.out.println(Thread.currentThread().getName() + 
-                    "生产了第" + productNum + "个产品");
-            //唤醒消费者
-            this.notifyAll();
-        }else{
+    <span class="pl-c">//增加产品</span>
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">addProduct</span>() {
+        <span class="pl-k">if</span>(<span class="pl-s1">productNum</span> &lt; <span class="pl-c1">MAX_PRODUCT</span>){
+            <span class="pl-s1">productNum</span>++;
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + 
+                    <span class="pl-s">"生产了第"</span> + <span class="pl-s1">productNum</span> + <span class="pl-s">"个产品"</span>);
+            <span class="pl-c">//唤醒消费者</span>
+            <span class="pl-smi">this</span>.<span class="pl-en">notifyAll</span>();
+        }<span class="pl-k">else</span>{
             
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            <span class="pl-k">try</span> {
+                <span class="pl-smi">this</span>.<span class="pl-en">wait</span>();
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
             }
         }
     }
 
-    //减少产品
-    public synchronized void minusProduct() {
-        if(productNum &gt;= MIN_PRODUCT){
-            System.out.println(Thread.currentThread().getName() + 
-                    "消费了第" + productNum + "个产品");
-            productNum--;
+    <span class="pl-c">//减少产品</span>
+    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">minusProduct</span>() {
+        <span class="pl-k">if</span>(<span class="pl-s1">productNum</span> &gt;= <span class="pl-c1">MIN_PRODUCT</span>){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + 
+                    <span class="pl-s">"消费了第"</span> + <span class="pl-s1">productNum</span> + <span class="pl-s">"个产品"</span>);
+            <span class="pl-s1">productNum</span>--;
             
-            //唤醒生产者
-            this.notifyAll();
-        }else{
+            <span class="pl-c">//唤醒生产者</span>
+            <span class="pl-smi">this</span>.<span class="pl-en">notifyAll</span>();
+        }<span class="pl-k">else</span>{
             
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            <span class="pl-k">try</span> {
+                <span class="pl-smi">this</span>.<span class="pl-en">wait</span>();
+            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
             }
         }
     }
     
-}
-</code></pre>
+}</pre></div>
 <h3>7.6 面试题：区分sleep()和wait()</h3>
 <p>相同点：一旦执行，都会使得当前线程结束执行状态，进入阻塞状态。</p>
 <p>不同点：</p>
@@ -1389,52 +1367,51 @@ Callable使用了泛型参数，可以指明具体的call()的返回值类型，
 <li>缺点：在获取分线程执行结果的时候，当前线程（或是主线程）受阻塞，效率较低。</li>
 <li>代码举例</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">/*
- * 创建多线程的方式三：实现Callable （jdk5.0新增的）
- */
-//1.创建一个实现Callable的实现类
-class NumThread implements Callable {
-    //2.实现call方法，将此线程需要执行的操作声明在call()中
-    @Override
-    public Object call() throws Exception {
-        int sum = 0;
-        for (int i = 1; i &lt;= 100; i++) {
-            if (i % 2 == 0) {
-                System.out.println(i);
-                sum += i;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/*</span>
+<span class="pl-c"> * 创建多线程的方式三：实现Callable （jdk5.0新增的）</span>
+<span class="pl-c"> */</span>
+<span class="pl-c">//1.创建一个实现Callable的实现类</span>
+<span class="pl-k">class</span> <span class="pl-smi">NumThread</span> <span class="pl-k">implements</span> <span class="pl-smi">Callable</span> {
+    <span class="pl-c">//2.实现call方法，将此线程需要执行的操作声明在call()中</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">call</span>() <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-smi">int</span> <span class="pl-s1">sum</span> = <span class="pl-c1">0</span>;
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-k">if</span> (<span class="pl-s1">i</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span>) {
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);
+                <span class="pl-s1">sum</span> += <span class="pl-s1">i</span>;
             }
         }
-        return sum;
+        <span class="pl-k">return</span> <span class="pl-s1">sum</span>;
     }
 }
 
 
-public class CallableTest {
-    public static void main(String[] args) {
-        //3.创建Callable接口实现类的对象
-        NumThread numThread = new NumThread();
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">CallableTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">//3.创建Callable接口实现类的对象</span>
+        <span class="pl-smi">NumThread</span> <span class="pl-s1">numThread</span> = <span class="pl-k">new</span> <span class="pl-smi">NumThread</span>();
 
-        //4.将此Callable接口实现类的对象作为传递到FutureTask构造器中，创建FutureTask的对象
-        FutureTask futureTask = new FutureTask(numThread);
-        //5.将FutureTask的对象作为参数传递到Thread类的构造器中，创建Thread对象，并调用start()
-        new Thread(futureTask).start();
+        <span class="pl-c">//4.将此Callable接口实现类的对象作为传递到FutureTask构造器中，创建FutureTask的对象</span>
+        <span class="pl-smi">FutureTask</span> <span class="pl-s1">futureTask</span> = <span class="pl-k">new</span> <span class="pl-smi">FutureTask</span>(<span class="pl-s1">numThread</span>);
+        <span class="pl-c">//5.将FutureTask的对象作为参数传递到Thread类的构造器中，创建Thread对象，并调用start()</span>
+        <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">futureTask</span>).<span class="pl-en">start</span>();
 
 
-//      接收返回值
-        try {
-            //6.获取Callable中call方法的返回值
-            //get()返回值即为FutureTask构造器参数Callable实现类重写的call()的返回值。
-            Object sum = futureTask.get();
-            System.out.println("总和为：" + sum);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+<span class="pl-c">//      接收返回值</span>
+        <span class="pl-k">try</span> {
+            <span class="pl-c">//6.获取Callable中call方法的返回值</span>
+            <span class="pl-c">//get()返回值即为FutureTask构造器参数Callable实现类重写的call()的返回值。</span>
+            <span class="pl-smi">Object</span> <span class="pl-s1">sum</span> = <span class="pl-s1">futureTask</span>.<span class="pl-en">get</span>();
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"总和为："</span> + <span class="pl-s1">sum</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">ExecutionException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
     }
 
-}
-</code></pre>
+}</pre></div>
 <h3>8.2 新增方式二：使用线程池</h3>
 <p><strong>现有问题：</strong></p>
 <p>如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。</p>
@@ -1474,70 +1451,69 @@ public class CallableTest {
 </li>
 </ul>
 <p><strong>代码举例：</strong></p>
-<pre lang="java" class="notranslate"><code class="notranslate">class NumberThread implements Runnable{
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">NumberThread</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
 
-    @Override
-    public void run() {
-        for(int i = 0;i &lt;= 100;i++){
-            if(i % 2 == 0){
-                System.out.println(Thread.currentThread().getName() + ": " + i);
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">for</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>;<span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>;<span class="pl-s1">i</span>++){
+            <span class="pl-k">if</span>(<span class="pl-s1">i</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span>){
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">": "</span> + <span class="pl-s1">i</span>);
             }
         }
     }
 }
 
-class NumberThread1 implements Runnable{
+<span class="pl-k">class</span> <span class="pl-smi">NumberThread1</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
 
-    @Override
-    public void run() {
-        for(int i = 0;i &lt;= 100;i++){
-            if(i % 2 != 0){
-                System.out.println(Thread.currentThread().getName() + ": " + i);
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-k">for</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>;<span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>;<span class="pl-s1">i</span>++){
+            <span class="pl-k">if</span>(<span class="pl-s1">i</span> % <span class="pl-c1">2</span> != <span class="pl-c1">0</span>){
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">": "</span> + <span class="pl-s1">i</span>);
             }
         }
     }
 }
 
-class NumberThread2 implements Callable {
-    @Override
-    public Object call() throws Exception {
-        int evenSum = 0;//记录偶数的和
-        for(int i = 0;i &lt;= 100;i++){
-            if(i % 2 == 0){
-                evenSum += i;
+<span class="pl-k">class</span> <span class="pl-smi">NumberThread2</span> <span class="pl-k">implements</span> <span class="pl-smi">Callable</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">call</span>() <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-smi">int</span> <span class="pl-s1">evenSum</span> = <span class="pl-c1">0</span>;<span class="pl-c">//记录偶数的和</span>
+        <span class="pl-k">for</span>(<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>;<span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>;<span class="pl-s1">i</span>++){
+            <span class="pl-k">if</span>(<span class="pl-s1">i</span> % <span class="pl-c1">2</span> == <span class="pl-c1">0</span>){
+                <span class="pl-s1">evenSum</span> += <span class="pl-s1">i</span>;
             }
         }
-        return evenSum;
+        <span class="pl-k">return</span> <span class="pl-s1">evenSum</span>;
     }
 
 }
 
-public class ThreadPoolTest {
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ThreadPoolTest</span> {
 
-    public static void main(String[] args) {
-        //1. 提供指定线程数量的线程池
-        ExecutorService service = Executors.newFixedThreadPool(10);
-        ThreadPoolExecutor service1 = (ThreadPoolExecutor) service;
-//        //设置线程池的属性
-//        System.out.println(service.getClass());//ThreadPoolExecutor
-        service1.setMaximumPoolSize(50); //设置线程池中线程数的上限
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">//1. 提供指定线程数量的线程池</span>
+        <span class="pl-smi">ExecutorService</span> <span class="pl-s1">service</span> = <span class="pl-smi">Executors</span>.<span class="pl-en">newFixedThreadPool</span>(<span class="pl-c1">10</span>);
+        <span class="pl-smi">ThreadPoolExecutor</span> <span class="pl-s1">service1</span> = (<span class="pl-smi">ThreadPoolExecutor</span>) <span class="pl-s1">service</span>;
+<span class="pl-c">//        //设置线程池的属性</span>
+<span class="pl-c">//        System.out.println(service.getClass());//ThreadPoolExecutor</span>
+        <span class="pl-s1">service1</span>.<span class="pl-en">setMaximumPoolSize</span>(<span class="pl-c1">50</span>); <span class="pl-c">//设置线程池中线程数的上限</span>
 
-        //2.执行指定的线程的操作。需要提供实现Runnable接口或Callable接口实现类的对象
-        service.execute(new NumberThread());//适合适用于Runnable
-        service.execute(new NumberThread1());//适合适用于Runnable
+        <span class="pl-c">//2.执行指定的线程的操作。需要提供实现Runnable接口或Callable接口实现类的对象</span>
+        <span class="pl-s1">service</span>.<span class="pl-en">execute</span>(<span class="pl-k">new</span> <span class="pl-smi">NumberThread</span>());<span class="pl-c">//适合适用于Runnable</span>
+        <span class="pl-s1">service</span>.<span class="pl-en">execute</span>(<span class="pl-k">new</span> <span class="pl-smi">NumberThread1</span>());<span class="pl-c">//适合适用于Runnable</span>
 
-        try {
-            Future future = service.submit(new NumberThread2());//适合使用于Callable
-            System.out.println("总和为：" + future.get());
-        } catch (Exception e) {
-            e.printStackTrace();
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Future</span> <span class="pl-s1">future</span> = <span class="pl-s1">service</span>.<span class="pl-en">submit</span>(<span class="pl-k">new</span> <span class="pl-smi">NumberThread2</span>());<span class="pl-c">//适合使用于Callable</span>
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"总和为："</span> + <span class="pl-s1">future</span>.<span class="pl-en">get</span>());
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
         }
-        //3.关闭连接池
-        service.shutdown();
+        <span class="pl-c">//3.关闭连接池</span>
+        <span class="pl-s1">service</span>.<span class="pl-en">shutdown</span>();
     }
 
-}
-</code></pre>
+}</pre></div>
 <h1>第11章_常用类和基础API</h1>
 <p>1.String类的理解(以JDK8为例说明)<br>
 1.1 类的声明<br>
@@ -1563,23 +1539,21 @@ private final byte[] value;//存储字符串数据的容器<br>
 jdk7之前:字符串常量池存放在方法区<br>
 jdk7及之后:字符串常量池存放在堆空间。</p>
 </blockquote>
-<pre lang="java" class="notranslate"><code class="notranslate">public class StringDemo {
-    //字符量常量池
-    public static void main(String[] args) {
-        String s1 = "hello";
-        String s2 = "hello";
-        String s3 = new String("hello");
-        String s4 = new String("hello");
-        System.out.println(s1 == s2);//true
-        System.out.println(s1 == s3);//false
-        System.out.println(s3 == s4);//false
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">StringDemo</span> {
+    <span class="pl-c">//字符量常量池</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"hello"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"hello"</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"hello"</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);<span class="pl-c">//true</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s3</span>);<span class="pl-c">//false</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//false</span>
     }
-}
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">//String的不可变性
-//当对字符串进行修改时，会在内存中创建新的对象
-//当对字符串进行修改时，需要在内存中重新开辟空间，不能直接修改
-</code></pre>
+}</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//String的不可变性</span>
+<span class="pl-c">//当对字符串进行修改时，会在内存中创建新的对象</span>
+<span class="pl-c">//当对字符串进行修改时，需要在内存中重新开辟空间，不能直接修改</span></pre></div>
 <h4>String实例化的两种方式</h4>
 <p>第1种方式:String s1="hello";</p>
 <p>第2种方式:String s2 = new string("hello");</p>
@@ -1600,30 +1574,27 @@ jdk7及之后:字符串常量池存放在堆空间。</p>
 <li>字符串String类型本身是final声明的，意味着我们不能继承String。</li>
 <li>String对象的字符内容是存储在一个字符数组value[]中的。<code class="notranslate">"abc"</code> 等效于 <code class="notranslate">char[] data={'h','e','l','l','o'}</code>。</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">//jdk8中的String源码：
-public final class String
-    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence {
-    /** The value is used for character storage. */
-    private final char value[]; //String对象的字符内容是存储在此数组中
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//jdk8中的String源码：</span>
+<span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-k">class</span> <span class="pl-smi">String</span>
+    <span class="pl-k">implements</span> <span class="pl-smi">java</span>.<span class="pl-smi">io</span>.<span class="pl-smi">Serializable</span>, <span class="pl-smi">Comparable</span>&lt;<span class="pl-smi">String</span>&gt;, <span class="pl-smi">CharSequence</span> {
+    <span class="pl-c">/** The value is used for character storage. */</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">char</span> <span class="pl-s1">value</span>[]; <span class="pl-c">//String对象的字符内容是存储在此数组中</span>
  
-    /** Cache the hash code for the string */
-    private int hash; // Default to 0
-
-</code></pre>
+    <span class="pl-c">/** Cache the hash code for the string */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">hash</span>; <span class="pl-c">// Default to 0</span></pre></div>
 <pre class="notranslate"><code class="notranslate">- private意味着外面无法直接获取字符数组，而且String没有提供value的get和set方法。
 - final意味着字符数组的引用不可改变，而且String也没有提供方法来修改value数组某个元素值
 - 因此字符串的字符数组内容也不可变的，即String代表着不可变的字符序列。即，一旦对字符串进行修改，就会产生新对象。
 - JDK9只有，底层使用byte[]数组。
 </code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">public final class String implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence { 
-    @Stable
-    private final byte[] value;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-k">class</span> <span class="pl-smi">String</span> <span class="pl-k">implements</span> <span class="pl-smi">java</span>.<span class="pl-smi">io</span>.<span class="pl-smi">Serializable</span>, <span class="pl-smi">Comparable</span>&lt;<span class="pl-smi">String</span>&gt;, <span class="pl-smi">CharSequence</span> { 
+    <span class="pl-c1">@</span><span class="pl-c1">Stable</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">byte</span>[] <span class="pl-s1">value</span>;
 }
 
-//官方说明：... that most String objects contain only Latin-1 characters. Such characters require only one byte of storage, hence half of the space in the internal char arrays of such String objects is going unused.
+<span class="pl-c">//官方说明：... that most String objects contain only Latin-1 characters. Such characters require only one byte of storage, hence half of the space in the internal char arrays of such String objects is going unused.</span>
 
-//细节：... The new String class will store characters encoded either as ISO-8859-1/Latin-1 (one byte per character), or as UTF-16 (two bytes per character), based upon the contents of the string. The encoding flag will indicate which encoding is used.
-</code></pre>
+<span class="pl-c">//细节：... The new String class will store characters encoded either as ISO-8859-1/Latin-1 (one byte per character), or as UTF-16 (two bytes per character), based upon the contents of the string. The encoding flag will indicate which encoding is used.</span></pre></div>
 <ul>
 <li>Java 语言提供对字符串串联符号（"+"）以及将其他对象转换为字符串的特殊支持（toString()方法）。</li>
 </ul>
@@ -1634,23 +1605,21 @@ public final class String
 <p>举例内存结构分配：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/1562945799274.png"><img src="images/1562945799274.png" alt="" style="max-width: 100%;"></a></p>
 <h4>1.2.2 练习类型1：拼接</h4>
-<pre lang="java" class="notranslate"><code class="notranslate">String s1 = "hello";
-String s2 = "hello";
-System.out.println(s1 == s2);
-// 内存中只有一个"hello"对象被创建，同时被s1和s2共享。
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"hello"</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);
+<span class="pl-c">// 内存中只有一个"hello"对象被创建，同时被s1和s2共享。</span></pre></div>
 <p>对应内存结构为：（以下内存结构以<code class="notranslate">JDK6为例</code>绘制）：</p>
 <p>进一步：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">Person p1 = new Person();
-p1.name = “Tom";
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Person</span> <span class="pl-s1">p1</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+<span class="pl-s1">p1</span>.<span class="pl-s1">name</span> = “<span class="pl-s1">Tom</span><span class="pl-s">";</span>
+<span class="pl-s"></span>
+<span class="pl-s">Person p2 = new Person();</span>
+<span class="pl-s">p2.name = “Tom"</span>;
 
-Person p2 = new Person();
-p2.name = “Tom";
-
-System.out.println(p1.name.equals( p2.name)); //
-System.out.println(p1.name == p2.name); //
-System.out.println(p1.name == "Tom"); //
-</code></pre>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">p1</span>.<span class="pl-s1">name</span>.<span class="pl-en">equals</span>( <span class="pl-s1">p2</span>.<span class="pl-s1">name</span>)); <span class="pl-c">//</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">p1</span>.<span class="pl-s1">name</span> == <span class="pl-s1">p2</span>.<span class="pl-s1">name</span>); <span class="pl-c">//</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">p1</span>.<span class="pl-s1">name</span> == <span class="pl-s">"Tom"</span>); <span class="pl-c">//</span></pre></div>
 <h4>1.2.3 练习类型2：new</h4>
 <p>String str1 = “abc”; 与 String str2 = new String(“abc”);的区别？</p>
 <p>str2 首先指向堆中的一个字符串对象，然后堆中字符串的value数组指向常量池中常量对象的value数组。</p>
@@ -1661,16 +1630,15 @@ System.out.println(p1.name == "Tom"); //
 </ul>
 </blockquote>
 <p>练习：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">String s1 = "javaEE";
-String s2 = "javaEE";
-String s3 = new String("javaEE");
-String s4 = new String("javaEE");
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"javaEE"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"javaEE"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"javaEE"</span>);
+<span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"javaEE"</span>);
 
-System.out.println(s1 == s2);//true
-System.out.println(s1 == s3);//false
-System.out.println(s1 == s4);//false
-System.out.println(s3 == s4);//false
-</code></pre>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s2</span>);<span class="pl-c">//true</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s3</span>);<span class="pl-c">//false</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//false</span>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//false</span></pre></div>
 <p>练习：String str2 = new String("hello"); 在内存中创建了几个对象？</p>
 <pre lang="plain" class="notranslate"><code class="notranslate">两个
 </code></pre>
@@ -1696,18 +1664,17 @@ System.out.println(s3 == s4);//false
 </ul>
 <p>说明：堆空间的s1对象在调用intern()之后，会将常量池中已经存在的"ab"字符串赋值给s4。</p>
 <p>练习：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">String s1 = "hello";
-String s2 = "world";
-String s3 = "hello" + "world";
-String s4 = s1 + "world";
-String s5 = s1 + s2;
-String s6 = (s1 + s2).intern();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"hello"</span> + <span class="pl-s">"world"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-s1">s1</span> + <span class="pl-s">"world"</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s5</span> = <span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>;
+<span class="pl-smi">String</span> <span class="pl-s1">s6</span> = (<span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>).<span class="pl-en">intern</span>();
 
-System.out.println(s3 == s4);
-System.out.println(s3 == s5);
-System.out.println(s4 == s5);
-System.out.println(s3 == s6);
-</code></pre>
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s5</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s4</span> == <span class="pl-s1">s5</span>);
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s6</span>);</pre></div>
 <blockquote>
 <p><strong>结论：</strong></p>
 <p>（1）常量+常量：结果是常量池。且常量池中不会存在相同内容的常量。</p>
@@ -1715,86 +1682,82 @@ System.out.println(s3 == s6);
 <p>（3）拼接后调用intern方法：返回值在常量池中</p>
 </blockquote>
 <p>练习：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Test
-public void test01(){
-    String s1 = "hello";
-    String s2 = "world";
-    String s3 = "helloworld";
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
         
-    String s4 = s1 + "world";//s4字符串内容也helloworld，s1是变量，"world"常量，变量 + 常量的结果在堆中
-    String s5 = s1 + s2;//s5字符串内容也helloworld，s1和s2都是变量，变量 + 变量的结果在堆中
-    String s6 = "hello" + "world";//常量+ 常量 结果在常量池中，因为编译期间就可以确定结果
+    <span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-s1">s1</span> + <span class="pl-s">"world"</span>;<span class="pl-c">//s4字符串内容也helloworld，s1是变量，"world"常量，变量 + 常量的结果在堆中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s5</span> = <span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>;<span class="pl-c">//s5字符串内容也helloworld，s1和s2都是变量，变量 + 变量的结果在堆中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s6</span> = <span class="pl-s">"hello"</span> + <span class="pl-s">"world"</span>;<span class="pl-c">//常量+ 常量 结果在常量池中，因为编译期间就可以确定结果</span>
         
-    System.out.println(s3 == s4);//false
-    System.out.println(s3 == s5);//false
-    System.out.println(s3 == s6);//true
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//false</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s5</span>);<span class="pl-c">//false</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s6</span>);<span class="pl-c">//true</span>
 }
 
-@Test
-public void test02(){
-    final String s1 = "hello";
-    final String s2 = "world";
-    String s3 = "helloworld";
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+    <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+    <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
     
-    String s4 = s1 + "world";//s4字符串内容也helloworld，s1是常量，"world"常量，常量+常量结果在常量池中
-    String s5 = s1 + s2;//s5字符串内容也helloworld，s1和s2都是常量，常量+ 常量 结果在常量池中
-    String s6 = "hello" + "world";//常量+ 常量 结果在常量池中，因为编译期间就可以确定结果
+    <span class="pl-smi">String</span> <span class="pl-s1">s4</span> = <span class="pl-s1">s1</span> + <span class="pl-s">"world"</span>;<span class="pl-c">//s4字符串内容也helloworld，s1是常量，"world"常量，常量+常量结果在常量池中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s5</span> = <span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>;<span class="pl-c">//s5字符串内容也helloworld，s1和s2都是常量，常量+ 常量 结果在常量池中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s6</span> = <span class="pl-s">"hello"</span> + <span class="pl-s">"world"</span>;<span class="pl-c">//常量+ 常量 结果在常量池中，因为编译期间就可以确定结果</span>
         
-    System.out.println(s3 == s4);//true
-    System.out.println(s3 == s5);//true
-    System.out.println(s3 == s6);//true
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//true</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s5</span>);<span class="pl-c">//true</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s6</span>);<span class="pl-c">//true</span>
 }
 
-@Test
-public void test01(){
-    String s1 = "hello";
-    String s2 = "world";
-    String s3 = "helloworld";
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-s">"hello"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-s">"world"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-s">"helloworld"</span>;
         
-    String s4 = (s1 + "world").intern();//把拼接的结果放到常量池中
-    String s5 = (s1 + s2).intern();
+    <span class="pl-smi">String</span> <span class="pl-s1">s4</span> = (<span class="pl-s1">s1</span> + <span class="pl-s">"world"</span>).<span class="pl-en">intern</span>();<span class="pl-c">//把拼接的结果放到常量池中</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">s5</span> = (<span class="pl-s1">s1</span> + <span class="pl-s1">s2</span>).<span class="pl-en">intern</span>();
         
-    System.out.println(s3 == s4);//true
-    System.out.println(s3 == s5);//true
-}
-</code></pre>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s4</span>);<span class="pl-c">//true</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span> == <span class="pl-s1">s5</span>);<span class="pl-c">//true</span>
+}</pre></div>
 <p>练习：下列程序运行的结果：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class TestString {
-    public static void main(String[] args) {
-        String str = "hello";
-        String str2 = "world";
-        String str3 ="helloworld";
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestString</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"hello"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"world"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str3</span> =<span class="pl-s">"helloworld"</span>;
         
-        String str4 = "hello".concat("world");
-        String str5 = "hello"+"world";
+        <span class="pl-smi">String</span> <span class="pl-s1">str4</span> = <span class="pl-s">"hello"</span>.<span class="pl-en">concat</span>(<span class="pl-s">"world"</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">str5</span> = <span class="pl-s">"hello"</span>+<span class="pl-s">"world"</span>;
         
-        System.out.println(str3 == str4);//false
-        System.out.println(str3 == str5);//true
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str3</span> == <span class="pl-s1">str4</span>);<span class="pl-c">//false</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str3</span> == <span class="pl-s1">str5</span>);<span class="pl-c">//true</span>
     }
-}
-</code></pre>
+}</pre></div>
 <blockquote>
 <p>concat方法拼接，哪怕是两个常量对象拼接，结果也是在堆。</p>
 </blockquote>
 <p>练习：下列程序运行的结果：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class StringTest {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">StringTest</span> {
 
-    String str = new String("good");
-    char[] ch = { 't', 'e', 's', 't' };
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"good"</span>);
+    <span class="pl-smi">char</span>[] <span class="pl-s1">ch</span> = { <span class="pl-s">'t'</span>, <span class="pl-s">'e'</span>, <span class="pl-s">'s'</span>, <span class="pl-s">'t'</span> };
 
-    public void change(String str, char ch[]) {
-        str = "test ok";
-        ch[0] = 'b';
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">change</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">char</span> <span class="pl-s1">ch</span>[]) {
+        <span class="pl-s1">str</span> = <span class="pl-s">"test ok"</span>;
+        <span class="pl-s1">ch</span>[<span class="pl-c1">0</span>] = <span class="pl-s">'b'</span>;
     }
-    public static void main(String[] args) {
-        StringTest ex = new StringTest();
-        ex.change(ex.str, ex.ch);
-        System.out.print(ex.str + " and ");//
-        System.out.println(ex.ch);
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">StringTest</span> <span class="pl-s1">ex</span> = <span class="pl-k">new</span> <span class="pl-smi">StringTest</span>();
+        <span class="pl-s1">ex</span>.<span class="pl-en">change</span>(<span class="pl-s1">ex</span>.<span class="pl-s1">str</span>, <span class="pl-s1">ex</span>.<span class="pl-s1">ch</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s1">ex</span>.<span class="pl-s1">str</span> + <span class="pl-s">" and "</span>);<span class="pl-c">//</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">ex</span>.<span class="pl-s1">ch</span>);
     }
-}
-
-</code></pre>
+}</pre></div>
 <h3>1.3 String的常用API-1</h3>
 <h4>1.3.1 构造器</h4>
 <ul>
@@ -1806,37 +1769,35 @@ public void test01(){
 <li><code class="notranslate">public String(byte[] bytes,String charsetName) </code> ：通过使用指定的字符集解码当前参数中的字节数组来构造新的String。</li>
 </ul>
 <p>举例：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">//字面量定义方式：字符串常量对象
-String str = "hello";
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//字面量定义方式：字符串常量对象</span>
+<span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"hello"</span>;
 
-//构造器定义方式：无参构造
-String str1 = new String();
+<span class="pl-c">//构造器定义方式：无参构造</span>
+<span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>();
 
-//构造器定义方式：创建"hello"字符串常量的副本
-String str2 = new String("hello");
+<span class="pl-c">//构造器定义方式：创建"hello"字符串常量的副本</span>
+<span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"hello"</span>);
 
-//构造器定义方式：通过字符数组构造
-char chars[] = {'a', 'b', 'c','d','e'};     
-String str3 = new String(chars);
-String str4 = new String(chars,0,3);
+<span class="pl-c">//构造器定义方式：通过字符数组构造</span>
+<span class="pl-smi">char</span> <span class="pl-s1">chars</span>[] = {<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>,<span class="pl-s">'d'</span>,<span class="pl-s">'e'</span>};     
+<span class="pl-smi">String</span> <span class="pl-s1">str3</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">chars</span>);
+<span class="pl-smi">String</span> <span class="pl-s1">str4</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">chars</span>,<span class="pl-c1">0</span>,<span class="pl-c1">3</span>);
 
-//构造器定义方式：通过字节数组构造
-byte bytes[] = {97, 98, 99 };     
-String str5 = new String(bytes);
-String str6 = new String(bytes,"GBK");
-</code></pre>
-<pre lang="java" class="notranslate"><code class="notranslate">public static void main(String[] args) {
-    char[] data = {'h','e','l','l','o','j','a','v','a'};
-    String s1 = String.copyValueOf(data);
-    String s2 = String.copyValueOf(data,0,5);
-    int num = 123456;
-    String s3 = String.valueOf(num);
+<span class="pl-c">//构造器定义方式：通过字节数组构造</span>
+<span class="pl-smi">byte</span> <span class="pl-s1">bytes</span>[] = {<span class="pl-c1">97</span>, <span class="pl-c1">98</span>, <span class="pl-c1">99</span> };     
+<span class="pl-smi">String</span> <span class="pl-s1">str5</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">bytes</span>);
+<span class="pl-smi">String</span> <span class="pl-s1">str6</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">bytes</span>,<span class="pl-s">"GBK"</span>);</pre></div>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+    <span class="pl-smi">char</span>[] <span class="pl-s1">data</span> = {<span class="pl-s">'h'</span>,<span class="pl-s">'e'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'o'</span>,<span class="pl-s">'j'</span>,<span class="pl-s">'a'</span>,<span class="pl-s">'v'</span>,<span class="pl-s">'a'</span>};
+    <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>);
+    <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>,<span class="pl-c1">0</span>,<span class="pl-c1">5</span>);
+    <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-c1">123456</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">num</span>);
     
-    System.out.println(s1);
-    System.out.println(s2);
-    System.out.println(s3);
-}
-</code></pre>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span>);
+}</pre></div>
 <h4>1.3.2 String与其他结构间的转换</h4>
 <p><strong>字符串 --&gt; 基本数据类型、包装类：</strong></p>
 <ul>
@@ -1873,22 +1834,21 @@ String str6 = new String(bytes,"GBK");
 <p>在 gbk 中 一个汉字占用 2 个字节</p>
 <p>utf8 与 gbk 都向下兼容了 ascii 码</p>
 <p>编码与解码 编码用什么解码就要用什么 否则乱码</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Test
-public void test01() throws Exception {
-    String str = "中国";
-    System.out.println(str.getBytes("ISO8859-1").length);// 2
-    // ISO8859-1把所有的字符都当做一个byte处理，处理不了多个字节
-    System.out.println(str.getBytes("GBK").length);// 4 每一个中文都是对应2个字节
-    System.out.println(str.getBytes("UTF-8").length);// 6 常规的中文都是3个字节
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>() <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"中国"</span>;
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"ISO8859-1"</span>).<span class="pl-s1">length</span>);<span class="pl-c">// 2</span>
+    <span class="pl-c">// ISO8859-1把所有的字符都当做一个byte处理，处理不了多个字节</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"GBK"</span>).<span class="pl-s1">length</span>);<span class="pl-c">// 4 每一个中文都是对应2个字节</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"UTF-8"</span>).<span class="pl-s1">length</span>);<span class="pl-c">// 6 常规的中文都是3个字节</span>
 
-    /*
-     * 不乱码：（1）保证编码与解码的字符集名称一样（2）不缺字节
-     */
-    System.out.println(new String(str.getBytes("ISO8859-1"), "ISO8859-1"));// 乱码
-    System.out.println(new String(str.getBytes("GBK"), "GBK"));// 中国
-    System.out.println(new String(str.getBytes("UTF-8"), "UTF-8"));// 中国
-}
-</code></pre>
+    <span class="pl-c">/*</span>
+<span class="pl-c">     * 不乱码：（1）保证编码与解码的字符集名称一样（2）不缺字节</span>
+<span class="pl-c">     */</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"ISO8859-1"</span>), <span class="pl-s">"ISO8859-1"</span>));<span class="pl-c">// 乱码</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"GBK"</span>), <span class="pl-s">"GBK"</span>));<span class="pl-c">// 中国</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">str</span>.<span class="pl-en">getBytes</span>(<span class="pl-s">"UTF-8"</span>), <span class="pl-s">"UTF-8"</span>));<span class="pl-c">// 中国</span>
+}</pre></div>
 <h3>1.4 String的常用API-2</h3>
 <p><code class="notranslate">String</code> 类包括的方法可用于检查序列的单个字符、比较字符串、搜索字符串、提取子字符串、创建字符串副本并将所有字符全部转换为大写或小写。</p>
 <h4>1.4.1 系列1：常用方法</h4>
@@ -1903,86 +1863,83 @@ public void test01() throws Exception {
 （9）String toUpperCase()：将字符串中小写字母转为大写<br>
 （10）String trim()：去掉字符串前后空白符<br>
 （11）public String intern()：结果在常量池中共享</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    @Test
-    public void test01(){
-        //将用户输入的单词全部转为小写，如果用户没有输入单词，重新输入
-        Scanner input = new Scanner(System.in);
-        String word;
-        while(true){
-            System.out.print("请输入单词：");
-            word = input.nextLine();
-            if(word.trim().length()!=0){
-                word = word.toLowerCase();
-                break;
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-c">//将用户输入的单词全部转为小写，如果用户没有输入单词，重新输入</span>
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">word</span>;
+        <span class="pl-k">while</span>(<span class="pl-c1">true</span>){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入单词："</span>);
+            <span class="pl-s1">word</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextLine</span>();
+            <span class="pl-k">if</span>(<span class="pl-s1">word</span>.<span class="pl-en">trim</span>().<span class="pl-en">length</span>()!=<span class="pl-c1">0</span>){
+                <span class="pl-s1">word</span> = <span class="pl-s1">word</span>.<span class="pl-en">toLowerCase</span>();
+                <span class="pl-k">break</span>;
             }
         }
-        System.out.println(word);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">word</span>);
     }
 
-    @Test
-    public void test02(){
-        //随机生成验证码，验证码由0-9，A-Z,a-z的字符组成
-        char[] array = new char[26*2+10];
-        for (int i = 0; i &lt; 10; i++) {
-            array[i] = (char)('0' + i);
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-c">//随机生成验证码，验证码由0-9，A-Z,a-z的字符组成</span>
+        <span class="pl-smi">char</span>[] <span class="pl-s1">array</span> = <span class="pl-k">new</span> <span class="pl-smi">char</span>[<span class="pl-c1">26</span>*<span class="pl-c1">2</span>+<span class="pl-c1">10</span>];
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">array</span>[<span class="pl-s1">i</span>] = (<span class="pl-smi">char</span>)(<span class="pl-s">'0'</span> + <span class="pl-s1">i</span>);
         }
-        for (int i = 10,j=0; i &lt; 10+26; i++,j++) {
-            array[i] = (char)('A' + j);
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">10</span>,<span class="pl-s1">j</span>=<span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>+<span class="pl-c1">26</span>; <span class="pl-s1">i</span>++,<span class="pl-s1">j</span>++) {
+            <span class="pl-s1">array</span>[<span class="pl-s1">i</span>] = (<span class="pl-smi">char</span>)(<span class="pl-s">'A'</span> + <span class="pl-s1">j</span>);
         }
-        for (int i = 10+26,j=0; i &lt; array.length; i++,j++) {
-            array[i] = (char)('a' + j);
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">10</span>+<span class="pl-c1">26</span>,<span class="pl-s1">j</span>=<span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">array</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++,<span class="pl-s1">j</span>++) {
+            <span class="pl-s1">array</span>[<span class="pl-s1">i</span>] = (<span class="pl-smi">char</span>)(<span class="pl-s">'a'</span> + <span class="pl-s1">j</span>);
         }
-        String code = "";
-        Random rand = new Random();
-        for (int i = 0; i &lt; 4; i++) {
-            code += array[rand.nextInt(array.length)];
+        <span class="pl-smi">String</span> <span class="pl-s1">code</span> = <span class="pl-s">""</span>;
+        <span class="pl-smi">Random</span> <span class="pl-s1">rand</span> = <span class="pl-k">new</span> <span class="pl-smi">Random</span>();
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">4</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">code</span> += <span class="pl-s1">array</span>[<span class="pl-s1">rand</span>.<span class="pl-en">nextInt</span>(<span class="pl-s1">array</span>.<span class="pl-s1">length</span>)];
         }
-        System.out.println("验证码：" + code);
-        //将用户输入的单词全部转为小写，如果用户没有输入单词，重新输入
-        Scanner input = new Scanner(System.in);
-        System.out.print("请输入验证码：");
-        String inputCode = input.nextLine();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"验证码："</span> + <span class="pl-s1">code</span>);
+        <span class="pl-c">//将用户输入的单词全部转为小写，如果用户没有输入单词，重新输入</span>
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">input</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"请输入验证码："</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">inputCode</span> = <span class="pl-s1">input</span>.<span class="pl-en">nextLine</span>();
         
-        if(!code.equalsIgnoreCase(inputCode)){
-            System.out.println("验证码输入不正确");
+        <span class="pl-k">if</span>(!<span class="pl-s1">code</span>.<span class="pl-en">equalsIgnoreCase</span>(<span class="pl-s1">inputCode</span>)){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"验证码输入不正确"</span>);
         }
-    }
-</code></pre>
+    }</pre></div>
 <h4>1.4.2 系列2：查找</h4>
 <p>（11）boolean contains(xx)：是否包含xx<br>
 （12）int indexOf(xx)：从前往后找当前字符串中xx，即如果有返回第一次出现的下标，要是没有返回-1<br>
 （13）int indexOf(String str, int fromIndex)：返回指定子字符串在此字符串中第一次出现处的索引，从指定的索引开始<br>
 （14）int lastIndexOf(xx)：从后往前找当前字符串中xx，即如果有返回最后一次出现的下标，要是没有返回-1<br>
 （15）int lastIndexOf(String str, int fromIndex)：返回指定子字符串在此字符串中最后一次出现处的索引，从指定的索引开始反向搜索。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    @Test
-    public void test01(){
-        String str = "尚硅谷是一家靠谱的培训机构，尚硅谷可以说是IT培训的小清华，JavaEE是尚硅谷的当家学科，尚硅谷的大数据培训是行业独角兽。尚硅谷的前端和UI专业一样独领风骚。";
-        System.out.println("是否包含清华：" + str.contains("清华"));
-        System.out.println("培训出现的第一次下标：" + str.indexOf("培训"));
-        System.out.println("培训出现的最后一次下标：" + str.lastIndexOf("培训"));
-    }
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"尚硅谷是一家靠谱的培训机构，尚硅谷可以说是IT培训的小清华，JavaEE是尚硅谷的当家学科，尚硅谷的大数据培训是行业独角兽。尚硅谷的前端和UI专业一样独领风骚。"</span>;
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"是否包含清华："</span> + <span class="pl-s1">str</span>.<span class="pl-en">contains</span>(<span class="pl-s">"清华"</span>));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"培训出现的第一次下标："</span> + <span class="pl-s1">str</span>.<span class="pl-en">indexOf</span>(<span class="pl-s">"培训"</span>));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"培训出现的最后一次下标："</span> + <span class="pl-s1">str</span>.<span class="pl-en">lastIndexOf</span>(<span class="pl-s">"培训"</span>));
+    }</pre></div>
 <h4>1.4.3 系列3：字符串截取</h4>
 <p>（16）String substring(int beginIndex) ：返回一个新的字符串，它是此字符串的从beginIndex开始截取到最后的一个子字符串。<br>
 （17）String substring(int beginIndex, int endIndex) ：返回一个新字符串，它是此字符串从beginIndex开始截取到endIndex(不包含)的一个子字符串。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Test
-public void test01(){
-    String str = "helloworldjavaatguigu";
-    String sub1 = str.substring(5);
-    String sub2 = str.substring(5,10);
-    System.out.println(sub1);
-    System.out.println(sub2);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"helloworldjavaatguigu"</span>;
+    <span class="pl-smi">String</span> <span class="pl-s1">sub1</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">5</span>);
+    <span class="pl-smi">String</span> <span class="pl-s1">sub2</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">5</span>,<span class="pl-c1">10</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sub1</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sub2</span>);
 }
 
-@Test
-public void test02(){
-    String fileName = "快速学习Java的秘诀.dat";
-    //截取文件名
-    System.out.println("文件名：" + fileName.substring(0,fileName.lastIndexOf(".")));
-    //截取后缀名
-    System.out.println("后缀名：" + fileName.substring(fileName.lastIndexOf(".")));
-}
-</code></pre>
+<span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">fileName</span> = <span class="pl-s">"快速学习Java的秘诀.dat"</span>;
+    <span class="pl-c">//截取文件名</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"文件名："</span> + <span class="pl-s1">fileName</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>,<span class="pl-s1">fileName</span>.<span class="pl-en">lastIndexOf</span>(<span class="pl-s">"."</span>)));
+    <span class="pl-c">//截取后缀名</span>
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"后缀名："</span> + <span class="pl-s1">fileName</span>.<span class="pl-en">substring</span>(<span class="pl-s1">fileName</span>.<span class="pl-en">lastIndexOf</span>(<span class="pl-s">"."</span>)));
+}</pre></div>
 <h4>1.4.4 系列4：和字符/字符数组相关</h4>
 <p>（18）char charAt(index)：返回[index]位置的字符<br>
 （19）char[] toCharArray()： 将此字符串转换为一个新的字符数组返回<br>
@@ -1990,317 +1947,308 @@ public void test02(){
 （21）static String valueOf(char[] data, int offset, int count) ： 返回指定数组中表示该字符序列的 String<br>
 （22）static String copyValueOf(char[] data)： 返回指定数组中表示该字符序列的 String<br>
 （23）static String copyValueOf(char[] data, int offset, int count)：返回指定数组中表示该字符序列的 String</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    @Test
-    public void test01(){
-        //将字符串中的字符按照大小顺序排列
-        String str = "helloworldjavaatguigu";
-        char[] array = str.toCharArray();
-        Arrays.sort(array);
-        str = new String(array);
-        System.out.println(str);
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
+        <span class="pl-c">//将字符串中的字符按照大小顺序排列</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"helloworldjavaatguigu"</span>;
+        <span class="pl-smi">char</span>[] <span class="pl-s1">array</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
+        <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">array</span>);
+        <span class="pl-s1">str</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">array</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>);
     }
     
-    @Test
-    public void test02(){
-        //将首字母转为大写
-        String str = "jack";
-        str = Character.toUpperCase(str.charAt(0))+str.substring(1);
-        System.out.println(str);
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
+        <span class="pl-c">//将首字母转为大写</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"jack"</span>;
+        <span class="pl-s1">str</span> = <span class="pl-smi">Character</span>.<span class="pl-en">toUpperCase</span>(<span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-c1">0</span>))+<span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>);
     }
-    @Test
-    public void test03(){
-        char[] data = {'h','e','l','l','o','j','a','v','a'};
-        String s1 = String.copyValueOf(data);
-        String s2 = String.copyValueOf(data,0,5);
-        int num = 123456;
-        String s3 = String.valueOf(num);
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
+        <span class="pl-smi">char</span>[] <span class="pl-s1">data</span> = {<span class="pl-s">'h'</span>,<span class="pl-s">'e'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'l'</span>,<span class="pl-s">'o'</span>,<span class="pl-s">'j'</span>,<span class="pl-s">'a'</span>,<span class="pl-s">'v'</span>,<span class="pl-s">'a'</span>};
+        <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>);
+        <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = <span class="pl-smi">String</span>.<span class="pl-en">copyValueOf</span>(<span class="pl-s1">data</span>,<span class="pl-c1">0</span>,<span class="pl-c1">5</span>);
+        <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-c1">123456</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">s3</span> = <span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">num</span>);
     
-        System.out.println(s1);
-        System.out.println(s2);
-        System.out.println(s3);
-    }
-</code></pre>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s1</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s3</span>);
+    }</pre></div>
 <h4>1.4.5 系列5：开头与结尾</h4>
 <p>（24）boolean startsWith(xx)：测试此字符串是否以指定的前缀开始<br>
 （25）boolean startsWith(String prefix, int toffset)：测试此字符串从指定索引开始的子字符串是否以指定前缀开始<br>
 （26）boolean endsWith(xx)：测试此字符串是否以指定的后缀结束</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    @Test
-    public void test1(){
-        String name = "张三";
-        System.out.println(name.startsWith("张"));
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
+        <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-s">"张三"</span>;
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">name</span>.<span class="pl-en">startsWith</span>(<span class="pl-s">"张"</span>));
     }
     
-    @Test
-    public void test2(){
-        String file = "Hello.txt";
-        if(file.endsWith(".java")){
-            System.out.println("Java源文件");
-        }else if(file.endsWith(".class")){
-            System.out.println("Java字节码文件");
-        }else{
-            System.out.println("其他文件");
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
+        <span class="pl-smi">String</span> <span class="pl-s1">file</span> = <span class="pl-s">"Hello.txt"</span>;
+        <span class="pl-k">if</span>(<span class="pl-s1">file</span>.<span class="pl-en">endsWith</span>(<span class="pl-s">".java"</span>)){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Java源文件"</span>);
+        }<span class="pl-k">else</span> <span class="pl-k">if</span>(<span class="pl-s1">file</span>.<span class="pl-en">endsWith</span>(<span class="pl-s">".class"</span>)){
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Java字节码文件"</span>);
+        }<span class="pl-k">else</span>{
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"其他文件"</span>);
         }
-    }
-</code></pre>
+    }</pre></div>
 <h4>1.4.6 系列6：替换</h4>
 <p>（27）String replace(char oldChar, char newChar)：返回一个新的字符串，它是通过用 newChar 替换此字符串中出现的所有 oldChar 得到的。 不支持正则。<br>
 （28）String replace(CharSequence target, CharSequence replacement)：使用指定的字面值替换序列替换此字符串所有匹配字面值目标序列的子字符串。<br>
 （29）String replaceAll(String regex, String replacement)：使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串。<br>
 （30）String replaceFirst(String regex, String replacement)：使用给定的 replacement 替换此字符串匹配给定的正则表达式的第一个子字符串。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Test
-public void test1(){
-    String str1 = "hello244world.java;887";
-    //把其中的非字母去掉
-    str1 = str1.replaceAll("[^a-zA-Z]", "");
-    System.out.println(str1);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
+    <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"hello244world.java;887"</span>;
+    <span class="pl-c">//把其中的非字母去掉</span>
+    <span class="pl-s1">str1</span> = <span class="pl-s1">str1</span>.<span class="pl-en">replaceAll</span>(<span class="pl-s">"[^a-zA-Z]"</span>, <span class="pl-s">""</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>);
 
-    String str2 = "12hello34world5java7891mysql456";
-    //把字符串中的数字替换成,，如果结果中开头和结尾有，的话去掉
-    String string = str2.replaceAll("\\d+", ",").replaceAll("^,|,$", "");
-    System.out.println(string);
+    <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"12hello34world5java7891mysql456"</span>;
+    <span class="pl-c">//把字符串中的数字替换成,，如果结果中开头和结尾有，的话去掉</span>
+    <span class="pl-smi">String</span> <span class="pl-s1">string</span> = <span class="pl-s1">str2</span>.<span class="pl-en">replaceAll</span>(<span class="pl-s">"<span class="pl-cce">\\</span>d+"</span>, <span class="pl-s">","</span>).<span class="pl-en">replaceAll</span>(<span class="pl-s">"^,|,$"</span>, <span class="pl-s">""</span>);
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">string</span>);
 
-}
-</code></pre>
+}</pre></div>
 <h3>1.5 常见算法题目</h3>
 <p>**题目1：**模拟一个trim方法，去除字符串两端的空格。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    public String myTrim(String str) {
-        if (str != null) {
-            int start = 0;// 用于记录从前往后首次索引位置不是空格的位置的索引
-            int end = str.length() - 1;// 用于记录从后往前首次索引位置不是空格的位置的索引
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">myTrim</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">str</span> != <span class="pl-c1">null</span>) {
+            <span class="pl-smi">int</span> <span class="pl-s1">start</span> = <span class="pl-c1">0</span>;<span class="pl-c">// 用于记录从前往后首次索引位置不是空格的位置的索引</span>
+            <span class="pl-smi">int</span> <span class="pl-s1">end</span> = <span class="pl-s1">str</span>.<span class="pl-en">length</span>() - <span class="pl-c1">1</span>;<span class="pl-c">// 用于记录从后往前首次索引位置不是空格的位置的索引</span>
 
-            while (start &lt; end &amp;&amp; str.charAt(start) == ' ') {
-                start++;
+            <span class="pl-k">while</span> (<span class="pl-s1">start</span> &lt; <span class="pl-s1">end</span> &amp;&amp; <span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">start</span>) == <span class="pl-s">' '</span>) {
+                <span class="pl-s1">start</span>++;
             }
 
-            while (start &lt; end &amp;&amp; str.charAt(end) == ' ') {
-                end--;
+            <span class="pl-k">while</span> (<span class="pl-s1">start</span> &lt; <span class="pl-s1">end</span> &amp;&amp; <span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">end</span>) == <span class="pl-s">' '</span>) {
+                <span class="pl-s1">end</span>--;
             }
-            if (str.charAt(start) == ' ') {
-                return "";
+            <span class="pl-k">if</span> (<span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">start</span>) == <span class="pl-s">' '</span>) {
+                <span class="pl-k">return</span> <span class="pl-s">""</span>;
             }
 
-            return str.substring(start, end + 1);
+            <span class="pl-k">return</span> <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-s1">start</span>, <span class="pl-s1">end</span> + <span class="pl-c1">1</span>);
         }
-        return null;
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
     }
 
-    @Test
-    public void testMyTrim() {
-        String str = "   a   ";
-        // str = " ";
-        String newStr = myTrim(str);
-        System.out.println("---" + newStr + "---");
-    }
-</code></pre>
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testMyTrim</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"   a   "</span>;
+        <span class="pl-c">// str = " ";</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">newStr</span> = <span class="pl-en">myTrim</span>(<span class="pl-s1">str</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"---"</span> + <span class="pl-s1">newStr</span> + <span class="pl-s">"---"</span>);
+    }</pre></div>
 <p>**题目2：**将一个字符串进行反转。将字符串中指定部分进行反转。比如“ab<code class="notranslate">cdef</code>g”反转为”ab<code class="notranslate">fedc</code>g”</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    // 方式一：
-    public String reverse1(String str, int start, int end) {// start:2,end:5
-        if (str != null) {
-            // 1.
-            char[] charArray = str.toCharArray();
-            // 2.
-            for (int i = start, j = end; i &lt; j; i++, j--) {
-                char temp = charArray[i];
-                charArray[i] = charArray[j];
-                charArray[j] = temp;
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 方式一：</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">reverse1</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {<span class="pl-c">// start:2,end:5</span>
+        <span class="pl-k">if</span> (<span class="pl-s1">str</span> != <span class="pl-c1">null</span>) {
+            <span class="pl-c">// 1.</span>
+            <span class="pl-smi">char</span>[] <span class="pl-s1">charArray</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
+            <span class="pl-c">// 2.</span>
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-s1">start</span>, <span class="pl-s1">j</span> = <span class="pl-s1">end</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">j</span>; <span class="pl-s1">i</span>++, <span class="pl-s1">j</span>--) {
+                <span class="pl-smi">char</span> <span class="pl-s1">temp</span> = <span class="pl-s1">charArray</span>[<span class="pl-s1">i</span>];
+                <span class="pl-s1">charArray</span>[<span class="pl-s1">i</span>] = <span class="pl-s1">charArray</span>[<span class="pl-s1">j</span>];
+                <span class="pl-s1">charArray</span>[<span class="pl-s1">j</span>] = <span class="pl-s1">temp</span>;
             }
-            // 3.
-            return new String(charArray);
+            <span class="pl-c">// 3.</span>
+            <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">charArray</span>);
 
         }
-        return null;
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
 
     }
 
-    // 方式二：
-    public String reverse2(String str, int start, int end) {
-        // 1.
-        String newStr = str.substring(0, start);// ab
-        // 2.
-        for (int i = end; i &gt;= start; i--) {
-            newStr += str.charAt(i);
-        } // abfedc
-            // 3.
-        newStr += str.substring(end + 1);
-        return newStr;
+    <span class="pl-c">// 方式二：</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">reverse2</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {
+        <span class="pl-c">// 1.</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">newStr</span> = <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>, <span class="pl-s1">start</span>);<span class="pl-c">// ab</span>
+        <span class="pl-c">// 2.</span>
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-s1">end</span>; <span class="pl-s1">i</span> &gt;= <span class="pl-s1">start</span>; <span class="pl-s1">i</span>--) {
+            <span class="pl-s1">newStr</span> += <span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">i</span>);
+        } <span class="pl-c">// abfedc</span>
+            <span class="pl-c">// 3.</span>
+        <span class="pl-s1">newStr</span> += <span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-s1">end</span> + <span class="pl-c1">1</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">newStr</span>;
     }
 
-    // 方式三：推荐 （相较于方式二做的改进）
-    public String reverse3(String str, int start, int end) {// ArrayList list = new ArrayList(80);
-        // 1.
-        StringBuffer s = new StringBuffer(str.length());
-        // 2.
-        s.append(str.substring(0, start));// ab
-        // 3.
-        for (int i = end; i &gt;= start; i--) {
-            s.append(str.charAt(i));
+    <span class="pl-c">// 方式三：推荐 （相较于方式二做的改进）</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">reverse3</span>(<span class="pl-smi">String</span> <span class="pl-s1">str</span>, <span class="pl-smi">int</span> <span class="pl-s1">start</span>, <span class="pl-smi">int</span> <span class="pl-s1">end</span>) {<span class="pl-c">// ArrayList list = new ArrayList(80);</span>
+        <span class="pl-c">// 1.</span>
+        <span class="pl-smi">StringBuffer</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s1">str</span>.<span class="pl-en">length</span>());
+        <span class="pl-c">// 2.</span>
+        <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>, <span class="pl-s1">start</span>));<span class="pl-c">// ab</span>
+        <span class="pl-c">// 3.</span>
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-s1">end</span>; <span class="pl-s1">i</span> &gt;= <span class="pl-s1">start</span>; <span class="pl-s1">i</span>--) {
+            <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s1">str</span>.<span class="pl-en">charAt</span>(<span class="pl-s1">i</span>));
         }
 
-        // 4.
-        s.append(str.substring(end + 1));
+        <span class="pl-c">// 4.</span>
+        <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s1">str</span>.<span class="pl-en">substring</span>(<span class="pl-s1">end</span> + <span class="pl-c1">1</span>));
 
-        // 5.
-        return s.toString();
-
-    }
-
-    @Test
-    public void testReverse() {
-        String str = "abcdefg";
-        String str1 = reverse3(str, 2, 5);
-        System.out.println(str1);// abfedcg
+        <span class="pl-c">// 5.</span>
+        <span class="pl-k">return</span> <span class="pl-s1">s</span>.<span class="pl-en">toString</span>();
 
     }
-</code></pre>
+
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testReverse</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"abcdefg"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-en">reverse3</span>(<span class="pl-s1">str</span>, <span class="pl-c1">2</span>, <span class="pl-c1">5</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>);<span class="pl-c">// abfedcg</span>
+
+    }</pre></div>
 <p>**题目3：**获取一个字符串在另一个字符串中出现的次数。<br>
 比如：获取“ ab”在 “abkkcadkabkebfkabkskab” 中出现的次数</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    // 第3题
-    // 判断str2在str1中出现的次数
-    public int getCount(String mainStr, String subStr) {
-        if (mainStr.length() &gt;= subStr.length()) {
-            int count = 0;
-            int index = 0;
-            // while((index = mainStr.indexOf(subStr)) != -1){
-            // count++;
-            // mainStr = mainStr.substring(index + subStr.length());
-            // }
-            // 改进：
-            while ((index = mainStr.indexOf(subStr, index)) != -1) {
-                index += subStr.length();
-                count++;
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第3题</span>
+    <span class="pl-c">// 判断str2在str1中出现的次数</span>
+    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getCount</span>(<span class="pl-smi">String</span> <span class="pl-s1">mainStr</span>, <span class="pl-smi">String</span> <span class="pl-s1">subStr</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">mainStr</span>.<span class="pl-en">length</span>() &gt;= <span class="pl-s1">subStr</span>.<span class="pl-en">length</span>()) {
+            <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-c1">0</span>;
+            <span class="pl-smi">int</span> <span class="pl-s1">index</span> = <span class="pl-c1">0</span>;
+            <span class="pl-c">// while((index = mainStr.indexOf(subStr)) != -1){</span>
+            <span class="pl-c">// count++;</span>
+            <span class="pl-c">// mainStr = mainStr.substring(index + subStr.length());</span>
+            <span class="pl-c">// }</span>
+            <span class="pl-c">// 改进：</span>
+            <span class="pl-k">while</span> ((<span class="pl-s1">index</span> = <span class="pl-s1">mainStr</span>.<span class="pl-en">indexOf</span>(<span class="pl-s1">subStr</span>, <span class="pl-s1">index</span>)) != -<span class="pl-c1">1</span>) {
+                <span class="pl-s1">index</span> += <span class="pl-s1">subStr</span>.<span class="pl-en">length</span>();
+                <span class="pl-s1">count</span>++;
             }
 
-            return count;
-        } else {
-            return 0;
+            <span class="pl-k">return</span> <span class="pl-s1">count</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
         }
 
     }
 
-    @Test
-    public void testGetCount() {
-        String str1 = "cdabkkcadkabkebfkabkskab";
-        String str2 = "ab";
-        int count = getCount(str1, str2);
-        System.out.println(count);
-    }
-</code></pre>
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testGetCount</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"cdabkkcadkabkebfkabkskab"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"ab"</span>;
+        <span class="pl-smi">int</span> <span class="pl-s1">count</span> = <span class="pl-en">getCount</span>(<span class="pl-s1">str1</span>, <span class="pl-s1">str2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">count</span>);
+    }</pre></div>
 <p>**题目4：**获取两个字符串中最大相同子串。比如：<br>
 str1 = "abcwerthelloyuiodef“;str2 = "cvhellobnm"<br>
 提示：将短的那个串进行长度依次递减的子串与较长的串比较。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    // 第4题
-    // 如果只存在一个最大长度的相同子串
-    public String getMaxSameSubString(String str1, String str2) {
-        if (str1 != null &amp;&amp; str2 != null) {
-            String maxStr = (str1.length() &gt; str2.length()) ? str1 : str2;
-            String minStr = (str1.length() &gt; str2.length()) ? str2 : str1;
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第4题</span>
+    <span class="pl-c">// 如果只存在一个最大长度的相同子串</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getMaxSameSubString</span>(<span class="pl-smi">String</span> <span class="pl-s1">str1</span>, <span class="pl-smi">String</span> <span class="pl-s1">str2</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">str1</span> != <span class="pl-c1">null</span> &amp;&amp; <span class="pl-s1">str2</span> != <span class="pl-c1">null</span>) {
+            <span class="pl-smi">String</span> <span class="pl-s1">maxStr</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str1</span> : <span class="pl-s1">str2</span>;
+            <span class="pl-smi">String</span> <span class="pl-s1">minStr</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str2</span> : <span class="pl-s1">str1</span>;
 
-            int len = minStr.length();
+            <span class="pl-smi">int</span> <span class="pl-s1">len</span> = <span class="pl-s1">minStr</span>.<span class="pl-en">length</span>();
 
-            for (int i = 0; i &lt; len; i++) {// 0 1 2 3 4 此层循环决定要去几个字符
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">len</span>; <span class="pl-s1">i</span>++) {<span class="pl-c">// 0 1 2 3 4 此层循环决定要去几个字符</span>
 
-                for (int x = 0, y = len - i; y &lt;= len; x++, y++) {
+                <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">x</span> = <span class="pl-c1">0</span>, <span class="pl-s1">y</span> = <span class="pl-s1">len</span> - <span class="pl-s1">i</span>; <span class="pl-s1">y</span> &lt;= <span class="pl-s1">len</span>; <span class="pl-s1">x</span>++, <span class="pl-s1">y</span>++) {
 
-                    if (maxStr.contains(minStr.substring(x, y))) {
+                    <span class="pl-k">if</span> (<span class="pl-s1">maxStr</span>.<span class="pl-en">contains</span>(<span class="pl-s1">minStr</span>.<span class="pl-en">substring</span>(<span class="pl-s1">x</span>, <span class="pl-s1">y</span>))) {
 
-                        return minStr.substring(x, y);
+                        <span class="pl-k">return</span> <span class="pl-s1">minStr</span>.<span class="pl-en">substring</span>(<span class="pl-s1">x</span>, <span class="pl-s1">y</span>);
                     }
 
                 }
 
             }
         }
-        return null;
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
     }
 
-    // 如果存在多个长度相同的最大相同子串
-    // 此时先返回String[]，后面可以用集合中的ArrayList替换，较方便
-    public String[] getMaxSameSubString1(String str1, String str2) {
-        if (str1 != null &amp;&amp; str2 != null) {
-            StringBuffer sBuffer = new StringBuffer();
-            String maxString = (str1.length() &gt; str2.length()) ? str1 : str2;
-            String minString = (str1.length() &gt; str2.length()) ? str2 : str1;
+    <span class="pl-c">// 如果存在多个长度相同的最大相同子串</span>
+    <span class="pl-c">// 此时先返回String[]，后面可以用集合中的ArrayList替换，较方便</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span>[] <span class="pl-en">getMaxSameSubString1</span>(<span class="pl-smi">String</span> <span class="pl-s1">str1</span>, <span class="pl-smi">String</span> <span class="pl-s1">str2</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">str1</span> != <span class="pl-c1">null</span> &amp;&amp; <span class="pl-s1">str2</span> != <span class="pl-c1">null</span>) {
+            <span class="pl-smi">StringBuffer</span> <span class="pl-s1">sBuffer</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>();
+            <span class="pl-smi">String</span> <span class="pl-s1">maxString</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str1</span> : <span class="pl-s1">str2</span>;
+            <span class="pl-smi">String</span> <span class="pl-s1">minString</span> = (<span class="pl-s1">str1</span>.<span class="pl-en">length</span>() &gt; <span class="pl-s1">str2</span>.<span class="pl-en">length</span>()) ? <span class="pl-s1">str2</span> : <span class="pl-s1">str1</span>;
 
-            int len = minString.length();
-            for (int i = 0; i &lt; len; i++) {
-                for (int x = 0, y = len - i; y &lt;= len; x++, y++) {
-                    String subString = minString.substring(x, y);
-                    if (maxString.contains(subString)) {
-                        sBuffer.append(subString + ",");
+            <span class="pl-smi">int</span> <span class="pl-s1">len</span> = <span class="pl-s1">minString</span>.<span class="pl-en">length</span>();
+            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">len</span>; <span class="pl-s1">i</span>++) {
+                <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">x</span> = <span class="pl-c1">0</span>, <span class="pl-s1">y</span> = <span class="pl-s1">len</span> - <span class="pl-s1">i</span>; <span class="pl-s1">y</span> &lt;= <span class="pl-s1">len</span>; <span class="pl-s1">x</span>++, <span class="pl-s1">y</span>++) {
+                    <span class="pl-smi">String</span> <span class="pl-s1">subString</span> = <span class="pl-s1">minString</span>.<span class="pl-en">substring</span>(<span class="pl-s1">x</span>, <span class="pl-s1">y</span>);
+                    <span class="pl-k">if</span> (<span class="pl-s1">maxString</span>.<span class="pl-en">contains</span>(<span class="pl-s1">subString</span>)) {
+                        <span class="pl-s1">sBuffer</span>.<span class="pl-en">append</span>(<span class="pl-s1">subString</span> + <span class="pl-s">","</span>);
                     }
                 }
-                System.out.println(sBuffer);
-                if (sBuffer.length() != 0) {
-                    break;
+                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sBuffer</span>);
+                <span class="pl-k">if</span> (<span class="pl-s1">sBuffer</span>.<span class="pl-en">length</span>() != <span class="pl-c1">0</span>) {
+                    <span class="pl-k">break</span>;
                 }
             }
-            String[] split = sBuffer.toString().replaceAll(",$", "").split("\\,");
-            return split;
+            <span class="pl-smi">String</span>[] <span class="pl-s1">split</span> = <span class="pl-s1">sBuffer</span>.<span class="pl-en">toString</span>().<span class="pl-en">replaceAll</span>(<span class="pl-s">",$"</span>, <span class="pl-s">""</span>).<span class="pl-en">split</span>(<span class="pl-s">"<span class="pl-cce">\\</span>,"</span>);
+            <span class="pl-k">return</span> <span class="pl-s1">split</span>;
         }
 
-        return null;
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
     }
-    // 如果存在多个长度相同的最大相同子串：使用ArrayList
-//	public List&lt;String&gt; getMaxSameSubString1(String str1, String str2) {
-//		if (str1 != null &amp;&amp; str2 != null) {
-//			List&lt;String&gt; list = new ArrayList&lt;String&gt;();
-//			String maxString = (str1.length() &gt; str2.length()) ? str1 : str2;
-//			String minString = (str1.length() &gt; str2.length()) ? str2 : str1;
-//
-//			int len = minString.length();
-//			for (int i = 0; i &lt; len; i++) {
-//				for (int x = 0, y = len - i; y &lt;= len; x++, y++) {
-//					String subString = minString.substring(x, y);
-//					if (maxString.contains(subString)) {
-//						list.add(subString);
-//					}
-//				}
-//				if (list.size() != 0) {
-//					break;
-//				}
-//			}
-//			return list;
-//		}
-//
-//		return null;
-//	}
+    <span class="pl-c">// 如果存在多个长度相同的最大相同子串：使用ArrayList</span>
+<span class="pl-c">//	public List&lt;String&gt; getMaxSameSubString1(String str1, String str2) {</span>
+<span class="pl-c">//		if (str1 != null &amp;&amp; str2 != null) {</span>
+<span class="pl-c">//			List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span>
+<span class="pl-c">//			String maxString = (str1.length() &gt; str2.length()) ? str1 : str2;</span>
+<span class="pl-c">//			String minString = (str1.length() &gt; str2.length()) ? str2 : str1;</span>
+<span class="pl-c">//</span>
+<span class="pl-c">//			int len = minString.length();</span>
+<span class="pl-c">//			for (int i = 0; i &lt; len; i++) {</span>
+<span class="pl-c">//				for (int x = 0, y = len - i; y &lt;= len; x++, y++) {</span>
+<span class="pl-c">//					String subString = minString.substring(x, y);</span>
+<span class="pl-c">//					if (maxString.contains(subString)) {</span>
+<span class="pl-c">//						list.add(subString);</span>
+<span class="pl-c">//					}</span>
+<span class="pl-c">//				}</span>
+<span class="pl-c">//				if (list.size() != 0) {</span>
+<span class="pl-c">//					break;</span>
+<span class="pl-c">//				}</span>
+<span class="pl-c">//			}</span>
+<span class="pl-c">//			return list;</span>
+<span class="pl-c">//		}</span>
+<span class="pl-c">//</span>
+<span class="pl-c">//		return null;</span>
+<span class="pl-c">//	}</span>
 
-    @Test
-    public void testGetMaxSameSubString() {
-        String str1 = "abcwerthelloyuiodef";
-        String str2 = "cvhellobnmiodef";
-        String[] strs = getMaxSameSubString1(str1, str2);
-        System.out.println(Arrays.toString(strs));
-    }
-</code></pre>
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testGetMaxSameSubString</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s">"abcwerthelloyuiodef"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s">"cvhellobnmiodef"</span>;
+        <span class="pl-smi">String</span>[] <span class="pl-s1">strs</span> = <span class="pl-en">getMaxSameSubString1</span>(<span class="pl-s1">str1</span>, <span class="pl-s1">str2</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">strs</span>));
+    }</pre></div>
 <p>**题目5：**对字符串中字符进行自然顺序排序。<br>
 提示：<br>
 1）字符串变成字符数组。<br>
 2）对数组排序，选择，冒泡，Arrays.sort();<br>
 3）将排序后的数组变成字符串。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">    // 第5题
-    @Test
-    public void testSort() {
-        String str = "abcwerthelloyuiodef";
-        char[] arr = str.toCharArray();
-        Arrays.sort(arr);
+<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-c">// 第5题</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">testSort</span>() {
+        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"abcwerthelloyuiodef"</span>;
+        <span class="pl-smi">char</span>[] <span class="pl-s1">arr</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>();
+        <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">arr</span>);
 
-        String newStr = new String(arr);
-        System.out.println(newStr);
-    }
-</code></pre>
+        <span class="pl-smi">String</span> <span class="pl-s1">newStr</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s1">arr</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">newStr</span>);
+    }</pre></div>
 <h2>2. 字符串相关类之可变字符序列：StringBuffer、StringBuilder</h2>
 <p>因为String对象是不可变对象，虽然可以共享常量对象，但是对于频繁字符串的修改和拼接操作，效率极低，空间消耗也比较高。因此，JDK又在java.lang包提供了可变字符序列StringBuffer和StringBuilder类型。</p>
 <h3>2.1 StringBuffer与StringBuilder的理解</h3>
 <ul>
 <li>java.lang.StringBuffer代表<code class="notranslate">可变的字符序列</code>，JDK1.0中声明，可以对字符串内容进行增删，此时不会产生新的对象。比如：</li>
 </ul>
-<pre lang="java" class="notranslate"><code class="notranslate">//情况1:
-String s = new String("我喜欢学习"); 
-//情况2：
-StringBuffer buffer = new StringBuffer("我喜欢学习"); 
-buffer.append("数学"); 
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//情况1:</span>
+<span class="pl-smi">String</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">String</span>(<span class="pl-s">"我喜欢学习"</span>); 
+<span class="pl-c">//情况2：</span>
+<span class="pl-smi">StringBuffer</span> <span class="pl-s1">buffer</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s">"我喜欢学习"</span>); 
+<span class="pl-s1">buffer</span>.<span class="pl-en">append</span>(<span class="pl-s">"数学"</span>); </pre></div>
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220405221714261.png"><img src="images/image-20220405221714261.png" alt="" style="max-width: 100%;"></a></p>
 <ul>
 <li>继承结构：</li>
