@@ -47,7 +47,7 @@
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/16.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 基础篇 006</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -200,45 +200,48 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>调用线程对象的start()方法来启动该线程</li>
 </ol>
 <p>代码如下：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">thread</span>;
-<span class="pl-c">//自定义线程类</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyThread</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span> {
-    <span class="pl-c">//定义指定线程名称的构造方法</span>
-    <span class="pl-k">public</span> <span class="pl-smi">MyThread</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-c">//调用父类的String参数的构造方法，指定线程的名称</span>
-        <span class="pl-en">super</span>(<span class="pl-s1">name</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.thread;
+//自定义线程类
+public class MyThread extends Thread {
+    //定义指定线程名称的构造方法
+    public MyThread(String name) {
+        //调用父类的String参数的构造方法，指定线程的名称
+        super(name);
     }
-    <span class="pl-c">/**</span>
-<span class="pl-c">     * 重写run方法，完成该线程执行的逻辑</span>
-<span class="pl-c">     */</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">getName</span>()+<span class="pl-s">"：正在执行！"</span>+<span class="pl-s1">i</span>);
+    /**
+     * 重写run方法，完成该线程执行的逻辑
+     */
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 10; i++) {
+            System.out.println(getName()+"：正在执行！"+i);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p>测试类：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">thread</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.thread;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestMyThread</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">//创建自定义线程对象1</span>
-        <span class="pl-smi">MyThread</span> <span class="pl-s1">mt1</span> = <span class="pl-k">new</span> <span class="pl-smi">MyThread</span>(<span class="pl-s">"子线程1"</span>);
-        <span class="pl-c">//开启子线程1</span>
-        <span class="pl-s1">mt1</span>.<span class="pl-en">start</span>();
+public class TestMyThread {
+    public static void main(String[] args) {
+        //创建自定义线程对象1
+        MyThread mt1 = new MyThread("子线程1");
+        //开启子线程1
+        mt1.start();
         
-        <span class="pl-c">//创建自定义线程对象2</span>
-        <span class="pl-smi">MyThread</span> <span class="pl-s1">mt2</span> = <span class="pl-k">new</span> <span class="pl-smi">MyThread</span>(<span class="pl-s">"子线程2"</span>);
-        <span class="pl-c">//开启子线程2</span>
-        <span class="pl-s1">mt2</span>.<span class="pl-en">start</span>();
+        //创建自定义线程对象2
+        MyThread mt2 = new MyThread("子线程2");
+        //开启子线程2
+        mt2.start();
         
-        <span class="pl-c">//在主方法中执行for循环</span>
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"main线程！"</span>+<span class="pl-s1">i</span>);
+        //在主方法中执行for循环
+        for (int i = 0; i &lt; 10; i++) {
+            System.out.println("main线程！"+i);
         }
     }
-}</pre></div>
+}
+
+</code></pre>
 <blockquote>
 <p>注意：</p>
 <ol>
@@ -258,31 +261,33 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>调用线程对象的start()方法，启动线程。调用Runnable接口实现类的run方法。</li>
 </ol>
 <p>代码如下：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">thread</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.thread;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyRunnable</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">20</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">" "</span> + <span class="pl-s1">i</span>);
+public class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 20; i++) {
+            System.out.println(Thread.currentThread().getName() + " " + i);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p>测试类：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">thread</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.thread;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestMyRunnable</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">//创建自定义类对象  线程任务对象</span>
-        <span class="pl-smi">MyRunnable</span> <span class="pl-s1">mr</span> = <span class="pl-k">new</span> <span class="pl-smi">MyRunnable</span>();
-        <span class="pl-c">//创建线程对象</span>
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">mr</span>, <span class="pl-s">"长江"</span>);
-        <span class="pl-s1">t</span>.<span class="pl-en">start</span>();
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">20</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"黄河 "</span> + <span class="pl-s1">i</span>);
+public class TestMyRunnable {
+    public static void main(String[] args) {
+        //创建自定义类对象  线程任务对象
+        MyRunnable mr = new MyRunnable();
+        //创建线程对象
+        Thread t = new Thread(mr, "长江");
+        t.start();
+        for (int i = 0; i &lt; 20; i++) {
+            System.out.println("黄河 " + i);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p>通过实现Runnable接口，使得该类有了多线程类的特征。所有的分线程要执行的代码都在run方法里面。</p>
 <p>在启动的多线程的时候，需要先通过Thread类的构造方法Thread(Runnable target) 构造出对象，然后调用Thread对象的start()方法来运行多线程代码。</p>
 <p>实际上，所有的多线程代码都是通过运行Thread的start()方法来运行的。因此，不管是继承Thread类还是实现<br>
@@ -291,26 +296,29 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 而实际的线程对象依然是Thread实例，只是该Thread线程负责执行其target的run()方法。</p>
 <h3>2.4 变形写法</h3>
 <p><strong>使用匿名内部类对象来实现线程的创建和启动</strong></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s">"新的线程！"</span>){
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">getName</span>()+<span class="pl-s">"：正在执行！"</span>+<span class="pl-s1">i</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">new Thread("新的线程！"){
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 10; i++) {
+            System.out.println(getName()+"：正在执行！"+i);
         }
     }
-}.<span class="pl-en">start</span>();</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-k">new</span> <span class="pl-smi">Runnable</span>(){
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()+<span class="pl-s">"："</span> + <span class="pl-s1">i</span>);
+}.start();
+</code></pre>
+<pre lang="java" class="notranslate"><code class="notranslate">new Thread(new Runnable(){
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 10; i++) {
+            System.out.println(Thread.currentThread().getName()+"：" + i);
         }
     }
-}).<span class="pl-en">start</span>();</pre></div>
+}).start();
+</code></pre>
 <h3>2.5 对比两种方式</h3>
 <p><strong>联系</strong></p>
 <p>Thread类实际上也是实现了Runnable接口的类。即：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-s1">Thread</span> <span class="pl-k">extends</span> <span class="pl-smi">Object</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">public class Thread extends Object implements Runnable
+</code></pre>
 <p><strong>区别</strong></p>
 <ul>
 <li>继承Thread：线程代码存放Thread子类run方法中。</li>
@@ -324,67 +332,70 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 </ul>
 <h3>2.6 练习</h3>
 <p>例题:创建一个分线程1，用于遍历10以内的偶数</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EvenNumberTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">//第三步 创建Thread的子类对象</span>
-        <span class="pl-smi">EvenNumber</span> <span class="pl-s1">en</span> = <span class="pl-k">new</span> <span class="pl-smi">EvenNumber</span>();
-        <span class="pl-c">//第四步 调用start方法</span>
-        <span class="pl-s1">en</span>.<span class="pl-en">start</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">public class EvenNumberTest {
+    public static void main(String[] args) {
+        //第三步 创建Thread的子类对象
+        EvenNumber en = new EvenNumber();
+        //第四步 调用start方法
+        en.start();
 
     }
 }
-<span class="pl-c">//第一步 创建一个继承于Thread类的子类</span>
-<span class="pl-k">class</span> <span class="pl-smi">EvenNumber</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span>{
-    <span class="pl-c">//第二步 重写run方法</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">100</span>; <span class="pl-s1">i</span>+=<span class="pl-c1">2</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);
+//第一步 创建一个继承于Thread类的子类
+class EvenNumber extends Thread{
+    //第二步 重写run方法
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 100; i+=2) {
+            System.out.println(i);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p>【拓展】 再创建一个分线程2，用于遍历100以内的偶数</p>
 <p>创建两个分线程，让其中一个线程输出1-100之间的偶数，另一个线程输出1-100之间的奇数。</p>
 <ol>
 <li>创建一个继承于Thread类的子类，并重写run()方法。</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 线程1：遍历10以内的偶数</span>
-<span class="pl-k">class</span> <span class="pl-smi">EvenThread1</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">2</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">10</span>; <span class="pl-s1">i</span> += <span class="pl-c1">2</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">" - "</span> + <span class="pl-s1">i</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">// 线程1：遍历10以内的偶数
+class EvenThread1 extends Thread {
+    @Override
+    public void run() {
+        for (int i = 2; i &lt;= 10; i += 2) {
+            System.out.println(Thread.currentThread().getName() + " - " + i);
         }
     }
 }
 
-<span class="pl-c">// 线程2：遍历100以内的偶数</span>
-<span class="pl-k">class</span> <span class="pl-smi">EvenThread2</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">2</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>; <span class="pl-s1">i</span> += <span class="pl-c1">2</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">" - "</span> + <span class="pl-s1">i</span>);
+// 线程2：遍历100以内的偶数
+class EvenThread2 extends Thread {
+    @Override
+    public void run() {
+        for (int i = 2; i &lt;= 100; i += 2) {
+            System.out.println(Thread.currentThread().getName() + " - " + i);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p>1.2 例题：创建并启动线程。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ThreadExample</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">// 创建线程1的对象</span>
-        <span class="pl-smi">EvenThread1</span> <span class="pl-s1">thread1</span> = <span class="pl-k">new</span> <span class="pl-smi">EvenThread1</span>();
-        <span class="pl-c">// 设置线程1的名字</span>
-        <span class="pl-s1">thread1</span>.<span class="pl-en">setName</span>(<span class="pl-s">"Thread-1"</span>);
-        <span class="pl-c">// 启动线程1</span>
-        <span class="pl-s1">thread1</span>.<span class="pl-en">start</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">public class ThreadExample {
+    public static void main(String[] args) {
+        // 创建线程1的对象
+        EvenThread1 thread1 = new EvenThread1();
+        // 设置线程1的名字
+        thread1.setName("Thread-1");
+        // 启动线程1
+        thread1.start();
 
-        <span class="pl-c">// 创建线程2的对象</span>
-        <span class="pl-smi">EvenThread2</span> <span class="pl-s1">thread2</span> = <span class="pl-k">new</span> <span class="pl-smi">EvenThread2</span>();
-        <span class="pl-c">// 设置线程2的名字</span>
-        <span class="pl-s1">thread2</span>.<span class="pl-en">setName</span>(<span class="pl-s">"Thread-2"</span>);
-        <span class="pl-c">// 启动线程2</span>
-        <span class="pl-s1">thread2</span>.<span class="pl-en">start</span>();
+        // 创建线程2的对象
+        EvenThread2 thread2 = new EvenThread2();
+        // 设置线程2的名字
+        thread2.setName("Thread-2");
+        // 启动线程2
+        thread2.start();
     }
-}</pre></div>
+}
+</code></pre>
 <p>在上述代码中，我们创建了两个线程类<code class="notranslate">EvenThread1</code>和<code class="notranslate">EvenThread2</code>，它们都继承自<code class="notranslate">Thread</code>类，并重写了<code class="notranslate">run()</code>方法，分别用于遍历10以内和100以内的偶数。在<code class="notranslate">main</code>方法中，我们分别创建了这两个线程的实例，并设置了线程名称，然后通过调用<code class="notranslate">start()</code>方法来启动线程。这样，两个线程就会并行执行，分别输出它们各自的偶数序列。</p>
 <h2>3. Thread类的常用结构</h2>
 <h3>3.1 构造器</h3>
@@ -424,51 +435,53 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <li>public final int getPriority() ：返回线程优先级</li>
 <li>public final void setPriority(int newPriority) ：改变线程的优先级，范围在[1,10]之间。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EvenNumberTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">//第三步 创建Thread的子类对象</span>
-        <span class="pl-smi">EvenNumber</span> <span class="pl-s1">en</span> = <span class="pl-k">new</span> <span class="pl-smi">EvenNumber</span>();
-        <span class="pl-c">//第四步 调用start方法</span>
-        <span class="pl-s1">en</span>.<span class="pl-en">start</span>();
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">100</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">"***"</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">public class EvenNumberTest {
+    public static void main(String[] args) {
+        //第三步 创建Thread的子类对象
+        EvenNumber en = new EvenNumber();
+        //第四步 调用start方法
+        en.start();
+        for (int i = 0; i &lt; 100; i++) {
+            System.out.println(Thread.currentThread().getName() + "***");
             
-            <span class="pl-k">try</span> {
-                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">1</span>);
+            try {
+                Thread.sleep(1);
             }
-            <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+            catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
     }
 }
-<span class="pl-c">//第一步 创建一个继承于Thread类的子类</span>
-<span class="pl-k">class</span> <span class="pl-smi">EvenNumber</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span>{
-    <span class="pl-c">//第二步 重写run方法</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">100</span>; <span class="pl-s1">i</span>+=<span class="pl-c1">2</span>) {
-            <span class="pl-c">//System.out.println(i);</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s1">i</span> +<span class="pl-s">"***"</span>);
+//第一步 创建一个继承于Thread类的子类
+class EvenNumber extends Thread{
+    //第二步 重写run方法
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 100; i+=2) {
+            //System.out.println(i);
+            System.out.println(Thread.currentThread().getName() + i +"***");
             
 
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p>练习：获取main线程对象的名称和优先级。</p>
 <p>声明一个匿名内部类继承Thread类，重写run方法，在run方法中获取线程名称和优先级。设置该线程优先级为最高优先级并启动该线程。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate">    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(){
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
-                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">getName</span>() + <span class="pl-s">"的优先级："</span> + <span class="pl-en">getPriority</span>());
+<pre lang="java" class="notranslate"><code class="notranslate">    public static void main(String[] args) {
+        Thread t = new Thread(){
+            public void run(){
+                System.out.println(getName() + "的优先级：" + getPriority());
             }
         };
-        <span class="pl-s1">t</span>.<span class="pl-en">setPriority</span>(<span class="pl-smi">Thread</span>.<span class="pl-c1">MAX_PRIORITY</span>);
-        <span class="pl-s1">t</span>.<span class="pl-en">start</span>();
+        t.setPriority(Thread.MAX_PRIORITY);
+        t.start();
         
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() +<span class="pl-s">"的优先级："</span> + 		                                          <span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getPriority</span>());
-    }</pre></div>
+        System.out.println(Thread.currentThread().getName() +"的优先级：" + 		                                          Thread.currentThread().getPriority());
+    }
+</code></pre>
 <p>案例：</p>
 <ul>
 <li>声明一个匿名内部类继承Thread类，重写run方法，实现打印[1,100]之间的偶数，要求每隔1秒打印1个偶数。</li>
@@ -479,45 +492,46 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 </ul>
 </li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.api;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestThreadStateChange</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">Thread</span> <span class="pl-s1">te</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
-            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-                <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">2</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>; <span class="pl-s1">i</span> += <span class="pl-c1">2</span>) {
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"偶数线程："</span> + <span class="pl-s1">i</span>);
-                    <span class="pl-k">try</span> {
-                        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">1000</span>);
-                    } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                        <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+public class TestThreadStateChange {
+    public static void main(String[] args) {
+        Thread te = new Thread() {
+            @Override
+            public void run() {
+                for (int i = 2; i &lt;= 100; i += 2) {
+                    System.out.println("偶数线程：" + i);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }
         };
-        <span class="pl-s1">te</span>.<span class="pl-en">start</span>();
+        te.start();
 
-        <span class="pl-smi">Thread</span> <span class="pl-s1">to</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>() {
-            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-                <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>; <span class="pl-s1">i</span> += <span class="pl-c1">2</span>) {
-                    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"奇数线程："</span> + <span class="pl-s1">i</span>);
-                    <span class="pl-k">if</span> (<span class="pl-s1">i</span> == <span class="pl-c1">5</span>) {
-<span class="pl-c">//                        Thread.yield();</span>
-                        <span class="pl-k">try</span> {
-                            <span class="pl-s1">te</span>.<span class="pl-en">join</span>();
-                        } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                            <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+        Thread to = new Thread() {
+            @Override
+            public void run() {
+                for (int i = 1; i &lt;= 100; i += 2) {
+                    System.out.println("奇数线程：" + i);
+                    if (i == 5) {
+//                        Thread.yield();
+                        try {
+                            te.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                     }
 
                 }
             }
         };
-        <span class="pl-s1">to</span>.<span class="pl-en">start</span>();
+        to.start();
     }
-}</pre></div>
+}
+</code></pre>
 <p>以下是改正后的文本：</p>
 <p>线程的创建方式二：实现Runnable接口<br>
 步骤：<br>
@@ -546,40 +560,41 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <li><strong>灵活性</strong>：实现了Runnable接口的类可以更容易地与其他对象和类集成，提高了代码的灵活性和可扩展性。</li>
 </ol>
 <p><code class="notranslate">Runnable</code>接口创建线程例子：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 定义一个实现了Runnable接口的类</span>
-<span class="pl-k">class</span> <span class="pl-smi">MyRunnable</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-c">// 这里是线程执行的代码</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"线程运行中..."</span>);
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">5</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"线程执行步骤 "</span> + (<span class="pl-s1">i</span> + <span class="pl-c1">1</span>));
-            <span class="pl-k">try</span> {
-                <span class="pl-c">// 模拟耗时操作</span>
-                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">1000</span>);
-            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">// 定义一个实现了Runnable接口的类
+class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        // 这里是线程执行的代码
+        System.out.println("线程运行中...");
+        for (int i = 0; i &lt; 5; i++) {
+            System.out.println("线程执行步骤 " + (i + 1));
+            try {
+                // 模拟耗时操作
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"线程结束"</span>);
+        System.out.println("线程结束");
     }
 }
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ThreadExample</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">// 创建MyRunnable的实例</span>
-        <span class="pl-smi">MyRunnable</span> <span class="pl-s1">myRunnable</span> = <span class="pl-k">new</span> <span class="pl-smi">MyRunnable</span>();
+public class ThreadExample {
+    public static void main(String[] args) {
+        // 创建MyRunnable的实例
+        MyRunnable myRunnable = new MyRunnable();
 
-        <span class="pl-c">// 将MyRunnable的实例作为参数传递给Thread类的构造器</span>
-        <span class="pl-smi">Thread</span> <span class="pl-s1">thread</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">myRunnable</span>);
+        // 将MyRunnable的实例作为参数传递给Thread类的构造器
+        Thread thread = new Thread(myRunnable);
 
-        <span class="pl-c">// 启动线程</span>
-        <span class="pl-s1">thread</span>.<span class="pl-en">start</span>();
+        // 启动线程
+        thread.start();
 
-        <span class="pl-c">// 主线程继续执行其他任务...</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"主线程继续执行..."</span>);
+        // 主线程继续执行其他任务...
+        System.out.println("主线程继续执行...");
     }
-}</pre></div>
+}
+</code></pre>
 <p>在这个例子中，我们定义了一个名为<code class="notranslate">MyRunnable</code>的类，它实现了<code class="notranslate">Runnable</code>接口，并覆盖了<code class="notranslate">run()</code>方法，其中包含了线程将要执行的代码。在<code class="notranslate">main</code>方法中，我们创建了<code class="notranslate">MyRunnable</code>的一个实例，并将其传递给<code class="notranslate">Thread</code>类的构造器来创建一个新的线程对象。最后，我们通过调用<code class="notranslate">start()</code>方法来启动线程。</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/%E8%BF%99%E6%98%AF%E8%A6%81%E9%97%B9%E5%93%AA%E6%A0%B7.jpg"><img src="images/%E8%BF%99%E6%98%AF%E8%A6%81%E9%97%B9%E5%93%AA%E6%A0%B7.jpg" alt="" style="max-width: 100%;"></a>Java代理模式（Proxy Pattern）是设计模式中的一种结构型模式，它为其他对象提供一个代理以控制对这个对象的访问。代理模式在不直接访问实际对象的情况下，提供了对目标对象的间接访问。代理模式的主要优点包括：</p>
 <ol>
@@ -595,42 +610,43 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <li><strong>动态代理</strong>（Java反射）：在运行时使用Java的反射机制动态创建代理类。Java提供了<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;java.lang.reflect.Proxy&lt;/font&gt;</code>类和<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;java.lang.reflect.InvocationHandler&lt;/font&gt;</code>接口来实现动态代理。动态代理不需要在编译时就知道所有的目标类，可以在运行时动态地为一组类创建代理。</li>
 </ol>
 <p>下面是一个简单的静态代理模式的例子：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 定义一个接口</span>
-<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">Subject</span> {
-    <span class="pl-smi">void</span> <span class="pl-en">request</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">// 定义一个接口
+public interface Subject {
+    void request();
 }
 
-<span class="pl-c">// 实现接口的目标类</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">RealSubject</span> <span class="pl-k">implements</span> <span class="pl-smi">Subject</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">request</span>() {
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"RealSubject: Handling request."</span>);
-    }
-}
-
-<span class="pl-c">// 代理类</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Proxy</span> <span class="pl-k">implements</span> <span class="pl-smi">Subject</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">RealSubject</span> <span class="pl-s1">realSubject</span>;
-
-    <span class="pl-k">public</span> <span class="pl-smi">Proxy</span>() {
-        <span class="pl-smi">this</span>.<span class="pl-s1">realSubject</span> = <span class="pl-k">new</span> <span class="pl-smi">RealSubject</span>();
-    }
-
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">request</span>() {
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Proxy: Logging request."</span>);
-        <span class="pl-s1">realSubject</span>.<span class="pl-en">request</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Proxy: Logging after request."</span>);
+// 实现接口的目标类
+public class RealSubject implements Subject {
+    @Override
+    public void request() {
+        System.out.println("RealSubject: Handling request.");
     }
 }
 
-<span class="pl-c">// 客户端代码</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Client</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">Subject</span> <span class="pl-s1">proxy</span> = <span class="pl-k">new</span> <span class="pl-smi">Proxy</span>();
-        <span class="pl-s1">proxy</span>.<span class="pl-en">request</span>();
+// 代理类
+public class Proxy implements Subject {
+    private RealSubject realSubject;
+
+    public Proxy() {
+        this.realSubject = new RealSubject();
     }
-}</pre></div>
+
+    @Override
+    public void request() {
+        System.out.println("Proxy: Logging request.");
+        realSubject.request();
+        System.out.println("Proxy: Logging after request.");
+    }
+}
+
+// 客户端代码
+public class Client {
+    public static void main(String[] args) {
+        Subject proxy = new Proxy();
+        proxy.request();
+    }
+}
+</code></pre>
 <p>在这个例子中，<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;Proxy&lt;/font&gt;</code>类是<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;RealSubject&lt;/font&gt;</code>类的代理，它实现了与<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;RealSubject&lt;/font&gt;</code>相同的接口。在<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;Proxy&lt;/font&gt;</code>类的<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;request&lt;/font&gt;</code>方法中，我们可以在调用<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;RealSubject&lt;/font&gt;</code>的<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;request&lt;/font&gt;</code>方法前后添加额外的操作，比如日志记录。</p>
 <p>动态代理的例子需要使用Java的反射API，这里就不展开了，但基本思想是创建一个实现了<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;InvocationHandler&lt;/font&gt;</code>接口的类，并在其中定义<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;invoke&lt;/font&gt;</code>方法，该方法负责处理对代理对象的所有方法调用。然后使用<code class="notranslate">&lt;font style="background-color:#FBDE28;"&gt;Proxy.newProxyInstance&lt;/font&gt;</code>方法动态创建代理对象。动态代理通常用于需要在运行时动态地为多个类创建代理的场景。</p>
 <h3>3.5 守护线程（了解）</h3>
@@ -679,30 +695,31 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d5be0e8aeadadadd4e202c21d78fcc6fc1eb0ec1201d4a3fd08f869342df457e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733303936383138323739362d33396436353438632d616232392d346335392d616131352d3465656232356632313239392e706e67"><img src="https://camo.githubusercontent.com/d5be0e8aeadadadd4e202c21d78fcc6fc1eb0ec1201d4a3fd08f869342df457e/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733303936383138323739362d33396436353438632d616232392d346335392d616131352d3465656232356632313239392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1730968182796-39d6548c-ab29-4c59-aa15-4eeb25f21299.png" style="max-width: 100%;"></a></p>
 <p></p>
 <p></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestThread</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">MyDaemon</span> <span class="pl-s1">m</span> = <span class="pl-k">new</span> <span class="pl-smi">MyDaemon</span>();
-        <span class="pl-s1">m</span>.<span class="pl-en">setDaemon</span>(<span class="pl-c1">true</span>);
-        <span class="pl-s1">m</span>.<span class="pl-en">start</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">public class TestThread {
+    public static void main(String[] args) {
+        MyDaemon m = new MyDaemon();
+        m.setDaemon(true);
+        m.start();
 
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt;= <span class="pl-c1">100</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"main:"</span> + <span class="pl-s1">i</span>);
+        for (int i = 1; i &lt;= 100; i++) {
+            System.out.println("main:" + i);
         }
     }
 }
 
-<span class="pl-k">class</span> <span class="pl-smi">MyDaemon</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span> {
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"我一直守护者你..."</span>);
-            <span class="pl-k">try</span> {
-                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">1</span>);
-            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+class MyDaemon extends Thread {
+    public void run() {
+        while (true) {
+            System.out.println("我一直守护者你...");
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
-}</pre></div>
+}
+</code></pre>
 <h2>4. 多线程的生命周期</h2>
 <p>Java语言使用Thread类及其子类的对象来表示线程，在它的一个完整的生命周期中通常要经历如下一些状态：</p>
 <h3>4.1 JDK1.5之前：5种状态</h3>
@@ -746,14 +763,15 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 </ul>
 <h3>4.2 JDK1.5及之后：6种状态</h3>
 <p>在java.lang.Thread.State的枚举类中这样定义：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">enum</span> <span class="pl-smi">State</span> {
-    <span class="pl-c1">NEW</span>,
-    <span class="pl-c1">RUNNABLE</span>,
-    <span class="pl-c1">BLOCKED</span>,
-    <span class="pl-c1">WAITING</span>,
-    <span class="pl-c1">TIMED_WAITING</span>,
-    <span class="pl-c1">TERMINATED</span>;
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">public enum State {
+    NEW,
+    RUNNABLE,
+    BLOCKED,
+    WAITING,
+    TIMED_WAITING,
+    TERMINATED;
+}
+</code></pre>
 <ul>
 <li><code class="notranslate">NEW（新建）</code>：线程刚被创建，但是并未启动。还没调用start方法。</li>
 <li><code class="notranslate">RUNNABLE（可运行）</code>：这里没有区分就绪和运行状态。因为对于Java对象来说，只能标记为可运行，至于什么时候运行，不是JVM来控制的了，是OS来进行调度的，而且时间非常短暂，因此对于Java对象的状态来说，无法区分。</li>
@@ -798,40 +816,42 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 计时期间得到（唤醒）通知，那么线程从Timed Waiting状态立刻唤醒。</p>
 </blockquote>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @create 22:15</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ThreadStateTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) <span class="pl-k">throws</span> <span class="pl-smi">InterruptedException</span> {
-        <span class="pl-smi">SubThread</span> <span class="pl-s1">t</span> = <span class="pl-k">new</span> <span class="pl-smi">SubThread</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">t</span>.<span class="pl-en">getName</span>() + <span class="pl-s">" 状态 "</span> + <span class="pl-s1">t</span>.<span class="pl-en">getState</span>());
-        <span class="pl-s1">t</span>.<span class="pl-en">start</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * @author 尚硅谷-宋红康
+ * @create 22:15
+ */
+public class ThreadStateTest {
+    public static void main(String[] args) throws InterruptedException {
+        SubThread t = new SubThread();
+        System.out.println(t.getName() + " 状态 " + t.getState());
+        t.start();
 
-        <span class="pl-k">while</span> (<span class="pl-smi">Thread</span>.<span class="pl-s1">State</span>.<span class="pl-c1">TERMINATED</span> != <span class="pl-s1">t</span>.<span class="pl-en">getState</span>()) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">t</span>.<span class="pl-en">getName</span>() + <span class="pl-s">" 状态 "</span> + <span class="pl-s1">t</span>.<span class="pl-en">getState</span>());
-            <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">500</span>);
+        while (Thread.State.TERMINATED != t.getState()) {
+            System.out.println(t.getName() + " 状态 " + t.getState());
+            Thread.sleep(500);
         }
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">t</span>.<span class="pl-en">getName</span>() + <span class="pl-s">" 状态 "</span> + <span class="pl-s1">t</span>.<span class="pl-en">getState</span>());
+        System.out.println(t.getName() + " 状态 " + t.getState());
     }
 }
 
-<span class="pl-k">class</span> <span class="pl-smi">SubThread</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10</span>; <span class="pl-s1">i</span>++) {
-                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"打印："</span> + <span class="pl-s1">i</span>);
-                <span class="pl-k">try</span> {
-                    <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">1000</span>);
-                } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                    <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+class SubThread extends Thread {
+    @Override
+    public void run() {
+        while (true) {
+            for (int i = 0; i &lt; 10; i++) {
+                System.out.println("打印：" + i);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-            <span class="pl-k">break</span>;
+            break;
         }
     }
-}</pre></div>
+}
+
+</code></pre>
 <p>命令行演示：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220524195035355.png"><img src="images/image-20220524195035355.png" alt="" style="max-width: 100%;"></a></p>
 <h2>5. 线程安全问题及解决</h2>
@@ -840,237 +860,243 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <p>举例：</p>
 <p>类比：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/%E5%BD%93%E6%88%91%E4%BB%A5%E4%B8%BA%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E5%BE%88%E5%AE%89%E5%85%A8%E6%97%B6%EF%BC%8C%E7%AD%89%E7%AD%89.gif"><img src="images/%E5%BD%93%E6%88%91%E4%BB%A5%E4%B8%BA%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E5%BE%88%E5%AE%89%E5%85%A8%E6%97%B6%EF%BC%8C%E7%AD%89%E7%AD%89.gif" alt="" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">WindowTest</span>{
-    <span class="pl-c">//非线程安全</span>
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">SafeTicket</span> <span class="pl-s1">safeTicket</span> = <span class="pl-k">new</span> <span class="pl-smi">SafeTicket</span>();
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">safeTicket</span>);
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">safeTicket</span>);
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t3</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">safeTicket</span>);
-        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t3</span>.<span class="pl-en">start</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">public class WindowTest{
+    //非线程安全
+    public static void main(String[] args) {
+        SafeTicket safeTicket = new SafeTicket();
+        Thread t1 = new Thread(safeTicket);
+        Thread t2 = new Thread(safeTicket);
+        Thread t3 = new Thread(safeTicket);
+        t1.start();
+        t2.start();
+        t3.start();
     }
 }
 
-<span class="pl-k">class</span> <span class="pl-smi">SafeTicket</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span>{
-    <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){
-        <span class="pl-k">while</span> (<span class="pl-c1">true</span>){
-            <span class="pl-k">if</span>(<span class="pl-s1">ticket</span>&gt;<span class="pl-c1">0</span>){
-                <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>()+<span class="pl-s">"卖出第"</span>+<span class="pl-s1">ticket</span>+<span class="pl-s">"张票"</span>);
-                <span class="pl-s1">ticket</span>--;
-            }<span class="pl-k">else</span>{
-                <span class="pl-k">break</span>;
+class SafeTicket implements Runnable{
+    int ticket = 100;
+    @Override
+    public void run(){
+        while (true){
+            if(ticket&gt;0){
+                System.out.println(Thread.currentThread().getName()+"卖出第"+ticket+"张票");
+                ticket--;
+            }else{
+                break;
             }
         }
     }
-}</pre></div>
+}
+</code></pre>
 <h3>5.1 同一个资源问题和线程安全问题</h3>
 <p>案例：</p>
 <p>火车站要卖票，我们模拟火车站的卖票过程。因为疫情期间，本次列车的座位共100个（即，只能出售100张火车票）。我们来模拟车站的售票窗口，实现多个窗口同时售票的过程。注意：不能出现错票、重票。</p>
 <h4>5.1.1 局部变量不能共享</h4>
 <p>示例代码：</p>
-<div class="highlight highlight-source-js"><pre class="notranslate"><span class="pl-s1">package</span> <span class="pl-s1">com</span><span class="pl-kos">.</span><span class="pl-c1">atguigu</span><span class="pl-kos">.</span><span class="pl-c1">unsafe</span><span class="pl-kos">;</span>
+<pre lang="javascript" class="notranslate"><code class="notranslate">package com.atguigu.unsafe;
 
-<span class="pl-k">class</span> <span class="pl-v">Window</span> <span class="pl-k">extends</span> <span class="pl-v">Thread</span> <span class="pl-kos">{</span>
-    <span class="pl-en">public</span> <span class="pl-s1">void</span> <span class="pl-s1">run</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-        <span class="pl-s1">int</span> <span class="pl-s1">ticket</span> <span class="pl-c1">=</span> <span class="pl-c1">100</span><span class="pl-kos">;</span>
-        <span class="pl-k">while</span> <span class="pl-kos">(</span><span class="pl-s1">ticket</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-            <span class="pl-v">System</span><span class="pl-kos">.</span><span class="pl-c1">out</span><span class="pl-kos">.</span><span class="pl-en">println</span><span class="pl-kos">(</span><span class="pl-en">getName</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">+</span> <span class="pl-s">"卖出一张票，票号:"</span> <span class="pl-c1">+</span> <span class="pl-s1">ticket</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-            <span class="pl-s1">ticket</span><span class="pl-c1">--</span><span class="pl-kos">;</span>
-        <span class="pl-kos">}</span>
-    <span class="pl-kos">}</span>
-<span class="pl-kos">}</span>
-
-<span class="pl-s1">public</span><span class="pl-kos"></span> <span class="pl-k">class</span> <span class="pl-v">SaleTicketDemo1</span> <span class="pl-kos">{</span>
-    <span class="pl-c1">public</span> <span class="pl-k">static</span> <span class="pl-c1">void</span> <span class="pl-s1">main</span><span class="pl-kos">(</span><span class="pl-v">String</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">args</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-        Window <span class="pl-s1">w1</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Window</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-        <span class="pl-v">Window</span> <span class="pl-s1">w2</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Window</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-        <span class="pl-v">Window</span> <span class="pl-s1">w3</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Window</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-
-        <span class="pl-s1">w1</span><span class="pl-kos">.</span><span class="pl-en">setName</span><span class="pl-kos">(</span><span class="pl-s">"窗口1"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-        <span class="pl-s1">w2</span><span class="pl-kos">.</span><span class="pl-en">setName</span><span class="pl-kos">(</span><span class="pl-s">"窗口2"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-        <span class="pl-s1">w3</span><span class="pl-kos">.</span><span class="pl-en">setName</span><span class="pl-kos">(</span><span class="pl-s">"窗口3"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-
-        <span class="pl-s1">w1</span><span class="pl-kos">.</span><span class="pl-en">start</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-        <span class="pl-s1">w2</span><span class="pl-kos">.</span><span class="pl-en">start</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-        <span class="pl-s1">w3</span><span class="pl-kos">.</span><span class="pl-en">start</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-    <span class="pl-kos">}</span>
-<span class="pl-kos">}</span></pre></div>
-<p>结果：发现卖出300张票。</p>
-<p>问题：局部变量是每次调用方法都是独立的，那么每个线程的run()的ticket是独立的，不是共享数据。</p>
-<h4>5.1.2 不同对象的实例变量不共享</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">unsafe</span>;
-
-<span class="pl-k">class</span> <span class="pl-smi">TicketWindow</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
-
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">while</span> (<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">getName</span>() + <span class="pl-s">"卖出一张票，票号:"</span> + <span class="pl-s1">ticket</span>);
-            <span class="pl-s1">ticket</span>--;
+class Window extends Thread {
+    public void run() {
+        int ticket = 100;
+        while (ticket &gt; 0) {
+            System.out.println(getName() + "卖出一张票，票号:" + ticket);
+            ticket--;
         }
     }
 }
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SaleTicketDemo2</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">TicketWindow</span> <span class="pl-s1">w1</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketWindow</span>();
-        <span class="pl-smi">TicketWindow</span> <span class="pl-s1">w2</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketWindow</span>();
-        <span class="pl-smi">TicketWindow</span> <span class="pl-s1">w3</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketWindow</span>();
+public class SaleTicketDemo1 {
+    public static void main(String[] args) {
+        Window w1 = new Window();
+        Window w2 = new Window();
+        Window w3 = new Window();
 
-        <span class="pl-s1">w1</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口1"</span>);
-        <span class="pl-s1">w2</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口2"</span>);
-        <span class="pl-s1">w3</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口3"</span>);
+        w1.setName("窗口1");
+        w2.setName("窗口2");
+        w3.setName("窗口3");
 
-        <span class="pl-s1">w1</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">w2</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">w3</span>.<span class="pl-en">start</span>();
+        w1.start();
+        w2.start();
+        w3.start();
     }
 }
-</pre></div>
+</code></pre>
+<p>结果：发现卖出300张票。</p>
+<p>问题：局部变量是每次调用方法都是独立的，那么每个线程的run()的ticket是独立的，不是共享数据。</p>
+<h4>5.1.2 不同对象的实例变量不共享</h4>
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.unsafe;
+
+class TicketWindow extends Thread {
+    private int ticket = 100;
+
+    public void run() {
+        while (ticket &gt; 0) {
+            System.out.println(getName() + "卖出一张票，票号:" + ticket);
+            ticket--;
+        }
+    }
+}
+
+public class SaleTicketDemo2 {
+    public static void main(String[] args) {
+        TicketWindow w1 = new TicketWindow();
+        TicketWindow w2 = new TicketWindow();
+        TicketWindow w3 = new TicketWindow();
+
+        w1.setName("窗口1");
+        w2.setName("窗口2");
+        w3.setName("窗口3");
+
+        w1.start();
+        w2.start();
+        w3.start();
+    }
+}
+
+
+</code></pre>
 <p>结果：发现卖出300张票。</p>
 <p>问题：不同的实例对象的实例变量是独立的。</p>
 <h4>5.1.3 静态变量是共享的</h4>
 <p>示例代码：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">unsafe</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.unsafe;
 
-<span class="pl-k">class</span> <span class="pl-smi">TicketSaleThread</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span> {
-    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
+class TicketSaleThread extends Thread {
+    private static int ticket = 100;
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">while</span> (<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {
-            <span class="pl-k">try</span> {
-                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);<span class="pl-c">//加入这个，使得问题暴露的更明显</span>
-            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+    public void run() {
+        while (ticket &gt; 0) {
+            try {
+                Thread.sleep(10);//加入这个，使得问题暴露的更明显
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">getName</span>() + <span class="pl-s">"卖出一张票，票号:"</span> + <span class="pl-s1">ticket</span>);
-            <span class="pl-s1">ticket</span>--;
+            System.out.println(getName() + "卖出一张票，票号:" + ticket);
+            ticket--;
         }
     }
 }
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SaleTicketDemo3</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">TicketSaleThread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketSaleThread</span>();
-        <span class="pl-smi">TicketSaleThread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketSaleThread</span>();
-        <span class="pl-smi">TicketSaleThread</span> <span class="pl-s1">t3</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketSaleThread</span>();
+public class SaleTicketDemo3 {
+    public static void main(String[] args) {
+        TicketSaleThread t1 = new TicketSaleThread();
+        TicketSaleThread t2 = new TicketSaleThread();
+        TicketSaleThread t3 = new TicketSaleThread();
 
-        <span class="pl-s1">t1</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口1"</span>);
-        <span class="pl-s1">t2</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口2"</span>);
-        <span class="pl-s1">t3</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口3"</span>);
+        t1.setName("窗口1");
+        t2.setName("窗口2");
+        t3.setName("窗口3");
 
-        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t3</span>.<span class="pl-en">start</span>();
+        t1.start();
+        t2.start();
+        t3.start();
     }
-}</pre></div>
+}
+</code></pre>
 <p>运行结果：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">100</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">100</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">100</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">97</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">97</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">97</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">94</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">94</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">94</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">91</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">91</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">91</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">88</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">88</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">88</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">85</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">85</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">85</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">82</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">82</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">82</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">79</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">79</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">79</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">76</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">76</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">76</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">73</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">73</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">73</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">70</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">70</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">70</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">67</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">67</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">67</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">64</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">64</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">64</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">61</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">61</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">61</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">58</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">58</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">58</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">55</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">55</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">55</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">52</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">52</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">52</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">49</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">49</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">49</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">46</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">46</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">46</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">43</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">43</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">43</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">40</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">40</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">40</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">37</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">37</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">37</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">34</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">34</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">34</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">31</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">31</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">31</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">28</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">28</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">28</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">25</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">25</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">25</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">22</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">22</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">22</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">19</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">19</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">19</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">16</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">16</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">16</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">13</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">13</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">13</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">10</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">10</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">10</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">7</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">7</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">7</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">4</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">4</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">4</span>
-<span class="pl-s1">窗口3卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">1</span>
-<span class="pl-s1">窗口2卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">1</span>
-<span class="pl-s1">窗口1卖出一张票</span>，<span class="pl-s1">票号</span>:<span class="pl-c1">1</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">窗口1卖出一张票，票号:100
+窗口2卖出一张票，票号:100
+窗口3卖出一张票，票号:100
+窗口3卖出一张票，票号:97
+窗口1卖出一张票，票号:97
+窗口2卖出一张票，票号:97
+窗口1卖出一张票，票号:94
+窗口3卖出一张票，票号:94
+窗口2卖出一张票，票号:94
+窗口2卖出一张票，票号:91
+窗口1卖出一张票，票号:91
+窗口3卖出一张票，票号:91
+窗口3卖出一张票，票号:88
+窗口1卖出一张票，票号:88
+窗口2卖出一张票，票号:88
+窗口3卖出一张票，票号:85
+窗口1卖出一张票，票号:85
+窗口2卖出一张票，票号:85
+窗口3卖出一张票，票号:82
+窗口1卖出一张票，票号:82
+窗口2卖出一张票，票号:82
+窗口2卖出一张票，票号:79
+窗口3卖出一张票，票号:79
+窗口1卖出一张票，票号:79
+窗口3卖出一张票，票号:76
+窗口1卖出一张票，票号:76
+窗口2卖出一张票，票号:76
+窗口1卖出一张票，票号:73
+窗口2卖出一张票，票号:73
+窗口3卖出一张票，票号:73
+窗口2卖出一张票，票号:70
+窗口1卖出一张票，票号:70
+窗口3卖出一张票，票号:70
+窗口2卖出一张票，票号:67
+窗口3卖出一张票，票号:67
+窗口1卖出一张票，票号:67
+窗口1卖出一张票，票号:64
+窗口3卖出一张票，票号:64
+窗口2卖出一张票，票号:64
+窗口2卖出一张票，票号:61
+窗口3卖出一张票，票号:61
+窗口1卖出一张票，票号:61
+窗口1卖出一张票，票号:58
+窗口2卖出一张票，票号:58
+窗口3卖出一张票，票号:58
+窗口2卖出一张票，票号:55
+窗口1卖出一张票，票号:55
+窗口3卖出一张票，票号:55
+窗口3卖出一张票，票号:52
+窗口1卖出一张票，票号:52
+窗口2卖出一张票，票号:52
+窗口2卖出一张票，票号:49
+窗口1卖出一张票，票号:49
+窗口3卖出一张票，票号:49
+窗口2卖出一张票，票号:46
+窗口3卖出一张票，票号:46
+窗口1卖出一张票，票号:46
+窗口2卖出一张票，票号:43
+窗口3卖出一张票，票号:43
+窗口1卖出一张票，票号:43
+窗口3卖出一张票，票号:40
+窗口1卖出一张票，票号:40
+窗口2卖出一张票，票号:40
+窗口2卖出一张票，票号:37
+窗口3卖出一张票，票号:37
+窗口1卖出一张票，票号:37
+窗口2卖出一张票，票号:34
+窗口1卖出一张票，票号:34
+窗口3卖出一张票，票号:34
+窗口3卖出一张票，票号:31
+窗口2卖出一张票，票号:31
+窗口1卖出一张票，票号:31
+窗口1卖出一张票，票号:28
+窗口2卖出一张票，票号:28
+窗口3卖出一张票，票号:28
+窗口2卖出一张票，票号:25
+窗口1卖出一张票，票号:25
+窗口3卖出一张票，票号:25
+窗口2卖出一张票，票号:22
+窗口3卖出一张票，票号:22
+窗口1卖出一张票，票号:22
+窗口3卖出一张票，票号:19
+窗口1卖出一张票，票号:19
+窗口2卖出一张票，票号:19
+窗口2卖出一张票，票号:16
+窗口3卖出一张票，票号:16
+窗口1卖出一张票，票号:16
+窗口2卖出一张票，票号:13
+窗口1卖出一张票，票号:13
+窗口3卖出一张票，票号:13
+窗口2卖出一张票，票号:10
+窗口1卖出一张票，票号:10
+窗口3卖出一张票，票号:10
+窗口3卖出一张票，票号:7
+窗口1卖出一张票，票号:7
+窗口2卖出一张票，票号:7
+窗口3卖出一张票，票号:4
+窗口1卖出一张票，票号:4
+窗口2卖出一张票，票号:4
+窗口3卖出一张票，票号:1
+窗口2卖出一张票，票号:1
+窗口1卖出一张票，票号:1
+</code></pre>
 <p>结果：发现卖出近100张票。</p>
 <p>问题1：但是有重复票或负数票问题。</p>
 <p>原因：线程安全问题</p>
@@ -1078,98 +1104,101 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <p>原因：TicketThread类的静态变量，是所有TicketThread类的对象共享</p>
 <h4>5.1.4 同一个对象的实例变量共享</h4>
 <p>示例代码：多个Thread线程使用同一个Runnable对象</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">safe</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.safe;
 
-<span class="pl-k">class</span> <span class="pl-smi">TicketSaleRunnable</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
+class TicketSaleRunnable implements Runnable {
+    private int ticket = 100;
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-        <span class="pl-k">while</span> (<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {
-            <span class="pl-k">try</span> {
-                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);<span class="pl-c">//加入这个，使得问题暴露的更明显</span>
-            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+    public void run() {
+        while (ticket &gt; 0) {
+            try {
+                Thread.sleep(10);//加入这个，使得问题暴露的更明显
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">"卖出一张票，票号:"</span> + <span class="pl-s1">ticket</span>);
-            <span class="pl-s1">ticket</span>--;
+            System.out.println(Thread.currentThread().getName() + "卖出一张票，票号:" + ticket);
+            ticket--;
         }
     }
 }
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SaleTicketDemo4</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">TicketSaleRunnable</span> <span class="pl-s1">tr</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketSaleRunnable</span>();
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">tr</span>, <span class="pl-s">"窗口一"</span>);
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">tr</span>, <span class="pl-s">"窗口二"</span>);
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t3</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">tr</span>, <span class="pl-s">"窗口三"</span>);
+public class SaleTicketDemo4 {
+    public static void main(String[] args) {
+        TicketSaleRunnable tr = new TicketSaleRunnable();
+        Thread t1 = new Thread(tr, "窗口一");
+        Thread t2 = new Thread(tr, "窗口二");
+        Thread t3 = new Thread(tr, "窗口三");
 
-        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t3</span>.<span class="pl-en">start</span>();
+        t1.start();
+        t2.start();
+        t3.start();
     }
-}</pre></div>
+}
+
+</code></pre>
 <p>结果：发现卖出近100张票。</p>
 <p>问题：但是有重复票或负数票问题。</p>
 <p>原因：线程安全问题</p>
 <h4>5.1.5 抽取资源类，共享同一个资源对象</h4>
 <p>示例代码：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">unsafe</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.unsafe;
 
-<span class="pl-c">//1、编写资源类</span>
-<span class="pl-k">class</span> <span class="pl-smi">Ticket</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
+//1、编写资源类
+class Ticket {
+    private int ticket = 100;
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">sale</span>() {
-        <span class="pl-k">if</span> (<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {
-            <span class="pl-k">try</span> {
-                <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">10</span>);<span class="pl-c">//加入这个，使得问题暴露的更明显</span>
-            } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> <span class="pl-s1">e</span>) {
-                <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
+    public void sale() {
+        if (ticket &gt; 0) {
+            try {
+                Thread.sleep(10);//加入这个，使得问题暴露的更明显
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">"卖出一张票，票号:"</span> + <span class="pl-s1">ticket</span>);
-            <span class="pl-s1">ticket</span>--;
-        } <span class="pl-k">else</span> {
-            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"没有票了"</span>);
+            System.out.println(Thread.currentThread().getName() + "卖出一张票，票号:" + ticket);
+            ticket--;
+        } else {
+            throw new RuntimeException("没有票了");
         }
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getTicket</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">ticket</span>;
+    public int getTicket() {
+        return ticket;
     }
 }
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SaleTicketDemo5</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">//2、创建资源对象</span>
-        <span class="pl-smi">Ticket</span> <span class="pl-s1">ticket</span> = <span class="pl-k">new</span> <span class="pl-smi">Ticket</span>();
+public class SaleTicketDemo5 {
+    public static void main(String[] args) {
+        //2、创建资源对象
+        Ticket ticket = new Ticket();
 
-        <span class="pl-c">//3、启动多个线程操作资源类的对象</span>
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s">"窗口一"</span>) {
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-                <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-                    <span class="pl-s1">ticket</span>.<span class="pl-en">sale</span>();
+        //3、启动多个线程操作资源类的对象
+        Thread t1 = new Thread("窗口一") {
+            public void run() {
+                while (true) {
+                    ticket.sale();
                 }
             }
         };
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s">"窗口二"</span>) {
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-                <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-                    <span class="pl-s1">ticket</span>.<span class="pl-en">sale</span>();
+        Thread t2 = new Thread("窗口二") {
+            public void run() {
+                while (true) {
+                    ticket.sale();
                 }
             }
         };
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t3</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-k">new</span> <span class="pl-smi">Runnable</span>() {
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-                <span class="pl-s1">ticket</span>.<span class="pl-en">sale</span>();
+        Thread t3 = new Thread(new Runnable() {
+            public void run() {
+                ticket.sale();
             }
-        }, <span class="pl-s">"窗口三"</span>);
+        }, "窗口三");
 
 
-        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t3</span>.<span class="pl-en">start</span>();
+        t1.start();
+        t2.start();
+        t3.start();
     }
-}</pre></div>
+}
+</code></pre>
 <p>结果：发现卖出近100张票。</p>
 <p>问题：但是有重复票或负数票问题。</p>
 <p>原因：线程安全问题</p>
@@ -1191,13 +1220,15 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <h4>5.2.2 同步代码块和同步方法</h4>
 <p><strong>同步代码块</strong>：synchronized 关键字可以用于某个区块前面，表示只对这个区块的资源实行互斥访问。<br>
 格式:</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">synchronized</span>(<span class="pl-s1">同步锁</span>){
-     <span class="pl-s1">需要同步操作的代码</span>
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">synchronized(同步锁){
+     需要同步操作的代码
+}
+</code></pre>
 <p>**同步方法：**synchronized 关键字直接修饰方法，表示同一时刻只有一个线程能进入这个方法，其他线程在外面等着。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">method</span>(){
-    <span class="pl-s1">可能会产生线程安全问题的代码</span>
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">public synchronized void method(){
+    可能会产生线程安全问题的代码
+}
+</code></pre>
 <p>说明:<br>
 需要被同步的代码，即为操作共享数据的代码。</p>
 <p>共享数据:即多个线程多需要操作的数据。比如:ticket<br>
@@ -1233,134 +1264,139 @@ Runnable接口来实现多线程，最终还是通过Thread的对象的API来控
 <p>范围太大：因为一旦某个线程抢到锁，其他线程就只能等待，所以范围太大，效率会降低，不能合理利用CPU资源。</p>
 <h4>5.2.6 代码演示</h4>
 <h5>示例一：静态方法加锁</h5>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">safe</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.safe;
 
-<span class="pl-k">class</span> <span class="pl-smi">TicketSaleThread</span> <span class="pl-k">extends</span> <span class="pl-smi">Thread</span>{
-    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>(){<span class="pl-c">//直接锁这里，肯定不行，会导致，只有一个窗口卖票</span>
-        <span class="pl-k">while</span> (<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {
-            <span class="pl-en">saleOneTicket</span>();
+class TicketSaleThread extends Thread{
+    private static int ticket = 100;
+    public void run(){//直接锁这里，肯定不行，会导致，只有一个窗口卖票
+        while (ticket &gt; 0) {
+            saleOneTicket();
         }
     }
 
-    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">saleOneTicket</span>(){<span class="pl-c">//锁对象是TicketSaleThread类的Class对象，而一个类的Class对象在内存中肯定只有一个</span>
-        <span class="pl-k">if</span>(<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {<span class="pl-c">//不加条件，相当于条件判断没有进入锁管控，线程安全问题就没有解决</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">"卖出一张票，票号:"</span> + <span class="pl-s1">ticket</span>);
-            <span class="pl-s1">ticket</span>--;
+    public synchronized static void saleOneTicket(){//锁对象是TicketSaleThread类的Class对象，而一个类的Class对象在内存中肯定只有一个
+        if(ticket &gt; 0) {//不加条件，相当于条件判断没有进入锁管控，线程安全问题就没有解决
+            System.out.println(Thread.currentThread().getName() + "卖出一张票，票号:" + ticket);
+            ticket--;
         }
     }
 }
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SaleTicketDemo3</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">TicketSaleThread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketSaleThread</span>();
-        <span class="pl-smi">TicketSaleThread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketSaleThread</span>();
-        <span class="pl-smi">TicketSaleThread</span> <span class="pl-s1">t3</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketSaleThread</span>();
+public class SaleTicketDemo3 {
+    public static void main(String[] args) {
+        TicketSaleThread t1 = new TicketSaleThread();
+        TicketSaleThread t2 = new TicketSaleThread();
+        TicketSaleThread t3 = new TicketSaleThread();
 
-        <span class="pl-s1">t1</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口1"</span>);
-        <span class="pl-s1">t2</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口2"</span>);
-        <span class="pl-s1">t3</span>.<span class="pl-en">setName</span>(<span class="pl-s">"窗口3"</span>);
+        t1.setName("窗口1");
+        t2.setName("窗口2");
+        t3.setName("窗口3");
 
-        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t3</span>.<span class="pl-en">start</span>();
+        t1.start();
+        t2.start();
+        t3.start();
     }
-}</pre></div>
+}
+
+</code></pre>
 <h5>示例二：非静态方法加锁</h5>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">safe</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.safe;
 
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SaleTicketDemo4</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">TicketSaleRunnable</span> <span class="pl-s1">tr</span> = <span class="pl-k">new</span> <span class="pl-smi">TicketSaleRunnable</span>();
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">tr</span>, <span class="pl-s">"窗口一"</span>);
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">tr</span>, <span class="pl-s">"窗口二"</span>);
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t3</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s1">tr</span>, <span class="pl-s">"窗口三"</span>);
+public class SaleTicketDemo4 {
+    public static void main(String[] args) {
+        TicketSaleRunnable tr = new TicketSaleRunnable();
+        Thread t1 = new Thread(tr, "窗口一");
+        Thread t2 = new Thread(tr, "窗口二");
+        Thread t3 = new Thread(tr, "窗口三");
 
-        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t3</span>.<span class="pl-en">start</span>();
+        t1.start();
+        t2.start();
+        t3.start();
     }
 }
 
-<span class="pl-k">class</span> <span class="pl-smi">TicketSaleRunnable</span> <span class="pl-k">implements</span> <span class="pl-smi">Runnable</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">100</span>;
+class TicketSaleRunnable implements Runnable {
+    private int ticket = 100;
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {<span class="pl-c">//直接锁这里，肯定不行，会导致，只有一个窗口卖票</span>
-        <span class="pl-k">while</span> (<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {
-            <span class="pl-en">saleOneTicket</span>();
+    public void run() {//直接锁这里，肯定不行，会导致，只有一个窗口卖票
+        while (ticket &gt; 0) {
+            saleOneTicket();
         }
     }
 
-    <span class="pl-k">public</span> <span class="pl-k">synchronized</span> <span class="pl-smi">void</span> <span class="pl-en">saleOneTicket</span>() {<span class="pl-c">//锁对象是this，这里就是TicketSaleRunnable对象，因为上面3个线程使用同一个TicketSaleRunnable对象，所以可以</span>
-        <span class="pl-k">if</span> (<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {<span class="pl-c">//不加条件，相当于条件判断没有进入锁管控，线程安全问题就没有解决</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">"卖出一张票，票号:"</span> + <span class="pl-s1">ticket</span>);
-            <span class="pl-s1">ticket</span>--;
+    public synchronized void saleOneTicket() {//锁对象是this，这里就是TicketSaleRunnable对象，因为上面3个线程使用同一个TicketSaleRunnable对象，所以可以
+        if (ticket &gt; 0) {//不加条件，相当于条件判断没有进入锁管控，线程安全问题就没有解决
+            System.out.println(Thread.currentThread().getName() + "卖出一张票，票号:" + ticket);
+            ticket--;
         }
     }
-}</pre></div>
+}
+</code></pre>
 <h5>示例三：同步代码块</h5>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">safe</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.safe;
 
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SaleTicketDemo5</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">//2、创建资源对象</span>
-        <span class="pl-smi">Ticket</span> <span class="pl-s1">ticket</span> = <span class="pl-k">new</span> <span class="pl-smi">Ticket</span>();
+public class SaleTicketDemo5 {
+    public static void main(String[] args) {
+        //2、创建资源对象
+        Ticket ticket = new Ticket();
 
-        <span class="pl-c">//3、启动多个线程操作资源类的对象</span>
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t1</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s">"窗口一"</span>) {
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {<span class="pl-c">//不能给run()直接加锁，因为t1,t2,t3的三个run方法分别属于三个Thread类对象，</span>
-                <span class="pl-c">// run方法是非静态方法，那么锁对象默认选this，那么锁对象根本不是同一个</span>
-                <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-                    <span class="pl-k">synchronized</span> (<span class="pl-s1">ticket</span>) {
-                        <span class="pl-s1">ticket</span>.<span class="pl-en">sale</span>();
+        //3、启动多个线程操作资源类的对象
+        Thread t1 = new Thread("窗口一") {
+            public void run() {//不能给run()直接加锁，因为t1,t2,t3的三个run方法分别属于三个Thread类对象，
+                // run方法是非静态方法，那么锁对象默认选this，那么锁对象根本不是同一个
+                while (true) {
+                    synchronized (ticket) {
+                        ticket.sale();
                     }
                 }
             }
         };
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t2</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-s">"窗口二"</span>) {
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-                <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-                    <span class="pl-k">synchronized</span> (<span class="pl-s1">ticket</span>) {
-                        <span class="pl-s1">ticket</span>.<span class="pl-en">sale</span>();
+        Thread t2 = new Thread("窗口二") {
+            public void run() {
+                while (true) {
+                    synchronized (ticket) {
+                        ticket.sale();
                     }
                 }
             }
         };
-        <span class="pl-smi">Thread</span> <span class="pl-s1">t3</span> = <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-k">new</span> <span class="pl-smi">Runnable</span>() {
-            <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">run</span>() {
-                <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
-                    <span class="pl-k">synchronized</span> (<span class="pl-s1">ticket</span>) {
-                        <span class="pl-s1">ticket</span>.<span class="pl-en">sale</span>();
+        Thread t3 = new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    synchronized (ticket) {
+                        ticket.sale();
                     }
                 }
             }
-        }, <span class="pl-s">"窗口三"</span>);
+        }, "窗口三");
 
 
-        <span class="pl-s1">t1</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t2</span>.<span class="pl-en">start</span>();
-        <span class="pl-s1">t3</span>.<span class="pl-en">start</span>();
+        t1.start();
+        t2.start();
+        t3.start();
     }
 }
 
-<span class="pl-c">//1、编写资源类</span>
-<span class="pl-k">class</span> <span class="pl-smi">Ticket</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">ticket</span> = <span class="pl-c1">1000</span>;
+//1、编写资源类
+class Ticket {
+    private int ticket = 1000;
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">sale</span>() {<span class="pl-c">//也可以直接给这个方法加锁，锁对象是this，这里就是Ticket对象</span>
-        <span class="pl-k">if</span> (<span class="pl-s1">ticket</span> &gt; <span class="pl-c1">0</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Thread</span>.<span class="pl-en">currentThread</span>().<span class="pl-en">getName</span>() + <span class="pl-s">"卖出一张票，票号:"</span> + <span class="pl-s1">ticket</span>);
-            <span class="pl-s1">ticket</span>--;
-        } <span class="pl-k">else</span> {
-            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"没有票了"</span>);
+    public void sale() {//也可以直接给这个方法加锁，锁对象是this，这里就是Ticket对象
+        if (ticket &gt; 0) {
+            System.out.println(Thread.currentThread().getName() + "卖出一张票，票号:" + ticket);
+            ticket--;
+        } else {
+            throw new RuntimeException("没有票了");
         }
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getTicket</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">ticket</span>;
+    public int getTicket() {
+        return ticket;
     }
-}</pre></div>
+}
+
+</code></pre>
 <h3>5.3 练习</h3>
 <p>银行有一个账户。<br>
 有两个储户分别向同一个账户存3000元，每次存1000，存3次。每次存完打印账户余额。</p>
