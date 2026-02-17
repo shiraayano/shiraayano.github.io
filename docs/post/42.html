@@ -53,7 +53,7 @@ MyBatis是一个优秀的持久层框架，它支持自定义SQL、存储过程�
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/42.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 MyBatis</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -77,17 +77,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-.copy-feedback {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 50px;
-    color: var(--color-fg-on-emphasis);
-    background-color: var(--color-fg-muted);
-    border-radius: 3px;
-    padding: 5px 8px;
-    font-size: 12px;
-}
+
 </style>
 <style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
 
@@ -143,49 +133,53 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>引入依赖</strong><br>
 在项目的<code class="notranslate">pom.xml</code>文件中添加MyBatis相关的依赖：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">dependency</span>&gt;
-    &lt;<span class="pl-ent">groupId</span>&gt;org.mybatis&lt;/<span class="pl-ent">groupId</span>&gt;
-    &lt;<span class="pl-ent">artifactId</span>&gt;mybatis&lt;/<span class="pl-ent">artifactId</span>&gt;
-    &lt;<span class="pl-ent">version</span>&gt;3.5.17&lt;/<span class="pl-ent">version</span>&gt;
-&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+    &lt;version&gt;3.5.17&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 <ol>
 <li><strong>配置SqlSessionFactory</strong><br>
 使用XML配置文件来配置SqlSessionFactory：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span> ?&gt;
-&lt;!<span class="pl-ent">DOCTYPE</span> <span class="pl-e">configuration</span> PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd"&gt;
-&lt;<span class="pl-ent">configuration</span>&gt;
-    &lt;<span class="pl-ent">environments</span> <span class="pl-e">default</span>=<span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">environment</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>&gt;
-            &lt;<span class="pl-ent">transactionManager</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>JDBC<span class="pl-pds">"</span></span>/&gt;
-            &lt;<span class="pl-ent">dataSource</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>POOLED<span class="pl-pds">"</span></span>&gt;
-                &lt;<span class="pl-ent">property</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>driver<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>${driver}<span class="pl-pds">"</span></span>/&gt;
-                &lt;<span class="pl-ent">property</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>${url}<span class="pl-pds">"</span></span>/&gt;
-                &lt;<span class="pl-ent">property</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>username<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>${username}<span class="pl-pds">"</span></span>/&gt;
-                &lt;<span class="pl-ent">property</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>${password}<span class="pl-pds">"</span></span>/&gt;
-            &lt;/<span class="pl-ent">dataSource</span>&gt;
-        &lt;/<span class="pl-ent">environment</span>&gt;
-    &lt;/<span class="pl-ent">environments</span>&gt;
-    &lt;<span class="pl-ent">mappers</span>&gt;
-        &lt;<span class="pl-ent">mapper</span> <span class="pl-e">resource</span>=<span class="pl-s"><span class="pl-pds">"</span>org/mybatis/example/BlogMapper.xml<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">mappers</span>&gt;
-&lt;/<span class="pl-ent">configuration</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd"&gt;
+&lt;configuration&gt;
+    &lt;environments default="development"&gt;
+        &lt;environment id="development"&gt;
+            &lt;transactionManager type="JDBC"/&gt;
+            &lt;dataSource type="POOLED"&gt;
+                &lt;property name="driver" value="${driver}"/&gt;
+                &lt;property name="url" value="${url}"/&gt;
+                &lt;property name="username" value="${username}"/&gt;
+                &lt;property name="password" value="${password}"/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+    &lt;mappers&gt;
+        &lt;mapper resource="org/mybatis/example/BlogMapper.xml"/&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;
+</code></pre>
 <ol>
 <li><strong>定义Mapper接口</strong><br>
 创建一个Mapper接口，并在接口方法上使用注解或XML配置SQL语句：</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">BlogMapper</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Select</span>(<span class="pl-s">"SELECT * FROM blog WHERE id = #{id}"</span>)
-    <span class="pl-smi">Blog</span> <span class="pl-en">selectBlog</span>(<span class="pl-smi">int</span> <span class="pl-s1">id</span>);
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">public interface BlogMapper {
+    @Select("SELECT * FROM blog WHERE id = #{id}")
+    Blog selectBlog(int id);
+}
+</code></pre>
 <ol>
 <li><strong>使用MyBatis</strong><br>
 在代码中使用SqlSessionFactory获取SqlSession，并调用Mapper接口的方法：</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span> (<span class="pl-smi">SqlSession</span> <span class="pl-s1">session</span> = <span class="pl-s1">sqlSessionFactory</span>.<span class="pl-en">openSession</span>()) {
-    <span class="pl-smi">BlogMapper</span> <span class="pl-s1">mapper</span> = <span class="pl-s1">session</span>.<span class="pl-en">getMapper</span>(<span class="pl-smi">BlogMapper</span>.<span class="pl-k">class</span>);
-    <span class="pl-smi">Blog</span> <span class="pl-s1">blog</span> = <span class="pl-s1">mapper</span>.<span class="pl-en">selectBlog</span>(<span class="pl-c1">101</span>);
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">try (SqlSession session = sqlSessionFactory.openSession()) {
+    BlogMapper mapper = session.getMapper(BlogMapper.class);
+    Blog blog = mapper.selectBlog(101);
+}
+</code></pre>
 <h4>MyBatis的应用场景</h4>
 <ol>
 <li><strong>企业级应用开发</strong>：MyBatis适用于各种规模的企业级应用开发，特别是需要灵活控制SQL的场景。</li>
@@ -230,10 +224,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>只能替代值的位置，不能替代容器名（标签，列名，sql 关键字）</li>
 <li><strong>示例</strong>：</li>
 </ul>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>int<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="selectUser" parameterType="int" resultType="User"&gt;
     SELECT * FROM users WHERE id = #{id}
-&lt;/<span class="pl-ent">select</span>&gt;
-</pre></div>
+&lt;/select&gt;
+
+</code></pre>
 <p>在这个示例中，<code class="notranslate">#{id}</code>会被替换为一个占位符<code class="notranslate">?</code>，并在执行SQL时将参数值设置为<code class="notranslate">id</code>的值。</p>
 <h4>2. <code class="notranslate">${}</code>（字符串拼接）</h4>
 <ul>
@@ -241,10 +236,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>行为</strong>：MyBatis会将<code class="notranslate">${}</code>中的参数直接替换为参数值，不进行任何转义或预编译。</li>
 <li><strong>示例</strong>：</li>
 </ul>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>String<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="selectUser" parameterType="String" resultType="User"&gt;
     SELECT * FROM users WHERE name = '${name}'
-&lt;/<span class="pl-ent">select</span>&gt;
-</pre></div>
+&lt;/select&gt;
+
+</code></pre>
 <p>在这个示例中，<code class="notranslate">${name}</code>会被直接替换为参数<code class="notranslate">name</code>的值。如果<code class="notranslate">name</code>的值是<code class="notranslate">John</code>，则生成的SQL语句为<code class="notranslate">SELECT * FROM users WHERE name = 'John'</code>。</p>
 <h4>区别总结</h4>
 <ol>
@@ -300,32 +296,36 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>单个简单类型</h4>
 <p>单个简单类型指的是Java中的基本数据类型及其包装类，如<code class="notranslate">int</code>、<code class="notranslate">Integer</code>、<code class="notranslate">String</code>、<code class="notranslate">boolean</code>、<code class="notranslate">Boolean</code>等。这些类型在MyBatis中可以直接作为参数和返回值使用。</p>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUserName<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>int<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>String<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="selectUserName" parameterType="int" resultType="String"&gt;
     SELECT name FROM users WHERE id = #{id}
-&lt;/<span class="pl-ent">select</span>&gt;
-</pre></div>
+&lt;/select&gt;
+
+</code></pre>
 <p><code class="notranslate">parameterType</code>指定了参数类型为<code class="notranslate">int</code>，<code class="notranslate">resultType</code>指定了返回值类型为<code class="notranslate">String</code>。</p>
 <h4>定义别名</h4>
 <p>MyBatis允许为Java类定义别名，以简化配置文件中的类型声明。别名可以通过<code class="notranslate">&lt;typeAlias&gt;</code>标签在MyBatis配置文件中定义，也可以通过注解方式定义。</p>
 <p><strong>XML配置方式</strong>：</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">typeAliases</span>&gt;
-    &lt;<span class="pl-ent">typeAlias</span> <span class="pl-e">alias</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.User<span class="pl-pds">"</span></span>/&gt;
-&lt;/<span class="pl-ent">typeAliases</span>&gt;
-</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;typeAliases&gt;
+    &lt;typeAlias alias="User" type="com.example.model.User"/&gt;
+&lt;/typeAliases&gt;
+
+</code></pre>
 <p><code class="notranslate">User</code>是<code class="notranslate">com.example.model.User</code>类的别名。在Mapper文件中，可以使用别名代替全限定类名。</p>
 <p><strong>注解方式</strong>：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Alias</span>(<span class="pl-s">"User"</span>)
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">User</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">id</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-c">// getters and setters</span>
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">@Alias("User")
+public class User {
+    private int id;
+    private String name;
+    // getters and setters
+}
+</code></pre>
 <p><code class="notranslate">@Alias("User")</code>注解为<code class="notranslate">User</code>类定义了别名。在Mapper文件中，可以使用别名代替全限定类名。</p>
 <p><strong>使用别名的示例</strong>：</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>int<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="selectUser" parameterType="int" resultType="User"&gt;
     SELECT * FROM users WHERE id = #{id}
-&lt;/<span class="pl-ent">select</span>&gt;
-</pre></div>
+&lt;/select&gt;
+
+</code></pre>
 <p><code class="notranslate">resultType</code>使用了别名<code class="notranslate">User</code>，MyBatis会将查询结果映射到<code class="notranslate">User</code>类的实例中。</p>
 <h4>单个实体类型输出</h4>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d6d294e1c9ea674f162f0d29918056a75b1e0b83a92ce01af29258435c3c9d58/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333332333531353934362d37633036303161372d643832642d343935342d613634652d6233356339306331626364352e706e67"><img src="https://camo.githubusercontent.com/d6d294e1c9ea674f162f0d29918056a75b1e0b83a92ce01af29258435c3c9d58/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333332333531353934362d37633036303161372d643832642d343935342d613634652d6233356339306331626364352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733323515946-7c0601a7-d82d-4954-a64e-b35c90c1bcd5.png" style="max-width: 100%;"></a></p>
@@ -371,105 +371,114 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>定义ResultMap</strong><br>
 在MyBatis的XML配置文件中定义ResultMap：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>userResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.User<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_email<span class="pl-pds">"</span></span>/&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;resultMap id="userResultMap" type="com.example.model.User"&gt;
+    &lt;id property="id" column="user_id"/&gt;
+    &lt;result property="name" column="user_name"/&gt;
+    &lt;result property="email" column="user_email"/&gt;
+&lt;/resultMap&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">userResultMap</code>定义了一个ResultMap，将查询结果中的<code class="notranslate">user_id</code>、<code class="notranslate">user_name</code>和<code class="notranslate">user_email</code>列分别映射到<code class="notranslate">User</code>对象的<code class="notranslate">id</code>、<code class="notranslate">name</code>和<code class="notranslate">email</code>属性。</p>
 <ol>
 <li><strong>使用ResultMap</strong><br>
 在Mapper文件中使用ResultMap：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUser<span class="pl-pds">"</span></span> <span class="pl-e">resultMap</span>=<span class="pl-s"><span class="pl-pds">"</span>userResultMap<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="selectUser" resultMap="userResultMap"&gt;
     SELECT user_id, user_name, user_email FROM users WHERE user_id = #{id}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">selectUser</code>查询使用了<code class="notranslate">userResultMap</code>，将查询结果映射到<code class="notranslate">User</code>对象。</p>
 <h4>复杂映射关系</h4>
 <ol>
 <li><strong>一对一映射</strong><br>
 一对一映射是指一个对象包含另一个对象的情况。例如，用户对象包含地址对象：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>userResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.User<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">association</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>address<span class="pl-pds">"</span></span> <span class="pl-e">javaType</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.Address<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>address_id<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>street<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>address_street<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>city<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>address_city<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">association</span>&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;resultMap id="userResultMap" type="com.example.model.User"&gt;
+    &lt;id property="id" column="user_id"/&gt;
+    &lt;result property="name" column="user_name"/&gt;
+    &lt;association property="address" javaType="com.example.model.Address"&gt;
+        &lt;id property="id" column="address_id"/&gt;
+        &lt;result property="street" column="address_street"/&gt;
+        &lt;result property="city" column="address_city"/&gt;
+    &lt;/association&gt;
+&lt;/resultMap&gt;
+</code></pre>
 <ol>
 <li><strong>一对多映射</strong><br>
 一对多映射是指一个对象包含多个子对象的情况。例如，用户对象包含多个订单对象：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>userResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.User<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">collection</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>orders<span class="pl-pds">"</span></span> <span class="pl-e">ofType</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.Order<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_id<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>amount<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_amount<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>date<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_date<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">collection</span>&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;resultMap id="userResultMap" type="com.example.model.User"&gt;
+    &lt;id property="id" column="user_id"/&gt;
+    &lt;result property="name" column="user_name"/&gt;
+    &lt;collection property="orders" ofType="com.example.model.Order"&gt;
+        &lt;id property="id" column="order_id"/&gt;
+        &lt;result property="amount" column="order_amount"/&gt;
+        &lt;result property="date" column="order_date"/&gt;
+    &lt;/collection&gt;
+&lt;/resultMap&gt;
+</code></pre>
 <ol>
 <li><strong>多对多映射</strong><br>
 多对多映射是指一个对象包含多个子对象，每个子对象又包含多个父对象的情况。例如，学生对象包含多个课程对象，课程对象也包含多个学生对象：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>studentResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.Student<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>student_id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>student_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">collection</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>courses<span class="pl-pds">"</span></span> <span class="pl-e">ofType</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.Course<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>course_id<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>course_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">collection</span>&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;resultMap id="studentResultMap" type="com.example.model.Student"&gt;
+    &lt;id property="id" column="student_id"/&gt;
+    &lt;result property="name" column="student_name"/&gt;
+    &lt;collection property="courses" ofType="com.example.model.Course"&gt;
+        &lt;id property="id" column="course_id"/&gt;
+        &lt;result property="name" column="course_name"/&gt;
+    &lt;/collection&gt;
+&lt;/resultMap&gt;
+</code></pre>
 <p>通过ResultMap，MyBatis可以灵活地处理各种复杂的映射关系，满足不同的业务需求。</p>
 <h3>列名和属性不一致的解决方案</h3>
 <p>在MyBatis中，当数据库列名和Java属性名不一致时，可以通过以下几种方案来解决映射问题：</p>
 <h4>方案1：使用别名</h4>
 <p>通过在SQL查询中使用别名，将数据库列名映射到Java属性名。</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectTeacher<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>int<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>Teacher<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="selectTeacher" parameterType="int" resultType="Teacher"&gt;
     SELECT t.id AS tId, t.name AS tName FROM teacher WHERE t.id = #{tId}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">t.id</code>被映射为<code class="notranslate">tId</code>，<code class="notranslate">t.name</code>被映射为<code class="notranslate">tName</code>。</p>
 <h4>方案2：开启驼峰式映射</h4>
 <p>通过在MyBatis配置文件中开启驼峰式映射，将下划线命名的数据库列名自动映射为驼峰命名的Java属性名。</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">settings</span>&gt;
-    &lt;<span class="pl-ent">setting</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>mapUnderscoreToCamelCase<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>/&gt;
-&lt;/<span class="pl-ent">settings</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;settings&gt;
+    &lt;setting name="mapUnderscoreToCamelCase" value="true"/&gt;
+&lt;/settings&gt;
+</code></pre>
 <p>在这个示例中，数据库列名<code class="notranslate">tid</code>会自动映射为Java属性名<code class="notranslate">tId</code>。</p>
 <h4>方案3：使用ResultMap自定义映射</h4>
 <p>通过ResultMap自定义映射关系，可以精确控制数据库列名和Java属性名的映射。<code class="notranslate">resultType</code>和<code class="notranslate">resultMap</code>二选一使用。</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate"><span class="pl-c"><span class="pl-c">&lt;!--</span> 声明ResultMap标签，自定义映射规则 <span class="pl-c">--&gt;</span></span>
-&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>teacherResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>Teacher<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>tId<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>tName<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>/&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;!-- 声明ResultMap标签，自定义映射规则 --&gt;
+&lt;resultMap id="teacherResultMap" type="Teacher"&gt;
+    &lt;id property="tId" column="id"/&gt;
+    &lt;result property="tName" column="name"/&gt;
+&lt;/resultMap&gt;
 
-<span class="pl-c"><span class="pl-c">&lt;!--</span> 使用ResultMap <span class="pl-c">--&gt;</span></span>
-&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>queryById<span class="pl-pds">"</span></span> <span class="pl-e">resultMap</span>=<span class="pl-s"><span class="pl-pds">"</span>teacherResultMap<span class="pl-pds">"</span></span>&gt;
+&lt;!-- 使用ResultMap --&gt;
+&lt;select id="queryById" resultMap="teacherResultMap"&gt;
     SELECT * FROM teacher WHERE id = #{tId}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">teacherResultMap</code>定义了自定义映射规则，将数据库列<code class="notranslate">id</code>映射为Java属性<code class="notranslate">tId</code>，将数据库列<code class="notranslate">name</code>映射为Java属性<code class="notranslate">tName</code>。</p>
 <h4>深层次对象结构映射</h4>
 <p>对于深层次的对象结构和多表查询，可以通过ResultMap进行复杂映射。</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>orderResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>Order<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>orderId<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>orderName<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">association</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>orderItem<span class="pl-pds">"</span></span> <span class="pl-e">javaType</span>=<span class="pl-s"><span class="pl-pds">"</span>OrderItem<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>itemId<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>item_id<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>orderId<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_id<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>itemName<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>item_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">association</span>&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;resultMap id="orderResultMap" type="Order"&gt;
+    &lt;id property="orderId" column="order_id"/&gt;
+    &lt;result property="orderName" column="order_name"/&gt;
+    &lt;association property="orderItem" javaType="OrderItem"&gt;
+        &lt;id property="itemId" column="item_id"/&gt;
+        &lt;result property="orderId" column="order_id"/&gt;
+        &lt;result property="itemName" column="item_name"/&gt;
+    &lt;/association&gt;
+&lt;/resultMap&gt;
 
-&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectOrder<span class="pl-pds">"</span></span> <span class="pl-e">resultMap</span>=<span class="pl-s"><span class="pl-pds">"</span>orderResultMap<span class="pl-pds">"</span></span>&gt;
+&lt;select id="selectOrder" resultMap="orderResultMap"&gt;
     SELECT o.order_id, o.order_name, i.item_id, i.order_id, i.item_name
     FROM orders o
     JOIN order_items i ON o.order_id = i.order_id
     WHERE o.order_id = #{orderId}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">orderResultMap</code>定义了复杂的映射关系，将<code class="notranslate">Order</code>对象和<code class="notranslate">OrderItem</code>对象的属性与数据库列进行映射。</p>
 <p>ResultMap标签，自定义映射关系，可以多层次，也可以单层次</p>
 <h4>通过注解生成对应的方法</h4>
@@ -484,42 +493,44 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>一对一映射</h4>
 <p>一对一映射是指一个对象包含另一个对象的情况。例如，用户对象包含地址对象。</p>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>userResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.User<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">association</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>address<span class="pl-pds">"</span></span> <span class="pl-e">javaType</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.Address<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>address_id<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>street<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>address_street<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>city<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>address_city<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">association</span>&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;resultMap id="userResultMap" type="com.example.model.User"&gt;
+    &lt;id property="id" column="user_id"/&gt;
+    &lt;result property="name" column="user_name"/&gt;
+    &lt;association property="address" javaType="com.example.model.Address"&gt;
+        &lt;id property="id" column="address_id"/&gt;
+        &lt;result property="street" column="address_street"/&gt;
+        &lt;result property="city" column="address_city"/&gt;
+    &lt;/association&gt;
+&lt;/resultMap&gt;
 
-&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUser<span class="pl-pds">"</span></span> <span class="pl-e">resultMap</span>=<span class="pl-s"><span class="pl-pds">"</span>userResultMap<span class="pl-pds">"</span></span>&gt;
+&lt;select id="selectUser" resultMap="userResultMap"&gt;
     SELECT u.user_id, u.user_name, a.address_id, a.address_street, a.address_city
     FROM users u
     JOIN addresses a ON u.address_id = a.address_id
     WHERE u.user_id = #{userId}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">userResultMap</code>定义了用户和地址之间的一对一映射关系。</p>
 <h4>一对多映射</h4>
 <p>一对多映射是指一个对象包含多个子对象的情况。例如，用户对象包含多个订单对象。</p>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>userResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.User<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>user_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">collection</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>orders<span class="pl-pds">"</span></span> <span class="pl-e">ofType</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.Order<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_id<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>amount<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_amount<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>date<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>order_date<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">collection</span>&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;resultMap id="userResultMap" type="com.example.model.User"&gt;
+    &lt;id property="id" column="user_id"/&gt;
+    &lt;result property="name" column="user_name"/&gt;
+    &lt;collection property="orders" ofType="com.example.model.Order"&gt;
+        &lt;id property="id" column="order_id"/&gt;
+        &lt;result property="amount" column="order_amount"/&gt;
+        &lt;result property="date" column="order_date"/&gt;
+    &lt;/collection&gt;
+&lt;/resultMap&gt;
 
-&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUser<span class="pl-pds">"</span></span> <span class="pl-e">resultMap</span>=<span class="pl-s"><span class="pl-pds">"</span>userResultMap<span class="pl-pds">"</span></span>&gt;
+&lt;select id="selectUser" resultMap="userResultMap"&gt;
     SELECT u.user_id, u.user_name, o.order_id, o.order_amount, o.order_date
     FROM users u
     JOIN orders o ON u.user_id = o.user_id
     WHERE u.user_id = #{userId}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">userResultMap</code>定义了用户和订单之间的一对多映射关系。</p>
 <h4>多对多映射</h4>
 <p>多对多映射是指一个对象包含多个子对象，每个子对象又包含多个父对象的情况。例如，学生对象包含多个课程对象，课程对象也包含多个学生对象。</p>
@@ -527,22 +538,23 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>对一 属性中包含对象方法</p>
 <p>对多 属性中包含对象集合</p>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">resultMap</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>studentResultMap<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.Student<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>student_id<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>student_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">collection</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>courses<span class="pl-pds">"</span></span> <span class="pl-e">ofType</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model.Course<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">id</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>course_id<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">result</span> <span class="pl-e">property</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">column</span>=<span class="pl-s"><span class="pl-pds">"</span>course_name<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">collection</span>&gt;
-&lt;/<span class="pl-ent">resultMap</span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;resultMap id="studentResultMap" type="com.example.model.Student"&gt;
+    &lt;id property="id" column="student_id"/&gt;
+    &lt;result property="name" column="student_name"/&gt;
+    &lt;collection property="courses" ofType="com.example.model.Course"&gt;
+        &lt;id property="id" column="course_id"/&gt;
+        &lt;result property="name" column="course_name"/&gt;
+    &lt;/collection&gt;
+&lt;/resultMap&gt;
 
-&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectStudent<span class="pl-pds">"</span></span> <span class="pl-e">resultMap</span>=<span class="pl-s"><span class="pl-pds">"</span>studentResultMap<span class="pl-pds">"</span></span>&gt;
+&lt;select id="selectStudent" resultMap="studentResultMap"&gt;
     SELECT s.student_id, s.student_name, c.course_id, c.course_name
     FROM students s
     JOIN student_courses sc ON s.student_id = sc.student_id
     JOIN courses c ON sc.course_id = c.course_id
     WHERE s.student_id = #{studentId}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">studentResultMap</code>定义了学生和课程之间的多对多映射关系。</p>
 <p>通过ResultMap，MyBatis可以灵活地处理各种复杂的映射关系，满足不同的业务需求.</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/394320458fc3504c088943bf19e5515789fd2bbabd83a190ac9f878d42b95c31/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333339393639343636322d37373065346536622d656635642d343861372d623234332d6639356630343830393362642e706e67"><img src="https://camo.githubusercontent.com/394320458fc3504c088943bf19e5515789fd2bbabd83a190ac9f878d42b95c31/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333339393639343636322d37373065346536622d656635642d343861372d623234332d6639356630343830393362642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733399694662-770e4e6b-ef5d-48a7-b243-f95f048093bd.png" style="max-width: 100%;"></a>只有双表查，没有多表查</p>
@@ -559,14 +571,15 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>findUserById<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>int<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="findUserById" parameterType="int" resultType="User"&gt;
     SELECT * FROM users
-    &lt;<span class="pl-ent">where</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>id != null<span class="pl-pds">"</span></span>&gt;
+    &lt;where&gt;
+        &lt;if test="id != null"&gt;
             id = #{id}
-        &lt;/<span class="pl-ent">if</span>&gt;
-    &lt;/<span class="pl-ent">where</span>&gt;
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+        &lt;/if&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
+</code></pre>
 <ol>
 <li><code class="notranslate">&lt;choose&gt;</code><strong>、</strong><code class="notranslate">&lt;when&gt;</code><strong>和</strong><code class="notranslate">&lt;otherwise&gt;</code><strong>标签</strong>
 <ul>
@@ -575,22 +588,23 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>findUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>map<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="findUser" parameterType="map" resultType="User"&gt;
     SELECT * FROM users
-    &lt;<span class="pl-ent">where</span>&gt;
-        &lt;<span class="pl-ent">choose</span>&gt;
-            &lt;<span class="pl-ent">when</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>id != null<span class="pl-pds">"</span></span>&gt;
+    &lt;where&gt;
+        &lt;choose&gt;
+            &lt;when test="id != null"&gt;
                 id = #{id}
-            &lt;/<span class="pl-ent">when</span>&gt;
-            &lt;<span class="pl-ent">when</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>name != null<span class="pl-pds">"</span></span>&gt;
+            &lt;/when&gt;
+            &lt;when test="name != null"&gt;
                 name = #{name}
-            &lt;/<span class="pl-ent">when</span>&gt;
-            &lt;<span class="pl-ent">otherwise</span>&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
                 1 = 1
-            &lt;/<span class="pl-ent">otherwise</span>&gt;
-        &lt;/<span class="pl-ent">choose</span>&gt;
-    &lt;/<span class="pl-ent">where</span>&gt;
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+            &lt;/otherwise&gt;
+        &lt;/choose&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
+</code></pre>
 <ol>
 <li><code class="notranslate">&lt;trim&gt;</code><strong>标签</strong>
 <ul>
@@ -599,16 +613,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">update</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>updateUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;update id="updateUser" parameterType="User"&gt;
     UPDATE users
-    &lt;<span class="pl-ent">set</span>&gt;
-        &lt;<span class="pl-ent">trim</span> <span class="pl-e">suffixOverrides</span>=<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>&gt;
-            &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>name != null<span class="pl-pds">"</span></span>&gt;name = #{name},&lt;/<span class="pl-ent">if</span>&gt;
-            &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>email != null<span class="pl-pds">"</span></span>&gt;email = #{email},&lt;/<span class="pl-ent">if</span>&gt;
-        &lt;/<span class="pl-ent">trim</span>&gt;
-    &lt;/<span class="pl-ent">set</span>&gt;
+    &lt;set&gt;
+        &lt;trim suffixOverrides=","&gt;
+            &lt;if test="name != null"&gt;name = #{name},&lt;/if&gt;
+            &lt;if test="email != null"&gt;email = #{email},&lt;/if&gt;
+        &lt;/trim&gt;
+    &lt;/set&gt;
     WHERE id = #{id}
-&lt;/<span class="pl-ent">update</span>&gt;</pre></div>
+&lt;/update&gt;
+</code></pre>
 <ol>
 <li><code class="notranslate">&lt;where&gt;</code><strong>标签</strong>
 <ul>
@@ -617,13 +632,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>findUserByConditions<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>map<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="findUserByConditions" parameterType="map" resultType="User"&gt;
     SELECT * FROM users
-    &lt;<span class="pl-ent">where</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>id != null<span class="pl-pds">"</span></span>&gt;id = #{id}&lt;/<span class="pl-ent">if</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>name != null<span class="pl-pds">"</span></span>&gt;AND name = #{name}&lt;/<span class="pl-ent">if</span>&gt;
-    &lt;/<span class="pl-ent">where</span>&gt;
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+    &lt;where&gt;
+        &lt;if test="id != null"&gt;id = #{id}&lt;/if&gt;
+        &lt;if test="name != null"&gt;AND name = #{name}&lt;/if&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
+</code></pre>
 <ol>
 <li><code class="notranslate">&lt;set&gt;</code><strong>标签</strong>
 <ul>
@@ -632,14 +648,15 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">update</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>updateUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;update id="updateUser" parameterType="User"&gt;
     UPDATE users
-    &lt;<span class="pl-ent">set</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>name != null<span class="pl-pds">"</span></span>&gt;name = #{name},&lt;/<span class="pl-ent">if</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>email != null<span class="pl-pds">"</span></span>&gt;email = #{email},&lt;/<span class="pl-ent">if</span>&gt;
-    &lt;/<span class="pl-ent">set</span>&gt;
+    &lt;set&gt;
+        &lt;if test="name != null"&gt;name = #{name},&lt;/if&gt;
+        &lt;if test="email != null"&gt;email = #{email},&lt;/if&gt;
+    &lt;/set&gt;
     WHERE id = #{id}
-&lt;/<span class="pl-ent">update</span>&gt;</pre></div>
+&lt;/update&gt;
+</code></pre>
 <ol>
 <li><code class="notranslate">&lt;foreach&gt;</code><strong>标签</strong>
 <ul>
@@ -648,31 +665,34 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>findUsersByIds<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>list<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="findUsersByIds" parameterType="list" resultType="User"&gt;
     SELECT * FROM users
     WHERE id IN
-    &lt;<span class="pl-ent">foreach</span> <span class="pl-e">item</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">collection</span>=<span class="pl-s"><span class="pl-pds">"</span>list<span class="pl-pds">"</span></span> <span class="pl-e">open</span>=<span class="pl-s"><span class="pl-pds">"</span>(<span class="pl-pds">"</span></span> <span class="pl-e">separator</span>=<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>)<span class="pl-pds">"</span></span>&gt;
+    &lt;foreach item="id" collection="list" open="(" separator="," close=")"&gt;
         #{id}
-    &lt;/<span class="pl-ent">foreach</span>&gt;
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+    &lt;/foreach&gt;
+&lt;/select&gt;
+</code></pre>
 <h3>MyBatis动态SQL语句的使用</h3>
 <p>在MyBatis中，可以通过动态SQL语句来根据不同的条件生成不同的SQL查询。以下是如何使用动态SQL语句来实现条件查询的示例：</p>
 <h4>示例方法</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">List</span>&lt;<span class="pl-smi">Employee</span>&gt; <span class="pl-en">query</span>(<span class="pl-c1">@</span><span class="pl-c1">Param</span>(<span class="pl-s">"name"</span>) <span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-c1">@</span><span class="pl-c1">Param</span>(<span class="pl-s">"salary"</span>) <span class="pl-smi">Double</span> <span class="pl-s1">salary</span>);</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">List&lt;Employee&gt; query(@Param("name") String name, @Param("salary") Double salary);
+</code></pre>
 <p>如果传入属性，就判断相等；如果不传入，则不加对应的条件。</p>
 <h4>动态SQL语句</h4>
 <p>使用<code class="notranslate">&lt;where&gt;</code>标签和<code class="notranslate">&lt;if&gt;</code>标签来实现动态SQL语句：</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>query<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>Employee<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="query" resultType="Employee"&gt;
     SELECT * FROM employee
-    &lt;<span class="pl-ent">where</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>name != null<span class="pl-pds">"</span></span>&gt;
+    &lt;where&gt;
+        &lt;if test="name != null"&gt;
             emp_name = #{name}
-        &lt;/<span class="pl-ent">if</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>salary != null and salary <span class="pl-c1">&amp;gt;</span> 100<span class="pl-pds">"</span></span>&gt;
+        &lt;/if&gt;
+        &lt;if test="salary != null and salary &amp;gt; 100"&gt;
             AND emp_salary = #{salary}
-        &lt;/<span class="pl-ent">if</span>&gt;
-    &lt;/<span class="pl-ent">where</span>&gt;
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+        &lt;/if&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
+</code></pre>
 <h4>解释</h4>
 <ol>
 <li><code class="notranslate">&lt;where&gt;</code><strong>标签的作用</strong>：
@@ -701,14 +721,15 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>用途</strong>：用于动态生成<code class="notranslate">UPDATE</code>语句中的<code class="notranslate">SET</code>子句，自动去除多余的逗号。</li>
 <li><strong>示例</strong>：</li>
 </ul>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">update</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>updateUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;update id="updateUser" parameterType="User"&gt;
     UPDATE users
-    &lt;<span class="pl-ent">set</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>name != null<span class="pl-pds">"</span></span>&gt;name = #{name},&lt;/<span class="pl-ent">if</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>email != null<span class="pl-pds">"</span></span>&gt;email = #{email},&lt;/<span class="pl-ent">if</span>&gt;
-    &lt;/<span class="pl-ent">set</span>&gt;
+    &lt;set&gt;
+        &lt;if test="name != null"&gt;name = #{name},&lt;/if&gt;
+        &lt;if test="email != null"&gt;email = #{email},&lt;/if&gt;
+    &lt;/set&gt;
     WHERE id = #{id}
-&lt;/<span class="pl-ent">update</span>&gt;</pre></div>
+&lt;/update&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">&lt;set&gt;</code>标签会根据条件动态生成<code class="notranslate">SET</code>子句，并自动去除多余的逗号。</p>
 <h4>2. <code class="notranslate">&lt;trim&gt;</code>标签</h4>
 <ul>
@@ -723,14 +744,15 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li><strong>示例</strong>：</li>
 </ul>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">update</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>updateUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;update id="updateUser" parameterType="User"&gt;
     UPDATE users
-    &lt;<span class="pl-ent">trim</span> <span class="pl-e">prefix</span>=<span class="pl-s"><span class="pl-pds">"</span>SET<span class="pl-pds">"</span></span> <span class="pl-e">suffixOverrides</span>=<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>name != null<span class="pl-pds">"</span></span>&gt;name = #{name},&lt;/<span class="pl-ent">if</span>&gt;
-        &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>email != null<span class="pl-pds">"</span></span>&gt;email = #{email},&lt;/<span class="pl-ent">if</span>&gt;
-    &lt;/<span class="pl-ent">trim</span>&gt;
+    &lt;trim prefix="SET" suffixOverrides=","&gt;
+        &lt;if test="name != null"&gt;name = #{name},&lt;/if&gt;
+        &lt;if test="email != null"&gt;email = #{email},&lt;/if&gt;
+    &lt;/trim&gt;
     WHERE id = #{id}
-&lt;/<span class="pl-ent">update</span>&gt;</pre></div>
+&lt;/update&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">&lt;trim&gt;</code>标签会在生成的SQL片段前添加<code class="notranslate">SET</code>，并去除多余的逗号。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a91897f3150ad210e89d9d0981553a3e33b4082822893c6850ccd48aa69d8d1f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430323338343537332d65323636613834632d343361652d346163362d393064322d3632633833653336613862362e706e67"><img src="https://camo.githubusercontent.com/a91897f3150ad210e89d9d0981553a3e33b4082822893c6850ccd48aa69d8d1f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430323338343537332d65323636613834632d343361652d346163362d393064322d3632633833653336613862362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733402384573-e266a84c-43ae-4ac6-90d2-62c83e36a8b6.png" style="max-width: 100%;"></a></p>
 <h4>3. <code class="notranslate">&lt;choose&gt;</code>、<code class="notranslate">&lt;when&gt;</code>和<code class="notranslate">&lt;otherwise&gt;</code>标签</h4>
@@ -738,22 +760,23 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>用途</strong>：类似于Java中的<code class="notranslate">switch</code>语句，用于根据不同的条件生成不同的SQL片段。</li>
 <li><strong>示例</strong>：</li>
 </ul>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>findUser<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>map<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="findUser" parameterType="map" resultType="User"&gt;
     SELECT * FROM users
-    &lt;<span class="pl-ent">where</span>&gt;
-        &lt;<span class="pl-ent">choose</span>&gt;
-            &lt;<span class="pl-ent">when</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>id != null<span class="pl-pds">"</span></span>&gt;
+    &lt;where&gt;
+        &lt;choose&gt;
+            &lt;when test="id != null"&gt;
                 id = #{id}
-            &lt;/<span class="pl-ent">when</span>&gt;
-            &lt;<span class="pl-ent">when</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>name != null<span class="pl-pds">"</span></span>&gt;
+            &lt;/when&gt;
+            &lt;when test="name != null"&gt;
                 name = #{name}
-            &lt;/<span class="pl-ent">when</span>&gt;
-            &lt;<span class="pl-ent">otherwise</span>&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
                 1 = 1
-            &lt;/<span class="pl-ent">otherwise</span>&gt;
-        &lt;/<span class="pl-ent">choose</span>&gt;
-    &lt;/<span class="pl-ent">where</span>&gt;
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+            &lt;/otherwise&gt;
+        &lt;/choose&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">&lt;choose&gt;</code>标签会根据不同的条件生成不同的SQL片段。</p>
 <p>它和if的区别，这个只能一个满足，if可以多个</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c55951a287d251f002db475323d34cab67f0af8a65e47d556aa91835b0ccb76d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430323530353632302d39363039383066612d613939382d343462302d626539382d6334666339643939623330342e706e67"><img src="https://camo.githubusercontent.com/c55951a287d251f002db475323d34cab67f0af8a65e47d556aa91835b0ccb76d/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430323530353632302d39363039383066612d613939382d343462302d626539382d6334666339643939623330342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733402505620-960980fa-a998-44b0-be98-c4fc9d99b304.png" style="max-width: 100%;"></a></p>
@@ -771,13 +794,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li><strong>示例</strong>：</li>
 </ul>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>findUsersByIds<span class="pl-pds">"</span></span> <span class="pl-e">parameterType</span>=<span class="pl-s"><span class="pl-pds">"</span>list<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="findUsersByIds" parameterType="list" resultType="User"&gt;
     SELECT * FROM users
     WHERE id IN
-    &lt;<span class="pl-ent">foreach</span> <span class="pl-e">item</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">collection</span>=<span class="pl-s"><span class="pl-pds">"</span>list<span class="pl-pds">"</span></span> <span class="pl-e">open</span>=<span class="pl-s"><span class="pl-pds">"</span>(<span class="pl-pds">"</span></span> <span class="pl-e">separator</span>=<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>)<span class="pl-pds">"</span></span>&gt;
+    &lt;foreach item="id" collection="list" open="(" separator="," close=")"&gt;
         #{id}
-    &lt;/<span class="pl-ent">foreach</span>&gt;
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+    &lt;/foreach&gt;
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">&lt;foreach&gt;</code>标签会遍历集合<code class="notranslate">list</code>，生成<code class="notranslate">IN</code>查询的SQL片段。</p>
 <p>在数据库url后面加?allowMultiQueries=true允许多语句执行</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/97ba1fd4cd7b70a89008efcc9528b7e807ff3b5086475409555a302f953ad437/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430333737353336342d65633230633031352d363037632d343830362d386462352d3863646137323935623163362e706e67"><img src="https://camo.githubusercontent.com/97ba1fd4cd7b70a89008efcc9528b7e807ff3b5086475409555a302f953ad437/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430333737353336342d65633230633031352d363037632d343830362d386462352d3863646137323935623163362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733403775364-ec20c015-607c-4806-8db5-8cda7295b1c6.png" style="max-width: 100%;"></a></p>
@@ -788,33 +812,36 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>在MyBatis中，SQL片段（SQL Fragments）是一种用于重用SQL代码的机制。通过定义和引用SQL片段，可以避免重复编写相同的SQL代码，提高代码的可维护性和可读性。SQL片段通常使用<code class="notranslate">&lt;sql&gt;</code>和<code class="notranslate">&lt;include&gt;</code>标签来定义和引用。</p>
 <h4>定义SQL片段</h4>
 <p>使用<code class="notranslate">&lt;sql&gt;</code>标签定义一个SQL片段。<code class="notranslate">&lt;sql&gt;</code>标签通常放在Mapper XML文件的顶部。</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">sql</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>userColumns<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;sql id="userColumns"&gt;
     user_id, user_name, user_email
-&lt;/<span class="pl-ent">sql</span>&gt;</pre></div>
+&lt;/sql&gt;
+</code></pre>
 <p>在这个示例中，定义了一个名为<code class="notranslate">userColumns</code>的SQL片段，包含了用户表的三个列名。</p>
 <h4>引用SQL片段</h4>
 <p>使用<code class="notranslate">&lt;include&gt;</code>标签引用一个SQL片段。<code class="notranslate">&lt;include&gt;</code>标签可以放在任何需要引用SQL片段的地方。</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUser<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
-    SELECT &lt;<span class="pl-ent">include</span> <span class="pl-e">refid</span>=<span class="pl-s"><span class="pl-pds">"</span>userColumns<span class="pl-pds">"</span></span>/&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;select id="selectUser" resultType="User"&gt;
+    SELECT &lt;include refid="userColumns"/&gt;
     FROM users
     WHERE user_id = #{id}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，使用<code class="notranslate">&lt;include&gt;</code>标签引用了<code class="notranslate">userColumns</code> SQL片段，从而避免了重复编写列名。</p>
 <h4>动态SQL片段</h4>
 <p>SQL片段也可以包含动态SQL标签，如<code class="notranslate">&lt;if&gt;</code>、<code class="notranslate">&lt;choose&gt;</code>等，从而实现更复杂的SQL重用。</p>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">sql</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>dynamicUserColumns<span class="pl-pds">"</span></span>&gt;
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;sql id="dynamicUserColumns"&gt;
     user_id,
-    &lt;<span class="pl-ent">if</span> <span class="pl-e">test</span>=<span class="pl-s"><span class="pl-pds">"</span>includeName<span class="pl-pds">"</span></span>&gt;
+    &lt;if test="includeName"&gt;
         user_name,
-    &lt;/<span class="pl-ent">if</span>&gt;
+    &lt;/if&gt;
     user_email
-&lt;/<span class="pl-ent">sql</span>&gt;
+&lt;/sql&gt;
 
-&lt;<span class="pl-ent">select</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>selectUser<span class="pl-pds">"</span></span> <span class="pl-e">resultType</span>=<span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span></span>&gt;
-    SELECT &lt;<span class="pl-ent">include</span> <span class="pl-e">refid</span>=<span class="pl-s"><span class="pl-pds">"</span>dynamicUserColumns<span class="pl-pds">"</span></span>/&gt;
+&lt;select id="selectUser" resultType="User"&gt;
+    SELECT &lt;include refid="dynamicUserColumns"/&gt;
     FROM users
     WHERE user_id = #{id}
-&lt;/<span class="pl-ent">select</span>&gt;</pre></div>
+&lt;/select&gt;
+</code></pre>
 <p>在这个示例中，<code class="notranslate">dynamicUserColumns</code> SQL片段包含了一个动态SQL标签<code class="notranslate">&lt;if&gt;</code>，根据条件决定是否包含<code class="notranslate">user_name</code>列。</p>
 <h3>MyBatis Mapper按包批量扫描</h3>
 <p>在MyBatis中，Mapper按包批量扫描是一种简化配置的方式，通过指定包路径，自动扫描并注册Mapper接口。这样可以避免手动一个一个地配置Mapper接口，提高开发效率。</p>
@@ -828,46 +855,50 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>引入依赖</strong><br>
 在项目的<code class="notranslate">pom.xml</code>文件中添加MyBatis和Spring Boot相关的依赖：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">dependencies</span>&gt;
-    &lt;<span class="pl-ent">dependency</span>&gt;
-        &lt;<span class="pl-ent">groupId</span>&gt;org.mybatis.spring.boot&lt;/<span class="pl-ent">groupId</span>&gt;
-        &lt;<span class="pl-ent">artifactId</span>&gt;mybatis-spring-boot-starter&lt;/<span class="pl-ent">artifactId</span>&gt;
-        &lt;<span class="pl-ent">version</span>&gt;2.2.0&lt;/<span class="pl-ent">version</span>&gt;
-    &lt;/<span class="pl-ent">dependency</span>&gt;
-&lt;/<span class="pl-ent">dependencies</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+        &lt;version&gt;2.2.0&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
 <ol>
 <li><strong>配置Mapper扫描</strong><br>
 在Spring Boot配置类中使用<code class="notranslate">@MapperScan</code>注解，指定Mapper接口所在的包路径：</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">SpringBootApplication</span>
-<span class="pl-c1">@</span><span class="pl-c1">MapperScan</span>(<span class="pl-s">"com.example.mapper"</span>)
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyBatisApplication</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">SpringApplication</span>.<span class="pl-en">run</span>(<span class="pl-smi">MyBatisApplication</span>.<span class="pl-k">class</span>, <span class="pl-s1">args</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">@SpringBootApplication
+@MapperScan("com.example.mapper")
+public class MyBatisApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyBatisApplication.class, args);
     }
-}</pre></div>
+}
+</code></pre>
 <ol>
 <li><strong>定义Mapper接口</strong><br>
 在指定的包路径下定义Mapper接口，并使用MyBatis的注解或XML文件配置SQL语句：</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Mapper</span>
-<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">UserMapper</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Select</span>(<span class="pl-s">"SELECT * FROM users WHERE id = #{id}"</span>)
-    <span class="pl-smi">User</span> <span class="pl-en">selectUser</span>(<span class="pl-smi">int</span> <span class="pl-s1">id</span>);
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">@Mapper
+public interface UserMapper {
+    @Select("SELECT * FROM users WHERE id = #{id}")
+    User selectUser(int id);
+}
+</code></pre>
 <ol>
 <li><strong>使用Mapper接口</strong><br>
 在Service类中注入Mapper接口，并调用其方法：</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Service</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserService</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
-    <span class="pl-k">private</span> <span class="pl-smi">UserMapper</span> <span class="pl-s1">userMapper</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">@Service
+public class UserService {
+    @Autowired
+    private UserMapper userMapper;
 
-    <span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">getUserById</span>(<span class="pl-smi">int</span> <span class="pl-s1">id</span>) {
-        <span class="pl-k">return</span> <span class="pl-s1">userMapper</span>.<span class="pl-en">selectUser</span>(<span class="pl-s1">id</span>);
+    public User getUserById(int id) {
+        return userMapper.selectUser(id);
     }
-}</pre></div>
+}
+</code></pre>
 <p>通过以上配置，Spring Boot会自动扫描<code class="notranslate">com.example.mapper</code>包下的所有Mapper接口，并将其注册为Spring Bean，从而简化了Mapper接口的配置过程。</p>
 <h3>MyBatis插件机制</h3>
 <p>MyBatis插件机制允许开发者通过编写插件来拦截和修改MyBatis的核心行为，如SQL执行、参数处理和结果映射等。插件机制使得MyBatis具有很高的可扩展性，能够满足各种复杂的业务需求。</p>
@@ -883,36 +914,38 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ol>
 <li><strong>实现</strong><code class="notranslate">Interceptor</code><strong>接口</strong></li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Intercepts</span>({
-    <span class="pl-c1">@</span><span class="pl-c1">Signature</span>(<span class="pl-s1">type</span> = <span class="pl-smi">Executor</span>.<span class="pl-k">class</span>, <span class="pl-s1">method</span> = <span class="pl-s">"update"</span>, <span class="pl-s1">args</span> = {<span class="pl-smi">MappedStatement</span>.<span class="pl-k">class</span>, <span class="pl-smi">Object</span>.<span class="pl-k">class</span>}),
-    <span class="pl-c1">@</span><span class="pl-c1">Signature</span>(<span class="pl-s1">type</span> = <span class="pl-smi">Executor</span>.<span class="pl-k">class</span>, <span class="pl-s1">method</span> = <span class="pl-s">"query"</span>, <span class="pl-s1">args</span> = {<span class="pl-smi">MappedStatement</span>.<span class="pl-k">class</span>, <span class="pl-smi">Object</span>.<span class="pl-k">class</span>, <span class="pl-smi">RowBounds</span>.<span class="pl-k">class</span>, <span class="pl-smi">ResultHandler</span>.<span class="pl-k">class</span>})
+<pre lang="java" class="notranslate"><code class="notranslate">@Intercepts({
+    @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
+    @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
 })
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyPlugin</span> <span class="pl-k">implements</span> <span class="pl-smi">Interceptor</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">intercept</span>(<span class="pl-smi">Invocation</span> <span class="pl-s1">invocation</span>) <span class="pl-k">throws</span> <span class="pl-smi">Throwable</span> {
-        <span class="pl-c">// 在这里编写拦截逻辑</span>
-        <span class="pl-k">return</span> <span class="pl-s1">invocation</span>.<span class="pl-en">proceed</span>();
+public class MyPlugin implements Interceptor {
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        // 在这里编写拦截逻辑
+        return invocation.proceed();
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">plugin</span>(<span class="pl-smi">Object</span> <span class="pl-s1">target</span>) {
-        <span class="pl-k">return</span> <span class="pl-smi">Plugin</span>.<span class="pl-en">wrap</span>(<span class="pl-s1">target</span>, <span class="pl-smi">this</span>);
+    @Override
+    public Object plugin(Object target) {
+        return Plugin.wrap(target, this);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setProperties</span>(<span class="pl-smi">Properties</span> <span class="pl-s1">properties</span>) {
-        <span class="pl-c">// 设置插件属性</span>
+    @Override
+    public void setProperties(Properties properties) {
+        // 设置插件属性
     }
-}</pre></div>
+}
+</code></pre>
 <ol>
 <li><strong>注册插件</strong><br>
 在MyBatis配置文件中注册插件：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">plugins</span>&gt;
-    &lt;<span class="pl-ent">plugin</span> <span class="pl-e">interceptor</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.MyPlugin<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">property</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>someProperty<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">plugin</span>&gt;
-&lt;/<span class="pl-ent">plugins</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;plugins&gt;
+    &lt;plugin interceptor="com.example.MyPlugin"&gt;
+        &lt;property name="someProperty" value="value"/&gt;
+    &lt;/plugin&gt;
+&lt;/plugins&gt;
+</code></pre>
 <h3>PageHelper分页插件</h3>
 <p>PageHelper是一个MyBatis的分页插件，能够简化分页查询的实现。它通过拦截SQL语句，在执行查询前后自动添加分页逻辑，从而实现分页功能。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/385445b16eb905ca00b09da334ea977fc991e0cade50437cf7df4a335b0befff/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430343733303231342d64373066366132362d326134642d343537622d616136312d3635623939336530663330312e706e67"><img src="https://camo.githubusercontent.com/385445b16eb905ca00b09da334ea977fc991e0cade50437cf7df4a335b0befff/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430343733303231342d64373066366132362d326134642d343537622d616136312d3635623939336530663330312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733404730214-d70f6a26-2a4d-457b-aa61-65b993e0f301.png" style="max-width: 100%;"></a></p>
@@ -921,44 +954,47 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>引入依赖</strong><br>
 在项目的<code class="notranslate">pom.xml</code>文件中添加PageHelper的依赖：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">dependency</span>&gt;
-    &lt;<span class="pl-ent">groupId</span>&gt;com.github.pagehelper&lt;/<span class="pl-ent">groupId</span>&gt;
-    &lt;<span class="pl-ent">artifactId</span>&gt;pagehelper-spring-boot-starter&lt;/<span class="pl-ent">artifactId</span>&gt;
-    &lt;<span class="pl-ent">version</span>&gt;1.2.13&lt;/<span class="pl-ent">version</span>&gt;
-&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;dependency&gt;
+    &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;
+    &lt;artifactId&gt;pagehelper-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;1.2.13&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 <ol>
 <li><strong>配置PageHelper</strong><br>
 在Spring Boot配置类中配置PageHelper：</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyBatisConfig</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
-    <span class="pl-k">public</span> <span class="pl-smi">PageHelper</span> <span class="pl-en">pageHelper</span>() {
-        <span class="pl-smi">PageHelper</span> <span class="pl-s1">pageHelper</span> = <span class="pl-k">new</span> <span class="pl-smi">PageHelper</span>();
-        <span class="pl-smi">Properties</span> <span class="pl-s1">properties</span> = <span class="pl-k">new</span> <span class="pl-smi">Properties</span>();
-        <span class="pl-s1">properties</span>.<span class="pl-en">setProperty</span>(<span class="pl-s">"helperDialect"</span>, <span class="pl-s">"mysql"</span>);
-        <span class="pl-s1">properties</span>.<span class="pl-en">setProperty</span>(<span class="pl-s">"reasonable"</span>, <span class="pl-s">"true"</span>);
-        <span class="pl-s1">properties</span>.<span class="pl-en">setProperty</span>(<span class="pl-s">"supportMethodsArguments"</span>, <span class="pl-s">"true"</span>);
-        <span class="pl-s1">properties</span>.<span class="pl-en">setProperty</span>(<span class="pl-s">"params"</span>, <span class="pl-s">"count=countSql"</span>);
-        <span class="pl-s1">pageHelper</span>.<span class="pl-en">setProperties</span>(<span class="pl-s1">properties</span>);
-        <span class="pl-k">return</span> <span class="pl-s1">pageHelper</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">@Configuration
+public class MyBatisConfig {
+    @Bean
+    public PageHelper pageHelper() {
+        PageHelper pageHelper = new PageHelper();
+        Properties properties = new Properties();
+        properties.setProperty("helperDialect", "mysql");
+        properties.setProperty("reasonable", "true");
+        properties.setProperty("supportMethodsArguments", "true");
+        properties.setProperty("params", "count=countSql");
+        pageHelper.setProperties(properties);
+        return pageHelper;
     }
-}</pre></div>
+}
+</code></pre>
 <ol>
 <li><strong>使用PageHelper进行分页查询</strong><br>
 在Service层或Mapper接口中使用PageHelper进行分页查询：</li>
 </ol>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Service</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserService</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
-    <span class="pl-k">private</span> <span class="pl-smi">UserMapper</span> <span class="pl-s1">userMapper</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">@Service
+public class UserService {
+    @Autowired
+    private UserMapper userMapper;
 
-    <span class="pl-k">public</span> <span class="pl-smi">PageInfo</span>&lt;<span class="pl-smi">User</span>&gt; <span class="pl-en">getUsers</span>(<span class="pl-smi">int</span> <span class="pl-s1">pageNum</span>, <span class="pl-smi">int</span> <span class="pl-s1">pageSize</span>) {
-        <span class="pl-smi">PageHelper</span>.<span class="pl-en">startPage</span>(<span class="pl-s1">pageNum</span>, <span class="pl-s1">pageSize</span>);
-        <span class="pl-smi">List</span>&lt;<span class="pl-smi">User</span>&gt; <span class="pl-s1">users</span> = <span class="pl-s1">userMapper</span>.<span class="pl-en">selectAll</span>();
-        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">PageInfo</span>&lt;&gt;(<span class="pl-s1">users</span>);
+    public PageInfo&lt;User&gt; getUsers(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List&lt;User&gt; users = userMapper.selectAll();
+        return new PageInfo&lt;&gt;(users);
     }
-}</pre></div>
+}
+</code></pre>
 <p>通过以上配置和代码，PageHelper会自动拦截SQL语句，并在执行查询前后添加分页逻辑，从而实现分页功能。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ac4823406d87d3c63aab3163545f5cb5ef018789dfb005769e21d9b20335012a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430353035313034332d39363563376365352d313063652d343366342d393336342d3139363965323838636362352e706e67"><img src="https://camo.githubusercontent.com/ac4823406d87d3c63aab3163545f5cb5ef018789dfb005769e21d9b20335012a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430353035313034332d39363563376365352d313063652d343366342d393336342d3139363965323838636362352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733405051043-965c7ce5-10ce-43f4-9364-1969e288ccb5.png" style="max-width: 100%;"></a></p>
 <p>注意：正常编写语句即可，切记不要写分号结尾</p>
@@ -989,36 +1025,39 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>引入依赖</strong><br>
 在项目的<code class="notranslate">pom.xml</code>文件中添加MyBatis逆向工程相关的依赖：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">dependency</span>&gt;
-    &lt;<span class="pl-ent">groupId</span>&gt;org.mybatis.generator&lt;/<span class="pl-ent">groupId</span>&gt;
-    &lt;<span class="pl-ent">artifactId</span>&gt;mybatis-generator-core&lt;/<span class="pl-ent">artifactId</span>&gt;
-    &lt;<span class="pl-ent">version</span>&gt;1.4.0&lt;/<span class="pl-ent">version</span>&gt;
-&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-generator-core&lt;/artifactId&gt;
+    &lt;version&gt;1.4.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 <ol>
 <li><strong>配置逆向工程</strong><br>
 创建一个逆向工程配置文件<code class="notranslate">generatorConfig.xml</code>，配置数据库连接信息和生成代码的路径：</li>
 </ol>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
-&lt;!<span class="pl-ent">DOCTYPE</span> <span class="pl-e">generatorConfiguration</span>
+<pre lang="xml" class="notranslate"><code class="notranslate">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE generatorConfiguration
     PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
     "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;
-&lt;<span class="pl-ent">generatorConfiguration</span>&gt;
-    &lt;<span class="pl-ent">context</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>MySQLTables<span class="pl-pds">"</span></span> <span class="pl-e">targetRuntime</span>=<span class="pl-s"><span class="pl-pds">"</span>MyBatis3<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">jdbcConnection</span> <span class="pl-e">driverClass</span>=<span class="pl-s"><span class="pl-pds">"</span>com.mysql.cj.jdbc.Driver<span class="pl-pds">"</span></span>
-                        <span class="pl-e">connectionURL</span>=<span class="pl-s"><span class="pl-pds">"</span>jdbc:mysql://localhost:3306/mydatabase<span class="pl-pds">"</span></span>
-                        <span class="pl-e">userId</span>=<span class="pl-s"><span class="pl-pds">"</span>root<span class="pl-pds">"</span></span>
-                        <span class="pl-e">password</span>=<span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">javaModelGenerator</span> <span class="pl-e">targetPackage</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.model<span class="pl-pds">"</span></span> <span class="pl-e">targetProject</span>=<span class="pl-s"><span class="pl-pds">"</span>src/main/java<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">sqlMapGenerator</span> <span class="pl-e">targetPackage</span>=<span class="pl-s"><span class="pl-pds">"</span>mapper<span class="pl-pds">"</span></span> <span class="pl-e">targetProject</span>=<span class="pl-s"><span class="pl-pds">"</span>src/main/resources<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">javaClientGenerator</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>XMLMAPPER<span class="pl-pds">"</span></span> <span class="pl-e">targetPackage</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.mapper<span class="pl-pds">"</span></span> <span class="pl-e">targetProject</span>=<span class="pl-s"><span class="pl-pds">"</span>src/main/java<span class="pl-pds">"</span></span>/&gt;
-        &lt;<span class="pl-ent">table</span> <span class="pl-e">tableName</span>=<span class="pl-s"><span class="pl-pds">"</span>users<span class="pl-pds">"</span></span>/&gt;
-    &lt;/<span class="pl-ent">context</span>&gt;
-&lt;/<span class="pl-ent">generatorConfiguration</span>&gt;</pre></div>
+&lt;generatorConfiguration&gt;
+    &lt;context id="MySQLTables" targetRuntime="MyBatis3"&gt;
+        &lt;jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mydatabase"
+                        userId="root"
+                        password="password"/&gt;
+        &lt;javaModelGenerator targetPackage="com.example.model" targetProject="src/main/java"/&gt;
+        &lt;sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/&gt;
+        &lt;javaClientGenerator type="XMLMAPPER" targetPackage="com.example.mapper" targetProject="src/main/java"/&gt;
+        &lt;table tableName="users"/&gt;
+    &lt;/context&gt;
+&lt;/generatorConfiguration&gt;
+</code></pre>
 <ol>
 <li><strong>运行逆向工程</strong><br>
 使用MyBatis Generator插件运行逆向工程，生成相应的代码：</li>
 </ol>
-<div class="highlight highlight-source-shell"><pre class="notranslate">mvn mybatis-generator:generate</pre></div>
+<pre lang="shell" class="notranslate"><code class="notranslate">mvn mybatis-generator:generate
+</code></pre>
 <p>通过以上步骤，MyBatis逆向工程工具会根据数据库表结构自动生成相应的实体类、Mapper接口和XML配置文件，从而简化开发过程.</p>
 <h4>我们可以直接在idea中安装逆向插件</h4>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/284c4ac7057de21d58ad82e56c56af1c980b055f220e432b2ae2fc4039f5f4b8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430363139343334342d32366437626633632d383536622d346236312d616463662d3339353165336430306536662e706e67"><img src="https://camo.githubusercontent.com/284c4ac7057de21d58ad82e56c56af1c980b055f220e432b2ae2fc4039f5f4b8/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333430363139343334342d32366437626633632d383536622d346236312d616463662d3339353165336430306536662e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733406194344-26d7bf3c-856b-4b61-adcf-3951e3d00e6f.png" style="max-width: 100%;"></a></p>
@@ -1060,7 +1099,7 @@ if("07/12/2024"!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -1138,70 +1177,7 @@ function iFrameLoading(){
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const createClipboardHTML = (codeContent, additionalClasses = '') => `
-        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
-        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
-            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
-                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
-                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
-            </clipboard-copy>
-            <div class="copy-feedback">Copied!</div>
-        </div>
-    `;
 
-    const handleCodeElements = (selector = '') => {
-        document.querySelectorAll(selector).forEach(codeElement => {
-            const codeContent = codeElement.innerHTML;
-            const newStructure = document.createElement('div');
-            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
-            newStructure.innerHTML = createClipboardHTML(codeContent);
-
-            const parentElement = codeElement.parentElement;
-            if (selector.includes('highlight')) {
-                parentElement.insertBefore(newStructure, codeElement.nextSibling);
-                parentElement.removeChild(codeElement);
-            } else {
-                parentElement.parentElement.replaceChild(newStructure, parentElement);
-            }
-        });
-    };
-
-    handleCodeElements('pre.notranslate > code.notranslate');
-    handleCodeElements('div.highlight > pre.notranslate');
-
-    let currentFeedback = null;
-    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
-        copyButton.addEventListener('click', () => {
-            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = codeContent;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
-
-            const copyIcon = copyButton.querySelector('.octicon-copy');
-            const checkIcon = copyButton.querySelector('.octicon-check');
-            const copyFeedback = copyButton.nextElementSibling;
-
-            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
-            currentFeedback = copyFeedback;
-
-            copyIcon.classList.add('d-none');
-            checkIcon.classList.remove('d-none');
-            copyFeedback.style.display = 'block';
-            copyButton.style.borderColor = 'var(--color-success-fg)';
-
-            setTimeout(() => {
-                copyIcon.classList.remove('d-none');
-                checkIcon.classList.add('d-none');
-                copyFeedback.style.display = 'none';
-                copyButton.style.borderColor = '';
-            }, 2000);
-        });
-    });
-});
 
 </script>
 <script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
