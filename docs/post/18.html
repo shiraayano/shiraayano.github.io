@@ -21,7 +21,7 @@ StringBuilder、StringBuffer的API是完全一致的，并且很多方法与Stri
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/18.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 基础篇 008</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -114,90 +114,95 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 （6）String substring(int start, int end)：截取当前字符序列[start,end)<br>
 （7）String toString()：返回此序列中数据的字符串表示形式<br>
 （8）void setLength(int newLength) ：设置当前字符序列长度为newLength</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
-    <span class="pl-s1">s</span>.<span class="pl-en">append</span>(<span class="pl-s">"hello"</span>).<span class="pl-en">append</span>(<span class="pl-c1">true</span>).<span class="pl-en">append</span>(<span class="pl-s">'a'</span>).<span class="pl-en">append</span>(<span class="pl-c1">12</span>).<span class="pl-en">append</span>(<span class="pl-s">"atguigu"</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>.<span class="pl-en">length</span>());
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test1(){
+    StringBuilder s = new StringBuilder();
+    s.append("hello").append(true).append('a').append(12).append("atguigu");
+    System.out.println(s);
+    System.out.println(s.length());
 }
 
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
-    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
-    <span class="pl-s1">s</span>.<span class="pl-en">insert</span>(<span class="pl-c1">5</span>, <span class="pl-s">"java"</span>);
-    <span class="pl-s1">s</span>.<span class="pl-en">insert</span>(<span class="pl-c1">5</span>, <span class="pl-s">"chailinyan"</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+@Test
+public void test2(){
+    StringBuilder s = new StringBuilder("helloworld");
+    s.insert(5, "java");
+    s.insert(5, "chailinyan");
+    System.out.println(s);
 }
 
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test3</span>(){
-    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
-    <span class="pl-s1">s</span>.<span class="pl-en">delete</span>(<span class="pl-c1">1</span>, <span class="pl-c1">3</span>);
-    <span class="pl-s1">s</span>.<span class="pl-en">deleteCharAt</span>(<span class="pl-c1">4</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+@Test
+public void test3(){
+    StringBuilder s = new StringBuilder("helloworld");
+    s.delete(1, 3);
+    s.deleteCharAt(4);
+    System.out.println(s);
 }
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test4</span>(){
-    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
-    <span class="pl-s1">s</span>.<span class="pl-en">reverse</span>();
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
-}
-
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test5</span>(){
-    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
-    <span class="pl-s1">s</span>.<span class="pl-en">setCharAt</span>(<span class="pl-c1">2</span>, <span class="pl-s">'a'</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
+@Test
+public void test4(){
+    StringBuilder s = new StringBuilder("helloworld");
+    s.reverse();
+    System.out.println(s);
 }
 
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test6</span>(){
-    <span class="pl-smi">StringBuilder</span> <span class="pl-s1">s</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">"helloworld"</span>);
-    <span class="pl-s1">s</span>.<span class="pl-en">setLength</span>(<span class="pl-c1">30</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">s</span>);
-}</pre></div>
+@Test
+public void test5(){
+    StringBuilder s = new StringBuilder("helloworld");
+    s.setCharAt(2, 'a');
+    System.out.println(s);
+}
+
+@Test
+public void test6(){
+    StringBuilder s = new StringBuilder("helloworld");
+    s.setLength(30);
+    System.out.println(s);
+}
+</code></pre>
 <h3>2.3 效率测试</h3>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//初始设置</span>
-<span class="pl-smi">long</span> <span class="pl-s1">startTime</span> = <span class="pl-c1">0L</span>;
-<span class="pl-smi">long</span> <span class="pl-s1">endTime</span> = <span class="pl-c1">0L</span>;
-<span class="pl-smi">String</span> <span class="pl-s1">text</span> = <span class="pl-s">""</span>;
-<span class="pl-smi">StringBuffer</span> <span class="pl-s1">buffer</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s">""</span>);
-<span class="pl-smi">StringBuilder</span> <span class="pl-s1">builder</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>(<span class="pl-s">""</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">//初始设置
+long startTime = 0L;
+long endTime = 0L;
+String text = "";
+StringBuffer buffer = new StringBuffer("");
+StringBuilder builder = new StringBuilder("");
 
-<span class="pl-c">//开始对比</span>
-<span class="pl-s1">startTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
-<span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">20000</span>; <span class="pl-s1">i</span>++) {
-    <span class="pl-s1">buffer</span>.<span class="pl-en">append</span>(<span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">i</span>));
+//开始对比
+startTime = System.currentTimeMillis();
+for (int i = 0; i &lt; 20000; i++) {
+    buffer.append(String.valueOf(i));
 }
-<span class="pl-s1">endTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"StringBuffer的执行时间："</span> + (<span class="pl-s1">endTime</span> - <span class="pl-s1">startTime</span>));
+endTime = System.currentTimeMillis();
+System.out.println("StringBuffer的执行时间：" + (endTime - startTime));
 
-<span class="pl-s1">startTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
-<span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">20000</span>; <span class="pl-s1">i</span>++) {
-    <span class="pl-s1">builder</span>.<span class="pl-en">append</span>(<span class="pl-smi">String</span>.<span class="pl-en">valueOf</span>(<span class="pl-s1">i</span>));
+startTime = System.currentTimeMillis();
+for (int i = 0; i &lt; 20000; i++) {
+    builder.append(String.valueOf(i));
 }
-<span class="pl-s1">endTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"StringBuilder的执行时间："</span> + (<span class="pl-s1">endTime</span> - <span class="pl-s1">startTime</span>));
+endTime = System.currentTimeMillis();
+System.out.println("StringBuilder的执行时间：" + (endTime - startTime));
 
-<span class="pl-s1">startTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
-<span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">20000</span>; <span class="pl-s1">i</span>++) {
-    <span class="pl-s1">text</span> = <span class="pl-s1">text</span> + <span class="pl-s1">i</span>;
+startTime = System.currentTimeMillis();
+for (int i = 0; i &lt; 20000; i++) {
+    text = text + i;
 }
-<span class="pl-s1">endTime</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"String的执行时间："</span> + (<span class="pl-s1">endTime</span> - <span class="pl-s1">startTime</span>));</pre></div>
+endTime = System.currentTimeMillis();
+System.out.println("String的执行时间：" + (endTime - startTime));
+
+</code></pre>
 <h3>2.4 练习</h3>
 <p>笔试题：程序输出：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-c1">null</span>;
-<span class="pl-smi">StringBuffer</span> <span class="pl-s1">sb</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>();
-<span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s1">str</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">String str = null;
+StringBuffer sb = new StringBuffer();
+sb.append(str);
 
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sb</span>.<span class="pl-en">length</span>());<span class="pl-c">//</span>
+System.out.println(sb.length());//
 
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sb</span>);<span class="pl-c">//</span>
+System.out.println(sb);//
 
-<span class="pl-smi">StringBuffer</span> <span class="pl-s1">sb1</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>(<span class="pl-s1">str</span>);
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">sb1</span>);<span class="pl-c">//</span></pre></div>
+StringBuffer sb1 = new StringBuffer(str);
+System.out.println(sb1);//
+
+</code></pre>
 <h2>3. JDK8之前：日期时间API</h2>
 <p>在Java中，<code class="notranslate">Date</code> 类是 <code class="notranslate">java.util</code> 包中的一个类，用于表示特定的瞬间，精确到毫秒。这个类是抽象的，它提供了一些方法来操作日期和时间。以下是 <code class="notranslate">Date</code> 类的一些关键点：</p>
 <ol>
@@ -256,45 +261,46 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Calendar</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">text</span>.<span class="pl-s1">SimpleDateFormat</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">CalendarExample</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">// 实例化Calendar对象</span>
-        <span class="pl-smi">Calendar</span> <span class="pl-s1">calendar</span> = <span class="pl-smi">Calendar</span>.<span class="pl-en">getInstance</span>();
+public class CalendarExample {
+    public static void main(String[] args) {
+        // 实例化Calendar对象
+        Calendar calendar = Calendar.getInstance();
         
-        <span class="pl-c">// 设置Calendar的字段</span>
-        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">YEAR</span>, <span class="pl-c1">2024</span>);
-        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>, <span class="pl-smi">Calendar</span>.<span class="pl-c1">NOVEMBER</span>); <span class="pl-c">// 注意：月份是从0开始的，所以11月是Calendar.NOVEMBER</span>
-        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DAY_OF_MONTH</span>, <span class="pl-c1">8</span>);
-        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">HOUR_OF_DAY</span>, <span class="pl-c1">14</span>);
-        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MINUTE</span>, <span class="pl-c1">30</span>);
-        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">SECOND</span>, <span class="pl-c1">0</span>);
+        // 设置Calendar的字段
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.NOVEMBER); // 注意：月份是从0开始的，所以11月是Calendar.NOVEMBER
+        calendar.set(Calendar.DAY_OF_MONTH, 8);
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.SECOND, 0);
         
-        <span class="pl-c">// 获取并打印当前Calendar时间</span>
-        <span class="pl-smi">SimpleDateFormat</span> <span class="pl-s1">dateFormat</span> = <span class="pl-k">new</span> <span class="pl-smi">SimpleDateFormat</span>(<span class="pl-s">"yyyy-MM-dd HH:mm:ss"</span>);
-        <span class="pl-smi">String</span> <span class="pl-s1">strDate</span> = <span class="pl-s1">dateFormat</span>.<span class="pl-en">format</span>(<span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前设置的日期和时间: "</span> + <span class="pl-s1">strDate</span>);
+        // 获取并打印当前Calendar时间
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strDate = dateFormat.format(calendar.getTime());
+        System.out.println("当前设置的日期和时间: " + strDate);
         
-        <span class="pl-c">// 增加一天</span>
-        <span class="pl-s1">calendar</span>.<span class="pl-en">add</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DATE</span>, <span class="pl-c1">1</span>);
-        <span class="pl-smi">String</span> <span class="pl-s1">strDateTomorrow</span> = <span class="pl-s1">dateFormat</span>.<span class="pl-en">format</span>(<span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"明天的日期和时间: "</span> + <span class="pl-s1">strDateTomorrow</span>);
+        // 增加一天
+        calendar.add(Calendar.DATE, 1);
+        String strDateTomorrow = dateFormat.format(calendar.getTime());
+        System.out.println("明天的日期和时间: " + strDateTomorrow);
         
-        <span class="pl-c">// 获取当前的年份</span>
-        <span class="pl-smi">int</span> <span class="pl-s1">year</span> = <span class="pl-s1">calendar</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">YEAR</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前年份: "</span> + <span class="pl-s1">year</span>);
+        // 获取当前的年份
+        int year = calendar.get(Calendar.YEAR);
+        System.out.println("当前年份: " + year);
         
-        <span class="pl-c">// 获取当前的月份（注意：月份是从0开始的）</span>
-        <span class="pl-smi">int</span> <span class="pl-s1">month</span> = <span class="pl-s1">calendar</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前月份: "</span> + (<span class="pl-s1">month</span> + <span class="pl-c1">1</span>)); <span class="pl-c">// 加1是因为Calendar月份从0开始计数</span>
+        // 获取当前的月份（注意：月份是从0开始的）
+        int month = calendar.get(Calendar.MONTH);
+        System.out.println("当前月份: " + (month + 1)); // 加1是因为Calendar月份从0开始计数
         
-        <span class="pl-c">// 获取当前的日期</span>
-        <span class="pl-smi">int</span> <span class="pl-s1">day</span> = <span class="pl-s1">calendar</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DAY_OF_MONTH</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前日期: "</span> + <span class="pl-s1">day</span>);
+        // 获取当前的日期
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        System.out.println("当前日期: " + day);
     }
-}</pre></div>
+}
+</code></pre>
 <p>在这个例子中，我们首先导入了<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code>和<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;SimpleDateFormat&lt;/font&gt;</code>类。<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code>类用于操作日期和时间，而<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;SimpleDateFormat&lt;/font&gt;</code>类用于将日期时间格式化为易读的字符串格式。</p>
 <p>我们创建了一个<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code>实例，并设置了年份、月份、日期、小时、分钟和秒。然后，我们使用<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;SimpleDateFormat&lt;/font&gt;</code>将<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;Calendar&lt;/font&gt;</code>的时间转换为字符串，并打印出来。接着，我们通过<code class="notranslate">&lt;font style="color:rgb(6, 6, 7);"&gt;add&lt;/font&gt;</code>方法给日期增加了一天，并再次打印新的日期时间。最后，我们分别获取并打印了当前的年份、月份和日期。</p>
 <p></p>
@@ -342,39 +348,40 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li>举例：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>();
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test1(){
+    Date d = new Date();
+    System.out.println(d);
 }
 
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
-    <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">time</span>);<span class="pl-c">//1559806982971</span>
-    <span class="pl-c">//当前系统时间距离1970-1-1 0:0:0 0毫秒的时间差，毫秒为单位</span>
+@Test
+public void test2(){
+    long time = System.currentTimeMillis();
+    System.out.println(time);//1559806982971
+    //当前系统时间距离1970-1-1 0:0:0 0毫秒的时间差，毫秒为单位
 }
 
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test3</span>(){
-    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>();
-    <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-s1">d</span>.<span class="pl-en">getTime</span>();
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">time</span>);<span class="pl-c">//1559807047979</span>
+@Test
+public void test3(){
+    Date d = new Date();
+    long time = d.getTime();
+    System.out.println(time);//1559807047979
 }
 
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test4</span>(){
-    <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-c1">1559807047979L</span>;
-    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>(<span class="pl-s1">time</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>);
+@Test
+public void test4(){
+    long time = 1559807047979L;
+    Date d = new Date(time);
+    System.out.println(d);
 }
 
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test5</span>(){
-    <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-smi">Long</span>.<span class="pl-c1">MAX_VALUE</span>;
-    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>(<span class="pl-s1">time</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>);
-}</pre></div>
+@Test
+public void test5(){
+    long time = Long.MAX_VALUE;
+    Date d = new Date(time);
+    System.out.println(d);
+}
+</code></pre>
 <h3>3.3 java.text.SimpleDateFormat</h3>
 <ul>
 <li>java.text.SimpleDateFormat类是一个不与语言环境有关的方式来格式化和解析日期的具体类。</li>
@@ -398,24 +405,25 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ul>
 <p><a target="_blank" rel="noopener noreferrer" href="images/1572599023197.png"><img src="images/1572599023197.png" alt="" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//格式化</span>
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">//格式化
+@Test
+public void test1(){
+    Date d = new Date();
 
-    <span class="pl-smi">SimpleDateFormat</span> <span class="pl-s1">sf</span> = <span class="pl-k">new</span> <span class="pl-smi">SimpleDateFormat</span>(<span class="pl-s">"yyyy年MM月dd日 HH时mm分ss秒 SSS毫秒  E Z"</span>);
-    <span class="pl-c">//把Date日期转成字符串，按照指定的格式转</span>
-    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s1">sf</span>.<span class="pl-en">format</span>(<span class="pl-s1">d</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str</span>);
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 SSS毫秒  E Z");
+    //把Date日期转成字符串，按照指定的格式转
+    String str = sf.format(d);
+    System.out.println(str);
 }
-<span class="pl-c">//解析</span>
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>() <span class="pl-k">throws</span> <span class="pl-smi">ParseException</span>{
-    <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"2022年06月06日 16时03分14秒 545毫秒  星期四 +0800"</span>;
-    <span class="pl-smi">SimpleDateFormat</span> <span class="pl-s1">sf</span> = <span class="pl-k">new</span> <span class="pl-smi">SimpleDateFormat</span>(<span class="pl-s">"yyyy年MM月dd日 HH时mm分ss秒 SSS毫秒  E Z"</span>);
-    <span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-s1">sf</span>.<span class="pl-en">parse</span>(<span class="pl-s1">str</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>);
-}</pre></div>
+//解析
+@Test
+public void test2() throws ParseException{
+    String str = "2022年06月06日 16时03分14秒 545毫秒  星期四 +0800";
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 SSS毫秒  E Z");
+    Date d = sf.parse(str);
+    System.out.println(d);
+}
+</code></pre>
 <h3>3.4 java.util.Calendar(日历)</h3>
 <ul>
 <li>Date类的API大部分被废弃了，替换为Calendar。</li>
@@ -444,58 +452,59 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li>示例代码：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Calendar</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">TimeZone</span>;
+import java.util.Calendar;
+import java.util.TimeZone;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestCalendar</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-        <span class="pl-smi">Calendar</span> <span class="pl-s1">c</span> = <span class="pl-smi">Calendar</span>.<span class="pl-en">getInstance</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">c</span>);
+public class TestCalendar {
+    @Test
+    public void test1(){
+        Calendar c = Calendar.getInstance();
+        System.out.println(c);
 
-        <span class="pl-smi">int</span> <span class="pl-s1">year</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">YEAR</span>);
-        <span class="pl-smi">int</span> <span class="pl-s1">month</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>)+<span class="pl-c1">1</span>;
-        <span class="pl-smi">int</span> <span class="pl-s1">day</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DATE</span>);
-        <span class="pl-smi">int</span> <span class="pl-s1">hour</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">HOUR_OF_DAY</span>);
-        <span class="pl-smi">int</span> <span class="pl-s1">minute</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MINUTE</span>);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH)+1;
+        int day = c.get(Calendar.DATE);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">year</span> + <span class="pl-s">"-"</span> + <span class="pl-s1">month</span> + <span class="pl-s">"-"</span> + <span class="pl-s1">day</span> + <span class="pl-s">" "</span> + <span class="pl-s1">hour</span> + <span class="pl-s">":"</span> + <span class="pl-s1">minute</span>);
+        System.out.println(year + "-" + month + "-" + day + " " + hour + ":" + minute);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
-        <span class="pl-smi">TimeZone</span> <span class="pl-s1">t</span> = <span class="pl-smi">TimeZone</span>.<span class="pl-en">getTimeZone</span>(<span class="pl-s">"America/Los_Angeles"</span>);
-        <span class="pl-smi">Calendar</span> <span class="pl-s1">c</span> = <span class="pl-smi">Calendar</span>.<span class="pl-en">getInstance</span>(<span class="pl-s1">t</span>);
-        <span class="pl-smi">int</span> <span class="pl-s1">year</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">YEAR</span>);
-        <span class="pl-smi">int</span> <span class="pl-s1">month</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>)+<span class="pl-c1">1</span>;
-        <span class="pl-smi">int</span> <span class="pl-s1">day</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DATE</span>);
-        <span class="pl-smi">int</span> <span class="pl-s1">hour</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">HOUR_OF_DAY</span>);
-        <span class="pl-smi">int</span> <span class="pl-s1">minute</span> = <span class="pl-s1">c</span>.<span class="pl-en">get</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MINUTE</span>);
+    @Test
+    public void test2(){
+        TimeZone t = TimeZone.getTimeZone("America/Los_Angeles");
+        Calendar c = Calendar.getInstance(t);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH)+1;
+        int day = c.get(Calendar.DATE);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">year</span> + <span class="pl-s">"-"</span> + <span class="pl-s1">month</span> + <span class="pl-s">"-"</span> + <span class="pl-s1">day</span> + <span class="pl-s">" "</span> + <span class="pl-s1">hour</span> + <span class="pl-s">":"</span> + <span class="pl-s1">minute</span>);
+        System.out.println(year + "-" + month + "-" + day + " " + hour + ":" + minute);
     }
     
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test3</span>(){
-        <span class="pl-smi">Calendar</span> <span class="pl-s1">calendar</span> = <span class="pl-smi">Calendar</span>.<span class="pl-en">getInstance</span>();
-        <span class="pl-c">// 从一个 Calendar 对象中获取 Date 对象</span>
-        <span class="pl-smi">Date</span> <span class="pl-s1">date</span> = <span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>();
+    @Test
+    public void test3(){
+        Calendar calendar = Calendar.getInstance();
+        // 从一个 Calendar 对象中获取 Date 对象
+        Date date = calendar.getTime();
         
-        <span class="pl-c">// 使用给定的 Date 设置此 Calendar 的时间</span>
-        <span class="pl-s1">date</span> = <span class="pl-k">new</span> <span class="pl-smi">Date</span>(<span class="pl-c1">234234235235L</span>);
-        <span class="pl-s1">calendar</span>.<span class="pl-en">setTime</span>(<span class="pl-s1">date</span>);
-        <span class="pl-s1">calendar</span>.<span class="pl-en">set</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">DAY_OF_MONTH</span>, <span class="pl-c1">8</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前时间日设置为8后,时间是:"</span> + <span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());
+        // 使用给定的 Date 设置此 Calendar 的时间
+        date = new Date(234234235235L);
+        calendar.setTime(date);
+        calendar.set(Calendar.DAY_OF_MONTH, 8);
+        System.out.println("当前时间日设置为8后,时间是:" + calendar.getTime());
         
-        <span class="pl-s1">calendar</span>.<span class="pl-en">add</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">HOUR</span>, <span class="pl-c1">2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前时间加2小时后,时间是:"</span> + <span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());
+        calendar.add(Calendar.HOUR, 2);
+        System.out.println("当前时间加2小时后,时间是:" + calendar.getTime());
         
-        <span class="pl-s1">calendar</span>.<span class="pl-en">add</span>(<span class="pl-smi">Calendar</span>.<span class="pl-c1">MONTH</span>, -<span class="pl-c1">2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"当前日期减2个月后,时间是:"</span> + <span class="pl-s1">calendar</span>.<span class="pl-en">getTime</span>());  
+        calendar.add(Calendar.MONTH, -2);
+        System.out.println("当前日期减2个月后,时间是:" + calendar.getTime());  
     }
-}</pre></div>
+}
+</code></pre>
 <h3>3.5 练习</h3>
 <p>输入年份和月份，输出该月日历。</p>
 <p>闰年计算公式：年份可以被4整除但不能被100整除，或者可以被400整除。</p>
@@ -598,51 +607,52 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDate</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDateTime</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalTime</span>;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestLocalDateTime</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">now</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">now</span>);
+public class TestLocalDateTime {
+    @Test
+    public void test01(){
+        LocalDate now = LocalDate.now();
+        System.out.println(now);
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
-        <span class="pl-smi">LocalTime</span> <span class="pl-s1">now</span> = <span class="pl-smi">LocalTime</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">now</span>);
+    @Test
+    public void test02(){
+        LocalTime now = LocalTime.now();
+        System.out.println(now);
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">now</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">now</span>);
+    @Test
+    public void test03(){
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test04</span>(){
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">lai</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2019</span>, <span class="pl-c1">5</span>, <span class="pl-c1">13</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">lai</span>);
+    @Test
+    public void test04(){
+        LocalDate lai = LocalDate.of(2019, 5, 13);
+        System.out.println(lai);
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test05</span>(){
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">lai</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2019</span>, <span class="pl-c1">5</span>, <span class="pl-c1">13</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">lai</span>.<span class="pl-en">getDayOfYear</span>());
+    @Test
+    public void test05(){
+        LocalDate lai = LocalDate.of(2019, 5, 13);
+        System.out.println(lai.getDayOfYear());
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test06</span>(){
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">lai</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2019</span>, <span class="pl-c1">5</span>, <span class="pl-c1">13</span>);
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">go</span> = <span class="pl-s1">lai</span>.<span class="pl-en">plusDays</span>(<span class="pl-c1">160</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">go</span>);<span class="pl-c">//2019-10-20</span>
+    @Test
+    public void test06(){
+        LocalDate lai = LocalDate.of(2019, 5, 13);
+        LocalDate go = lai.plusDays(160);
+        System.out.println(go);//2019-10-20
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test7</span>(){
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">now</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">before</span> = <span class="pl-s1">now</span>.<span class="pl-en">minusDays</span>(<span class="pl-c1">100</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">before</span>);<span class="pl-c">//2019-02-26</span>
+    @Test
+    public void test7(){
+        LocalDate now = LocalDate.now();
+        LocalDate before = now.minusDays(100);
+        System.out.println(before);//2019-02-26
     }   
-}</pre></div>
+}
+</code></pre>
 <h3>4.2 瞬时：Instant</h3>
 <ul>
 <li>Instant：时间线上的一个瞬时点。 这可能被用来记录应用程序中的事件时间戳。
@@ -694,11 +704,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>(了解)预定义的标准格式。如：ISO_LOCAL_DATE_TIME、ISO_LOCAL_DATE、ISO_LOCAL_TIME</li>
 <li>(了解)本地化相关的格式。如：ofLocalizedDate(FormatStyle.LONG)</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 本地化相关的格式。如：ofLocalizedDateTime()</span>
-<span class="pl-c">// FormatStyle.MEDIUM / FormatStyle.SHORT :适用于LocalDateTime</span>
+<pre lang="java" class="notranslate"><code class="notranslate">// 本地化相关的格式。如：ofLocalizedDateTime()
+// FormatStyle.MEDIUM / FormatStyle.SHORT :适用于LocalDateTime
                 
-<span class="pl-c">// 本地化相关的格式。如：ofLocalizedDate()</span>
-<span class="pl-c">// FormatStyle.FULL / FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT : 适用于LocalDate</span></pre></div>
+// 本地化相关的格式。如：ofLocalizedDate()
+// FormatStyle.FULL / FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT : 适用于LocalDate
+</code></pre>
 <ul>
 <li>自定义的格式。如：ofPattern(“yyyy-MM-dd hh:mm:ss”)</li>
 </ul>
@@ -725,63 +736,64 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </tbody>
 </table></markdown-accessiblity-table>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDateTime</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">ZoneId</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">format</span>.<span class="pl-s1">DateTimeFormatter</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">format</span>.<span class="pl-s1">FormatStyle</span>;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestDatetimeFormatter</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-        <span class="pl-c">// 方式一：预定义的标准格式。如：ISO_LOCAL_DATE_TIME;ISO_LOCAL_DATE;ISO_LOCAL_TIME</span>
-        <span class="pl-smi">DateTimeFormatter</span> <span class="pl-s1">formatter</span> = <span class="pl-smi">DateTimeFormatter</span>.<span class="pl-c1">ISO_LOCAL_DATE_TIME</span>;
-        <span class="pl-c">// 格式化:日期--&gt;字符串</span>
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">String</span> <span class="pl-s1">str1</span> = <span class="pl-s1">formatter</span>.<span class="pl-en">format</span>(<span class="pl-s1">localDateTime</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">localDateTime</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str1</span>);<span class="pl-c">//2022-12-04T21:02:14.808</span>
+public class TestDatetimeFormatter {
+    @Test
+    public void test1(){
+        // 方式一：预定义的标准格式。如：ISO_LOCAL_DATE_TIME;ISO_LOCAL_DATE;ISO_LOCAL_TIME
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        // 格式化:日期--&gt;字符串
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String str1 = formatter.format(localDateTime);
+        System.out.println(localDateTime);
+        System.out.println(str1);//2022-12-04T21:02:14.808
 
-        <span class="pl-c">// 解析：字符串 --&gt;日期</span>
-        <span class="pl-smi">TemporalAccessor</span> <span class="pl-s1">parse</span> = <span class="pl-s1">formatter</span>.<span class="pl-en">parse</span>(<span class="pl-s">"2022-12-04T21:02:14.808"</span>);
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">dateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">from</span>(<span class="pl-s1">parse</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">dateTime</span>);
+        // 解析：字符串 --&gt;日期
+        TemporalAccessor parse = formatter.parse("2022-12-04T21:02:14.808");
+        LocalDateTime dateTime = LocalDateTime.from(parse);
+        System.out.println(dateTime);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>();
-        <span class="pl-c">// 方式二：</span>
-        <span class="pl-c">// 本地化相关的格式。如：ofLocalizedDateTime()</span>
-        <span class="pl-c">// FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT :适用于LocalDateTime</span>
-        <span class="pl-smi">DateTimeFormatter</span> <span class="pl-s1">formatter1</span> = <span class="pl-smi">DateTimeFormatter</span>.<span class="pl-en">ofLocalizedDateTime</span>(<span class="pl-smi">FormatStyle</span>.<span class="pl-c1">LONG</span>);
+    @Test
+    public void test2(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        // 方式二：
+        // 本地化相关的格式。如：ofLocalizedDateTime()
+        // FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT :适用于LocalDateTime
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG);
         
-        <span class="pl-c">// 格式化</span>
-        <span class="pl-smi">String</span> <span class="pl-s1">str2</span> = <span class="pl-s1">formatter1</span>.<span class="pl-en">format</span>(<span class="pl-s1">localDateTime</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str2</span>);<span class="pl-c">// 2022年12月4日 下午09时03分55秒</span>
+        // 格式化
+        String str2 = formatter1.format(localDateTime);
+        System.out.println(str2);// 2022年12月4日 下午09时03分55秒
 
-        <span class="pl-c">// 本地化相关的格式。如：ofLocalizedDate()</span>
-        <span class="pl-c">// FormatStyle.FULL / FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT : 适用于LocalDate</span>
-        <span class="pl-smi">DateTimeFormatter</span> <span class="pl-s1">formatter2</span> = <span class="pl-smi">DateTimeFormatter</span>.<span class="pl-en">ofLocalizedDate</span>(<span class="pl-smi">FormatStyle</span>.<span class="pl-c1">FULL</span>);
-        <span class="pl-c">// 格式化</span>
-        <span class="pl-smi">String</span> <span class="pl-s1">str3</span> = <span class="pl-s1">formatter2</span>.<span class="pl-en">format</span>(<span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">str3</span>);<span class="pl-c">// 2022年12月4日 星期日</span>
+        // 本地化相关的格式。如：ofLocalizedDate()
+        // FormatStyle.FULL / FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT : 适用于LocalDate
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
+        // 格式化
+        String str3 = formatter2.format(LocalDate.now());
+        System.out.println(str3);// 2022年12月4日 星期日
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test3</span>(){
-        <span class="pl-c">//方式三：自定义的方式（关注、重点）</span>
-        <span class="pl-smi">DateTimeFormatter</span> <span class="pl-s1">dateTimeFormatter</span> = <span class="pl-smi">DateTimeFormatter</span>.<span class="pl-en">ofPattern</span>(<span class="pl-s">"yyyy/MM/dd HH:mm:ss"</span>);
-        <span class="pl-c">//格式化</span>
-        <span class="pl-smi">String</span> <span class="pl-s1">strDateTime</span> = <span class="pl-s1">dateTimeFormatter</span>.<span class="pl-en">format</span>(<span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">strDateTime</span>); <span class="pl-c">//2022/12/04 21:05:42</span>
-        <span class="pl-c">//解析</span>
-        <span class="pl-smi">TemporalAccessor</span> <span class="pl-s1">accessor</span> = <span class="pl-s1">dateTimeFormatter</span>.<span class="pl-en">parse</span>(<span class="pl-s">"2022/12/04 21:05:42"</span>);
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">from</span>(<span class="pl-s1">accessor</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">localDateTime</span>); <span class="pl-c">//2022-12-04T21:05:42</span>
+    @Test
+    public void test3(){
+        //方式三：自定义的方式（关注、重点）
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        //格式化
+        String strDateTime = dateTimeFormatter.format(LocalDateTime.now());
+        System.out.println(strDateTime); //2022/12/04 21:05:42
+        //解析
+        TemporalAccessor accessor = dateTimeFormatter.parse("2022/12/04 21:05:42");
+        LocalDateTime localDateTime = LocalDateTime.from(accessor);
+        System.out.println(localDateTime); //2022-12-04T21:05:42
     }
-}</pre></div>
+}
+</code></pre>
 <h3>4.4 其它API</h3>
 <p><strong>1、指定时区日期时间：ZondId和ZonedDateTime</strong></p>
 <ul>
@@ -793,143 +805,149 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li>常见时区ID：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-s1">Asia</span>/<span class="pl-smi">Shanghai</span>
-<span class="pl-c1">UTC</span>
-<span class="pl-s1">America</span>/<span class="pl-s1">New_York</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">Asia/Shanghai
+UTC
+America/New_York
+</code></pre>
 <ul>
 <li>可以通过ZondId获取所有可用的时区ID：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">ZoneId</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">ZonedDateTime</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Set</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Set;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestZone</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>() {
-        <span class="pl-c">//需要知道一些时区的id</span>
-        <span class="pl-c">//Set&lt;String&gt;是一个集合，容器</span>
-        <span class="pl-smi">Set</span>&lt;<span class="pl-smi">String</span>&gt; <span class="pl-s1">availableZoneIds</span> = <span class="pl-smi">ZoneId</span>.<span class="pl-en">getAvailableZoneIds</span>();
-        <span class="pl-c">//快捷模板iter</span>
-        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">availableZoneId</span> : <span class="pl-s1">availableZoneIds</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">availableZoneId</span>);
+public class TestZone {
+    @Test
+    public void test01() {
+        //需要知道一些时区的id
+        //Set&lt;String&gt;是一个集合，容器
+        Set&lt;String&gt; availableZoneIds = ZoneId.getAvailableZoneIds();
+        //快捷模板iter
+        for (String availableZoneId : availableZoneIds) {
+            System.out.println(availableZoneId);
         }
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
-        <span class="pl-smi">ZonedDateTime</span> <span class="pl-s1">t1</span> = <span class="pl-smi">ZonedDateTime</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">t1</span>);
+    @Test
+    public void test02(){
+        ZonedDateTime t1 = ZonedDateTime.now();
+        System.out.println(t1);
 
-        <span class="pl-smi">ZonedDateTime</span> <span class="pl-s1">t2</span> = <span class="pl-smi">ZonedDateTime</span>.<span class="pl-en">now</span>(<span class="pl-smi">ZoneId</span>.<span class="pl-en">of</span>(<span class="pl-s">"America/New_York"</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">t2</span>);
+        ZonedDateTime t2 = ZonedDateTime.now(ZoneId.of("America/New_York"));
+        System.out.println(t2);
     }
-}</pre></div>
+}
+
+</code></pre>
 <p><strong>2、持续日期/时间：Period和Duration</strong></p>
 <ul>
 <li>持续时间：Duration，用于计算两个“时间”间隔</li>
 <li>日期间隔：Period，用于计算两个“日期”间隔</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">Duration</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDate</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">LocalDateTime</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">time</span>.<span class="pl-s1">Period</span>;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestPeriodDuration</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">t1</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">t2</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2018</span>, <span class="pl-c1">12</span>, <span class="pl-c1">31</span>);
-        <span class="pl-smi">Period</span> <span class="pl-s1">between</span> = <span class="pl-smi">Period</span>.<span class="pl-en">between</span>(<span class="pl-s1">t1</span>, <span class="pl-s1">t2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">between</span>);
+public class TestPeriodDuration {
+    @Test
+    public void test01(){
+        LocalDate t1 = LocalDate.now();
+        LocalDate t2 = LocalDate.of(2018, 12, 31);
+        Period between = Period.between(t1, t2);
+        System.out.println(between);
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的年数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getYears</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的月数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getMonths</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的天数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getDays</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toTotalMonths</span>());
+        System.out.println("相差的年数："+between.getYears());
+        System.out.println("相差的月数："+between.getMonths());
+        System.out.println("相差的天数："+between.getDays());
+        System.out.println("相差的总数："+between.toTotalMonths());
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">t1</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">t2</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">of</span>(<span class="pl-c1">2017</span>, <span class="pl-c1">8</span>, <span class="pl-c1">29</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>);
-        <span class="pl-smi">Duration</span> <span class="pl-s1">between</span> = <span class="pl-smi">Duration</span>.<span class="pl-en">between</span>(<span class="pl-s1">t1</span>, <span class="pl-s1">t2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">between</span>);
+    @Test
+    public void test02(){
+        LocalDateTime t1 = LocalDateTime.now();
+        LocalDateTime t2 = LocalDateTime.of(2017, 8, 29, 0, 0, 0, 0);
+        Duration between = Duration.between(t1, t2);
+        System.out.println(between);
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总天数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toDays</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总小时数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toHours</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总分钟数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toMinutes</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总秒数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getSeconds</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总毫秒数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toMillis</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"相差的总纳秒数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">toNanos</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"不够一秒的纳秒数："</span>+<span class="pl-s1">between</span>.<span class="pl-en">getNano</span>());
+        System.out.println("相差的总天数："+between.toDays());
+        System.out.println("相差的总小时数："+between.toHours());
+        System.out.println("相差的总分钟数："+between.toMinutes());
+        System.out.println("相差的总秒数："+between.getSeconds());
+        System.out.println("相差的总毫秒数："+between.toMillis());
+        System.out.println("相差的总纳秒数："+between.toNanos());
+        System.out.println("不够一秒的纳秒数："+between.getNano());
     }
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
-        <span class="pl-c">//Duration:用于计算两个“时间”间隔，以秒和纳秒为基准</span>
-        <span class="pl-smi">LocalTime</span> <span class="pl-s1">localTime</span> = <span class="pl-smi">LocalTime</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">LocalTime</span> <span class="pl-s1">localTime1</span> = <span class="pl-smi">LocalTime</span>.<span class="pl-en">of</span>(<span class="pl-c1">15</span>, <span class="pl-c1">23</span>, <span class="pl-c1">32</span>);
-        <span class="pl-c">//between():静态方法，返回Duration对象，表示两个时间的间隔</span>
-        <span class="pl-smi">Duration</span> <span class="pl-s1">duration</span> = <span class="pl-smi">Duration</span>.<span class="pl-en">between</span>(<span class="pl-s1">localTime1</span>, <span class="pl-s1">localTime</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">duration</span>);
+    @Test
+    public void test03(){
+        //Duration:用于计算两个“时间”间隔，以秒和纳秒为基准
+        LocalTime localTime = LocalTime.now();
+        LocalTime localTime1 = LocalTime.of(15, 23, 32);
+        //between():静态方法，返回Duration对象，表示两个时间的间隔
+        Duration duration = Duration.between(localTime1, localTime);
+        System.out.println(duration);
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">duration</span>.<span class="pl-en">getSeconds</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">duration</span>.<span class="pl-en">getNano</span>());
+        System.out.println(duration.getSeconds());
+        System.out.println(duration.getNano());
 
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">of</span>(<span class="pl-c1">2016</span>, <span class="pl-c1">6</span>, <span class="pl-c1">12</span>, <span class="pl-c1">15</span>, <span class="pl-c1">23</span>, <span class="pl-c1">32</span>);
-        <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime1</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">of</span>(<span class="pl-c1">2017</span>, <span class="pl-c1">6</span>, <span class="pl-c1">12</span>, <span class="pl-c1">15</span>, <span class="pl-c1">23</span>, <span class="pl-c1">32</span>);
+        LocalDateTime localDateTime = LocalDateTime.of(2016, 6, 12, 15, 23, 32);
+        LocalDateTime localDateTime1 = LocalDateTime.of(2017, 6, 12, 15, 23, 32);
 
-        <span class="pl-smi">Duration</span> <span class="pl-s1">duration1</span> = <span class="pl-smi">Duration</span>.<span class="pl-en">between</span>(<span class="pl-s1">localDateTime1</span>, <span class="pl-s1">localDateTime</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">duration1</span>.<span class="pl-en">toDays</span>());
+        Duration duration1 = Duration.between(localDateTime1, localDateTime);
+        System.out.println(duration1.toDays());
     }
     
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test4</span>(){
-        <span class="pl-c">//Period:用于计算两个“日期”间隔，以年、月、日衡量</span>
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">localDate</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>();
-        <span class="pl-smi">LocalDate</span> <span class="pl-s1">localDate1</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">of</span>(<span class="pl-c1">2028</span>, <span class="pl-c1">3</span>, <span class="pl-c1">18</span>);
+    @Test
+    public void test4(){
+        //Period:用于计算两个“日期”间隔，以年、月、日衡量
+        LocalDate localDate = LocalDate.now();
+        LocalDate localDate1 = LocalDate.of(2028, 3, 18);
 
-        <span class="pl-smi">Period</span> <span class="pl-s1">period</span> = <span class="pl-smi">Period</span>.<span class="pl-en">between</span>(<span class="pl-s1">localDate</span>, <span class="pl-s1">localDate1</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period</span>);
+        Period period = Period.between(localDate, localDate1);
+        System.out.println(period);
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period</span>.<span class="pl-en">getYears</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period</span>.<span class="pl-en">getMonths</span>());
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period</span>.<span class="pl-en">getDays</span>());
+        System.out.println(period.getYears());
+        System.out.println(period.getMonths());
+        System.out.println(period.getDays());
 
-        <span class="pl-smi">Period</span> <span class="pl-s1">period1</span> = <span class="pl-s1">period</span>.<span class="pl-en">withYears</span>(<span class="pl-c1">2</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">period1</span>);
+        Period period1 = period.withYears(2);
+        System.out.println(period1);
 
     }
-}</pre></div>
+}
+
+</code></pre>
 <p>3、Clock：使用时区提供对当前即时、日期和时间的访问的时钟。</p>
 <p>4、</p>
 <p>TemporalAdjuster : 时间校正器。有时我们可能需要获取例如：将日期调整到“下一个工作日”等操作。<br>
 TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/nextXxx())提供了大量的常用 TemporalAdjuster 的实现。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-    <span class="pl-c">// TemporalAdjuster:时间校正器</span>
-    <span class="pl-c">// 获取当前日期的下一个周日是哪天？</span>
-    <span class="pl-smi">TemporalAdjuster</span> <span class="pl-s1">temporalAdjuster</span> = <span class="pl-smi">TemporalAdjusters</span>.<span class="pl-en">next</span>(<span class="pl-smi">DayOfWeek</span>.<span class="pl-c1">SUNDAY</span>);
-    <span class="pl-smi">LocalDateTime</span> <span class="pl-s1">localDateTime</span> = <span class="pl-smi">LocalDateTime</span>.<span class="pl-en">now</span>().<span class="pl-en">with</span>(<span class="pl-s1">temporalAdjuster</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">localDateTime</span>);
-    <span class="pl-c">// 获取下一个工作日是哪天？</span>
-    <span class="pl-smi">LocalDate</span> <span class="pl-s1">localDate</span> = <span class="pl-smi">LocalDate</span>.<span class="pl-en">now</span>().<span class="pl-en">with</span>(<span class="pl-k">new</span> <span class="pl-smi">TemporalAdjuster</span>() {
-        	<span class="pl-c1">@</span><span class="pl-c1">Override</span>
-        	<span class="pl-k">public</span> <span class="pl-smi">Temporal</span> <span class="pl-en">adjustInto</span>(<span class="pl-smi">Temporal</span> <span class="pl-s1">temporal</span>) {
-            <span class="pl-smi">LocalDate</span> <span class="pl-s1">date</span> = (<span class="pl-smi">LocalDate</span>) <span class="pl-s1">temporal</span>;
-           	<span class="pl-k">if</span> (<span class="pl-s1">date</span>.<span class="pl-en">getDayOfWeek</span>().<span class="pl-en">equals</span>(<span class="pl-smi">DayOfWeek</span>.<span class="pl-c1">FRIDAY</span>)) {
-                   <span class="pl-k">return</span> <span class="pl-s1">date</span>.<span class="pl-en">plusDays</span>(<span class="pl-c1">3</span>);
-            } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">date</span>.<span class="pl-en">getDayOfWeek</span>().<span class="pl-en">equals</span>(<span class="pl-smi">DayOfWeek</span>.<span class="pl-c1">SATURDAY</span>)) {
-                <span class="pl-k">return</span> <span class="pl-s1">date</span>.<span class="pl-en">plusDays</span>(<span class="pl-c1">2</span>);
-            } <span class="pl-k">else</span> {
-                <span class="pl-k">return</span> <span class="pl-s1">date</span>.<span class="pl-en">plusDays</span>(<span class="pl-c1">1</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test1(){
+    // TemporalAdjuster:时间校正器
+    // 获取当前日期的下一个周日是哪天？
+    TemporalAdjuster temporalAdjuster = TemporalAdjusters.next(DayOfWeek.SUNDAY);
+    LocalDateTime localDateTime = LocalDateTime.now().with(temporalAdjuster);
+    System.out.println(localDateTime);
+    // 获取下一个工作日是哪天？
+    LocalDate localDate = LocalDate.now().with(new TemporalAdjuster() {
+        	@Override
+        	public Temporal adjustInto(Temporal temporal) {
+            LocalDate date = (LocalDate) temporal;
+           	if (date.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
+                   return date.plusDays(3);
+            } else if (date.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+                return date.plusDays(2);
+            } else {
+                return date.plusDays(1);
             }
         }
     });
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"下一个工作日是："</span> + <span class="pl-s1">localDate</span>);
+    System.out.println("下一个工作日是：" + localDate);
 
-}</pre></div>
+}
+</code></pre>
 <h3>4.5 与传统日期处理的转换</h3>
 <markdown-accessiblity-table><table role="table">
 <thead>
@@ -999,11 +1017,12 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 <li>Comparable接口强行对实现它的每个类的对象进行整体排序。这种排序被称为类的自然排序。</li>
 <li>实现 Comparable 的类必须实现 <code class="notranslate">compareTo(Object obj) </code>方法，两个对象即通过 compareTo(Object obj) 方法的返回值来比较大小。如果当前对象this大于形参对象obj，则返回正整数，如果当前对象this小于形参对象obj，则返回负整数，如果当前对象this等于形参对象obj，则返回零。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">java</span>.<span class="pl-s1">lang</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package java.lang;
 
-<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">Comparable</span>{
-    <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>);
-}</pre></div>
+public interface Comparable{
+    int compareTo(Object obj);
+}
+</code></pre>
 <ul>
 <li>实现Comparable接口的对象列表（和数组）可以通过 Collections.sort 或 Arrays.sort进行自动排序。实现此接口的对象可以用作有序映射中的键或有序集合中的元素，无需指定比较器。</li>
 <li>对于类 C 的每一个 e1 和 e2 来说，当且仅当 e1.compareTo(e2) == 0 与 e1.equals(e2) 具有相同的 boolean 值时，类 C 的自然排序才叫做与 equals 一致。建议（虽然不是必需的）<code class="notranslate">最好使自然排序与 equals 一致</code>。</li>
@@ -1038,257 +1057,268 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 <p>自然排序:对应的接口是Comparable，对应的抽象方法compareTo(0bject obj)</p>
 <p>定制排序:对应的接口是Comparator，对应的抽象方法compare(0bject obj1,0bject obj2)</p>
 <p>使用<code class="notranslate">Comparable</code>接口对商品菜单列表进行排序。在这个例子中，我们将创建一个<code class="notranslate">Product</code>类，它实现了<code class="notranslate">Comparable</code>接口，并根据商品的价格进行排序。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">ArrayList</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collections</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">List</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-<span class="pl-c">// 商品类，实现Comparable接口</span>
-<span class="pl-k">class</span> <span class="pl-smi">Product</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>&lt;<span class="pl-smi">Product</span>&gt; {
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>; <span class="pl-c">// 商品名称</span>
-    <span class="pl-k">private</span> <span class="pl-smi">double</span> <span class="pl-s1">price</span>; <span class="pl-c">// 商品价格</span>
+// 商品类，实现Comparable接口
+class Product implements Comparable&lt;Product&gt; {
+    private String name; // 商品名称
+    private double price; // 商品价格
 
-    <span class="pl-k">public</span> <span class="pl-smi">Product</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">double</span> <span class="pl-s1">price</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">price</span> = <span class="pl-s1">price</span>;
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
     }
 
-    <span class="pl-c">// 获取商品名称</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    // 获取商品名称
+    public String getName() {
+        return name;
     }
 
-    <span class="pl-c">// 获取商品价格</span>
-    <span class="pl-k">public</span> <span class="pl-smi">double</span> <span class="pl-en">getPrice</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">price</span>;
+    // 获取商品价格
+    public double getPrice() {
+        return price;
     }
 
-    <span class="pl-c">// 实现Comparable接口的compareTo方法，根据价格排序</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Product</span> <span class="pl-s1">other</span>) {
-        <span class="pl-k">return</span> <span class="pl-smi">Double</span>.<span class="pl-en">compare</span>(<span class="pl-smi">this</span>.<span class="pl-s1">price</span>, <span class="pl-s1">other</span>.<span class="pl-s1">price</span>);
+    // 实现Comparable接口的compareTo方法，根据价格排序
+    @Override
+    public int compareTo(Product other) {
+        return Double.compare(this.price, other.price);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"Product{name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> + <span class="pl-s">", price="</span> + <span class="pl-s1">price</span> + <span class="pl-s">'}'</span>;
+    @Override
+    public String toString() {
+        return "Product{name='" + name + '\'' + ", price=" + price + '}';
     }
 }
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ProductMenuExample</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">// 创建商品列表</span>
-        <span class="pl-smi">List</span>&lt;<span class="pl-smi">Product</span>&gt; <span class="pl-s1">products</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
-        <span class="pl-s1">products</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Product</span>(<span class="pl-s">"苹果"</span>, <span class="pl-c1">3.5</span>));
-        <span class="pl-s1">products</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Product</span>(<span class="pl-s">"香蕉"</span>, <span class="pl-c1">2.0</span>));
-        <span class="pl-s1">products</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Product</span>(<span class="pl-s">"橙子"</span>, <span class="pl-c1">4.0</span>));
-        <span class="pl-s1">products</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Product</span>(<span class="pl-s">"西瓜"</span>, <span class="pl-c1">1.5</span>));
+public class ProductMenuExample {
+    public static void main(String[] args) {
+        // 创建商品列表
+        List&lt;Product&gt; products = new ArrayList&lt;&gt;();
+        products.add(new Product("苹果", 3.5));
+        products.add(new Product("香蕉", 2.0));
+        products.add(new Product("橙子", 4.0));
+        products.add(new Product("西瓜", 1.5));
 
-        <span class="pl-c">// 使用Collections.sort()方法对商品列表进行排序</span>
-        <span class="pl-smi">Collections</span>.<span class="pl-en">sort</span>(<span class="pl-s1">products</span>);
+        // 使用Collections.sort()方法对商品列表进行排序
+        Collections.sort(products);
 
-        <span class="pl-c">// 打印排序后的商品列表</span>
-        <span class="pl-k">for</span> (<span class="pl-smi">Product</span> <span class="pl-s1">product</span> : <span class="pl-s1">products</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">product</span>);
+        // 打印排序后的商品列表
+        for (Product product : products) {
+            System.out.println(product);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p>在这个例子中，<code class="notranslate">Product</code>类有两个属性：<code class="notranslate">name</code>（商品名称）和<code class="notranslate">price</code>（商品价格）。<code class="notranslate">Product</code>类实现了<code class="notranslate">Comparable</code>接口，并重写了<code class="notranslate">compareTo</code>方法，该方法接受另一个<code class="notranslate">Product</code>对象作为参数，并根据商品的价格进行比较。这里使用了<code class="notranslate">Double.compare</code>方法来比较两个商品的价格。</p>
 <p>在<code class="notranslate">ProductMenuExample</code>类的<code class="notranslate">main</code>方法中，我们创建了一个<code class="notranslate">ArrayList</code>来存储<code class="notranslate">Product</code>对象，并添加了一些商品。然后，我们使用<code class="notranslate">Collections.sort</code>方法对商品列表进行排序。由于<code class="notranslate">Product</code>类实现了<code class="notranslate">Comparable</code>接口，<code class="notranslate">Collections.sort</code>方法可以自动根据商品的价格进行排序。</p>
 <p>最后，我们遍历并打印排序后的商品列表。在这个例子中，商品将按照价格升序排序。</p>
 <ul>
 <li>代码示例：</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.api;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Student</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">id</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">score</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+public class Student implements Comparable {
+    private int id;
+    private String name;
+    private int score;
+    private int age;
 
-    <span class="pl-k">public</span> <span class="pl-smi">Student</span>(<span class="pl-smi">int</span> <span class="pl-s1">id</span>, <span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">score</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">id</span> = <span class="pl-s1">id</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">score</span> = <span class="pl-s1">score</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    public Student(int id, String name, int score, int age) {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+        this.age = age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getId</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">id</span>;
+    public int getId() {
+        return id;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setId</span>(<span class="pl-smi">int</span> <span class="pl-s1">id</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">id</span> = <span class="pl-s1">id</span>;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    public String getName() {
+        return name;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getScore</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">score</span>;
+    public int getScore() {
+        return score;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setScore</span>(<span class="pl-smi">int</span> <span class="pl-s1">score</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">score</span> = <span class="pl-s1">score</span>;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getAge</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">age</span>;
+    public int getAge() {
+        return age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setAge</span>(<span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"Student{"</span> +
-                <span class="pl-s">"id="</span> + <span class="pl-s1">id</span> +
-                <span class="pl-s">", name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
-                <span class="pl-s">", score="</span> + <span class="pl-s1">score</span> +
-                <span class="pl-s">", age="</span> + <span class="pl-s1">age</span> +
-                <span class="pl-s">'}'</span>;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", score=" + score +
+                ", age=" + age +
+                '}';
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-c">//这些需要强制，将o对象向下转型为Student类型的变量，才能调用Student类中的属性</span>
-        <span class="pl-c">//默认按照学号比较大小</span>
-        <span class="pl-smi">Student</span> <span class="pl-s1">stu</span> = (<span class="pl-smi">Student</span>) <span class="pl-s1">o</span>;
-        <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-s1">id</span> - <span class="pl-s1">stu</span>.<span class="pl-s1">id</span>;
+    @Override
+    public int compareTo(Object o) {
+        //这些需要强制，将o对象向下转型为Student类型的变量，才能调用Student类中的属性
+        //默认按照学号比较大小
+        Student stu = (Student) o;
+        return this.id - stu.id;
     }
-}</pre></div>
+}
+</code></pre>
 <p>测试类</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.api;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestStudent</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">Student</span>[] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>[<span class="pl-c1">5</span>];
-        <span class="pl-s1">arr</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">3</span>,<span class="pl-s">"张三"</span>,<span class="pl-c1">90</span>,<span class="pl-c1">23</span>);
-        <span class="pl-s1">arr</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">1</span>,<span class="pl-s">"熊大"</span>,<span class="pl-c1">100</span>,<span class="pl-c1">22</span>);
-        <span class="pl-s1">arr</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">5</span>,<span class="pl-s">"王五"</span>,<span class="pl-c1">75</span>,<span class="pl-c1">25</span>);
-        <span class="pl-s1">arr</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">4</span>,<span class="pl-s">"李四"</span>,<span class="pl-c1">85</span>,<span class="pl-c1">24</span>);
-        <span class="pl-s1">arr</span>[<span class="pl-c1">4</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">2</span>,<span class="pl-s">"熊二"</span>,<span class="pl-c1">85</span>,<span class="pl-c1">18</span>);
+public class TestStudent {
+    public static void main(String[] args) {
+        Student[] arr = new Student[5];
+        arr[0] = new Student(3,"张三",90,23);
+        arr[1] = new Student(1,"熊大",100,22);
+        arr[2] = new Student(5,"王五",75,25);
+        arr[3] = new Student(4,"李四",85,24);
+        arr[4] = new Student(2,"熊二",85,18);
 
-        <span class="pl-c">//单独比较两个对象</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">0</span>].<span class="pl-en">compareTo</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">1</span>]));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">1</span>].<span class="pl-en">compareTo</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">2</span>]));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">2</span>].<span class="pl-en">compareTo</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">2</span>]));
+        //单独比较两个对象
+        System.out.println(arr[0].compareTo(arr[1]));
+        System.out.println(arr[1].compareTo(arr[2]));
+        System.out.println(arr[2].compareTo(arr[2]));
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"所有学生："</span>);
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        System.out.println("所有学生：");
+        for (int i = 0; i &lt; arr.length; i++) {
+            System.out.println(arr[i]);
         }
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"按照学号排序："</span>);
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">j</span> = <span class="pl-c1">0</span>; <span class="pl-s1">j</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>-<span class="pl-s1">i</span>; <span class="pl-s1">j</span>++) {
-                <span class="pl-k">if</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">j</span>].<span class="pl-en">compareTo</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">j</span>+<span class="pl-c1">1</span>])&gt;<span class="pl-c1">0</span>){
-                    <span class="pl-smi">Student</span> <span class="pl-s1">temp</span> = <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>];
-                    <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>] = <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>+<span class="pl-c1">1</span>];
-                    <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>+<span class="pl-c1">1</span>] = <span class="pl-s1">temp</span>;
+        System.out.println("按照学号排序：");
+        for (int i = 1; i &lt; arr.length; i++) {
+            for (int j = 0; j &lt; arr.length-i; j++) {
+                if(arr[j].compareTo(arr[j+1])&gt;0){
+                    Student temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
                 }
             }
         }
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        for (int i = 0; i &lt; arr.length; i++) {
+            System.out.println(arr[i]);
         }
     }
-}</pre></div>
-<p>再举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Student</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">score</span>;
-
-    <span class="pl-k">public</span> <span class="pl-smi">Student</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">score</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">score</span> = <span class="pl-s1">score</span>;
-    }
-
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
-    }
-
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-    }
-
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getScore</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">score</span>;
-    }
-
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setScore</span>(<span class="pl-smi">int</span> <span class="pl-s1">score</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">score</span> = <span class="pl-s1">score</span>;
-    }
-
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"Student{"</span> +
-                <span class="pl-s">"name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
-                <span class="pl-s">", score="</span> + <span class="pl-s1">score</span> +
-                <span class="pl-s">'}'</span>;
-    }
-
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-s1">score</span> - ((<span class="pl-smi">Student</span>)<span class="pl-s1">o</span>).<span class="pl-s1">score</span>;
-    }
-}</pre></div>
-<p>测试：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>() {
-    <span class="pl-smi">Student</span>[] <span class="pl-s1">students</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>[<span class="pl-c1">3</span>];
-    <span class="pl-s1">students</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-s">"张三"</span>, <span class="pl-c1">96</span>);
-    <span class="pl-s1">students</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-s">"李四"</span>, <span class="pl-c1">85</span>);
-    <span class="pl-s1">students</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-s">"王五"</span>, <span class="pl-c1">98</span>);
-
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">students</span>));
-    <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">students</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">students</span>));
-}</pre></div>
-<p>再举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">Goods</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">double</span> <span class="pl-s1">price</span>;
-
-    <span class="pl-c">//按照价格，比较商品的大小</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> <span class="pl-k">instanceof</span> <span class="pl-smi">Goods</span>) {
-            <span class="pl-smi">Goods</span> <span class="pl-s1">other</span> = (<span class="pl-smi">Goods</span>) <span class="pl-s1">o</span>;
-            <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-s1">price</span> &gt; <span class="pl-s1">other</span>.<span class="pl-s1">price</span>) {
-                <span class="pl-k">return</span> <span class="pl-c1">1</span>;
-            } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-s1">price</span> &lt; <span class="pl-s1">other</span>.<span class="pl-s1">price</span>) {
-                <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
-            }
-            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
-        }
-        <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"输入的数据类型不一致"</span>);
-    }
-    <span class="pl-c">//构造器、getter、setter、toString()方法略</span>
 }
-</pre></div>
+
+</code></pre>
+<p>再举例：</p>
+<pre lang="java" class="notranslate"><code class="notranslate">
+public class Student implements Comparable {
+    private String name;
+    private int score;
+
+    public Student(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", score=" + score +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.score - ((Student)o).score;
+    }
+}
+</code></pre>
 <p>测试：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ComparableTest</span>{
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test02() {
+    Student[] students = new Student[3];
+    students[0] = new Student("张三", 96);
+    students[1] = new Student("李四", 85);
+    students[2] = new Student("王五", 98);
 
-        <span class="pl-smi">Goods</span>[] <span class="pl-s1">all</span> = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>[<span class="pl-c1">4</span>];
-        <span class="pl-s1">all</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"《红楼梦》"</span>, <span class="pl-c1">100</span>);
-        <span class="pl-s1">all</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"《西游记》"</span>, <span class="pl-c1">80</span>);
-        <span class="pl-s1">all</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"《三国演义》"</span>, <span class="pl-c1">140</span>);
-        <span class="pl-s1">all</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"《水浒传》"</span>, <span class="pl-c1">120</span>);
+    System.out.println(Arrays.toString(students));
+    Arrays.sort(students);
+    System.out.println(Arrays.toString(students));
+}
+</code></pre>
+<p>再举例：</p>
+<pre lang="java" class="notranslate"><code class="notranslate">class Goods implements Comparable {
+    private String name;
+    private double price;
 
-        <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">all</span>);
+    //按照价格，比较商品的大小
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof Goods) {
+            Goods other = (Goods) o;
+            if (this.price &gt; other.price) {
+                return 1;
+            } else if (this.price &lt; other.price) {
+                return -1;
+            }
+            return 0;
+        }
+        throw new RuntimeException("输入的数据类型不一致");
+    }
+    //构造器、getter、setter、toString()方法略
+}
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">all</span>));
+
+</code></pre>
+<p>测试：</p>
+<pre lang="java" class="notranslate"><code class="notranslate">public class ComparableTest{
+    public static void main(String[] args) {
+
+        Goods[] all = new Goods[4];
+        all[0] = new Goods("《红楼梦》", 100);
+        all[1] = new Goods("《西游记》", 80);
+        all[2] = new Goods("《三国演义》", 140);
+        all[3] = new Goods("《水浒传》", 120);
+
+        Arrays.sort(all);
+
+        System.out.println(Arrays.toString(all));
 
     }
 
-}</pre></div>
+}
+
+</code></pre>
 <h3>5.2 定制排序：java.util.Comparator</h3>
 <ul>
 <li>思考
@@ -1304,95 +1334,101 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 </ul>
 </li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package java.util;
 
-<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">Comparator</span>{
-    <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>,<span class="pl-smi">Object</span> <span class="pl-s1">o2</span>);
-}</pre></div>
+public interface Comparator{
+    int compare(Object o1,Object o2);
+}
+</code></pre>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.api;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Comparator</span>;
-<span class="pl-c">//定义定制比较器类</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">StudentScoreComparator</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparator</span> { 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>, <span class="pl-smi">Object</span> <span class="pl-s1">o2</span>) {
-        <span class="pl-smi">Student</span> <span class="pl-s1">s1</span> = (<span class="pl-smi">Student</span>) <span class="pl-s1">o1</span>;
-        <span class="pl-smi">Student</span> <span class="pl-s1">s2</span> = (<span class="pl-smi">Student</span>) <span class="pl-s1">o2</span>;
-        <span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-s1">s1</span>.<span class="pl-en">getScore</span>() - <span class="pl-s1">s2</span>.<span class="pl-en">getScore</span>();
-        <span class="pl-k">return</span> <span class="pl-s1">result</span> != <span class="pl-c1">0</span> ? <span class="pl-s1">result</span> : <span class="pl-s1">s1</span>.<span class="pl-en">getId</span>() - <span class="pl-s1">s2</span>.<span class="pl-en">getId</span>();
+import java.util.Comparator;
+//定义定制比较器类
+public class StudentScoreComparator implements Comparator { 
+    @Override
+    public int compare(Object o1, Object o2) {
+        Student s1 = (Student) o1;
+        Student s2 = (Student) o2;
+        int result = s1.getScore() - s2.getScore();
+        return result != 0 ? result : s1.getId() - s2.getId();
     }
-}</pre></div>
+}
+</code></pre>
 <p>测试类</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">api</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.api;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestStudent</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">Student</span>[] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>[<span class="pl-c1">5</span>];
-        <span class="pl-s1">arr</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">3</span>, <span class="pl-s">"张三"</span>, <span class="pl-c1">90</span>, <span class="pl-c1">23</span>);
-        <span class="pl-s1">arr</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">1</span>, <span class="pl-s">"熊大"</span>, <span class="pl-c1">100</span>, <span class="pl-c1">22</span>);
-        <span class="pl-s1">arr</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">5</span>, <span class="pl-s">"王五"</span>, <span class="pl-c1">75</span>, <span class="pl-c1">25</span>);
-        <span class="pl-s1">arr</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">4</span>, <span class="pl-s">"李四"</span>, <span class="pl-c1">85</span>, <span class="pl-c1">24</span>);
-        <span class="pl-s1">arr</span>[<span class="pl-c1">4</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">2</span>, <span class="pl-s">"熊二"</span>, <span class="pl-c1">85</span>, <span class="pl-c1">18</span>);
+public class TestStudent {
+    public static void main(String[] args) {
+        Student[] arr = new Student[5];
+        arr[0] = new Student(3, "张三", 90, 23);
+        arr[1] = new Student(1, "熊大", 100, 22);
+        arr[2] = new Student(5, "王五", 75, 25);
+        arr[3] = new Student(4, "李四", 85, 24);
+        arr[4] = new Student(2, "熊二", 85, 18);
 
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"所有学生："</span>);
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        System.out.println("所有学生：");
+        for (int i = 0; i &lt; arr.length; i++) {
+            System.out.println(arr[i]);
         }
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"按照成绩排序"</span>);
-        <span class="pl-smi">StudentScoreComparator</span> <span class="pl-s1">sc</span> = <span class="pl-k">new</span> <span class="pl-smi">StudentScoreComparator</span>();
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">j</span> = <span class="pl-c1">0</span>; <span class="pl-s1">j</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span> - <span class="pl-s1">i</span>; <span class="pl-s1">j</span>++) {
-                <span class="pl-k">if</span> (<span class="pl-s1">sc</span>.<span class="pl-en">compare</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">j</span>], <span class="pl-s1">arr</span>[<span class="pl-s1">j</span> + <span class="pl-c1">1</span>]) &gt; <span class="pl-c1">0</span>) {
-                    <span class="pl-smi">Student</span> <span class="pl-s1">temp</span> = <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>];
-                    <span class="pl-s1">arr</span>[<span class="pl-s1">j</span>] = <span class="pl-s1">arr</span>[<span class="pl-s1">j</span> + <span class="pl-c1">1</span>];
-                    <span class="pl-s1">arr</span>[<span class="pl-s1">j</span> + <span class="pl-c1">1</span>] = <span class="pl-s1">temp</span>;
+        System.out.println("按照成绩排序");
+        StudentScoreComparator sc = new StudentScoreComparator();
+        for (int i = 1; i &lt; arr.length; i++) {
+            for (int j = 0; j &lt; arr.length - i; j++) {
+                if (sc.compare(arr[j], arr[j + 1]) &gt; 0) {
+                    Student temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
             }
         }
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">arr</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-s1">i</span>]);
+        for (int i = 0; i &lt; arr.length; i++) {
+            System.out.println(arr[i]);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <p>再举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>() {
-    <span class="pl-smi">Student</span>[] <span class="pl-s1">students</span> = <span class="pl-k">new</span> <span class="pl-smi">Student</span>[<span class="pl-c1">5</span>];
-    <span class="pl-s1">students</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">3</span>, <span class="pl-s">"张三"</span>, <span class="pl-c1">90</span>, <span class="pl-c1">23</span>);
-    <span class="pl-s1">students</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">1</span>, <span class="pl-s">"熊大"</span>, <span class="pl-c1">100</span>, <span class="pl-c1">22</span>);
-    <span class="pl-s1">students</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">5</span>, <span class="pl-s">"王五"</span>, <span class="pl-c1">75</span>, <span class="pl-c1">25</span>);
-    <span class="pl-s1">students</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">4</span>, <span class="pl-s">"李四"</span>, <span class="pl-c1">85</span>, <span class="pl-c1">24</span>);
-    <span class="pl-s1">students</span>[<span class="pl-c1">4</span>] = <span class="pl-k">new</span> <span class="pl-smi">Student</span>(<span class="pl-c1">2</span>, <span class="pl-s">"熊二"</span>, <span class="pl-c1">85</span>, <span class="pl-c1">18</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test01() {
+    Student[] students = new Student[5];
+    students[0] = new Student(3, "张三", 90, 23);
+    students[1] = new Student(1, "熊大", 100, 22);
+    students[2] = new Student(5, "王五", 75, 25);
+    students[3] = new Student(4, "李四", 85, 24);
+    students[4] = new Student(2, "熊二", 85, 18);
 
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">students</span>));
-    <span class="pl-c">//定制排序</span>
-    <span class="pl-smi">StudentScoreComparator</span> <span class="pl-s1">sc</span> = <span class="pl-k">new</span> <span class="pl-smi">StudentScoreComparator</span>();
-    <span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">students</span>, <span class="pl-s1">sc</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"排序之后："</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">students</span>));
-}</pre></div>
+    System.out.println(Arrays.toString(students));
+    //定制排序
+    StudentScoreComparator sc = new StudentScoreComparator();
+    Arrays.sort(students, sc);
+    System.out.println("排序之后：");
+    System.out.println(Arrays.toString(students));
+}
+</code></pre>
 <p>再举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Goods</span>[] <span class="pl-s1">all</span> = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>[<span class="pl-c1">4</span>];
-<span class="pl-s1">all</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"War and Peace"</span>, <span class="pl-c1">100</span>);
-<span class="pl-s1">all</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"Childhood"</span>, <span class="pl-c1">80</span>);
-<span class="pl-s1">all</span>[<span class="pl-c1">2</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"Scarlet and Black"</span>, <span class="pl-c1">140</span>);
-<span class="pl-s1">all</span>[<span class="pl-c1">3</span>] = <span class="pl-k">new</span> <span class="pl-smi">Goods</span>(<span class="pl-s">"Notre Dame de Paris"</span>, <span class="pl-c1">120</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">Goods[] all = new Goods[4];
+all[0] = new Goods("War and Peace", 100);
+all[1] = new Goods("Childhood", 80);
+all[2] = new Goods("Scarlet and Black", 140);
+all[3] = new Goods("Notre Dame de Paris", 120);
 
-<span class="pl-smi">Arrays</span>.<span class="pl-en">sort</span>(<span class="pl-s1">all</span>, <span class="pl-k">new</span> <span class="pl-smi">Comparator</span>() {
+Arrays.sort(all, new Comparator() {
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>, <span class="pl-smi">Object</span> <span class="pl-s1">o2</span>) {
-        <span class="pl-smi">Goods</span> <span class="pl-s1">g1</span> = (<span class="pl-smi">Goods</span>) <span class="pl-s1">o1</span>;
-        <span class="pl-smi">Goods</span> <span class="pl-s1">g2</span> = (<span class="pl-smi">Goods</span>) <span class="pl-s1">o2</span>;
+    @Override
+    public int compare(Object o1, Object o2) {
+        Goods g1 = (Goods) o1;
+        Goods g2 = (Goods) o2;
 
-        <span class="pl-k">return</span> <span class="pl-s1">g1</span>.<span class="pl-en">getName</span>().<span class="pl-en">compareTo</span>(<span class="pl-s1">g2</span>.<span class="pl-en">getName</span>());
+        return g1.getName().compareTo(g2.getName());
     }
 });
 
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">all</span>));</pre></div>
+System.out.println(Arrays.toString(all));
+
+</code></pre>
 <p>三个类的对比 String StringBuffer StringBuilder</p>
 <p>String 不可变的字符序列 （jdk8 以前使用 char[] jdk9 以后使用 byte[]）</p>
 <p>StringBuffer 可变的字符序列 线程安全 效率低（jdk8 以前使用 char[] jdk9 以后使用 byte[]）</p>
@@ -1497,161 +1533,168 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 </li>
 <li>举例</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import org.junit.Test;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestSystem</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">long</span> <span class="pl-s1">time</span> = <span class="pl-smi">System</span>.<span class="pl-en">currentTimeMillis</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"现在的系统时间距离1970年1月1日凌晨："</span> + <span class="pl-s1">time</span> + <span class="pl-s">"毫秒"</span>);
+public class TestSystem {
+    @Test
+    public void test01(){
+        long time = System.currentTimeMillis();
+        System.out.println("现在的系统时间距离1970年1月1日凌晨：" + time + "毫秒");
 
-        <span class="pl-smi">System</span>.<span class="pl-en">exit</span>(<span class="pl-c1">0</span>);
+        System.exit(0);
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"over"</span>);<span class="pl-c">//不会执行</span>
+        System.out.println("over");//不会执行
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
-        <span class="pl-smi">String</span> <span class="pl-s1">javaVersion</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"java.version"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"java的version:"</span> + <span class="pl-s1">javaVersion</span>);
+    @Test
+    public void test02(){
+        String javaVersion = System.getProperty("java.version");
+        System.out.println("java的version:" + javaVersion);
 
-        <span class="pl-smi">String</span> <span class="pl-s1">javaHome</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"java.home"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"java的home:"</span> + <span class="pl-s1">javaHome</span>);
+        String javaHome = System.getProperty("java.home");
+        System.out.println("java的home:" + javaHome);
 
-        <span class="pl-smi">String</span> <span class="pl-s1">osName</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"os.name"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"os的name:"</span> + <span class="pl-s1">osName</span>);
+        String osName = System.getProperty("os.name");
+        System.out.println("os的name:" + osName);
 
-        <span class="pl-smi">String</span> <span class="pl-s1">osVersion</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"os.version"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"os的version:"</span> + <span class="pl-s1">osVersion</span>);
+        String osVersion = System.getProperty("os.version");
+        System.out.println("os的version:" + osVersion);
 
-        <span class="pl-smi">String</span> <span class="pl-s1">userName</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"user.name"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"user的name:"</span> + <span class="pl-s1">userName</span>);
+        String userName = System.getProperty("user.name");
+        System.out.println("user的name:" + userName);
 
-        <span class="pl-smi">String</span> <span class="pl-s1">userHome</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"user.home"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"user的home:"</span> + <span class="pl-s1">userHome</span>);
+        String userHome = System.getProperty("user.home");
+        System.out.println("user的home:" + userHome);
 
-        <span class="pl-smi">String</span> <span class="pl-s1">userDir</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"user.dir"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"user的dir:"</span> + <span class="pl-s1">userDir</span>);
+        String userDir = System.getProperty("user.dir");
+        System.out.println("user的dir:" + userDir);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>() <span class="pl-k">throws</span> <span class="pl-smi">InterruptedException</span> {
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span>=<span class="pl-c1">1</span>; <span class="pl-s1">i</span> &lt;=<span class="pl-c1">10</span>; <span class="pl-s1">i</span>++){
-            <span class="pl-smi">MyDemo</span> <span class="pl-s1">my</span> = <span class="pl-k">new</span> <span class="pl-smi">MyDemo</span>(<span class="pl-s1">i</span>);
-            <span class="pl-c">//每一次循环my就会指向新的对象，那么上次的对象就没有变量引用它了，就成垃圾对象</span>
+    @Test
+    public void test03() throws InterruptedException {
+        for (int i=1; i &lt;=10; i++){
+            MyDemo my = new MyDemo(i);
+            //每一次循环my就会指向新的对象，那么上次的对象就没有变量引用它了，就成垃圾对象
         }
 
-        <span class="pl-c">//为了看到垃圾回收器工作，我要加下面的代码，让main方法不那么快结束，因为main结束就会导致JVM退出，GC也会跟着结束。</span>
-        <span class="pl-smi">System</span>.<span class="pl-en">gc</span>();<span class="pl-c">//如果不调用这句代码，GC可能不工作，因为当前内存很充足，GC就觉得不着急回收垃圾对象。</span>
-                    <span class="pl-c">//调用这句代码，会让GC尽快来工作。</span>
-        <span class="pl-smi">Thread</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">5000</span>);
+        //为了看到垃圾回收器工作，我要加下面的代码，让main方法不那么快结束，因为main结束就会导致JVM退出，GC也会跟着结束。
+        System.gc();//如果不调用这句代码，GC可能不工作，因为当前内存很充足，GC就觉得不着急回收垃圾对象。
+                    //调用这句代码，会让GC尽快来工作。
+        Thread.sleep(5000);
     }
 }
 
-<span class="pl-k">class</span> <span class="pl-smi">MyDemo</span>{
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">value</span>;
+class MyDemo{
+    private int value;
 
-    <span class="pl-k">public</span> <span class="pl-smi">MyDemo</span>(<span class="pl-smi">int</span> <span class="pl-s1">value</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">value</span> = <span class="pl-s1">value</span>;
+    public MyDemo(int value) {
+        this.value = value;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"MyDemo{"</span> + <span class="pl-s">"value="</span> + <span class="pl-s1">value</span> + <span class="pl-s">'}'</span>;
+    @Override
+    public String toString() {
+        return "MyDemo{" + "value=" + value + '}';
     }
 
-    <span class="pl-c">//重写finalize方法，让大家看一下它的调用效果</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">finalize</span>() <span class="pl-k">throws</span> <span class="pl-smi">Throwable</span> {
-<span class="pl-c">//        正常重写，这里是编写清理系统内存的代码</span>
-<span class="pl-c">//        这里写输出语句是为了看到finalize()方法被调用的效果</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">this</span>+ <span class="pl-s">"轻轻的我走了，不带走一段代码...."</span>);
+    //重写finalize方法，让大家看一下它的调用效果
+    @Override
+    protected void finalize() throws Throwable {
+//        正常重写，这里是编写清理系统内存的代码
+//        这里写输出语句是为了看到finalize()方法被调用的效果
+        System.out.println(this+ "轻轻的我走了，不带走一段代码....");
     }
-}</pre></div>
+}
+</code></pre>
 <ul>
 <li><code class="notranslate">static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)</code>： 从指定源数组中复制一个数组，复制从指定的位置开始，到目标数组的指定位置结束。常用于数组的插入和删除</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Arrays</span>;
+import java.util.Arrays;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestSystemArrayCopy</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">int</span>[] <span class="pl-s1">arr1</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>};
-        <span class="pl-smi">int</span>[] <span class="pl-s1">arr2</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">10</span>];
-        <span class="pl-smi">System</span>.<span class="pl-en">arraycopy</span>(<span class="pl-s1">arr1</span>,<span class="pl-c1">0</span>,<span class="pl-s1">arr2</span>,<span class="pl-c1">3</span>,<span class="pl-s1">arr1</span>.<span class="pl-s1">length</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">arr1</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">arr2</span>));
+public class TestSystemArrayCopy {
+    @Test
+    public void test01(){
+        int[] arr1 = {1,2,3,4,5};
+        int[] arr2 = new int[10];
+        System.arraycopy(arr1,0,arr2,3,arr1.length);
+        System.out.println(Arrays.toString(arr1));
+        System.out.println(Arrays.toString(arr2));
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
-        <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>};
-        <span class="pl-smi">System</span>.<span class="pl-en">arraycopy</span>(<span class="pl-s1">arr</span>,<span class="pl-c1">0</span>,<span class="pl-s1">arr</span>,<span class="pl-c1">1</span>,<span class="pl-s1">arr</span>.<span class="pl-s1">length</span>-<span class="pl-c1">1</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">arr</span>));
+    @Test
+    public void test02(){
+        int[] arr = {1,2,3,4,5};
+        System.arraycopy(arr,0,arr,1,arr.length-1);
+        System.out.println(Arrays.toString(arr));
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
-        <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>};
-        <span class="pl-smi">System</span>.<span class="pl-en">arraycopy</span>(<span class="pl-s1">arr</span>,<span class="pl-c1">1</span>,<span class="pl-s1">arr</span>,<span class="pl-c1">0</span>,<span class="pl-s1">arr</span>.<span class="pl-s1">length</span>-<span class="pl-c1">1</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-smi">Arrays</span>.<span class="pl-en">toString</span>(<span class="pl-s1">arr</span>));
+    @Test
+    public void test03(){
+        int[] arr = {1,2,3,4,5};
+        System.arraycopy(arr,1,arr,0,arr.length-1);
+        System.out.println(Arrays.toString(arr));
     }
-}</pre></div>
+}
+</code></pre>
 <h3>6.2 java.lang.Runtime类</h3>
 <p>每个 Java 应用程序都有一个 <code class="notranslate">Runtime</code> 类实例，使应用程序能够与其运行的环境相连接。</p>
 <p><code class="notranslate">public static Runtime getRuntime()</code>： 返回与当前 Java 应用程序相关的运行时对象。应用程序不能创建自己的 Runtime 类实例。</p>
 <p><code class="notranslate">public long totalMemory()</code>：返回 Java 虚拟机中初始化时的内存总量。此方法返回的值可能随时间的推移而变化，这取决于主机环境。默认为物理电脑内存的1/64。</p>
 <p><code class="notranslate">public long maxMemory()</code>：返回 Java 虚拟机中最大程度能使用的内存总量。默认为物理电脑内存的1/4。</p>
 <p><code class="notranslate">public long freeMemory()</code>：回 Java 虚拟机中的空闲内存量。调用 gc 方法可能导致 freeMemory 返回值的增加。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">system</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.system;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestRuntime</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">Runtime</span> <span class="pl-s1">runtime</span> = <span class="pl-smi">Runtime</span>.<span class="pl-en">getRuntime</span>();
-        <span class="pl-smi">long</span> <span class="pl-s1">initialMemory</span> = <span class="pl-s1">runtime</span>.<span class="pl-en">totalMemory</span>(); <span class="pl-c">//获取虚拟机初始化时堆内存总量</span>
-        <span class="pl-smi">long</span> <span class="pl-s1">maxMemory</span> = <span class="pl-s1">runtime</span>.<span class="pl-en">maxMemory</span>(); <span class="pl-c">//获取虚拟机最大堆内存总量</span>
-        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">""</span>;
-        <span class="pl-c">//模拟占用内存</span>
-        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-c1">10000</span>; <span class="pl-s1">i</span>++) {
-            <span class="pl-s1">str</span> += <span class="pl-s1">i</span>;
+public class TestRuntime {
+    public static void main(String[] args) {
+        Runtime runtime = Runtime.getRuntime();
+        long initialMemory = runtime.totalMemory(); //获取虚拟机初始化时堆内存总量
+        long maxMemory = runtime.maxMemory(); //获取虚拟机最大堆内存总量
+        String str = "";
+        //模拟占用内存
+        for (int i = 0; i &lt; 10000; i++) {
+            str += i;
         }
-        <span class="pl-smi">long</span> <span class="pl-s1">freeMemory</span> = <span class="pl-s1">runtime</span>.<span class="pl-en">freeMemory</span>(); <span class="pl-c">//获取空闲堆内存总量</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"总内存："</span> + <span class="pl-s1">initialMemory</span> / <span class="pl-c1">1024</span> / <span class="pl-c1">1024</span> * <span class="pl-c1">64</span> + <span class="pl-s">"MB"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"总内存："</span> + <span class="pl-s1">maxMemory</span> / <span class="pl-c1">1024</span> / <span class="pl-c1">1024</span> * <span class="pl-c1">4</span> + <span class="pl-s">"MB"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"空闲内存："</span> + <span class="pl-s1">freeMemory</span> / <span class="pl-c1">1024</span> / <span class="pl-c1">1024</span> + <span class="pl-s">"MB"</span>) ;
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"已用内存："</span> + (<span class="pl-s1">initialMemory</span>-<span class="pl-s1">freeMemory</span>) / <span class="pl-c1">1024</span> / <span class="pl-c1">1024</span> + <span class="pl-s">"MB"</span>);
+        long freeMemory = runtime.freeMemory(); //获取空闲堆内存总量
+        System.out.println("总内存：" + initialMemory / 1024 / 1024 * 64 + "MB");
+        System.out.println("总内存：" + maxMemory / 1024 / 1024 * 4 + "MB");
+        System.out.println("空闲内存：" + freeMemory / 1024 / 1024 + "MB") ;
+        System.out.println("已用内存：" + (initialMemory-freeMemory) / 1024 / 1024 + "MB");
     }
-}</pre></div>
+}
+</code></pre>
 <h2>7. 和数学相关的类</h2>
 <h3>7.1 java.lang.Math</h3>
 <p><code class="notranslate">java.lang.Math</code> 类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。类似这样的工具类，其所有方法均为静态方法，并且不会创建对象，调用起来非常简单。</p>
 <ul>
 <li><code class="notranslate">public static double abs(double a) </code> ：返回 double 值的绝对值。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">d1</span> = <span class="pl-smi">Math</span>.<span class="pl-en">abs</span>(-<span class="pl-c1">5</span>); <span class="pl-c">//d1的值为5</span>
-<span class="pl-smi">double</span> <span class="pl-s1">d2</span> = <span class="pl-smi">Math</span>.<span class="pl-en">abs</span>(<span class="pl-c1">5</span>); <span class="pl-c">//d2的值为5</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">double d1 = Math.abs(-5); //d1的值为5
+double d2 = Math.abs(5); //d2的值为5
+</code></pre>
 <ul>
 <li><code class="notranslate">public static double ceil(double a)</code> ：返回大于等于参数的最小的整数。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">d1</span> = <span class="pl-smi">Math</span>.<span class="pl-en">ceil</span>(<span class="pl-c1">3.3</span>); <span class="pl-c">//d1的值为 4.0</span>
-<span class="pl-smi">double</span> <span class="pl-s1">d2</span> = <span class="pl-smi">Math</span>.<span class="pl-en">ceil</span>(-<span class="pl-c1">3.3</span>); <span class="pl-c">//d2的值为 -3.0</span>
-<span class="pl-smi">double</span> <span class="pl-s1">d3</span> = <span class="pl-smi">Math</span>.<span class="pl-en">ceil</span>(<span class="pl-c1">5.1</span>); <span class="pl-c">//d3的值为 6.0</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">double d1 = Math.ceil(3.3); //d1的值为 4.0
+double d2 = Math.ceil(-3.3); //d2的值为 -3.0
+double d3 = Math.ceil(5.1); //d3的值为 6.0
+</code></pre>
 <ul>
 <li><code class="notranslate">public static double floor(double a) </code> ：返回小于等于参数最大的整数。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">d1</span> = <span class="pl-smi">Math</span>.<span class="pl-en">floor</span>(<span class="pl-c1">3.3</span>); <span class="pl-c">//d1的值为3.0</span>
-<span class="pl-smi">double</span> <span class="pl-s1">d2</span> = <span class="pl-smi">Math</span>.<span class="pl-en">floor</span>(-<span class="pl-c1">3.3</span>); <span class="pl-c">//d2的值为-4.0</span>
-<span class="pl-smi">double</span> <span class="pl-s1">d3</span> = <span class="pl-smi">Math</span>.<span class="pl-en">floor</span>(<span class="pl-c1">5.1</span>); <span class="pl-c">//d3的值为 5.0</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">double d1 = Math.floor(3.3); //d1的值为3.0
+double d2 = Math.floor(-3.3); //d2的值为-4.0
+double d3 = Math.floor(5.1); //d3的值为 5.0
+</code></pre>
 <ul>
 <li><code class="notranslate">public static long round(double a)</code> ：返回最接近参数的 long。(相当于四舍五入方法)</li>
 </ul>
 <p>技巧 x + 0.5 再向下取整</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">long</span> <span class="pl-s1">d1</span> = <span class="pl-smi">Math</span>.<span class="pl-en">round</span>(<span class="pl-c1">5.5</span>); <span class="pl-c">//d1的值为6</span>
-<span class="pl-smi">long</span> <span class="pl-s1">d2</span> = <span class="pl-smi">Math</span>.<span class="pl-en">round</span>(<span class="pl-c1">5.4</span>); <span class="pl-c">//d2的值为5</span>
-<span class="pl-smi">long</span> <span class="pl-s1">d3</span> = <span class="pl-smi">Math</span>.<span class="pl-en">round</span>(-<span class="pl-c1">3.3</span>); <span class="pl-c">//d3的值为-3</span>
-<span class="pl-smi">long</span> <span class="pl-s1">d4</span> = <span class="pl-smi">Math</span>.<span class="pl-en">round</span>(-<span class="pl-c1">3.8</span>); <span class="pl-c">//d4的值为-4</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">long d1 = Math.round(5.5); //d1的值为6
+long d2 = Math.round(5.4); //d2的值为5
+long d3 = Math.round(-3.3); //d3的值为-3
+long d4 = Math.round(-3.8); //d4的值为-4
+</code></pre>
 <ul>
 <li>public static double pow(double a,double b)：返回a的b幂次方法</li>
 <li>public static double sqrt(double a)：返回a的平方根</li>
@@ -1661,10 +1704,11 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 <li>public static double min(double x, double y)：返回x,y中的最小值</li>
 <li>其它：acos,asin,atan,cos,sin,tan 三角函数</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">result</span> = <span class="pl-smi">Math</span>.<span class="pl-en">pow</span>(<span class="pl-c1">2</span>,<span class="pl-c1">31</span>);
-<span class="pl-smi">double</span> <span class="pl-s1">sqrt</span> = <span class="pl-smi">Math</span>.<span class="pl-en">sqrt</span>(<span class="pl-c1">256</span>);
-<span class="pl-smi">double</span> <span class="pl-s1">rand</span> = <span class="pl-smi">Math</span>.<span class="pl-en">random</span>();
-<span class="pl-smi">double</span> <span class="pl-s1">pi</span> = <span class="pl-smi">Math</span>.<span class="pl-c1">PI</span>;</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">double result = Math.pow(2,31);
+double sqrt = Math.sqrt(256);
+double rand = Math.random();
+double pi = Math.PI;
+</code></pre>
 <h3>7.2 java.math包</h3>
 <h4>7.2.1 BigInteger</h4>
 <ul>
@@ -1688,21 +1732,22 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 </ul>
 </li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-    <span class="pl-c">//long bigNum = 123456789123456789123456789L;</span>
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test01(){
+    //long bigNum = 123456789123456789123456789L;
 
-    <span class="pl-smi">BigInteger</span> <span class="pl-s1">b1</span> = <span class="pl-k">new</span> <span class="pl-smi">BigInteger</span>(<span class="pl-s">"12345678912345678912345678"</span>);
-    <span class="pl-smi">BigInteger</span> <span class="pl-s1">b2</span> = <span class="pl-k">new</span> <span class="pl-smi">BigInteger</span>(<span class="pl-s">"78923456789123456789123456789"</span>);
+    BigInteger b1 = new BigInteger("12345678912345678912345678");
+    BigInteger b2 = new BigInteger("78923456789123456789123456789");
 
-    <span class="pl-c">//System.out.println("和：" + (b1+b2));//错误的，无法直接使用+进行求和</span>
+    //System.out.println("和：" + (b1+b2));//错误的，无法直接使用+进行求和
 
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"和："</span> + <span class="pl-s1">b1</span>.<span class="pl-en">add</span>(<span class="pl-s1">b2</span>));
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"减："</span> + <span class="pl-s1">b1</span>.<span class="pl-en">subtract</span>(<span class="pl-s1">b2</span>));
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"乘："</span> + <span class="pl-s1">b1</span>.<span class="pl-en">multiply</span>(<span class="pl-s1">b2</span>));
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"除："</span> + <span class="pl-s1">b2</span>.<span class="pl-en">divide</span>(<span class="pl-s1">b1</span>));
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"余："</span> + <span class="pl-s1">b2</span>.<span class="pl-en">remainder</span>(<span class="pl-s1">b1</span>));
-}</pre></div>
+    System.out.println("和：" + b1.add(b2));
+    System.out.println("减：" + b1.subtract(b2));
+    System.out.println("乘：" + b1.multiply(b2));
+    System.out.println("除：" + b2.divide(b1));
+    System.out.println("余：" + b2.remainder(b1));
+}
+</code></pre>
 <h4>7.2.2 BigDecimal</h4>
 <ul>
 <li>一般的Float类和Double类可以用来做科学计算或工程计算，但在<strong>商业计算中，要求数字精度比较高，故用到java.math.BigDecimal类。</strong></li>
@@ -1723,16 +1768,18 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 </li>
 <li>举例</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>(){
-    <span class="pl-smi">BigInteger</span> <span class="pl-s1">bi</span> = <span class="pl-k">new</span> <span class="pl-smi">BigInteger</span>(<span class="pl-s">"12433241123"</span>);
-    <span class="pl-smi">BigDecimal</span> <span class="pl-s1">bd</span> = <span class="pl-k">new</span> <span class="pl-smi">BigDecimal</span>(<span class="pl-s">"12435.351"</span>);
-    <span class="pl-smi">BigDecimal</span> <span class="pl-s1">bd2</span> = <span class="pl-k">new</span> <span class="pl-smi">BigDecimal</span>(<span class="pl-s">"11"</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">bi</span>);
-    <span class="pl-c">// System.out.println(bd.divide(bd2));</span>
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">bd</span>.<span class="pl-en">divide</span>(<span class="pl-s1">bd2</span>, <span class="pl-smi">BigDecimal</span>.<span class="pl-c1">ROUND_HALF_UP</span>));
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">bd</span>.<span class="pl-en">divide</span>(<span class="pl-s1">bd2</span>, <span class="pl-c1">15</span>, <span class="pl-smi">BigDecimal</span>.<span class="pl-c1">ROUND_HALF_UP</span>));
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test03(){
+    BigInteger bi = new BigInteger("12433241123");
+    BigDecimal bd = new BigDecimal("12435.351");
+    BigDecimal bd2 = new BigDecimal("11");
+    System.out.println(bi);
+    // System.out.println(bd.divide(bd2));
+    System.out.println(bd.divide(bd2, BigDecimal.ROUND_HALF_UP));
+    System.out.println(bd.divide(bd2, 15, BigDecimal.ROUND_HALF_UP));
+}
+
+</code></pre>
 <h3>7.3 java.util.Random</h3>
 <p>用于产生随机数</p>
 <ul>
@@ -1745,13 +1792,14 @@ TemporalAdjusters : 该类通过静态方法(firstDayOfXxx()/lastDayOfXxx()/next
 <li><code class="notranslate">int nextInt(int n)</code>:返回一个伪随机数，它是取自此随机数生成器序列的、在 0（包括）和指定值（不包括）之间均匀分布的 int 值。</li>
 <li><code class="notranslate">long nextLong()</code>:返回下一个伪随机数，它是取自此随机数生成器序列的均匀分布的 long 值。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test04</span>(){
-    <span class="pl-smi">Random</span> <span class="pl-s1">r</span> = <span class="pl-k">new</span> <span class="pl-smi">Random</span>();
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"随机整数："</span> + <span class="pl-s1">r</span>.<span class="pl-en">nextInt</span>());
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"随机小数："</span> + <span class="pl-s1">r</span>.<span class="pl-en">nextDouble</span>());
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"随机布尔值："</span> + <span class="pl-s1">r</span>.<span class="pl-en">nextBoolean</span>());
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test04(){
+    Random r = new Random();
+    System.out.println("随机整数：" + r.nextInt());
+    System.out.println("随机小数：" + r.nextDouble());
+    System.out.println("随机布尔值：" + r.nextBoolean());
+}
+</code></pre>
 <h1></h1></div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style="padding:10px 15px;text-align:left;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif"><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href="https://blog.adouzi.eu.org/post/21.html" style="color:#0078d7;text-decoration:none">关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href="https://adouzi.eu.org" style="color:#0078d7;text-decoration:none">https://adouzi.eu.org</a></span><span> | Email：<a href="mailto:shiraayano@adouzi.eu.org" style="color:#0078d7;text-decoration:none">shiraayano@adouzi.eu.org</a><br><br><br>支持笔者：<a href="https://www.profitableratecpm.com/euxxr69t?key=f815bdc51cd258ab9f699175b0ef4446" style="color:#0078d7;text-decoration:none">点击广告</a><br>广告收入是本站唯一的收入，若本站内容帮到了您，可以点击广告支持笔者。</span><script async data-cfasync="false" src="//pl27420049.profitableratecpm.com/0f4f9e716ea5257a380097bb2d39a0bb/invoke.js"></script><div id="container-0f4f9e716ea5257a380097bb2d39a0bb"></div><br><script type="text/javascript">
 atOptions = {
