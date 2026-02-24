@@ -31,7 +31,7 @@ AOP（Aspect-Oriented Programming，面向切面编程）是一种编程范式�
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/38.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 Spring AOP</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -148,41 +148,40 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ol>
 <h4>代理模式的示例代码</h4>
 <p>以下是一个简单的静态代理示例：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">// 接口
-public interface Subject {
-    void request();
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 接口</span>
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">Subject</span> {
+    <span class="pl-smi">void</span> <span class="pl-en">request</span>();
 }
 
-// 真实对象
-public class RealSubject implements Subject {
-    @Override
-    public void request() {
-        System.out.println("RealSubject: Handling request.");
+<span class="pl-c">// 真实对象</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">RealSubject</span> <span class="pl-k">implements</span> <span class="pl-smi">Subject</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">request</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"RealSubject: Handling request."</span>);
     }
 }
 
-// 代理对象
-public class Proxy implements Subject {
-    private RealSubject realSubject;
+<span class="pl-c">// 代理对象</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Proxy</span> <span class="pl-k">implements</span> <span class="pl-smi">Subject</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">RealSubject</span> <span class="pl-s1">realSubject</span>;
 
-    @Override
-    public void request() {
-        if (realSubject == null) {
-            realSubject = new RealSubject();
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">request</span>() {
+        <span class="pl-k">if</span> (<span class="pl-s1">realSubject</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-s1">realSubject</span> = <span class="pl-k">new</span> <span class="pl-smi">RealSubject</span>();
         }
-        System.out.println("Proxy: Logging request.");
-        realSubject.request();
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Proxy: Logging request."</span>);
+        <span class="pl-s1">realSubject</span>.<span class="pl-en">request</span>();
     }
 }
 
-// 客户端代码
-public class Client {
-    public static void main(String[] args) {
-        Subject proxy = new Proxy();
-        proxy.request();
+<span class="pl-c">// 客户端代码</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Client</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Subject</span> <span class="pl-s1">proxy</span> = <span class="pl-k">new</span> <span class="pl-smi">Proxy</span>();
+        <span class="pl-s1">proxy</span>.<span class="pl-en">request</span>();
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个示例中，<code class="notranslate">Proxy</code>类控制对<code class="notranslate">RealSubject</code>对象的访问，并在调用<code class="notranslate">request</code>方法时添加了日志记录功能。</p>
 <h4>两种动态代理方式区别</h4>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/106706e01d9fb4fdf9c3c1dd1fabbd1cce8052ea702b46404067e470b3c5ec99/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037333938353532382d37316231663862612d373639362d343333612d383365352d6364313737323366306436362e706e67"><img src="https://camo.githubusercontent.com/106706e01d9fb4fdf9c3c1dd1fabbd1cce8052ea702b46404067e470b3c5ec99/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733333037333938353532382d37316231663862612d373639362d343333612d383365352d6364313737323366306436362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1733073985528-71b1f8ba-7696-433a-83e5-cd17723f0d66.png" style="max-width: 100%;"></a></p>
@@ -309,74 +308,71 @@ public class Client {
 <li><strong>使用注解提取切点表达式</strong><br>
 可以在切面类中定义一个方法，并使用<code class="notranslate">@Pointcut</code>注解来标记切点表达式。然后在其他通知方法中引用这个切点表达式。</li>
 </ol>
-<pre lang="java" class="notranslate"><code class="notranslate">@Aspect
-@Component
-public class LoggingAspect {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LoggingAspect</span> {
 
-    @Pointcut("execution(* com.example.service.*.*(..))")
-    public void serviceMethods() {
-        // 切点表达式
+    <span class="pl-c1">@</span><span class="pl-c1">Pointcut</span>(<span class="pl-s">"execution(* com.example.service.*.*(..))"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">serviceMethods</span>() {
+        <span class="pl-c">// 切点表达式</span>
     }
 
-    @Before("serviceMethods()")
-    public void logBefore(JoinPoint joinPoint) {
-        System.out.println("Before method: " + joinPoint.getSignature().getName());
+    <span class="pl-c1">@</span><span class="pl-c1">Before</span>(<span class="pl-s">"serviceMethods()"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">logBefore</span>(<span class="pl-smi">JoinPoint</span> <span class="pl-s1">joinPoint</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Before method: "</span> + <span class="pl-s1">joinPoint</span>.<span class="pl-en">getSignature</span>().<span class="pl-en">getName</span>());
     }
 
-    @After("serviceMethods()")
-    public void logAfter(JoinPoint joinPoint) {
-        System.out.println("After method: " + joinPoint.getSignature().getName());
+    <span class="pl-c1">@</span><span class="pl-c1">After</span>(<span class="pl-s">"serviceMethods()"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">logAfter</span>(<span class="pl-smi">JoinPoint</span> <span class="pl-s1">joinPoint</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"After method: "</span> + <span class="pl-s1">joinPoint</span>.<span class="pl-en">getSignature</span>().<span class="pl-en">getName</span>());
     }
-}
-</code></pre>
+}</pre></div>
 <ol>
 <li><strong>使用配置文件提取切点表达式</strong><br>
 可以在Spring配置文件中定义切点表达式，并在切面类中引用。</li>
 </ol>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;aop:config&gt;
-    &lt;aop:pointcut id="serviceMethods" expression="execution(* com.example.service.*.*(..))"/&gt;
-    &lt;aop:aspect ref="loggingAspect"&gt;
-        &lt;aop:before pointcut-ref="serviceMethods" method="logBefore"/&gt;
-        &lt;aop:after pointcut-ref="serviceMethods" method="logAfter"/&gt;
-    &lt;/aop:aspect&gt;
-&lt;/aop:config&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;
+    &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">pointcut</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceMethods<span class="pl-pds">"</span></span> <span class="pl-e">expression</span>=<span class="pl-s"><span class="pl-pds">"</span>execution(* com.example.service.*.*(..))<span class="pl-pds">"</span></span>/&gt;
+    &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>loggingAspect<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">before</span> <span class="pl-e">pointcut-ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceMethods<span class="pl-pds">"</span></span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>logBefore<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">after</span> <span class="pl-e">pointcut-ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceMethods<span class="pl-pds">"</span></span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>logAfter<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;</pre></div>
 <h4>切点表达式的复用</h4>
 <p>通过提取切点表达式，可以在多个切面中复用相同的切点表达式，从而减少代码重复，提高代码的可维护性。</p>
 <ol>
 <li><strong>在多个切面中复用切点表达式</strong><br>
 可以在一个切面类中定义切点表达式，然后在其他切面类中引用。</li>
 </ol>
-<pre lang="java" class="notranslate"><code class="notranslate">@Aspect
-@Component
-public class CommonPointcuts {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">CommonPointcuts</span> {
 
-    @Pointcut("execution(* com.example.service.*.*(..))")
-    public void serviceMethods() {
-        // 切点表达式
+    <span class="pl-c1">@</span><span class="pl-c1">Pointcut</span>(<span class="pl-s">"execution(* com.example.service.*.*(..))"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">serviceMethods</span>() {
+        <span class="pl-c">// 切点表达式</span>
     }
 }
 
-@Aspect
-@Component
-public class LoggingAspect {
+<span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LoggingAspect</span> {
 
-    @Before("com.example.aspect.CommonPointcuts.serviceMethods()")
-    public void logBefore(JoinPoint joinPoint) {
-        System.out.println("Before method: " + joinPoint.getSignature().getName());
+    <span class="pl-c1">@</span><span class="pl-c1">Before</span>(<span class="pl-s">"com.example.aspect.CommonPointcuts.serviceMethods()"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">logBefore</span>(<span class="pl-smi">JoinPoint</span> <span class="pl-s1">joinPoint</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Before method: "</span> + <span class="pl-s1">joinPoint</span>.<span class="pl-en">getSignature</span>().<span class="pl-en">getName</span>());
     }
 }
 
-@Aspect
-@Component
-public class SecurityAspect {
+<span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SecurityAspect</span> {
 
-    @Before("com.example.aspect.CommonPointcuts.serviceMethods()")
-    public void checkSecurity(JoinPoint joinPoint) {
-        System.out.println("Checking security for method: " + joinPoint.getSignature().getName());
+    <span class="pl-c1">@</span><span class="pl-c1">Before</span>(<span class="pl-s">"com.example.aspect.CommonPointcuts.serviceMethods()"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">checkSecurity</span>(<span class="pl-smi">JoinPoint</span> <span class="pl-s1">joinPoint</span>) {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Checking security for method: "</span> + <span class="pl-s1">joinPoint</span>.<span class="pl-en">getSignature</span>().<span class="pl-en">getName</span>());
     }
-}
-</code></pre>
+}</pre></div>
 <p>在多个切面中复用相同的切点表达式，避免了重复定义，提高了代码的可维护性和可读性。</p>
 <p>Spring AOP中的环绕通知（Around Advice）是一种非常强大的通知类型，它允许在目标方法执行前后进行自定义的行为，并且可以控制是否执行目标方法，甚至可以替换目标方法的返回值或抛出异常来结束执行。以下是环绕通知的一些关键点：</p>
 <ol>
@@ -388,20 +384,19 @@ public class SecurityAspect {
 <li><strong>异常处理</strong>：环绕通知可以捕获并处理目标方法执行过程中抛出的异常，这为异常处理提供了更大的灵活性。</li>
 <li><strong>示例代码</strong>：</li>
 </ol>
-<pre lang="java" class="notranslate"><code class="notranslate">@Around("execution(public int com.test.spring.aop.ArithmeticCalculator.*(..))")
-public Object aroudMethod(ProceedingJoinPoint pjd) throws Throwable {
-    Object result = null;
-    // 执行目标方法之前的逻辑
-    try {
-        result = pjd.proceed(); // 调用目标方法
-        // 执行目标方法之后的逻辑
-    } catch (Throwable e) {
-        // 异常处理逻辑
-        throw e;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Around</span>(<span class="pl-s">"execution(public int com.test.spring.aop.ArithmeticCalculator.*(..))"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">aroudMethod</span>(<span class="pl-smi">ProceedingJoinPoint</span> <span class="pl-s1">pjd</span>) <span class="pl-k">throws</span> <span class="pl-smi">Throwable</span> {
+    <span class="pl-smi">Object</span> <span class="pl-s1">result</span> = <span class="pl-c1">null</span>;
+    <span class="pl-c">// 执行目标方法之前的逻辑</span>
+    <span class="pl-k">try</span> {
+        <span class="pl-s1">result</span> = <span class="pl-s1">pjd</span>.<span class="pl-en">proceed</span>(); <span class="pl-c">// 调用目标方法</span>
+        <span class="pl-c">// 执行目标方法之后的逻辑</span>
+    } <span class="pl-k">catch</span> (<span class="pl-smi">Throwable</span> <span class="pl-s1">e</span>) {
+        <span class="pl-c">// 异常处理逻辑</span>
+        <span class="pl-k">throw</span> <span class="pl-s1">e</span>;
     }
-    return result; // 返回目标方法的结果
-}
-</code></pre>
+    <span class="pl-k">return</span> <span class="pl-s1">result</span>; <span class="pl-c">// 返回目标方法的结果</span>
+}</pre></div>
 <p>在这个示例中，<code class="notranslate">aroudMethod</code>方法接受一个<code class="notranslate">ProceedingJoinPoint</code>对象作为参数，该对象包含了关于当前正在执行的方法的所有信息。通过<code class="notranslate">pjd.proceed()</code>，你可以让目标方法继续执行，然后在其前后执行自定义的逻辑。</p>
 <p>环绕通知因其强大的控制能力和灵活性，在Spring AOP中被广泛使用，特别是在需要对方法执行进行精细控制的场景中。</p>
 <p>在Spring AOP中，切面的优先级决定了多个切面在同一个连接点上执行的顺序。以下是关于Spring AOP切面优先级设定的介绍：</p>
@@ -410,31 +405,29 @@ public Object aroudMethod(ProceedingJoinPoint pjd) throws Throwable {
 <li><strong>使用</strong><code class="notranslate">@Order</code><strong>注解</strong>：可以通过在切面类上使用<code class="notranslate">@Order</code>注解来控制切面的优先级。<code class="notranslate">@Order</code>注解的值越小，表示优先级越高；值越大，表示优先级越低。<code class="notranslate">@Order</code>注解的默认值是<code class="notranslate">Integer.MAX_VALUE</code>，即最低优先级。</li>
 <li><code class="notranslate">@Order</code><strong>注解的使用示例</strong>：</li>
 </ol>
-<pre lang="java" class="notranslate"><code class="notranslate">@Aspect
-@Component
-@Order(1) // 优先级高
-public class HighPriorityAspect {
-    // 切面逻辑
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-c1">@</span><span class="pl-c1">Order</span>(<span class="pl-c1">1</span>) <span class="pl-c">// 优先级高</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">HighPriorityAspect</span> {
+    <span class="pl-c">// 切面逻辑</span>
 }
 
-@Aspect
-@Component
-@Order(2) // 优先级低
-public class LowPriorityAspect {
-    // 切面逻辑
-}
-</code></pre>
+<span class="pl-c1">@</span><span class="pl-c1">Aspect</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-c1">@</span><span class="pl-c1">Order</span>(<span class="pl-c1">2</span>) <span class="pl-c">// 优先级低</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">LowPriorityAspect</span> {
+    <span class="pl-c">// 切面逻辑</span>
+}</pre></div>
 <p>在这个示例中，<code class="notranslate">HighPriorityAspect</code>的优先级高于<code class="notranslate">LowPriorityAspect</code>，因为它的<code class="notranslate">@Order</code>值更小。</p>
 <ol>
 <li><strong>基于XML的AOP配置</strong>：在XML配置中，也可以通过<code class="notranslate">order</code>属性来指定切面的优先级。例如：</li>
 </ol>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;aop:aspect ref="highPriorityAspect" order="1"&gt;
-    &lt;!-- 切面配置 --&gt;
-&lt;/aop:aspect&gt;
-&lt;aop:aspect ref="lowPriorityAspect" order="2"&gt;
-    &lt;!-- 切面配置 --&gt;
-&lt;/aop:aspect&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>highPriorityAspect<span class="pl-pds">"</span></span> <span class="pl-e">order</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> 切面配置 <span class="pl-c">--&gt;</span></span>
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;
+&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>lowPriorityAspect<span class="pl-pds">"</span></span> <span class="pl-e">order</span>=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>&gt;
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> 切面配置 <span class="pl-c">--&gt;</span></span>
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;</pre></div>
 <p>这里<code class="notranslate">highPriorityAspect</code>的优先级高于<code class="notranslate">lowPriorityAspect</code>。</p>
 <ol>
 <li><strong>优先级对执行顺序的影响</strong>：对于入操作（如Before和Around通知），优先级越高的切面会越早执行；对于出操作（如After、AfterReturning和AfterThrowing通知），优先级越低的切面会越早执行。</li>
@@ -497,39 +490,35 @@ public class LowPriorityAspect {
 </ul>
 </li>
 </ol>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/aop
-        https://www.springframework.org/schema/aop/spring-aop.xsd"&gt;
-    &lt;!-- bean definitions here --&gt;
-&lt;/beans&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">beans</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.springframework.org/schema/beans<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xsi</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">aop</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.springframework.org/schema/aop<span class="pl-pds">"</span></span>
+       <span class="pl-e">xsi</span><span class="pl-e">:</span><span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span></span>
+<span class="pl-s">        http://www.springframework.org/schema/beans</span>
+<span class="pl-s">        https://www.springframework.org/schema/beans/spring-beans.xsd</span>
+<span class="pl-s">        http://www.springframework.org/schema/aop</span>
+<span class="pl-s">        https://www.springframework.org/schema/aop/spring-aop.xsd<span class="pl-pds">"</span></span>&gt;
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> bean definitions here <span class="pl-c">--&gt;</span></span>
+&lt;/<span class="pl-ent">beans</span>&gt;</pre></div>
 <pre class="notranslate"><code class="notranslate">- **定义业务bean和切面bean**：将业务逻辑类和切面类作为bean定义在XML中。
 </code></pre>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;bean id="myService" class="com.example.demo.aop.MyServiceImpl"/&gt;
-&lt;bean id="myAspect" class="com.example.demo.aop.MyAspect"/&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">bean</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>myService<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.demo.aop.MyServiceImpl<span class="pl-pds">"</span></span>/&gt;
+&lt;<span class="pl-ent">bean</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>com.example.demo.aop.MyAspect<span class="pl-pds">"</span></span>/&gt;</pre></div>
 <pre class="notranslate"><code class="notranslate">- **配置AOP切面**：使用`&lt;aop:config&gt;`标签开始AOP配置，并使用`&lt;aop:aspect&gt;`标签配置切面。
 </code></pre>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;aop:config&gt;
-    &lt;aop:aspect id="myAspect" ref="myAspect"&gt;
-        &lt;!-- 配置通知 --&gt;
-    &lt;/aop:aspect&gt;
-&lt;/aop:config&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;
+    &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span>&gt;
+        <span class="pl-c"><span class="pl-c">&lt;!--</span> 配置通知 <span class="pl-c">--&gt;</span></span>
+    &lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;</pre></div>
 <pre class="notranslate"><code class="notranslate">- **配置通知**：在`&lt;aop:aspect&gt;`标签内部使用对应的标签配置通知的类型，并建立通知方法和切入点方法的关联。
 </code></pre>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;aop:config&gt;
-    &lt;aop:aspect id="myAspect" ref="myAspect"&gt;
-        &lt;aop:before method="beforeAdvice" pointcut="execution(* com.example.demo.aop.MyService.performAction(..))"/&gt;
-    &lt;/aop:aspect&gt;
-&lt;/aop:config&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;
+    &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>myAspect<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">before</span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>beforeAdvice<span class="pl-pds">"</span></span> <span class="pl-e">pointcut</span>=<span class="pl-s"><span class="pl-pds">"</span>execution(* com.example.demo.aop.MyService.performAction(..))<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">aspect</span>&gt;
+&lt;/<span class="pl-ent">aop</span><span class="pl-ent">:</span><span class="pl-ent">config</span>&gt;</pre></div>
 <p>其中<code class="notranslate">method</code>属性指定切面类中的通知方法，<code class="notranslate">pointcut</code>属性指定切入点表达式，表示对哪些方法增强。</p>
 <ol>
 <li><strong>测试配置</strong>：编写测试代码来验证AOP配置是否生效。</li>
@@ -598,71 +587,68 @@ public class LowPriorityAspect {
 <h4>a. 手动管理事务</h4>
 <p>你可以通过<code class="notranslate">TransactionTemplate</code>或直接使用<code class="notranslate">PlatformTransactionManager</code>来手动管理事务。</p>
 <p><strong>使用</strong><code class="notranslate">TransactionTemplate</code><strong>：</strong></p>
-<pre lang="java" class="notranslate"><code class="notranslate">import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.transaction.support.TransactionTemplate;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">stereotype</span>.<span class="pl-s1">Service</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">PlatformTransactionManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">TransactionDefinition</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">TransactionStatus</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">support</span>.<span class="pl-s1">DefaultTransactionDefinition</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">support</span>.<span class="pl-s1">TransactionTemplate</span>;
 
-@Service
-public class MyService {
+<span class="pl-c1">@</span><span class="pl-c1">Service</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyService</span> {
 
-    private final TransactionTemplate transactionTemplate;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">TransactionTemplate</span> <span class="pl-s1">transactionTemplate</span>;
 
-    @Autowired
-    public MyService(PlatformTransactionManager transactionManager) {
-        this.transactionTemplate = new TransactionTemplate(transactionManager);
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">public</span> <span class="pl-smi">MyService</span>(<span class="pl-smi">PlatformTransactionManager</span> <span class="pl-s1">transactionManager</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">transactionTemplate</span> = <span class="pl-k">new</span> <span class="pl-smi">TransactionTemplate</span>(<span class="pl-s1">transactionManager</span>);
     }
 
-    public void myTransactionalMethod() {
-        transactionTemplate.execute(status -&gt; {
-            // 在这里执行业务逻辑
-            // 如果发生异常，事务将自动回滚
-            return null;
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">myTransactionalMethod</span>() {
+        <span class="pl-s1">transactionTemplate</span>.<span class="pl-en">execute</span>(<span class="pl-s1">status</span> -&gt; {
+            <span class="pl-c">// 在这里执行业务逻辑</span>
+            <span class="pl-c">// 如果发生异常，事务将自动回滚</span>
+            <span class="pl-k">return</span> <span class="pl-c1">null</span>;
         });
     }
-}
-</code></pre>
+}</pre></div>
 <p><strong>使用</strong><code class="notranslate">PlatformTransactionManager</code><strong>：</strong></p>
-<pre lang="java" class="notranslate"><code class="notranslate">import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">stereotype</span>.<span class="pl-s1">Service</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">PlatformTransactionManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">TransactionDefinition</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">TransactionStatus</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">transaction</span>.<span class="pl-s1">support</span>.<span class="pl-s1">DefaultTransactionDefinition</span>;
 
-@Service
-public class MyService {
+<span class="pl-c1">@</span><span class="pl-c1">Service</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyService</span> {
 
-    private final PlatformTransactionManager transactionManager;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">PlatformTransactionManager</span> <span class="pl-s1">transactionManager</span>;
 
-    @Autowired
-    public MyService(PlatformTransactionManager transactionManager) {
-        this.transactionManager = transactionManager;
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">public</span> <span class="pl-smi">MyService</span>(<span class="pl-smi">PlatformTransactionManager</span> <span class="pl-s1">transactionManager</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">transactionManager</span> = <span class="pl-s1">transactionManager</span>;
     }
 
-    public void myTransactionalMethod() {
-        TransactionDefinition definition = new DefaultTransactionDefinition();
-        TransactionStatus status = transactionManager.getTransaction(definition);
-        try {
-            // 在这里执行业务逻辑
-            transactionManager.commit(status);
-        } catch (Exception e) {
-            transactionManager.rollback(status);
-            throw e;
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">myTransactionalMethod</span>() {
+        <span class="pl-smi">TransactionDefinition</span> <span class="pl-s1">definition</span> = <span class="pl-k">new</span> <span class="pl-smi">DefaultTransactionDefinition</span>();
+        <span class="pl-smi">TransactionStatus</span> <span class="pl-s1">status</span> = <span class="pl-s1">transactionManager</span>.<span class="pl-en">getTransaction</span>(<span class="pl-s1">definition</span>);
+        <span class="pl-k">try</span> {
+            <span class="pl-c">// 在这里执行业务逻辑</span>
+            <span class="pl-s1">transactionManager</span>.<span class="pl-en">commit</span>(<span class="pl-s1">status</span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-s1">transactionManager</span>.<span class="pl-en">rollback</span>(<span class="pl-s1">status</span>);
+            <span class="pl-k">throw</span> <span class="pl-s1">e</span>;
         }
     }
-}
-</code></pre>
+}</pre></div>
 <h4>b. 设置事务属性</h4>
 <p>你可以通过<code class="notranslate">TransactionDefinition</code>设置事务的传播行为、隔离级别、超时时间等属性。</p>
-<pre lang="java" class="notranslate"><code class="notranslate">TransactionDefinition definition = new DefaultTransactionDefinition();
-definition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-definition.setIsolationLevel(TransactionDefinition.ISOLATION_SERIALIZABLE);
-definition.setTimeout(30); // 超时时间，单位为秒
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">TransactionDefinition</span> <span class="pl-s1">definition</span> = <span class="pl-k">new</span> <span class="pl-smi">DefaultTransactionDefinition</span>();
+<span class="pl-s1">definition</span>.<span class="pl-en">setPropagationBehavior</span>(<span class="pl-smi">TransactionDefinition</span>.<span class="pl-c1">PROPAGATION_REQUIRED</span>);
+<span class="pl-s1">definition</span>.<span class="pl-en">setIsolationLevel</span>(<span class="pl-smi">TransactionDefinition</span>.<span class="pl-c1">ISOLATION_SERIALIZABLE</span>);
+<span class="pl-s1">definition</span>.<span class="pl-en">setTimeout</span>(<span class="pl-c1">30</span>); <span class="pl-c">// 超时时间，单位为秒</span></pre></div>
 <h3>4. 处理事务回滚</h3>
 <p>在编程式事务管理中，你需要手动捕获异常并决定是否回滚事务。</p>
 <h3>总结</h3>
