@@ -55,7 +55,7 @@ class HelloChina {
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/10.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 基础篇 001</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -79,17 +79,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-.copy-feedback {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 50px;
-    color: var(--color-fg-on-emphasis);
-    background-color: var(--color-fg-muted);
-    border-radius: 3px;
-    padding: 5px 8px;
-    font-size: 12px;
-}
+
 </style>
 <style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
 
@@ -123,23 +113,26 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <div id="content">
 <div class="markdown-body" id="postBody"><h2>HelloWorld 示例</h2>
 <p>编写第一个Java程序：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">HelloChina</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"你好，世界！"</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">class HelloChina {
+    public static void main(String[] args) {
+        System.out.println("你好，世界！");
     }
-}</pre></div>
+}
+</code></pre>
 <h3>编译和运行步骤</h3>
 <ol>
 <li>
 <p>编译：使用 <code class="notranslate">javac</code> 命令编译 Java 源文件：</p>
-<div class="highlight highlight-source-shell"><pre class="notranslate">javac HelloChina.java</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">javac HelloChina.java
+</code></pre>
 </li>
 <li>
 <p>生成的字节码文件：编译后会生成一个名为 <code class="notranslate">HelloChina.class</code> 的字节码文件。</p>
 </li>
 <li>
 <p>运行：使用 <code class="notranslate">java</code> 命令运行字节码文件：</p>
-<div class="highlight highlight-source-shell"><pre class="notranslate">java HelloChina</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">java HelloChina
+</code></pre>
 </li>
 </ol>
 <h3>中文编码问题</h3>
@@ -147,15 +140,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h2>Java 基础</h2>
 <h3>类</h3>
 <p>在Java中，<strong>类</strong>是构造程序的基本单位，定义类的语法格式如下：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-smi">类名</span> {
-    <span class="pl-c">// 类的成员变量</span>
-    <span class="pl-c">// 类的成员方法</span>
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">class 类名 {
+    // 类的成员变量
+    // 类的成员方法
+}
+</code></pre>
 <h3>主方法（Main Method）</h3>
 <p>每个 Java 程序都必须包含一个 <code class="notranslate">main</code> 方法，作为程序的入口点。其固定格式如下：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-    <span class="pl-c">// 程序执行的代码</span>
-}</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">public static void main(String[] args) {
+    // 程序执行的代码
+}
+</code></pre>
 <ul>
 <li><code class="notranslate">public</code>: 表示公共的，任何地方都可以访问。</li>
 <li><code class="notranslate">static</code>: 表示静态的，不依赖对象实例。</li>
@@ -170,9 +165,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">System.out.print("内容");</code>：输出内容但不换行。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Hello, World!"</span>); <span class="pl-c">// 输出后换行</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">"Hello"</span>);           <span class="pl-c">// 输出不换行</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s">" World!"</span>);         <span class="pl-c">// 输出继续在同一行</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">System.out.println("Hello, World!"); // 输出后换行
+System.out.print("Hello");           // 输出不换行
+System.out.print(" World!");         // 输出继续在同一行
+</code></pre>
 <h3>注意事项</h3>
 <ul>
 <li>
@@ -229,8 +225,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">double</code>提供更高的精度，推荐在多数情况下使用<code class="notranslate">double</code>表示浮点数。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">radius</span> = <span class="pl-c1">1</span>;
-<span class="pl-smi">double</span> <span class="pl-s1">radius2</span> = <span class="pl-c1">1.5</span>;</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">int radius = 1;
+double radius2 = 1.5;
+</code></pre>
 <h2>字符型（char）</h2>
 <ul>
 <li>使用单引号 <code class="notranslate">' '</code> 来表示字符，如：<code class="notranslate">char c1 = '中';</code>。</li>
@@ -248,7 +245,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>布尔类型只有两个值：<code class="notranslate">true</code> 和 <code class="notranslate">false</code>。</li>
 <li>示例：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">boolean</span> <span class="pl-s1">bo1</span> = <span class="pl-c1">true</span>;</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">boolean bo1 = true;
+</code></pre>
 </li>
 </ul>
 <h2>数据类型的运算</h2>
@@ -257,9 +255,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>
 <p>示例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">byte</span> <span class="pl-s1">b1</span> = <span class="pl-c1">12</span>;
-<span class="pl-smi">short</span> <span class="pl-s1">s1</span> = <span class="pl-c1">10</span>;
-<span class="pl-smi">int</span> <span class="pl-s1">result</span> = <span class="pl-s1">b1</span> + <span class="pl-s1">s1</span>; <span class="pl-c">// b1 + s1 自动提升为 int</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">byte b1 = 12;
+short s1 = 10;
+int result = b1 + s1; // b1 + s1 自动提升为 int
+</code></pre>
 </li>
 <li>
 <p><strong>注意</strong>：<code class="notranslate">byte</code>、<code class="notranslate">short</code> 和 <code class="notranslate">char</code> 参与运算时，结果会自动提升为 <code class="notranslate">int</code>。</p>
@@ -269,26 +268,29 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>如果需要将大容量的类型转换为小容量类型，必须使用<strong>强制类型转换</strong>，但这可能会丢失数据：</p>
 <ul>
 <li>示例：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">i1</span> = <span class="pl-c1">100</span>;
-<span class="pl-smi">byte</span> <span class="pl-s1">b2</span> = (<span class="pl-smi">byte</span>) <span class="pl-s1">i1</span>; <span class="pl-c">// 强制类型转换</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">int i1 = 100;
+byte b2 = (byte) i1; // 强制类型转换
+</code></pre>
 </li>
 </ul>
 <h3>特别说明</h3>
 <ul>
 <li>
 <p>整数常量默认是 <code class="notranslate">int</code> 类型，浮点常量默认是 <code class="notranslate">double</code> 类型。例如：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">float</span> <span class="pl-s1">f2</span> = <span class="pl-c1">12.3F</span>; <span class="pl-c">// 必须加上 F，表明这是一个 float 类型</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">float f2 = 12.3F; // 必须加上 F，表明这是一个 float 类型
+</code></pre>
 </li>
 <li>
 <p>如果不加<code class="notranslate">F</code>，如 <code class="notranslate">float f3 = 12.3;</code>，会出现编译错误，因为 <code class="notranslate">12.3</code> 被认为是 <code class="notranslate">double</code> 类型，不能自动转换为 <code class="notranslate">float</code>。</p>
 </li>
 </ul>
 <h3>示例：</h3>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">long</span> <span class="pl-s1">l1</span> = <span class="pl-c1">123L</span>; <span class="pl-c">// long 类型常量，需要加 L</span>
-<span class="pl-smi">long</span> <span class="pl-s1">l2</span> = <span class="pl-c1">123</span>;  <span class="pl-c">// int 类型常量，自动类型提升为 long</span>
+<pre lang="java" class="notranslate"><code class="notranslate">long l1 = 123L; // long 类型常量，需要加 L
+long l2 = 123;  // int 类型常量，自动类型提升为 long
 
-<span class="pl-smi">byte</span> <span class="pl-s1">b3</span> = <span class="pl-c1">20</span>;
-<span class="pl-smi">byte</span> <span class="pl-s1">b4</span> = <span class="pl-s1">b3</span> + <span class="pl-c1">1</span>; <span class="pl-c">// 报错，因为 b3 + 1 的结果是 int，需要使用 int 接收</span></pre></div>
+byte b3 = 20;
+byte b4 = b3 + 1; // 报错，因为 b3 + 1 的结果是 int，需要使用 int 接收
+</code></pre>
 <h2>数据类型练习题</h2>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/fec94a9f-b7f2-4c2a-9c4d-993422bddd85"><img src="https://github.com/user-attachments/assets/fec94a9f-b7f2-4c2a-9c4d-993422bddd85" alt="image (15)" style="max-width: 100%;"></a></p>
 <h3>特殊注意：</h3>
@@ -296,8 +298,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>Java 变量名不能以数字开头，这是为了避免与数字字面量（如整型、浮点型）混淆。</li>
 </ul>
 <h3>示例：</h3>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">'a'</span> + <span class="pl-c1">1</span> + <span class="pl-s">"Hello!"</span>); 
-<span class="pl-c">// 输出为 98Hello! 因为 'a' 的 ASCII 码为 97，97 + 1 = 98</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">System.out.println('a' + 1 + "Hello!"); 
+// 输出为 98Hello! 因为 'a' 的 ASCII 码为 97，97 + 1 = 98
+</code></pre>
 <h2>引用数据类型</h2>
 <p><strong>String 类</strong>属于引用数据类型，用于表示字符串。</p>
 <ul>
@@ -308,8 +311,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2a6f0092-a88a-4eb5-ba73-1a7703e512a6"><img src="https://github.com/user-attachments/assets/2a6f0092-a88a-4eb5-ba73-1a7703e512a6" alt="image (18)" style="max-width: 100%;"></a></p>
 <ul>
 <li>示例：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">phoneNumber</span> = <span class="pl-s">"123-456-7890"</span>; <span class="pl-c">// 电话号码使用 String 表示</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Hello "</span> + <span class="pl-s1">phoneNumber</span>);</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">String phoneNumber = "123-456-7890"; // 电话号码使用 String 表示
+System.out.println("Hello " + phoneNumber);
+</code></pre>
 </li>
 </ul>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2ec53abc-6b61-4d65-b1ad-6ab12f8793a8"><img src="https://github.com/user-attachments/assets/2ec53abc-6b61-4d65-b1ad-6ab12f8793a8" alt="image (14)" style="max-width: 100%;"></a></p>
@@ -329,13 +333,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>在Java程序中，编写时可以使用不同的进制，但<strong>编译和运行的结果将以十进制展示</strong>。</p>
 <ul>
 <li>例如：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">binary</span> = 0b1101;  <span class="pl-c">// 二进制数 1101 (十进制 13)</span>
-<span class="pl-smi">int</span> <span class="pl-s1">octal</span> = <span class="pl-c1">015</span>;      <span class="pl-c">// 八进制数 015 (十进制 13)</span>
-<span class="pl-smi">int</span> <span class="pl-s1">hex</span> = <span class="pl-c1">0xD</span>;        <span class="pl-c">// 十六进制数 0xD (十进制 13)</span>
+<pre lang="java" class="notranslate"><code class="notranslate">int binary = 0b1101;  // 二进制数 1101 (十进制 13)
+int octal = 015;      // 八进制数 015 (十进制 13)
+int hex = 0xD;        // 十六进制数 0xD (十进制 13)
 
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">binary</span>);  <span class="pl-c">// 输出 13</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">octal</span>);   <span class="pl-c">// 输出 13</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">hex</span>);     <span class="pl-c">// 输出 13</span></pre></div>
+System.out.println(binary);  // 输出 13
+System.out.println(octal);   // 输出 13
+System.out.println(hex);     // 输出 13
+</code></pre>
 </li>
 </ul>
 <h3>了解即可</h3>
@@ -384,30 +389,35 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">char</code> → <code class="notranslate">int</code></li>
 </ul>
 <p><strong>例子</strong>：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-c1">10</span>;
-<span class="pl-smi">double</span> <span class="pl-s1">b</span> = <span class="pl-c1">5.5</span>;
-<span class="pl-smi">double</span> <span class="pl-s1">result</span> = <span class="pl-s1">a</span> + <span class="pl-s1">b</span>;  <span class="pl-c">// int 类型 a 自动提升为 double</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">result</span>);  <span class="pl-c">// 输出 15.5</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">int a = 10;
+double b = 5.5;
+double result = a + b;  // int 类型 a 自动提升为 double
+System.out.println(result);  // 输出 15.5
+</code></pre>
 <p>在上述例子中，<code class="notranslate">int</code> 类型的变量 <code class="notranslate">a</code> 被自动提升为 <code class="notranslate">double</code> 类型，然后与 <code class="notranslate">double</code> 类型的 <code class="notranslate">b</code> 进行运算。</p>
 <h3>4. 强制类型转换（Narrowing Primitive Conversion）</h3>
 <p>强制类型转换是指当需要将一个较大的数据类型转换为较小的数据类型时，必须显式地进行转换。因为可能会丢失精度或溢出，因此需要开发者使用显式的转换语法。</p>
 <p><strong>语法</strong>：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">目标类型</span> <span class="pl-s1">变量名</span> = (<span class="pl-smi">目标类型</span>) <span class="pl-s1">原始变量</span>;</pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">目标类型 变量名 = (目标类型) 原始变量;
+</code></pre>
 <p><strong>例子</strong>：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">double</span> <span class="pl-s1">d</span> = <span class="pl-c1">9.78</span>;
-<span class="pl-smi">int</span> <span class="pl-s1">i</span> = (<span class="pl-smi">int</span>) <span class="pl-s1">d</span>;  <span class="pl-c">// 强制类型转换，将 double 转为 int</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);  <span class="pl-c">// 输出 9（小数部分被舍弃）</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">double d = 9.78;
+int i = (int) d;  // 强制类型转换，将 double 转为 int
+System.out.println(i);  // 输出 9（小数部分被舍弃）
+</code></pre>
 <p>在这个例子中，<code class="notranslate">double</code> 类型的 <code class="notranslate">d</code> 被强制转换为 <code class="notranslate">int</code> 类型，结果是去掉了小数部分，只保留了整数部分。</p>
 <h3>5. 自动类型提升与强制类型转换的应用</h3>
 <h4>自动类型提升：</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">byte</span> <span class="pl-s1">b</span> = <span class="pl-c1">42</span>;
-<span class="pl-smi">char</span> <span class="pl-s1">c</span> = <span class="pl-s">'A'</span>;
-<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-s1">b</span> + <span class="pl-s1">c</span>;  <span class="pl-c">// byte 和 char 被提升为 int</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);  <span class="pl-c">// 输出 107 ('A' 的 Unicode 值为 65)</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">byte b = 42;
+char c = 'A';
+int i = b + c;  // byte 和 char 被提升为 int
+System.out.println(i);  // 输出 107 ('A' 的 Unicode 值为 65)
+</code></pre>
 <h4>强制类型转换：</h4>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">long</span> <span class="pl-s1">l</span> = <span class="pl-c1">1000L</span>;
-<span class="pl-smi">int</span> <span class="pl-s1">i</span> = (<span class="pl-smi">int</span>) <span class="pl-s1">l</span>;  <span class="pl-c">// 强制将 long 转为 int</span>
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i</span>);  <span class="pl-c">// 输出 1000</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">long l = 1000L;
+int i = (int) l;  // 强制将 long 转为 int
+System.out.println(i);  // 输出 1000
+</code></pre>
 <h3>原码、反码与补码</h3>
 <p>在二进制系统中，负数的表示方式有三种：</p>
 <ul>
@@ -431,20 +441,23 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ol>
 <li>
 <p><strong>单行注释</strong>：使用 <code class="notranslate">//</code>，表示一行注释，后面的内容不会被编译执行。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 这是单行注释</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">// 这是单行注释
+</code></pre>
 </li>
 <li>
 <p><strong>多行注释</strong>：使用 <code class="notranslate">/* */</code>，可以跨多行书写注释，适合解释较长的代码段。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/* 这是多行注释</span>
-<span class="pl-c">   可以跨越多行 */</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">/* 这是多行注释
+   可以跨越多行 */
+</code></pre>
 </li>
 <li>
 <p><strong>文档注释</strong>：使用 <code class="notranslate">/** */</code>，用于生成 Java 文档（API文档）。文档注释常用于类、方法等，并可以包含一些特殊标记。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c">* @author 作者名</span>
-<span class="pl-c">* @version 1.0</span>
-<span class="pl-c">* 这是文档注释，可以生成网页形式的API文档。</span>
-<span class="pl-c">*/</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+* @author 作者名
+* @version 1.0
+* 这是文档注释，可以生成网页形式的API文档。
+*/
+</code></pre>
 </li>
 </ol>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/bf61f39b-f598-4d01-9f78-e7049470fb9d"><img src="https://github.com/user-attachments/assets/bf61f39b-f598-4d01-9f78-e7049470fb9d" alt="image (24)" style="max-width: 100%;"></a></p>
@@ -452,7 +465,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>Java 提供了强大的 <strong>API文档</strong>（Application Programming Interface），包含了所有 Java 类库、方法的详细说明。你可以通过文档注释的方式，在编写代码时自动生成类似的网页文档，方便使用者了解代码结构和功能。</p>
 <ul>
 <li>生成文档命令：使用 <code class="notranslate">javadoc</code> 命令生成 Java 文档。例如：
-<div class="highlight highlight-source-shell"><pre class="notranslate">javadoc MyClass.java</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">javadoc MyClass.java
+</code></pre>
 </li>
 </ul>
 <p>生成的文档可以通过浏览器查看，方便阅读和共享。</p>
@@ -484,15 +498,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>
 <p><code class="notranslate">\n</code>：换行符，将输出内容移至下一行。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Hello<span class="pl-cce">\n</span>World"</span>); 
-<span class="pl-c">// 输出：</span>
-<span class="pl-c">// Hello</span>
-<span class="pl-c">// World</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">System.out.println("Hello\nWorld"); 
+// 输出：
+// Hello
+// World
+</code></pre>
 </li>
 <li>
 <p><code class="notranslate">\t</code>：制表符，用于输出制表符的效果，相当于跳到下一个水平制表位置。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Hello<span class="pl-cce">\t</span>World"</span>); 
-<span class="pl-c">// 输出：Hello   World</span></pre></div>
+<pre lang="java" class="notranslate"><code class="notranslate">System.out.println("Hello\tWorld"); 
+// 输出：Hello   World
+</code></pre>
 </li>
 </ul>
 <h2>推荐书籍</h2>
@@ -529,19 +545,23 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ul>
 <li>
 <p><code class="notranslate">dir</code>：列出当前目录下的文件和文件夹。</p>
-<div class="highlight highlight-source-shell"><pre class="notranslate">dir</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">dir
+</code></pre>
 </li>
 <li>
 <p><code class="notranslate">cd</code>：切换当前目录。</p>
-<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c1">cd</span> 文件夹路径</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">cd 文件夹路径
+</code></pre>
 </li>
 <li>
 <p><code class="notranslate">md</code>：创建新目录。</p>
-<div class="highlight highlight-source-shell"><pre class="notranslate">md 文件夹名</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">md 文件夹名
+</code></pre>
 </li>
 <li>
 <p><code class="notranslate">rd</code>：删除空目录。</p>
-<div class="highlight highlight-source-shell"><pre class="notranslate">rd 文件夹名</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">rd 文件夹名
+</code></pre>
 </li>
 </ul>
 <p>这些命令在使用命令行编译、运行 Java 程序时非常实用，有助于提高开发效率。</p></div>
@@ -576,7 +596,7 @@ if("07/12/2024"!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -650,70 +670,7 @@ function iFrameLoading(){
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const createClipboardHTML = (codeContent, additionalClasses = '') => `
-        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
-        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
-            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
-                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
-                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
-            </clipboard-copy>
-            <div class="copy-feedback">Copied!</div>
-        </div>
-    `;
 
-    const handleCodeElements = (selector = '') => {
-        document.querySelectorAll(selector).forEach(codeElement => {
-            const codeContent = codeElement.innerHTML;
-            const newStructure = document.createElement('div');
-            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
-            newStructure.innerHTML = createClipboardHTML(codeContent);
-
-            const parentElement = codeElement.parentElement;
-            if (selector.includes('highlight')) {
-                parentElement.insertBefore(newStructure, codeElement.nextSibling);
-                parentElement.removeChild(codeElement);
-            } else {
-                parentElement.parentElement.replaceChild(newStructure, parentElement);
-            }
-        });
-    };
-
-    handleCodeElements('pre.notranslate > code.notranslate');
-    handleCodeElements('div.highlight > pre.notranslate');
-
-    let currentFeedback = null;
-    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
-        copyButton.addEventListener('click', () => {
-            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = codeContent;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
-
-            const copyIcon = copyButton.querySelector('.octicon-copy');
-            const checkIcon = copyButton.querySelector('.octicon-check');
-            const copyFeedback = copyButton.nextElementSibling;
-
-            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
-            currentFeedback = copyFeedback;
-
-            copyIcon.classList.add('d-none');
-            checkIcon.classList.remove('d-none');
-            copyFeedback.style.display = 'block';
-            copyButton.style.borderColor = 'var(--color-success-fg)';
-
-            setTimeout(() => {
-                copyIcon.classList.remove('d-none');
-                checkIcon.classList.add('d-none');
-                copyFeedback.style.display = 'none';
-                copyButton.style.borderColor = '';
-            }, 2000);
-        });
-    });
-});
 
 </script>
 <script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
