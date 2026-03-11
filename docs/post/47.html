@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/47.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Mysql 初阶</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -45,17 +45,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-.copy-feedback {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 50px;
-    color: var(--color-fg-on-emphasis);
-    background-color: var(--color-fg-muted);
-    border-radius: 3px;
-    padding: 5px 8px;
-    font-size: 12px;
-}
+
 </style>
 <style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
 
@@ -152,11 +142,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>DROP</strong>：用于删除数据库对象。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">employees</span> (
-    id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,
-    name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>),
-    department <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>)
-);</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    department VARCHAR(50)
+);
+</code></pre>
 <h4>2. 数据操作语言（DML）</h4>
 <p>DML用于操作数据库中的数据。主要命令包括：</p>
 <ul>
@@ -165,11 +156,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>DELETE</strong>：用于删除表中的数据。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">INSERT INTO</span> employees (id, name, department) <span class="pl-k">VALUES</span> (<span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">'</span>John Doe<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>HR<span class="pl-pds">'</span></span>);</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">INSERT INTO employees (id, name, department) VALUES (1, 'John Doe', 'HR');
+</code></pre>
 <h4>3. 数据查询语言（DQL）</h4>
 <p>DQL主要用于查询数据，核心命令是<strong>SELECT</strong>，用于从数据库中检索数据。通过结合WHERE、GROUP BY、HAVING等子句，可以构建复杂的查询。</p>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> name, department <span class="pl-k">FROM</span> employees <span class="pl-k">WHERE</span> department <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>HR<span class="pl-pds">'</span></span>;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT name, department FROM employees WHERE department = 'HR';
+</code></pre>
 <h4>4. 数据控制语言（DCL）</h4>
 <p>DCL用于定义数据库的权限和安全设置，确保数据访问和使用的安全性。主要命令包括：</p>
 <ul>
@@ -177,7 +170,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>REVOKE</strong>：用于撤销用户的权限。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">GRANT</span> <span class="pl-k">SELECT</span>, INSERT <span class="pl-k">ON</span> employees TO <span class="pl-s"><span class="pl-pds">'</span>user1<span class="pl-pds">'</span></span>@<span class="pl-s"><span class="pl-pds">'</span>localhost<span class="pl-pds">'</span></span>;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">GRANT SELECT, INSERT ON employees TO 'user1'@'localhost';
+</code></pre>
 <h3>MySQL数据库中的字符集选择、数据类型转换与字段操作</h3>
 <h4>1. 字符集选择</h4>
 <p>字符集决定了数据库中存储的字符的编码方式，不同的字符集支持不同的语言和符号。常用的字符集包括<code class="notranslate">utf8mb4</code>（支持多种语言和符号）和<code class="notranslate">latin1</code>（支持西欧语言）。</p>
@@ -186,8 +180,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>更改字符集</strong>：使用<code class="notranslate">ALTER</code>命令可以更改现有表的字符集。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">CREATE</span> <span class="pl-k">DATABASE</span> <span class="pl-en">mydb</span> CHARACTER <span class="pl-k">SET</span> utf8mb4;
-<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> employees <span class="pl-c1">CONVERT</span> TO CHARACTER <span class="pl-k">SET</span> utf8mb4;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">CREATE DATABASE mydb CHARACTER SET utf8mb4;
+ALTER TABLE employees CONVERT TO CHARACTER SET utf8mb4;
+</code></pre>
 <h4>2. 数据类型转换</h4>
 <p>数据类型转换是指将一种数据类型转换为另一种数据类型。MySQL支持隐式和显式的数据类型转换。</p>
 <ul>
@@ -195,8 +190,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>显式转换</strong>：使用<code class="notranslate">CAST</code>或<code class="notranslate">CONVERT</code>函数可以明确地将数据转换为指定的数据类型。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> CAST(<span class="pl-s"><span class="pl-pds">'</span>123<span class="pl-pds">'</span></span> <span class="pl-k">AS</span> UNSIGNED); <span class="pl-c"><span class="pl-c">--</span> 将字符串转换为无符号整数</span>
-<span class="pl-k">SELECT</span> <span class="pl-c1">CONVERT</span>(<span class="pl-s"><span class="pl-pds">'</span>2025-01-09<span class="pl-pds">'</span></span>, <span class="pl-k">DATE</span>); <span class="pl-c"><span class="pl-c">--</span> 将字符串转换为日期</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT CAST('123' AS UNSIGNED); -- 将字符串转换为无符号整数
+SELECT CONVERT('2025-01-09', DATE); -- 将字符串转换为日期
+</code></pre>
 <h4>3. 字段操作</h4>
 <p>字段操作涉及表中的列（字段）的增删改等操作，确保表结构的灵活性和扩展性。</p>
 <ul>
@@ -205,9 +201,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>删除字段</strong>：删除不需要的字段。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> employees ADD COLUMN email <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>); <span class="pl-c"><span class="pl-c">--</span> 添加新字段</span>
-<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> employees MODIFY COLUMN name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>); <span class="pl-c"><span class="pl-c">--</span> 修改字段类型</span>
-<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> employees DROP COLUMN department; <span class="pl-c"><span class="pl-c">--</span> 删除字段</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">ALTER TABLE employees ADD COLUMN email VARCHAR(100); -- 添加新字段
+ALTER TABLE employees MODIFY COLUMN name VARCHAR(100); -- 修改字段类型
+ALTER TABLE employees DROP COLUMN department; -- 删除字段
+</code></pre>
 <h3>函数</h3>
 <p>MySQL提供了丰富的内置函数，帮助用户在数据库操作中进行字符串处理、数值运算、日期计算以及流程控制等多种任务。根据功能的不同，这些函数可分为四大类：字符串函数、数值函数、日期函数和流程函数。</p>
 <h4>1. 字符串函数</h4>
@@ -223,10 +220,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">**REPLACE()**</code>：替换字符串中的指定子字符串。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> CONCAT(<span class="pl-s"><span class="pl-pds">'</span>Hello<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>World<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：Hello World</span>
-<span class="pl-k">SELECT</span> LENGTH(<span class="pl-s"><span class="pl-pds">'</span>MySQL<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：5</span>
-<span class="pl-k">SELECT</span> <span class="pl-c1">SUBSTRING</span>(<span class="pl-s"><span class="pl-pds">'</span>MySQL<span class="pl-pds">'</span></span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：ySQL</span>
-<span class="pl-k">SELECT</span> <span class="pl-c1">UPPER</span>(<span class="pl-s"><span class="pl-pds">'</span>mysql<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：MYSQL</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT CONCAT('Hello', ' ', 'World');  -- 输出：Hello World
+SELECT LENGTH('MySQL');  -- 输出：5
+SELECT SUBSTRING('MySQL', 2, 3);  -- 输出：ySQL
+SELECT UPPER('mysql');  -- 输出：MYSQL
+</code></pre>
 <h4>2. 数值函数</h4>
 <p>数值函数用于执行数值计算，如四则运算、取整、随机数生成等。</p>
 <p>常用的数值函数包括：</p>
@@ -238,11 +236,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">**ABS()**</code>：返回数值的绝对值。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> ROUND(<span class="pl-c1">123</span>.<span class="pl-c1">456</span>, <span class="pl-c1">2</span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：123.46</span>
-<span class="pl-k">SELECT</span> FLOOR(<span class="pl-c1">123</span>.<span class="pl-c1">456</span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：123</span>
-<span class="pl-k">SELECT</span> CEIL(<span class="pl-c1">123</span>.<span class="pl-c1">456</span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：124</span>
-<span class="pl-k">SELECT</span> RAND();  <span class="pl-c"><span class="pl-c">--</span> 输出：随机值，例如：0.487156</span>
-<span class="pl-k">SELECT</span> ABS(<span class="pl-k">-</span><span class="pl-c1">100</span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：100</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT ROUND(123.456, 2);  -- 输出：123.46
+SELECT FLOOR(123.456);  -- 输出：123
+SELECT CEIL(123.456);  -- 输出：124
+SELECT RAND();  -- 输出：随机值，例如：0.487156
+SELECT ABS(-100);  -- 输出：100
+</code></pre>
 <h4>3. 日期函数</h4>
 <p>日期函数用于处理和操作日期和时间数据，常见的功能包括获取当前时间、日期加减、格式化日期等。</p>
 <p>常用的日期函数包括：</p>
@@ -255,12 +254,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">**DATE_FORMAT()**</code>：格式化日期为指定的字符串格式。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> NOW();  <span class="pl-c"><span class="pl-c">--</span> 返回当前日期和时间，例如：2025-01-09 12:34:56</span>
-<span class="pl-k">SELECT</span> CURDATE();  <span class="pl-c"><span class="pl-c">--</span> 返回当前日期，例如：2025-01-09</span>
-<span class="pl-k">SELECT</span> DATE_ADD(<span class="pl-s"><span class="pl-pds">'</span>2025-01-09<span class="pl-pds">'</span></span>, INTERVAL <span class="pl-c1">1</span> DAY);  <span class="pl-c"><span class="pl-c">--</span> 输出：2025-01-10</span>
-<span class="pl-k">SELECT</span> DATE_SUB(<span class="pl-s"><span class="pl-pds">'</span>2025-01-09<span class="pl-pds">'</span></span>, INTERVAL <span class="pl-c1">2</span> MONTH);  <span class="pl-c"><span class="pl-c">--</span> 输出：2024-11-09</span>
-<span class="pl-k">SELECT</span> YEAR(<span class="pl-s"><span class="pl-pds">'</span>2025-01-09<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：2025</span>
-<span class="pl-k">SELECT</span> DATE_FORMAT(<span class="pl-s"><span class="pl-pds">'</span>2025-01-09<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>%Y-%m-%d<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：2025-01-09</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT NOW();  -- 返回当前日期和时间，例如：2025-01-09 12:34:56
+SELECT CURDATE();  -- 返回当前日期，例如：2025-01-09
+SELECT DATE_ADD('2025-01-09', INTERVAL 1 DAY);  -- 输出：2025-01-10
+SELECT DATE_SUB('2025-01-09', INTERVAL 2 MONTH);  -- 输出：2024-11-09
+SELECT YEAR('2025-01-09');  -- 输出：2025
+SELECT DATE_FORMAT('2025-01-09', '%Y-%m-%d');  -- 输出：2025-01-09
+</code></pre>
 <h4>4. 流程函数</h4>
 <p>流程控制函数用于在SQL查询中实现条件判断和流程控制，如判断语句、条件表达式等。</p>
 <p>常用的流程函数包括：</p>
@@ -271,10 +271,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">**NULLIF()**</code>：如果两个表达式相等，返回<code class="notranslate">NULL</code>，否则返回第一个表达式的值。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> IF(<span class="pl-c1">1</span> <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">'</span>True<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>False<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：True</span>
-<span class="pl-k">SELECT</span> CASE WHEN age <span class="pl-k">&gt;=</span> <span class="pl-c1">18</span> THEN <span class="pl-s"><span class="pl-pds">'</span>Adult<span class="pl-pds">'</span></span> ELSE <span class="pl-s"><span class="pl-pds">'</span>Minor<span class="pl-pds">'</span></span> END <span class="pl-k">FROM</span> users;  <span class="pl-c"><span class="pl-c">--</span> 根据age字段判断</span>
-<span class="pl-k">SELECT</span> COALESCE(<span class="pl-k">NULL</span>, <span class="pl-s"><span class="pl-pds">'</span>Default<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Value<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：Default</span>
-<span class="pl-k">SELECT</span> NULLIF(<span class="pl-c1">10</span>, <span class="pl-c1">10</span>);  <span class="pl-c"><span class="pl-c">--</span> 输出：NULL</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT IF(1 &gt; 0, 'True', 'False');  -- 输出：True
+SELECT CASE WHEN age &gt;= 18 THEN 'Adult' ELSE 'Minor' END FROM users;  -- 根据age字段判断
+SELECT COALESCE(NULL, 'Default', 'Value');  -- 输出：Default
+SELECT NULLIF(10, 10);  -- 输出：NULL
+</code></pre>
 <h3></h3>
 <h3>MySQL数据库中的约束</h3>
 <p>在MySQL中，约束（Constraints）是用于限定表中数据的规则，确保数据的完整性和一致性。约束可以在创建表时定义，也可以在表创建后使用<code class="notranslate">ALTER TABLE</code>命令添加或修改。常见的约束有非空约束（<code class="notranslate">NOT NULL</code>）、唯一约束（<code class="notranslate">UNIQUE</code>）和主键约束（<code class="notranslate">PRIMARY KEY</code>）。</p>
@@ -285,13 +286,15 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>应用场景</strong>：例如，要求每个员工必须有姓名、每个订单必须有订单号等。</li>
 </ul>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">employees</span> (
-    id <span class="pl-k">INT</span> <span class="pl-k">NOT NULL</span>,  <span class="pl-c"><span class="pl-c">--</span> 非空约束，id不能为空</span>
-    name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>) <span class="pl-k">NOT NULL</span>,  <span class="pl-c"><span class="pl-c">--</span> 非空约束，name不能为空</span>
-    department <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>)
-);</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">CREATE TABLE employees (
+    id INT NOT NULL,  -- 非空约束，id不能为空
+    name VARCHAR(50) NOT NULL,  -- 非空约束，name不能为空
+    department VARCHAR(50)
+);
+</code></pre>
 <p>如果尝试插入<code class="notranslate">NULL</code>值，系统会报错：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">INSERT INTO</span> employees (id, name) <span class="pl-k">VALUES</span> (<span class="pl-c1">1</span>, <span class="pl-k">NULL</span>);  <span class="pl-c"><span class="pl-c">--</span> 报错，name不能为空</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">INSERT INTO employees (id, name) VALUES (1, NULL);  -- 报错，name不能为空
+</code></pre>
 <h4>2. 唯一约束（<code class="notranslate">UNIQUE</code>）</h4>
 <p>唯一约束确保字段中的所有值都是唯一的，即该字段中的每个数据值不能重复。唯一约束允许字段中的值为<code class="notranslate">NULL</code>，但如果字段不为空，则每个值都必须是唯一的。</p>
 <ul>
@@ -299,13 +302,15 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>应用场景</strong>：例如，要求每个电子邮件地址必须是唯一的，或者每个身份证号不能重复。</li>
 </ul>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">employees</span> (
-    id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,
-    email <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>) UNIQUE  <span class="pl-c"><span class="pl-c">--</span> 唯一约束，email不能重复</span>
-);</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE  -- 唯一约束，email不能重复
+);
+</code></pre>
 <p>在插入数据时，如果试图插入重复的<code class="notranslate">email</code>值，系统会报错：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">INSERT INTO</span> employees (id, email) <span class="pl-k">VALUES</span> (<span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">'</span>john.doe@example.com<span class="pl-pds">'</span></span>);
-<span class="pl-k">INSERT INTO</span> employees (id, email) <span class="pl-k">VALUES</span> (<span class="pl-c1">2</span>, <span class="pl-s"><span class="pl-pds">'</span>john.doe@example.com<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 报错，email值重复</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">INSERT INTO employees (id, email) VALUES (1, 'john.doe@example.com');
+INSERT INTO employees (id, email) VALUES (2, 'john.doe@example.com');  -- 报错，email值重复
+</code></pre>
 <h4>3. 主键约束（<code class="notranslate">PRIMARY KEY</code>）</h4>
 <p>主键约束是唯一约束的特殊形式。主键是表中用来唯一标识每一条记录的字段或字段组合。主键约束要求字段值必须唯一，并且不能为空。每个表只能有一个主键。</p>
 <ul>
@@ -313,15 +318,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>应用场景</strong>：例如，要求每个员工必须有唯一的员工编号，或者每个订单必须有唯一的订单号。</li>
 </ul>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">employees</span> (
-    id <span class="pl-k">INT</span> <span class="pl-k">NOT NULL</span>,
-    name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>),
-    department <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>),
-    <span class="pl-k">PRIMARY KEY</span> (id)  <span class="pl-c"><span class="pl-c">--</span> id列是主键，不能重复并且不能为NULL</span>
-);</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">CREATE TABLE employees (
+    id INT NOT NULL,
+    name VARCHAR(50),
+    department VARCHAR(50),
+    PRIMARY KEY (id)  -- id列是主键，不能重复并且不能为NULL
+);
+</code></pre>
 <p>在插入数据时，如果试图插入重复的主键值或<code class="notranslate">NULL</code>值，系统会报错：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">INSERT INTO</span> employees (id, name, department) <span class="pl-k">VALUES</span> (<span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">'</span>John Doe<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>HR<span class="pl-pds">'</span></span>);
-<span class="pl-k">INSERT INTO</span> employees (id, name, department) <span class="pl-k">VALUES</span> (<span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">'</span>Jane Doe<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Finance<span class="pl-pds">'</span></span>);  <span class="pl-c"><span class="pl-c">--</span> 报错，主键冲突</span></pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">INSERT INTO employees (id, name, department) VALUES (1, 'John Doe', 'HR');
+INSERT INTO employees (id, name, department) VALUES (1, 'Jane Doe', 'Finance');  -- 报错，主键冲突
+</code></pre>
 <h3>总结</h3>
 <ul>
 <li><strong>非空约束</strong>：确保字段不能有<code class="notranslate">NULL</code>值，保证数据的完整性。</li>
@@ -339,9 +346,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">employees</code>表：存储员工信息（<code class="notranslate">employee_id</code>、<code class="notranslate">employee_name</code>、<code class="notranslate">department_id</code>）。</li>
 </ul>
 <p><strong>查询示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-c1">e</span>.<span class="pl-c1">employee_name</span>, <span class="pl-c1">d</span>.<span class="pl-c1">department_name</span>
-<span class="pl-k">FROM</span> employees e
-<span class="pl-k">JOIN</span> departments d <span class="pl-k">ON</span> <span class="pl-c1">e</span>.<span class="pl-c1">department_id</span> <span class="pl-k">=</span> <span class="pl-c1">d</span>.<span class="pl-c1">department_id</span>;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT e.employee_name, d.department_name
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id;
+</code></pre>
 <p>这个查询返回所有员工及其所属部门的信息，其中每个部门可以有多个员工。</p>
 <h4>2. 多对多关系（Many-to-Many）</h4>
 <p>多对多关系指的是表与表之间的关系非常复杂，一条记录可以与另一表中的多条记录关联，反之亦然。通常，需要通过一个中间表来表示这种关系。</p>
@@ -353,10 +361,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">student_courses</code>表：存储学生和课程之间的关系（<code class="notranslate">student_id</code>、<code class="notranslate">course_id</code>）。</li>
 </ul>
 <p><strong>查询示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-c1">s</span>.<span class="pl-c1">student_name</span>, <span class="pl-c1">c</span>.<span class="pl-c1">course_name</span>
-<span class="pl-k">FROM</span> students s
-<span class="pl-k">JOIN</span> student_courses sc <span class="pl-k">ON</span> <span class="pl-c1">s</span>.<span class="pl-c1">student_id</span> <span class="pl-k">=</span> <span class="pl-c1">sc</span>.<span class="pl-c1">student_id</span>
-<span class="pl-k">JOIN</span> courses c <span class="pl-k">ON</span> <span class="pl-c1">sc</span>.<span class="pl-c1">course_id</span> <span class="pl-k">=</span> <span class="pl-c1">c</span>.<span class="pl-c1">course_id</span>;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT s.student_name, c.course_name
+FROM students s
+JOIN student_courses sc ON s.student_id = sc.student_id
+JOIN courses c ON sc.course_id = c.course_id;
+</code></pre>
 <p>该查询返回每个学生选修的课程信息，其中每个学生可以选修多门课程，且每门课程也可以有多个学生。</p>
 <h4>3. 一对一关系（One-to-One）</h4>
 <p>一对一关系指的是两个表中的一条记录只能与另一个表中的一条记录关联。例如，假设有<code class="notranslate">employees</code>（员工表）和<code class="notranslate">employee_details</code>（员工详细信息表），每个员工在<code class="notranslate">employee_details</code>表中只有一条记录，反之亦然。</p>
@@ -366,16 +375,18 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">employee_details</code>表：存储员工详细信息（<code class="notranslate">employee_id</code>、<code class="notranslate">address</code>、<code class="notranslate">phone_number</code>）。</li>
 </ul>
 <p><strong>查询示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-c1">e</span>.<span class="pl-c1">employee_name</span>, <span class="pl-c1">ed</span>.<span class="pl-c1">address</span>, <span class="pl-c1">ed</span>.<span class="pl-c1">phone_number</span>
-<span class="pl-k">FROM</span> employees e
-<span class="pl-k">JOIN</span> employee_details ed <span class="pl-k">ON</span> <span class="pl-c1">e</span>.<span class="pl-c1">employee_id</span> <span class="pl-k">=</span> <span class="pl-c1">ed</span>.<span class="pl-c1">employee_id</span>;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT e.employee_name, ed.address, ed.phone_number
+FROM employees e
+JOIN employee_details ed ON e.employee_id = ed.employee_id;
+</code></pre>
 <p>该查询返回每个员工及其详细信息，其中每个员工只有一个对应的详细信息记录。</p>
 <h4>4. 内连接查询（INNER JOIN）</h4>
 <p>内连接查询用于返回两个表中符合连接条件的记录。如果两个表中的记录没有匹配项，则该记录不会出现在查询结果中。</p>
 <p><strong>查询示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-c1">e</span>.<span class="pl-c1">employee_name</span>, <span class="pl-c1">d</span>.<span class="pl-c1">department_name</span>
-<span class="pl-k">FROM</span> employees e
-<span class="pl-k">INNER JOIN</span> departments d <span class="pl-k">ON</span> <span class="pl-c1">e</span>.<span class="pl-c1">department_id</span> <span class="pl-k">=</span> <span class="pl-c1">d</span>.<span class="pl-c1">department_id</span>;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT e.employee_name, d.department_name
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.department_id;
+</code></pre>
 <p>这个查询只会返回那些员工与部门匹配的记录（即<code class="notranslate">employee_id</code>与<code class="notranslate">department_id</code>匹配的记录）。</p>
 <h4>5. 外连接查询（OUTER JOIN）</h4>
 <p>外连接查询返回两个表中的所有记录，即使某些记录在一个表中没有匹配项。外连接分为左外连接（<code class="notranslate">LEFT JOIN</code>）、右外连接（<code class="notranslate">RIGHT JOIN</code>）和完全外连接（<code class="notranslate">FULL OUTER JOIN</code>，在MySQL中需要用<code class="notranslate">UNION</code>模拟）。</p>
@@ -384,41 +395,45 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>右外连接（</strong><code class="notranslate">**RIGHT JOIN**</code><strong>）</strong>：返回右表中的所有记录，以及左表中匹配的记录。如果左表中没有匹配项，结果中左表的列将显示<code class="notranslate">NULL</code>。</li>
 </ul>
 <p><strong>查询示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 左外连接</span>
-<span class="pl-k">SELECT</span> <span class="pl-c1">e</span>.<span class="pl-c1">employee_name</span>, <span class="pl-c1">d</span>.<span class="pl-c1">department_name</span>
-<span class="pl-k">FROM</span> employees e
-<span class="pl-k">LEFT JOIN</span> departments d <span class="pl-k">ON</span> <span class="pl-c1">e</span>.<span class="pl-c1">department_id</span> <span class="pl-k">=</span> <span class="pl-c1">d</span>.<span class="pl-c1">department_id</span>;
+<pre lang="sql" class="notranslate"><code class="notranslate">-- 左外连接
+SELECT e.employee_name, d.department_name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.department_id;
 
-<span class="pl-c"><span class="pl-c">--</span> 右外连接</span>
-<span class="pl-k">SELECT</span> <span class="pl-c1">e</span>.<span class="pl-c1">employee_name</span>, <span class="pl-c1">d</span>.<span class="pl-c1">department_name</span>
-<span class="pl-k">FROM</span> employees e
-<span class="pl-k">RIGHT JOIN</span> departments d <span class="pl-k">ON</span> <span class="pl-c1">e</span>.<span class="pl-c1">department_id</span> <span class="pl-k">=</span> <span class="pl-c1">d</span>.<span class="pl-c1">department_id</span>;</pre></div>
+-- 右外连接
+SELECT e.employee_name, d.department_name
+FROM employees e
+RIGHT JOIN departments d ON e.department_id = d.department_id;
+</code></pre>
 <h4>6. 自连接查询（Self Join）</h4>
 <p>自连接查询是指同一表与其自身进行连接。这种查询通常用于查找表中记录之间的关系，比如员工表中的经理与员工之间的关系。</p>
 <p><strong>查询示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-c1">e1</span>.<span class="pl-c1">employee_name</span> <span class="pl-k">AS</span> Employee, <span class="pl-c1">e2</span>.<span class="pl-c1">employee_name</span> <span class="pl-k">AS</span> Manager
-<span class="pl-k">FROM</span> employees e1
-<span class="pl-k">JOIN</span> employees e2 <span class="pl-k">ON</span> <span class="pl-c1">e1</span>.<span class="pl-c1">manager_id</span> <span class="pl-k">=</span> <span class="pl-c1">e2</span>.<span class="pl-c1">employee_id</span>;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT e1.employee_name AS Employee, e2.employee_name AS Manager
+FROM employees e1
+JOIN employees e2 ON e1.manager_id = e2.employee_id;
+</code></pre>
 <p>这个查询返回所有员工及其经理的名称，其中<code class="notranslate">e1</code>是员工表的别名，<code class="notranslate">e2</code>是经理表的别名，<code class="notranslate">manager_id</code>表示经理的<code class="notranslate">employee_id</code>。</p>
 <h4>7. 联合查询（UNION）</h4>
 <p>联合查询用于将多个<code class="notranslate">SELECT</code>查询的结果合并为一个结果集。使用<code class="notranslate">UNION</code>时，所有的查询列数和列类型必须一致。<code class="notranslate">UNION</code>会去除重复的记录，若需要包括重复记录，可以使用<code class="notranslate">UNION ALL</code>。</p>
 <p><strong>查询示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> employee_name <span class="pl-k">FROM</span> employees
-<span class="pl-k">UNION</span>
-<span class="pl-k">SELECT</span> department_name <span class="pl-k">FROM</span> departments;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SELECT employee_name FROM employees
+UNION
+SELECT department_name FROM departments;
+</code></pre>
 <p>该查询将返回员工名称和部门名称的并集。</p>
 <h4>8. 子查询（Subquery）</h4>
 <p>子查询是在一个查询中嵌套另一个查询，子查询可以出现在<code class="notranslate">SELECT</code>、<code class="notranslate">FROM</code>、<code class="notranslate">WHERE</code>等子句中。子查询可以是单行子查询、多行子查询或相关子查询。</p>
 <p><strong>查询示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 单行子查询</span>
-<span class="pl-k">SELECT</span> employee_name
-<span class="pl-k">FROM</span> employees
-<span class="pl-k">WHERE</span> department_id <span class="pl-k">=</span> (<span class="pl-k">SELECT</span> department_id <span class="pl-k">FROM</span> departments <span class="pl-k">WHERE</span> department_name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>HR<span class="pl-pds">'</span></span>);
+<pre lang="sql" class="notranslate"><code class="notranslate">-- 单行子查询
+SELECT employee_name
+FROM employees
+WHERE department_id = (SELECT department_id FROM departments WHERE department_name = 'HR');
 
-<span class="pl-c"><span class="pl-c">--</span> 多行子查询</span>
-<span class="pl-k">SELECT</span> employee_name
-<span class="pl-k">FROM</span> employees
-<span class="pl-k">WHERE</span> department_id <span class="pl-k">IN</span> (<span class="pl-k">SELECT</span> department_id <span class="pl-k">FROM</span> departments <span class="pl-k">WHERE</span> department_name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>HR<span class="pl-pds">'</span></span>);</pre></div>
+-- 多行子查询
+SELECT employee_name
+FROM employees
+WHERE department_id IN (SELECT department_id FROM departments WHERE department_name = 'HR');
+</code></pre>
 <p>上面的查询会返回所有在<code class="notranslate">HR</code>部门的员工。</p>
 <h3>总结</h3>
 <ul>
@@ -441,19 +456,21 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">**ROLLBACK**</code>：回滚事务，意味着撤销事务中的所有更改，恢复到事务开始之前的状态。</li>
 </ul>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">START TRANSACTION</span>;  <span class="pl-c"><span class="pl-c">--</span> 开始事务</span>
+<pre lang="sql" class="notranslate"><code class="notranslate">START TRANSACTION;  -- 开始事务
 
-<span class="pl-k">UPDATE</span> accounts <span class="pl-k">SET</span> balance <span class="pl-k">=</span> balance <span class="pl-k">-</span> <span class="pl-c1">100</span> <span class="pl-k">WHERE</span> account_id <span class="pl-k">=</span> <span class="pl-c1">1</span>;  <span class="pl-c"><span class="pl-c">--</span> 从账户1扣款</span>
-<span class="pl-k">UPDATE</span> accounts <span class="pl-k">SET</span> balance <span class="pl-k">=</span> balance <span class="pl-k">+</span> <span class="pl-c1">100</span> <span class="pl-k">WHERE</span> account_id <span class="pl-k">=</span> <span class="pl-c1">2</span>;  <span class="pl-c"><span class="pl-c">--</span> 向账户2存款</span>
+UPDATE accounts SET balance = balance - 100 WHERE account_id = 1;  -- 从账户1扣款
+UPDATE accounts SET balance = balance + 100 WHERE account_id = 2;  -- 向账户2存款
 
-<span class="pl-k">COMMIT</span>;  <span class="pl-c"><span class="pl-c">--</span> 提交事务</span></pre></div>
+COMMIT;  -- 提交事务
+</code></pre>
 <p>如果在执行过程中出现错误，需要回滚事务：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">START TRANSACTION</span>;  <span class="pl-c"><span class="pl-c">--</span> 开始事务</span>
+<pre lang="sql" class="notranslate"><code class="notranslate">START TRANSACTION;  -- 开始事务
 
-<span class="pl-k">UPDATE</span> accounts <span class="pl-k">SET</span> balance <span class="pl-k">=</span> balance <span class="pl-k">-</span> <span class="pl-c1">100</span> <span class="pl-k">WHERE</span> account_id <span class="pl-k">=</span> <span class="pl-c1">1</span>;  <span class="pl-c"><span class="pl-c">--</span> 从账户1扣款</span>
-<span class="pl-k">UPDATE</span> accounts <span class="pl-k">SET</span> balance <span class="pl-k">=</span> balance <span class="pl-k">+</span> <span class="pl-c1">100</span> <span class="pl-k">WHERE</span> account_id <span class="pl-k">=</span> <span class="pl-c1">2</span>;  <span class="pl-c"><span class="pl-c">--</span> 向账户2存款</span>
+UPDATE accounts SET balance = balance - 100 WHERE account_id = 1;  -- 从账户1扣款
+UPDATE accounts SET balance = balance + 100 WHERE account_id = 2;  -- 向账户2存款
 
-<span class="pl-k">ROLLBACK</span>;  <span class="pl-c"><span class="pl-c">--</span> 回滚事务，撤销所有更改</span></pre></div>
+ROLLBACK;  -- 回滚事务，撤销所有更改
+</code></pre>
 <h4>2. ACID特性</h4>
 <p>事务的四个基本特性被称为ACID特性，它们是保证事务可靠性的核心标准。ACID是以下四个英文单词的缩写：</p>
 <ul>
@@ -487,7 +504,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ol>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SET</span> TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+</code></pre>
 <ol start="2">
 <li><strong>READ COMMITTED（读已提交）</strong>：
 <ul>
@@ -497,7 +515,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ol>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SET</span> TRANSACTION ISOLATION LEVEL READ COMMITTED;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+</code></pre>
 <ol start="3">
 <li><strong>REPEATABLE READ（可重复读）</strong>：
 <ul>
@@ -507,7 +526,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ol>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SET</span> TRANSACTION ISOLATION LEVEL REPEATABLE READ;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+</code></pre>
 <ol start="4">
 <li><strong>SERIALIZABLE（可串行化）</strong>：
 <ul>
@@ -517,7 +537,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ol>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SET</span> TRANSACTION ISOLATION LEVEL SERIALIZABLE;</pre></div>
+<pre lang="sql" class="notranslate"><code class="notranslate">SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+</code></pre>
 <p><strong>隔离级别的选择</strong>：</p>
 <ul>
 <li><strong>性能与一致性的权衡</strong>：越高的隔离级别通常会带来更强的数据一致性保障，但也会导致更低的并发性能。因此，选择合适的隔离级别需要权衡性能和数据一致性。</li>
@@ -583,7 +604,7 @@ if("07/12/2024"!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -657,70 +678,7 @@ function iFrameLoading(){
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const createClipboardHTML = (codeContent, additionalClasses = '') => `
-        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
-        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
-            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
-                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
-                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
-            </clipboard-copy>
-            <div class="copy-feedback">Copied!</div>
-        </div>
-    `;
 
-    const handleCodeElements = (selector = '') => {
-        document.querySelectorAll(selector).forEach(codeElement => {
-            const codeContent = codeElement.innerHTML;
-            const newStructure = document.createElement('div');
-            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
-            newStructure.innerHTML = createClipboardHTML(codeContent);
-
-            const parentElement = codeElement.parentElement;
-            if (selector.includes('highlight')) {
-                parentElement.insertBefore(newStructure, codeElement.nextSibling);
-                parentElement.removeChild(codeElement);
-            } else {
-                parentElement.parentElement.replaceChild(newStructure, parentElement);
-            }
-        });
-    };
-
-    handleCodeElements('pre.notranslate > code.notranslate');
-    handleCodeElements('div.highlight > pre.notranslate');
-
-    let currentFeedback = null;
-    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
-        copyButton.addEventListener('click', () => {
-            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = codeContent;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
-
-            const copyIcon = copyButton.querySelector('.octicon-copy');
-            const checkIcon = copyButton.querySelector('.octicon-check');
-            const copyFeedback = copyButton.nextElementSibling;
-
-            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
-            currentFeedback = copyFeedback;
-
-            copyIcon.classList.add('d-none');
-            checkIcon.classList.remove('d-none');
-            copyFeedback.style.display = 'block';
-            copyButton.style.borderColor = 'var(--color-success-fg)';
-
-            setTimeout(() => {
-                copyIcon.classList.remove('d-none');
-                checkIcon.classList.add('d-none');
-                copyFeedback.style.display = 'none';
-                copyButton.style.borderColor = '';
-            }, 2000);
-        });
-    });
-});
 
 </script>
 <script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
