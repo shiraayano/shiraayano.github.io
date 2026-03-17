@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/67.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Linux 系统 Swap 未使用问题排查全流程：从现象到解决</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -94,18 +94,16 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <ol>
 <li>执行 <code class="notranslate">swapon --show</code> 显示 Swap 已配置（3GB 交换文件 <code class="notranslate">/www/swap</code>），但 <code class="notranslate">USED</code> 始终为 0B：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:~# swapon --show
+<div class="highlight highlight-source-shell"><pre class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:<span class="pl-k">~</span><span class="pl-c"><span class="pl-c">#</span> swapon --show</span>
 NAME      TYPE SIZE USED PRIO
-/www/swap file   3G   0B   -2
-</code></pre>
+/www/swap file   3G   0B   -2</pre></div>
 <ol start="2">
 <li>执行 <code class="notranslate">free -h</code> 查看内存占用，物理内存（1.6Gi）已用 769Mi，可用 843Mi，Swap 仍未触发使用：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:~# free -h
+<div class="highlight highlight-source-shell"><pre class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:<span class="pl-k">~</span><span class="pl-c"><span class="pl-c">#</span> free -h</span>
               total        used        free      shared  buff/cache   available
 Mem:           1.6Gi       769Mi        68Mi        13Mi       961Mi       843Mi
-Swap:          3.0Gi          0B       3.0Gi
-</code></pre>
+Swap:          3.0Gi          0B       3.0Gi</pre></div>
 <ol start="3">
 <li>初步怀疑 Swap 功能异常，但不确定问题根源。</li>
 </ol>
@@ -119,8 +117,7 @@ Swap:          3.0Gi          0B       3.0Gi
 </ul>
 <h3>2. 验证物理内存是否“需要用”Swap</h3>
 <p>通过 <code class="notranslate">top</code> 或 <code class="notranslate">htop</code> 查看进程内存占用，确认是否有进程导致物理内存紧张：</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:~# top
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:<span class="pl-k">~</span><span class="pl-c"><span class="pl-c">#</span> top</span></pre></div>
 <ul>
 <li>若输出中 <code class="notranslate">%MEM</code> 列无高占用进程（如单个进程内存占比未超过 50%），物理内存仍有充足剩余，无需干预；</li>
 <li>若物理内存已接近满载（available 仅剩几十 MB），Swap 仍未使用，进入下一步排查。</li>
@@ -132,20 +129,18 @@ Swap:          3.0Gi          0B       3.0Gi
 <ol>
 <li>查看 <code class="notranslate">/etc/fstab</code> 确认 Swap 开机自动挂载配置：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:~# cat /etc/fstab | grep swap
-/www/swap    swap    swap    defaults    0 0
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:<span class="pl-k">~</span><span class="pl-c"><span class="pl-c">#</span> cat /etc/fstab | grep swap</span>
+/www/swap    swap    swap    defaults    0 0</pre></div>
 <pre class="notranslate"><code class="notranslate">- 若输出无 Swap 配置，需手动添加（见下文“解决方法”）；
 - 若有配置但未生效，执行 `sudo swapon /www/swap` 手动启用，再用 `swapon --show` 验证。
 </code></pre>
 <ol start="2">
 <li>检查 Swap 文件/分区是否存在：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate"># 检查 Swap 文件
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 检查 Swap 文件</span>
 ls -l /www/swap
-# 检查 Swap 分区（若用分区而非文件）
-lsblk | grep swap
-</code></pre>
+<span class="pl-c"><span class="pl-c">#</span> 检查 Swap 分区（若用分区而非文件）</span>
+lsblk <span class="pl-k">|</span> grep swap</pre></div>
 <pre class="notranslate"><code class="notranslate">- 若文件/分区不存在，需重新创建 Swap（见下文“补充：创建 Swap 文件步骤”）。
 </code></pre>
 <h3>场景 2：Swap 已启用，但 Swappiness 参数导致“极端排斥使用”</h3>
@@ -159,9 +154,8 @@ lsblk | grep swap
 <ol>
 <li>查看当前 Swappiness 配置：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:~# cat /proc/sys/vm/swappiness
-0
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:<span class="pl-k">~</span><span class="pl-c"><span class="pl-c">#</span> cat /proc/sys/vm/swappiness</span>
+0</pre></div>
 <p>本例中 Swappiness 为 0，这是 Swap 未使用的<strong>核心原因</strong>——系统极端排斥使用 Swap，即使物理内存紧张也优先杀进程。</p>
 <ol start="2">
 <li>验证参数影响：<br>
@@ -171,30 +165,27 @@ lsblk | grep swap
 <p>针对 Swappiness 为 0 的问题，需将参数调整为合理值（推荐 30-50），让系统在物理内存紧张时主动使用 Swap，避免频繁 OOM 杀进程。</p>
 <h3>1. 临时调整（立即生效，重启后失效）</h3>
 <p>适合快速测试参数效果，执行命令：</p>
-<pre lang="bash" class="notranslate"><code class="notranslate"># 将 Swappiness 设为 30
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 将 Swappiness 设为 30</span>
 sudo sysctl -w vm.swappiness=30
 
-# 验证调整结果
-cat /proc/sys/vm/swappiness  # 输出应为 30
-</code></pre>
+<span class="pl-c"><span class="pl-c">#</span> 验证调整结果</span>
+cat /proc/sys/vm/swappiness  <span class="pl-c"><span class="pl-c">#</span> 输出应为 30</span></pre></div>
 <h3>2. 永久调整（重启后仍生效）</h3>
 <p>临时调整会在服务器重启后失效，需将配置写入系统文件：</p>
-<pre lang="bash" class="notranslate"><code class="notranslate"># 将 swappiness=30 追加到 /etc/sysctl.conf（系统级配置文件）
-echo 'vm.swappiness=30' | sudo tee -a /etc/sysctl.conf
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 将 swappiness=30 追加到 /etc/sysctl.conf（系统级配置文件）</span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>vm.swappiness=30<span class="pl-pds">'</span></span> <span class="pl-k">|</span> sudo tee -a /etc/sysctl.conf
 
-# 或者 （推荐）
+<span class="pl-c"><span class="pl-c">#</span> 或者 （推荐）</span>
 vi /etc/sysctl.conf
-# 将vm.swappiness=30写入对应位置
+<span class="pl-c"><span class="pl-c">#</span> 将vm.swappiness=30写入对应位置</span>
 
-# 让配置立即生效（无需重启）
-sudo sysctl -p
-</code></pre>
+<span class="pl-c"><span class="pl-c">#</span> 让配置立即生效（无需重启）</span>
+sudo sysctl -p</pre></div>
 <h3>3. 验证调整效果</h3>
 <p>调整后：</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:~# swapon --show
+<div class="highlight highlight-source-shell"><pre class="notranslate">root@iZ2vcgkv4smamnzeaxirjpZ:<span class="pl-k">~</span><span class="pl-c"><span class="pl-c">#</span> swapon --show</span>
 NAME      TYPE SIZE   USED PRIO
-/www/swap file   3G 959.2M   -2
-</code></pre>
+/www/swap file   3G 959.2M   -2</pre></div>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/00508a29130ffa89c6b5908bfdacde3c7e234db1f17851f5a886f9914f7bed9f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313735393536313530313536352d64626333376535322d646662382d346366652d623162662d3337663864373232353265302e706e67"><img src="https://camo.githubusercontent.com/00508a29130ffa89c6b5908bfdacde3c7e234db1f17851f5a886f9914f7bed9f/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032352f706e672f34393435353431312f313735393536313530313536352d64626333376535322d646662382d346366652d623162662d3337663864373232353265302e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2025/png/49455411/1759561501565-dbc37e52-dfb8-4cfe-b1bf-37f8d72252e0.png" style="max-width: 100%;"></a></p>
 <p>搞定~</p>
 <h2>五、补充：Swap 文件创建步骤（适用于未配置 Swap 的场景）</h2>
@@ -202,34 +193,28 @@ NAME      TYPE SIZE   USED PRIO
 <ol>
 <li>创建 Swap 文件（路径 <code class="notranslate">/www/swap</code>）：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate"># 用 fallocate 快速创建 3GB 文件（若 fallocate 不可用，改用 dd if=/dev/zero of=/www/swap bs=1M count=3072）
-sudo fallocate -l 3G /www/swap
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 用 fallocate 快速创建 3GB 文件（若 fallocate 不可用，改用 dd if=/dev/zero of=/www/swap bs=1M count=3072）</span>
+sudo fallocate -l 3G /www/swap</pre></div>
 <ol start="2">
 <li>设置文件权限（仅 root 可读写，避免安全风险）：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo chmod 600 /www/swap
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo chmod 600 /www/swap</pre></div>
 <ol start="3">
 <li>格式化 Swap 文件：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo mkswap /www/swap
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo mkswap /www/swap</pre></div>
 <ol start="4">
 <li>启用 Swap 文件：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo swapon /www/swap
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo swapon /www/swap</pre></div>
 <ol start="5">
 <li>配置开机自动挂载（添加到 <code class="notranslate">/etc/fstab</code>）：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">echo '/www/swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>/www/swap swap swap defaults 0 0<span class="pl-pds">'</span></span> <span class="pl-k">|</span> sudo tee -a /etc/fstab</pre></div>
 <ol start="6">
 <li>验证：</li>
 </ol>
-<pre lang="bash" class="notranslate"><code class="notranslate">swapon --show  # 应显示 /www/swap，USED 初始为 0B
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">swapon --show  <span class="pl-c"><span class="pl-c">#</span> 应显示 /www/swap，USED 初始为 0B</span></pre></div>
 <h2></h2></div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style="padding:10px 15px;text-align:left;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif"><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href="https://blog.adouzi.eu.org/post/21.html" style="color:#0078d7;text-decoration:none">关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href="https://adouzi.eu.org" style="color:#0078d7;text-decoration:none">https://adouzi.eu.org</a></span><span> | Email：<a href="mailto:shiraayano@adouzi.eu.org" style="color:#0078d7;text-decoration:none">shiraayano@adouzi.eu.org</a><br><br><br>支持笔者：<a href="https://www.profitableratecpm.com/euxxr69t?key=f815bdc51cd258ab9f699175b0ef4446" style="color:#0078d7;text-decoration:none">点击广告</a><br>广告收入是本站唯一的收入，若本站内容帮到了您，可以点击广告支持笔者。</span><script async data-cfasync="false" src="//pl27420049.profitableratecpm.com/0f4f9e716ea5257a380097bb2d39a0bb/invoke.js"></script><div id="container-0f4f9e716ea5257a380097bb2d39a0bb"></div><br><script type="text/javascript">
 atOptions = {

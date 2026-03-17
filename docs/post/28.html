@@ -29,7 +29,7 @@ I---- LinkedHashset 是 HashSet 的子类，再现有数组+单项列表+红黑�
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/28.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 基础篇 017 集合2</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -177,77 +177,79 @@ I---- LinkedHashset 是 HashSet 的子类，再现有数组+单项列表+红黑�
     * 如果equals()方法结果为true，则添加失败。
 </code></pre>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">set</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.set;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Objects</span>;
+import java.util.Objects;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyDate</span> {
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">year</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">month</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">day</span>;
+public class MyDate {
+    private int year;
+    private int month;
+    private int day;
 
-    <span class="pl-k">public</span> <span class="pl-smi">MyDate</span>(<span class="pl-smi">int</span> <span class="pl-s1">year</span>, <span class="pl-smi">int</span> <span class="pl-s1">month</span>, <span class="pl-smi">int</span> <span class="pl-s1">day</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">year</span> = <span class="pl-s1">year</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">month</span> = <span class="pl-s1">month</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">day</span> = <span class="pl-s1">day</span>;
+    public MyDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">o</span>) <span class="pl-k">return</span> <span class="pl-c1">true</span>;
-        <span class="pl-k">if</span> (<span class="pl-s1">o</span> == <span class="pl-c1">null</span> || <span class="pl-en">getClass</span>() != <span class="pl-s1">o</span>.<span class="pl-en">getClass</span>()) <span class="pl-k">return</span> <span class="pl-c1">false</span>;
-        <span class="pl-smi">MyDate</span> <span class="pl-s1">myDate</span> = (<span class="pl-smi">MyDate</span>) <span class="pl-s1">o</span>;
-        <span class="pl-k">return</span> <span class="pl-s1">year</span> == <span class="pl-s1">myDate</span>.<span class="pl-s1">year</span> &amp;&amp;
-                <span class="pl-s1">month</span> == <span class="pl-s1">myDate</span>.<span class="pl-s1">month</span> &amp;&amp;
-                <span class="pl-s1">day</span> == <span class="pl-s1">myDate</span>.<span class="pl-s1">day</span>;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyDate myDate = (MyDate) o;
+        return year == myDate.year &amp;&amp;
+                month == myDate.month &amp;&amp;
+                day == myDate.day;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">hashCode</span>() {
-        <span class="pl-k">return</span> <span class="pl-smi">Objects</span>.<span class="pl-en">hash</span>(<span class="pl-s1">year</span>, <span class="pl-s1">month</span>, <span class="pl-s1">day</span>);
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, month, day);
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"MyDate{"</span> +
-                <span class="pl-s">"year="</span> + <span class="pl-s1">year</span> +
-                <span class="pl-s">", month="</span> + <span class="pl-s1">month</span> +
-                <span class="pl-s">", day="</span> + <span class="pl-s1">day</span> +
-                <span class="pl-s">'}'</span>;
+    @Override
+    public String toString() {
+        return "MyDate{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
     }
-}</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">set</span>;
+}
+</code></pre>
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.set;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">HashSet</span>;
+import java.util.HashSet;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestHashSet</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">HashSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>();
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"张三"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"张三"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"李四"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"王五"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"王五"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"赵六"</span>);
+public class TestHashSet {
+    @Test
+    public void test01(){
+        HashSet set = new HashSet();
+        set.add("张三");
+        set.add("张三");
+        set.add("李四");
+        set.add("王五");
+        set.add("王五");
+        set.add("赵六");
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"set = "</span> + <span class="pl-s1">set</span>);<span class="pl-c">//不允许重复，无序</span>
+        System.out.println("set = " + set);//不允许重复，无序
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>(){
-        <span class="pl-smi">HashSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>();
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">2021</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">2021</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">2022</span>,<span class="pl-c1">2</span>,<span class="pl-c1">4</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">2022</span>,<span class="pl-c1">2</span>,<span class="pl-c1">4</span>));
+    @Test
+    public void test02(){
+        HashSet set = new HashSet();
+        set.add(new MyDate(2021,1,1));
+        set.add(new MyDate(2021,1,1));
+        set.add(new MyDate(2022,2,4));
+        set.add(new MyDate(2022,2,4));
 
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"set = "</span> + <span class="pl-s1">set</span>);<span class="pl-c">//不允许重复，无序</span>
+        System.out.println("set = " + set);//不允许重复，无序
     }
-}</pre></div>
+}
+</code></pre>
 <h4>5.2.3 重写 hashCode() 方法的基本原则</h4>
 <ul>
 <li>在程序运行时，同一个对象多次调用 hashCode() 方法应该返回相同的值。</li>
@@ -274,91 +276,99 @@ I---- LinkedHashset 是 HashSet 的子类，再现有数组+单项列表+红黑�
 </code></pre>
 <h4>5.2.5 练习</h4>
 <p>**练习1：**在List内去除重复数字值，要求尽量简单</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">List</span> <span class="pl-en">duplicateList</span>(<span class="pl-smi">List</span> <span class="pl-s1">list</span>) {
-      <span class="pl-smi">HashSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>();
-      <span class="pl-s1">set</span>.<span class="pl-en">addAll</span>(<span class="pl-s1">list</span>);
-      <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>(<span class="pl-s1">set</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">public static List duplicateList(List list) {
+      HashSet set = new HashSet();
+      set.addAll(list);
+      return new ArrayList(set);
 }
-<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-      <span class="pl-smi">List</span> <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-      <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">1</span>));
-      <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">2</span>));
-      <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">2</span>));
-      <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">4</span>));
-      <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Integer</span>(<span class="pl-c1">4</span>));
-      <span class="pl-smi">List</span> <span class="pl-s1">list2</span> = <span class="pl-en">duplicateList</span>(<span class="pl-s1">list</span>);
-      <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">integer</span> : <span class="pl-s1">list2</span>) {
-          <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">integer</span>);
+public static void main(String[] args) {
+      List list = new ArrayList();
+      list.add(new Integer(1));
+      list.add(new Integer(2));
+      list.add(new Integer(2));
+      list.add(new Integer(4));
+      list.add(new Integer(4));
+      List list2 = duplicateList(list);
+      for (Object integer : list2) {
+          System.out.println(integer);
       }
-}</pre></div>
+}
+
+</code></pre>
 <p>**练习2：**获取随机数</p>
 <p>编写一个程序，获取10个1至20的随机数，要求随机数不能重复。并把最终的随机数输出到控制台。</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * @Description </span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @date 2022年5月7日上午12:43:01</span>
-<span class="pl-c"> *</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">RandomValueTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">HashSet</span> <span class="pl-s1">hs</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>(); <span class="pl-c">// 创建集合对象</span>
-        <span class="pl-smi">Random</span> <span class="pl-s1">r</span> = <span class="pl-k">new</span> <span class="pl-smi">Random</span>();
-        <span class="pl-k">while</span> (<span class="pl-s1">hs</span>.<span class="pl-en">size</span>() &lt; <span class="pl-c1">10</span>) {
-            <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-s1">r</span>.<span class="pl-en">nextInt</span>(<span class="pl-c1">20</span>) + <span class="pl-c1">1</span>; <span class="pl-c">// 生成1到20的随机数</span>
-            <span class="pl-s1">hs</span>.<span class="pl-en">add</span>(<span class="pl-s1">num</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * 
+ * @Description 
+ * @author 尚硅谷-宋红康
+ * @date 2022年5月7日上午12:43:01
+ *
+ */
+public class RandomValueTest {
+    public static void main(String[] args) {
+        HashSet hs = new HashSet(); // 创建集合对象
+        Random r = new Random();
+        while (hs.size() &lt; 10) {
+            int num = r.nextInt(20) + 1; // 生成1到20的随机数
+            hs.add(num);
         }
 
-        <span class="pl-k">for</span> (<span class="pl-smi">Integer</span> <span class="pl-s1">integer</span> : <span class="pl-s1">hs</span>) { <span class="pl-c">// 遍历集合</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">integer</span>); <span class="pl-c">// 打印每一个元素</span>
+        for (Integer integer : hs) { // 遍历集合
+            System.out.println(integer); // 打印每一个元素
         }
     }
-}</pre></div>
+}
+
+</code></pre>
 <p>**练习3：**去重</p>
 <p>使用Scanner从键盘读取一行输入，去掉其中重复字符，打印出不同的那些字符。比如：aaaabbbcccddd</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * @Description </span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @date 2022年5月7日上午12:44:01</span>
-<span class="pl-c"> *</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">DistinctTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">Scanner</span> <span class="pl-s1">sc</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>); <span class="pl-c">// 创建键盘录入对象</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请输入一行字符串:"</span>);
-        <span class="pl-smi">String</span> <span class="pl-s1">line</span> = <span class="pl-s1">sc</span>.<span class="pl-en">nextLine</span>(); <span class="pl-c">// 将键盘录入的字符串存储在line中</span>
-        <span class="pl-smi">char</span>[] <span class="pl-s1">arr</span> = <span class="pl-s1">line</span>.<span class="pl-en">toCharArray</span>(); <span class="pl-c">// 将字符串转换成字符数组</span>
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * 
+ * @Description 
+ * @author 尚硅谷-宋红康
+ * @date 2022年5月7日上午12:44:01
+ *
+ */
+public class DistinctTest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); // 创建键盘录入对象
+        System.out.println("请输入一行字符串:");
+        String line = sc.nextLine(); // 将键盘录入的字符串存储在line中
+        char[] arr = line.toCharArray(); // 将字符串转换成字符数组
         
-        <span class="pl-smi">HashSet</span> <span class="pl-s1">hs</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>(); <span class="pl-c">// 创建HashSet集合对象</span>
+        HashSet hs = new HashSet(); // 创建HashSet集合对象
 
-        <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">c</span> : <span class="pl-s1">arr</span>) { <span class="pl-c">// 遍历字符数组</span>
-            <span class="pl-s1">hs</span>.<span class="pl-en">add</span>(<span class="pl-s1">c</span>); <span class="pl-c">// 将字符数组中的字符添加到集合中</span>
+        for (Object c : arr) { // 遍历字符数组
+            hs.add(c); // 将字符数组中的字符添加到集合中
         }
 
-        <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">ch</span> : <span class="pl-s1">hs</span>) { <span class="pl-c">// 遍历集合</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s1">ch</span>);
+        for (Object ch : hs) { // 遍历集合
+            System.out.print(ch);
         }
     }
-}</pre></div>
+}
+
+</code></pre>
 <p>**练习4：**面试题</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">HashSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>();
-<span class="pl-smi">Person</span> <span class="pl-s1">p1</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-c1">1001</span>,<span class="pl-s">"AA"</span>);
-<span class="pl-smi">Person</span> <span class="pl-s1">p2</span> = <span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-c1">1002</span>,<span class="pl-s">"BB"</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">HashSet set = new HashSet();
+Person p1 = new Person(1001,"AA");
+Person p2 = new Person(1002,"BB");
 
-<span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">p1</span>);
-<span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">p2</span>);
-<span class="pl-s1">p1</span>.<span class="pl-s1">name</span> = <span class="pl-s">"CC"</span>;
-<span class="pl-s1">set</span>.<span class="pl-en">remove</span>(<span class="pl-s1">p1</span>);
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">set</span>);
+set.add(p1);
+set.add(p2);
+p1.name = "CC";
+set.remove(p1);
+System.out.println(set);
 
-<span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-c1">1001</span>,<span class="pl-s">"CC"</span>));
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">set</span>);
+set.add(new Person(1001,"CC"));
+System.out.println(set);
 
-<span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-c1">1001</span>,<span class="pl-s">"AA"</span>));
-<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">set</span>);
+set.add(new Person(1001,"AA"));
+System.out.println(set);
 
-<span class="pl-c">//其中Person类中重写了hashCode()和equal()方法</span></pre></div>
+//其中Person类中重写了hashCode()和equal()方法
+
+</code></pre>
 <h3>5.3 Set实现类之二：LinkedHashSet</h3>
 <ul>
 <li>LinkedHashSet 是 HashSet 的子类，不允许集合元素重复。</li>
@@ -366,26 +376,27 @@ I---- LinkedHashset 是 HashSet 的子类，再现有数组+单项列表+红黑�
 <li>LinkedHashSet<code class="notranslate">插入性能略低</code>于 HashSet，但在<code class="notranslate">迭代访问</code> Set 里的全部元素时有很好的性能。</li>
 </ul>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">set</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.set;
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
+import org.junit.Test;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">LinkedHashSet</span>;
+import java.util.LinkedHashSet;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestLinkedHashSet</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>(){
-        <span class="pl-smi">LinkedHashSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">LinkedHashSet</span>();
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"张三"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"张三"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"李四"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"王五"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"王五"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"赵六"</span>);
+public class TestLinkedHashSet {
+    @Test
+    public void test01(){
+        LinkedHashSet set = new LinkedHashSet();
+        set.add("张三");
+        set.add("张三");
+        set.add("李四");
+        set.add("王五");
+        set.add("王五");
+        set.add("赵六");
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"set = "</span> + <span class="pl-s1">set</span>);<span class="pl-c">//不允许重复，体现添加顺序</span>
+        System.out.println("set = " + set);//不允许重复，体现添加顺序
     }
-}</pre></div>
+}
+</code></pre>
 <h3>5.4 Set实现类之三：TreeSet</h3>
 <h4>5.4.1 TreeSet概述</h4>
 <ul>
@@ -425,182 +436,188 @@ I---- LinkedHashset 是 HashSet 的子类，再现有数组+单项列表+红黑�
 </ul>
 <h4>5.4.2 举例</h4>
 <p>举例1：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">set</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.set;
 
 
-<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">junit</span>.<span class="pl-s1">Test</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Iterator</span>;
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">TreeSet</span>;
+import org.junit.Test;
+import java.util.Iterator;
+import java.util.TreeSet;
 
-<span class="pl-c">/**</span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @create 14:22</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TreeSetTest</span> {
-    <span class="pl-c">/*</span>
-<span class="pl-c">    * 自然排序：针对String类的对象</span>
-<span class="pl-c">    * */</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-        <span class="pl-smi">TreeSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">TreeSet</span>();
+/**
+ * @author 尚硅谷-宋红康
+ * @create 14:22
+ */
+public class TreeSetTest {
+    /*
+    * 自然排序：针对String类的对象
+    * */
+    @Test
+    public void test1(){
+        TreeSet set = new TreeSet();
 
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"MM"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"CC"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"AA"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"DD"</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s">"ZZ"</span>);
-        <span class="pl-c">//set.add(123);  //报ClassCastException的异常</span>
+        set.add("MM");
+        set.add("CC");
+        set.add("AA");
+        set.add("DD");
+        set.add("ZZ");
+        //set.add(123);  //报ClassCastException的异常
 
-        <span class="pl-smi">Iterator</span> <span class="pl-s1">iterator</span> = <span class="pl-s1">set</span>.<span class="pl-en">iterator</span>();
-        <span class="pl-k">while</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">hasNext</span>()){
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());
+        Iterator iterator = set.iterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
         }
     }
-    <span class="pl-c">/*</span>
-<span class="pl-c">    * 自然排序：针对User类的对象</span>
-<span class="pl-c">    * */</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
-        <span class="pl-smi">TreeSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">TreeSet</span>();
+    /*
+    * 自然排序：针对User类的对象
+    * */
+    @Test
+    public void test2(){
+        TreeSet set = new TreeSet();
 
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Tom"</span>,<span class="pl-c1">12</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Rose"</span>,<span class="pl-c1">23</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Jerry"</span>,<span class="pl-c1">2</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Eric"</span>,<span class="pl-c1">18</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Tommy"</span>,<span class="pl-c1">44</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Jim"</span>,<span class="pl-c1">23</span>));
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Maria"</span>,<span class="pl-c1">18</span>));
-        <span class="pl-c">//set.add("Tom");</span>
+        set.add(new User("Tom",12));
+        set.add(new User("Rose",23));
+        set.add(new User("Jerry",2));
+        set.add(new User("Eric",18));
+        set.add(new User("Tommy",44));
+        set.add(new User("Jim",23));
+        set.add(new User("Maria",18));
+        //set.add("Tom");
 
-        <span class="pl-smi">Iterator</span> <span class="pl-s1">iterator</span> = <span class="pl-s1">set</span>.<span class="pl-en">iterator</span>();
-        <span class="pl-k">while</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">hasNext</span>()){
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());
+        Iterator iterator = set.iterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
         }
 
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">set</span>.<span class="pl-en">contains</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Jack"</span>, <span class="pl-c1">23</span>))); <span class="pl-c">//true</span>
+        System.out.println(set.contains(new User("Jack", 23))); //true
     }
-}</pre></div>
+}
+</code></pre>
 <p>其中，User类定义如下：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @create 14:22</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">User</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>{
-    <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * @author 尚硅谷-宋红康
+ * @create 14:22
+ */
+public class User implements Comparable{
+    String name;
+    int age;
     
-    <span class="pl-k">public</span> <span class="pl-smi">User</span>() {
+    public User() {
     }
     
-    <span class="pl-k">public</span> <span class="pl-smi">User</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
     
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"User{"</span> +
-                <span class="pl-s">"name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
-                <span class="pl-s">", age="</span> + <span class="pl-s1">age</span> +
-                <span class="pl-s">'}'</span>;
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
-    <span class="pl-c">/*</span>
-<span class="pl-c">    举例：按照age从小到大的顺序排列，如果age相同，则按照name从大到小的顺序排列</span>
-<span class="pl-c">    * */</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span>(<span class="pl-smi">this</span> == <span class="pl-s1">o</span>){
-            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+    /*
+    举例：按照age从小到大的顺序排列，如果age相同，则按照name从大到小的顺序排列
+    * */
+    public int compareTo(Object o) {
+        if(this == o){
+            return 0;
         }
 
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> <span class="pl-k">instanceof</span> <span class="pl-smi">User</span>){
-            <span class="pl-smi">User</span> <span class="pl-s1">user</span> = (<span class="pl-smi">User</span>)<span class="pl-s1">o</span>;
-            <span class="pl-smi">int</span> <span class="pl-s1">value</span> = <span class="pl-smi">this</span>.<span class="pl-s1">age</span> - <span class="pl-s1">user</span>.<span class="pl-s1">age</span>;
-            <span class="pl-k">if</span>(<span class="pl-s1">value</span> != <span class="pl-c1">0</span>){
-                <span class="pl-k">return</span> <span class="pl-s1">value</span>;
+        if(o instanceof User){
+            User user = (User)o;
+            int value = this.age - user.age;
+            if(value != 0){
+                return value;
             }
-            <span class="pl-k">return</span> -<span class="pl-smi">this</span>.<span class="pl-s1">name</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">user</span>.<span class="pl-s1">name</span>);
+            return -this.name.compareTo(user.name);
         }
-        <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"输入的类型不匹配"</span>);
+        throw new RuntimeException("输入的类型不匹配");
     }
-}</pre></div>
+}
+
+</code></pre>
 <p>举例2：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/*</span>
-<span class="pl-c"> * 定制排序</span>
-<span class="pl-c"> * */</span>
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test3</span>(){
-    <span class="pl-c">//按照User的姓名的从小到大的顺序排列</span>
-    <span class="pl-smi">Comparator</span> <span class="pl-s1">comparator</span> = <span class="pl-k">new</span> <span class="pl-smi">Comparator</span>() {
-        <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-        <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>, <span class="pl-smi">Object</span> <span class="pl-s1">o2</span>) {
-            <span class="pl-k">if</span>(<span class="pl-s1">o1</span> <span class="pl-k">instanceof</span> <span class="pl-smi">User</span> &amp;&amp; <span class="pl-s1">o2</span> <span class="pl-k">instanceof</span> <span class="pl-smi">User</span>){
-                <span class="pl-smi">User</span> <span class="pl-s1">u1</span> = (<span class="pl-smi">User</span>)<span class="pl-s1">o1</span>;
-                <span class="pl-smi">User</span> <span class="pl-s1">u2</span> = (<span class="pl-smi">User</span>)<span class="pl-s1">o2</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">/*
+ * 定制排序
+ * */
+@Test
+public void test3(){
+    //按照User的姓名的从小到大的顺序排列
+    Comparator comparator = new Comparator() {
+        @Override
+        public int compare(Object o1, Object o2) {
+            if(o1 instanceof User &amp;&amp; o2 instanceof User){
+                User u1 = (User)o1;
+                User u2 = (User)o2;
 
-                <span class="pl-k">return</span> <span class="pl-s1">u1</span>.<span class="pl-s1">name</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">u2</span>.<span class="pl-s1">name</span>);
+                return u1.name.compareTo(u2.name);
             }
-            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"输入的类型不匹配"</span>);
+            throw new RuntimeException("输入的类型不匹配");
         }
     };
-    <span class="pl-smi">TreeSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">TreeSet</span>(<span class="pl-s1">comparator</span>);
+    TreeSet set = new TreeSet(comparator);
 
-    <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Tom"</span>,<span class="pl-c1">12</span>));
-    <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Rose"</span>,<span class="pl-c1">23</span>));
-    <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Jerry"</span>,<span class="pl-c1">2</span>));
-    <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Eric"</span>,<span class="pl-c1">18</span>));
-    <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Tommy"</span>,<span class="pl-c1">44</span>));
-    <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Jim"</span>,<span class="pl-c1">23</span>));
-    <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Maria"</span>,<span class="pl-c1">18</span>));
-    <span class="pl-c">//set.add(new User("Maria",28));</span>
+    set.add(new User("Tom",12));
+    set.add(new User("Rose",23));
+    set.add(new User("Jerry",2));
+    set.add(new User("Eric",18));
+    set.add(new User("Tommy",44));
+    set.add(new User("Jim",23));
+    set.add(new User("Maria",18));
+    //set.add(new User("Maria",28));
 
-    <span class="pl-smi">Iterator</span> <span class="pl-s1">iterator</span> = <span class="pl-s1">set</span>.<span class="pl-en">iterator</span>();
-    <span class="pl-k">while</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">hasNext</span>()){
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());
+    Iterator iterator = set.iterator();
+    while(iterator.hasNext()){
+        System.out.println(iterator.next());
     }
-}</pre></div>
+}
+</code></pre>
 <h4>5.4.3 练习</h4>
 <p>**练习1：**在一个List集合中存储了多个无大小顺序并且有重复的字符串，定义一个方法，让其有序(从小到大排序)，并且不能去除重复元素。</p>
 <p>提示：考查ArrayList、TreeSet</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * @Description</span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @date 2022年4月7日上午12:50:46</span>
-<span class="pl-c"> *</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SortTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">ArrayList</span> <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"ccc"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"ccc"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"aaa"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"aaa"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"bbb"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"ddd"</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-s">"ddd"</span>);
-        <span class="pl-en">sort</span>(<span class="pl-s1">list</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">list</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * 
+ * @Description
+ * @author 尚硅谷-宋红康
+ * @date 2022年4月7日上午12:50:46
+ *
+ */
+public class SortTest {
+    public static void main(String[] args) {
+        ArrayList list = new ArrayList();
+        list.add("ccc");
+        list.add("ccc");
+        list.add("aaa");
+        list.add("aaa");
+        list.add("bbb");
+        list.add("ddd");
+        list.add("ddd");
+        sort(list);
+        System.out.println(list);
     }
 
-    <span class="pl-c">/*</span>
-<span class="pl-c">     * 对集合中的元素排序,并保留重复</span>
-<span class="pl-c">     */</span>
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">sort</span>(<span class="pl-smi">List</span> <span class="pl-s1">list</span>) {
-        <span class="pl-smi">TreeSet</span> <span class="pl-s1">ts</span> = <span class="pl-k">new</span> <span class="pl-smi">TreeSet</span>(<span class="pl-k">new</span> <span class="pl-smi">Comparator</span>() { 
-            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-            <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>, <span class="pl-smi">Object</span> <span class="pl-s1">o2</span>) { <span class="pl-c">// 重写compare方法</span>
-                <span class="pl-smi">String</span> <span class="pl-s1">s1</span> = (<span class="pl-smi">String</span>)<span class="pl-s1">o1</span>;
-                <span class="pl-smi">String</span> <span class="pl-s1">s2</span> = (<span class="pl-smi">String</span>)<span class="pl-s1">o2</span>;
-                <span class="pl-smi">int</span> <span class="pl-s1">num</span> = <span class="pl-s1">s1</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">s2</span>); <span class="pl-c">// 比较内容</span>
-                <span class="pl-k">return</span> <span class="pl-s1">num</span> == <span class="pl-c1">0</span> ? <span class="pl-c1">1</span> : <span class="pl-s1">num</span>; <span class="pl-c">// 如果内容一样返回一个不为0的数字即可</span>
+    /*
+     * 对集合中的元素排序,并保留重复
+     */
+    public static void sort(List list) {
+        TreeSet ts = new TreeSet(new Comparator() { 
+            @Override
+            public int compare(Object o1, Object o2) { // 重写compare方法
+                String s1 = (String)o1;
+                String s2 = (String)o2;
+                int num = s1.compareTo(s2); // 比较内容
+                return num == 0 ? 1 : num; // 如果内容一样返回一个不为0的数字即可
             }
         });
 
-        <span class="pl-s1">ts</span>.<span class="pl-en">addAll</span>(<span class="pl-s1">list</span>); <span class="pl-c">// 将list集合中的所有元素添加到ts中</span>
-        <span class="pl-s1">list</span>.<span class="pl-en">clear</span>(); <span class="pl-c">// 清空list</span>
-        <span class="pl-s1">list</span>.<span class="pl-en">addAll</span>(<span class="pl-s1">ts</span>); <span class="pl-c">// 将ts中排序并保留重复的结果在添加到list中</span>
+        ts.addAll(list); // 将list集合中的所有元素添加到ts中
+        list.clear(); // 清空list
+        list.addAll(ts); // 将ts中排序并保留重复的结果在添加到list中
     }
-}</pre></div>
+}
+
+</code></pre>
 <p>**练习2：**TreeSet的自然排序和定制排序</p>
 <ol>
 <li>定义一个Employee类。<br>
@@ -614,249 +631,253 @@ private成员变量year,month,day；并为每一个属性定义 getter, setter �
 2). 创建 TreeSet 时传入 Comparator对象，按生日日期的先后排序。</li>
 </ol>
 <p>代码实现：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyDate</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>{
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">year</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">month</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">day</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">public class MyDate implements Comparable{
+    private int year;
+    private int month;
+    private int day;
 
-    <span class="pl-k">public</span> <span class="pl-smi">MyDate</span>() {
+    public MyDate() {
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">MyDate</span>(<span class="pl-smi">int</span> <span class="pl-s1">year</span>, <span class="pl-smi">int</span> <span class="pl-s1">month</span>, <span class="pl-smi">int</span> <span class="pl-s1">day</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">year</span> = <span class="pl-s1">year</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">month</span> = <span class="pl-s1">month</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">day</span> = <span class="pl-s1">day</span>;
+    public MyDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getYear</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">year</span>;
+    public int getYear() {
+        return year;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setYear</span>(<span class="pl-smi">int</span> <span class="pl-s1">year</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">year</span> = <span class="pl-s1">year</span>;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getMonth</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">month</span>;
+    public int getMonth() {
+        return month;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setMonth</span>(<span class="pl-smi">int</span> <span class="pl-s1">month</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">month</span> = <span class="pl-s1">month</span>;
+    public void setMonth(int month) {
+        this.month = month;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getDay</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">day</span>;
+    public int getDay() {
+        return day;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setDay</span>(<span class="pl-smi">int</span> <span class="pl-s1">day</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">day</span> = <span class="pl-s1">day</span>;
+    public void setDay(int day) {
+        this.day = day;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-<span class="pl-c">//        return "MyDate{" +</span>
-<span class="pl-c">//                "year=" + year +</span>
-<span class="pl-c">//                ", month=" + month +</span>
-<span class="pl-c">//                ", day=" + day +</span>
-<span class="pl-c">//                '}';</span>
-        <span class="pl-k">return</span> <span class="pl-s1">year</span> + <span class="pl-s">"年"</span> + <span class="pl-s1">month</span> + <span class="pl-s">"月"</span> + <span class="pl-s1">day</span> + <span class="pl-s">"日"</span>;
+    @Override
+    public String toString() {
+//        return "MyDate{" +
+//                "year=" + year +
+//                ", month=" + month +
+//                ", day=" + day +
+//                '}';
+        return year + "年" + month + "月" + day + "日";
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span>(<span class="pl-smi">this</span> == <span class="pl-s1">o</span>){
-            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+    @Override
+    public int compareTo(Object o) {
+        if(this == o){
+            return 0;
         }
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> <span class="pl-k">instanceof</span> <span class="pl-smi">MyDate</span>){
-            <span class="pl-smi">MyDate</span> <span class="pl-s1">myDate</span> = (<span class="pl-smi">MyDate</span>) <span class="pl-s1">o</span>;
-            <span class="pl-smi">int</span> <span class="pl-s1">yearDistance</span> = <span class="pl-smi">this</span>.<span class="pl-en">getYear</span>() - <span class="pl-s1">myDate</span>.<span class="pl-en">getYear</span>();
-            <span class="pl-k">if</span>(<span class="pl-s1">yearDistance</span> != <span class="pl-c1">0</span>){
-                <span class="pl-k">return</span> <span class="pl-s1">yearDistance</span>;
+        if(o instanceof MyDate){
+            MyDate myDate = (MyDate) o;
+            int yearDistance = this.getYear() - myDate.getYear();
+            if(yearDistance != 0){
+                return yearDistance;
             }
-            <span class="pl-smi">int</span> <span class="pl-s1">monthDistance</span> = <span class="pl-smi">this</span>.<span class="pl-en">getMonth</span>() - <span class="pl-s1">myDate</span>.<span class="pl-en">getMonth</span>();
-            <span class="pl-k">if</span>(<span class="pl-s1">monthDistance</span> != <span class="pl-c1">0</span>){
-                <span class="pl-k">return</span> <span class="pl-s1">monthDistance</span>;
+            int monthDistance = this.getMonth() - myDate.getMonth();
+            if(monthDistance != 0){
+                return monthDistance;
             }
 
-            <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-en">getDay</span>() - <span class="pl-s1">myDate</span>.<span class="pl-en">getDay</span>();
+            return this.getDay() - myDate.getDay();
         }
-        <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"输入的类型不匹配"</span>);
+        throw new RuntimeException("输入的类型不匹配");
     }
-}</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Employee</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>{
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">MyDate</span> <span class="pl-s1">birthday</span>;
+}
+</code></pre>
+<pre lang="java" class="notranslate"><code class="notranslate">public class Employee implements Comparable{
+    private String name;
+    private int age;
+    private MyDate birthday;
 
 
-    <span class="pl-k">public</span> <span class="pl-smi">Employee</span>() {
-    }
-
-    <span class="pl-k">public</span> <span class="pl-smi">Employee</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>, <span class="pl-smi">MyDate</span> <span class="pl-s1">birthday</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">birthday</span> = <span class="pl-s1">birthday</span>;
+    public Employee() {
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    public Employee(String name, int age, MyDate birthday) {
+        this.name = name;
+        this.age = age;
+        this.birthday = birthday;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    public String getName() {
+        return name;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">getAge</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">age</span>;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setAge</span>(<span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    public int getAge() {
+        return age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">MyDate</span> <span class="pl-en">getBirthday</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">birthday</span>;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setBirthday</span>(<span class="pl-smi">MyDate</span> <span class="pl-s1">birthday</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">birthday</span> = <span class="pl-s1">birthday</span>;
+    public MyDate getBirthday() {
+        return birthday;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"Employee{"</span> +
-                <span class="pl-s">"name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
-                <span class="pl-s">", age='"</span> + <span class="pl-s1">age</span> + <span class="pl-s">'\''</span> +
-                <span class="pl-s">", birthday="</span> + <span class="pl-s1">birthday</span> +
-                <span class="pl-s">'}'</span>;
+    public void setBirthday(MyDate birthday) {
+        this.birthday = birthday;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> == <span class="pl-smi">this</span>){
-            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                ", birthday=" + birthday +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o == this){
+            return 0;
         }
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> <span class="pl-k">instanceof</span> <span class="pl-smi">Employee</span>){
-            <span class="pl-smi">Employee</span> <span class="pl-s1">emp</span> = (<span class="pl-smi">Employee</span>) <span class="pl-s1">o</span>;
-            <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-s1">name</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">emp</span>.<span class="pl-s1">name</span>);
+        if(o instanceof Employee){
+            Employee emp = (Employee) o;
+            return this.name.compareTo(emp.name);
         }
-        <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"传入的类型不匹配"</span>);
+        throw new RuntimeException("传入的类型不匹配");
     }
-}</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EmployeeTest</span> {
-    <span class="pl-c">/*</span>
-<span class="pl-c">    自然排序：</span>
-<span class="pl-c">    创建该类的 5 个对象，并把这些对象放入 TreeSet 集合中</span>
-<span class="pl-c">    * 需求1：使Employee 实现 Comparable 接口，并按 name 排序</span>
-<span class="pl-c">    * */</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-        <span class="pl-smi">TreeSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">TreeSet</span>();
+}
+</code></pre>
+<pre lang="java" class="notranslate"><code class="notranslate">public class EmployeeTest {
+    /*
+    自然排序：
+    创建该类的 5 个对象，并把这些对象放入 TreeSet 集合中
+    * 需求1：使Employee 实现 Comparable 接口，并按 name 排序
+    * */
+    @Test
+    public void test1(){
+        TreeSet set = new TreeSet();
 
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e1</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Tom"</span>,<span class="pl-c1">23</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">1999</span>,<span class="pl-c1">7</span>,<span class="pl-c1">9</span>));
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e2</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Rose"</span>,<span class="pl-c1">43</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">1999</span>,<span class="pl-c1">7</span>,<span class="pl-c1">19</span>));
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e3</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Jack"</span>,<span class="pl-c1">54</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">1998</span>,<span class="pl-c1">12</span>,<span class="pl-c1">21</span>));
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e4</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Jerry"</span>,<span class="pl-c1">12</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">2002</span>,<span class="pl-c1">4</span>,<span class="pl-c1">21</span>));
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e5</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Tony"</span>,<span class="pl-c1">22</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">2001</span>,<span class="pl-c1">9</span>,<span class="pl-c1">12</span>));
+        Employee e1 = new Employee("Tom",23,new MyDate(1999,7,9));
+        Employee e2 = new Employee("Rose",43,new MyDate(1999,7,19));
+        Employee e3 = new Employee("Jack",54,new MyDate(1998,12,21));
+        Employee e4 = new Employee("Jerry",12,new MyDate(2002,4,21));
+        Employee e5 = new Employee("Tony",22,new MyDate(2001,9,12));
 
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e1</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e2</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e3</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e4</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e5</span>);
+        set.add(e1);
+        set.add(e2);
+        set.add(e3);
+        set.add(e4);
+        set.add(e5);
 
-        <span class="pl-c">//遍历</span>
-        <span class="pl-smi">Iterator</span> <span class="pl-s1">iterator</span> = <span class="pl-s1">set</span>.<span class="pl-en">iterator</span>();
-        <span class="pl-k">while</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">hasNext</span>()){
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());
+        //遍历
+        Iterator iterator = set.iterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
         }
     }
 
-    <span class="pl-c">/*</span>
-<span class="pl-c">    * 定制排序：</span>
-<span class="pl-c">    * 创建 TreeSet 时传入 Comparator对象，按生日日期的先后排序。</span>
-<span class="pl-c">    * */</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
-        <span class="pl-smi">Comparator</span> <span class="pl-s1">comparator</span> = <span class="pl-k">new</span> <span class="pl-smi">Comparator</span>() {
-            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-            <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>, <span class="pl-smi">Object</span> <span class="pl-s1">o2</span>) {
-                <span class="pl-k">if</span>(<span class="pl-s1">o1</span> <span class="pl-k">instanceof</span> <span class="pl-smi">Employee</span> &amp;&amp; <span class="pl-s1">o2</span> <span class="pl-k">instanceof</span> <span class="pl-smi">Employee</span>){
-                    <span class="pl-smi">Employee</span> <span class="pl-s1">e1</span> = (<span class="pl-smi">Employee</span>) <span class="pl-s1">o1</span>;
-                    <span class="pl-smi">Employee</span> <span class="pl-s1">e2</span> = (<span class="pl-smi">Employee</span>) <span class="pl-s1">o2</span>;
-                    <span class="pl-c">//对比两个employee的生日的大小</span>
-                    <span class="pl-smi">MyDate</span> <span class="pl-s1">birth1</span> = <span class="pl-s1">e1</span>.<span class="pl-en">getBirthday</span>();
-                    <span class="pl-smi">MyDate</span> <span class="pl-s1">birth2</span> = <span class="pl-s1">e2</span>.<span class="pl-en">getBirthday</span>();
-                    <span class="pl-c">//方式1：</span>
-<span class="pl-c">//                    int yearDistance = birth1.getYear() - birth2.getYear();</span>
-<span class="pl-c">//                    if(yearDistance != 0){</span>
-<span class="pl-c">//                        return yearDistance;</span>
-<span class="pl-c">//                    }</span>
-<span class="pl-c">//                    int monthDistance = birth1.getMonth() - birth2.getMonth();</span>
-<span class="pl-c">//                    if(monthDistance != 0){</span>
-<span class="pl-c">//                        return monthDistance;</span>
-<span class="pl-c">//                    }</span>
-<span class="pl-c">//</span>
-<span class="pl-c">//                    return birth1.getDay() - birth2.getDay();</span>
+    /*
+    * 定制排序：
+    * 创建 TreeSet 时传入 Comparator对象，按生日日期的先后排序。
+    * */
+    @Test
+    public void test2(){
+        Comparator comparator = new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                if(o1 instanceof Employee &amp;&amp; o2 instanceof Employee){
+                    Employee e1 = (Employee) o1;
+                    Employee e2 = (Employee) o2;
+                    //对比两个employee的生日的大小
+                    MyDate birth1 = e1.getBirthday();
+                    MyDate birth2 = e2.getBirthday();
+                    //方式1：
+//                    int yearDistance = birth1.getYear() - birth2.getYear();
+//                    if(yearDistance != 0){
+//                        return yearDistance;
+//                    }
+//                    int monthDistance = birth1.getMonth() - birth2.getMonth();
+//                    if(monthDistance != 0){
+//                        return monthDistance;
+//                    }
+//
+//                    return birth1.getDay() - birth2.getDay();
 
-                    <span class="pl-c">//方式2：</span>
-                    <span class="pl-k">return</span> <span class="pl-s1">birth1</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">birth2</span>);
+                    //方式2：
+                    return birth1.compareTo(birth2);
                 }
 
-                <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"输入的类型不匹配"</span>);
+                throw new RuntimeException("输入的类型不匹配");
 
             }
         };
-        <span class="pl-smi">TreeSet</span> <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">TreeSet</span>(<span class="pl-s1">comparator</span>);
+        TreeSet set = new TreeSet(comparator);
 
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e1</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Tom"</span>,<span class="pl-c1">23</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">1999</span>,<span class="pl-c1">7</span>,<span class="pl-c1">9</span>));
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e2</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Rose"</span>,<span class="pl-c1">43</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">1999</span>,<span class="pl-c1">7</span>,<span class="pl-c1">19</span>));
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e3</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Jack"</span>,<span class="pl-c1">54</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">1998</span>,<span class="pl-c1">12</span>,<span class="pl-c1">21</span>));
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e4</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Jerry"</span>,<span class="pl-c1">12</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">2002</span>,<span class="pl-c1">4</span>,<span class="pl-c1">21</span>));
-        <span class="pl-smi">Employee</span> <span class="pl-s1">e5</span> = <span class="pl-k">new</span> <span class="pl-smi">Employee</span>(<span class="pl-s">"Tony"</span>,<span class="pl-c1">22</span>,<span class="pl-k">new</span> <span class="pl-smi">MyDate</span>(<span class="pl-c1">2001</span>,<span class="pl-c1">9</span>,<span class="pl-c1">12</span>));
+        Employee e1 = new Employee("Tom",23,new MyDate(1999,7,9));
+        Employee e2 = new Employee("Rose",43,new MyDate(1999,7,19));
+        Employee e3 = new Employee("Jack",54,new MyDate(1998,12,21));
+        Employee e4 = new Employee("Jerry",12,new MyDate(2002,4,21));
+        Employee e5 = new Employee("Tony",22,new MyDate(2001,9,12));
 
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e1</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e2</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e3</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e4</span>);
-        <span class="pl-s1">set</span>.<span class="pl-en">add</span>(<span class="pl-s1">e5</span>);
+        set.add(e1);
+        set.add(e2);
+        set.add(e3);
+        set.add(e4);
+        set.add(e5);
 
-        <span class="pl-c">//遍历</span>
-        <span class="pl-smi">Iterator</span> <span class="pl-s1">iterator</span> = <span class="pl-s1">set</span>.<span class="pl-en">iterator</span>();
-        <span class="pl-k">while</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">hasNext</span>()){
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">iterator</span>.<span class="pl-en">next</span>());
+        //遍历
+        Iterator iterator = set.iterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
         }
 
     }
-}</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 系例:</span>
-<span class="pl-c">// 定义方法如下:public static List duplicateList(List list)</span>
-<span class="pl-c">// 要求:① 参数List中只存放Integer的对象</span>
-<span class="pl-c">// ② 在List内去除重复数字值，尽量简单</span>
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.*;
+}
+</code></pre>
+<pre lang="java" class="notranslate"><code class="notranslate">// 系例:
+// 定义方法如下:public static List duplicateList(List list)
+// 要求:① 参数List中只存放Integer的对象
+// ② 在List内去除重复数字值，尽量简单
+import java.util.*;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Test</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">List</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">list</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;();
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">3</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">2</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">4</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">5</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">1</span>);
-        <span class="pl-s1">list</span>.<span class="pl-en">add</span>(<span class="pl-c1">6</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-en">duplicateList</span>(<span class="pl-s1">list</span>));
+public class Test {
+    public static void main(String[] args) {
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(2);
+        list.add(4);
+        list.add(5);
+        list.add(1);
+        list.add(6);
+        System.out.println(duplicateList(list));
     }
 
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-en">duplicateList</span>(<span class="pl-smi">List</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">list</span>) {
-        <span class="pl-c">// 使用HashSet去除重复元素</span>
-        <span class="pl-smi">Set</span>&lt;<span class="pl-smi">Integer</span>&gt; <span class="pl-s1">set</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>&lt;&gt;(<span class="pl-s1">list</span>);
+    public static List&lt;Integer&gt; duplicateList(List&lt;Integer&gt; list) {
+        // 使用HashSet去除重复元素
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;(list);
         
-        <span class="pl-c">// 将Set转换为List并返回</span>
-        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>&lt;&gt;(<span class="pl-s1">set</span>);
+        // 将Set转换为List并返回
+        return new ArrayList&lt;&gt;(set);
     }
-}</pre></div>
+}
+</code></pre>
 <h2>6. Map接口</h2>
 <p>现实生活与开发中，我们常会看到这样的一类集合：用户ID与账户信息、学生姓名与考试成绩、IP地址与主机名等，这种一一对应的关系，就称作映射。Java提供了专门的集合框架用来存储这种映射关系的对象，即<code class="notranslate">java.util.Map</code>接口。</p>
 <h3>6.1 Map接口概述</h3>
@@ -910,60 +931,62 @@ private成员变量year,month,day；并为每一个属性定义 getter, setter �
 </li>
 </ul>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">atguigu</span>.<span class="pl-s1">map</span>;
+<pre lang="java" class="notranslate"><code class="notranslate">package com.atguigu.map;
 
-<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">HashMap</span>;
+import java.util.HashMap;
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestMapMethod</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-c">//创建 map对象</span>
-        <span class="pl-smi">HashMap</span> <span class="pl-s1">map</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>();
+public class TestMapMethod {
+    public static void main(String[] args) {
+        //创建 map对象
+        HashMap map = new HashMap();
 
-        <span class="pl-c">//添加元素到集合</span>
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"黄晓明"</span>, <span class="pl-s">"杨颖"</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"李晨"</span>, <span class="pl-s">"李小璐"</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"李晨"</span>, <span class="pl-s">"范冰冰"</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"邓超"</span>, <span class="pl-s">"孙俪"</span>);
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">map</span>);
+        //添加元素到集合
+        map.put("黄晓明", "杨颖");
+        map.put("李晨", "李小璐");
+        map.put("李晨", "范冰冰");
+        map.put("邓超", "孙俪");
+        System.out.println(map);
 
-        <span class="pl-c">//删除指定的key-value</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">map</span>.<span class="pl-en">remove</span>(<span class="pl-s">"黄晓明"</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">map</span>);
+        //删除指定的key-value
+        System.out.println(map.remove("黄晓明"));
+        System.out.println(map);
 
-        <span class="pl-c">//查询指定key对应的value</span>
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">map</span>.<span class="pl-en">get</span>(<span class="pl-s">"邓超"</span>));
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">map</span>.<span class="pl-en">get</span>(<span class="pl-s">"黄晓明"</span>));
+        //查询指定key对应的value
+        System.out.println(map.get("邓超"));
+        System.out.println(map.get("黄晓明"));
 
     }
-}</pre></div>
+}
+</code></pre>
 <p>举例：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-    <span class="pl-smi">HashMap</span> <span class="pl-s1">map</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>();
-    <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"许仙"</span>, <span class="pl-s">"白娘子"</span>);
-    <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"董永"</span>, <span class="pl-s">"七仙女"</span>);
-    <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"牛郎"</span>, <span class="pl-s">"织女"</span>);
-    <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"许仙"</span>, <span class="pl-s">"小青"</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">public static void main(String[] args) {
+    HashMap map = new HashMap();
+    map.put("许仙", "白娘子");
+    map.put("董永", "七仙女");
+    map.put("牛郎", "织女");
+    map.put("许仙", "小青");
 
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"所有的key:"</span>);
-    <span class="pl-smi">Set</span> <span class="pl-s1">keySet</span> = <span class="pl-s1">map</span>.<span class="pl-en">keySet</span>();
-    <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">key</span> : <span class="pl-s1">keySet</span>) {
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">key</span>);
+    System.out.println("所有的key:");
+    Set keySet = map.keySet();
+    for (Object key : keySet) {
+        System.out.println(key);
     }
 
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"所有的value:"</span>);
-    <span class="pl-smi">Collection</span> <span class="pl-s1">values</span> = <span class="pl-s1">map</span>.<span class="pl-en">values</span>();
-    <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">value</span> : <span class="pl-s1">values</span>) {
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">value</span>);
+    System.out.println("所有的value:");
+    Collection values = map.values();
+    for (Object value : values) {
+        System.out.println(value);
     }
 
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"所有的映射关系:"</span>);
-    <span class="pl-smi">Set</span> <span class="pl-s1">entrySet</span> = <span class="pl-s1">map</span>.<span class="pl-en">entrySet</span>();
-    <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">mapping</span> : <span class="pl-s1">entrySet</span>) {
-        <span class="pl-c">//System.out.println(entry);</span>
-        <span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span> <span class="pl-s1">entry</span> = (<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>) <span class="pl-s1">mapping</span>;
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">entry</span>.<span class="pl-en">getKey</span>() + <span class="pl-s">"-&gt;"</span> + <span class="pl-s1">entry</span>.<span class="pl-en">getValue</span>());
+    System.out.println("所有的映射关系:");
+    Set entrySet = map.entrySet();
+    for (Object mapping : entrySet) {
+        //System.out.println(entry);
+        Map.Entry entry = (Map.Entry) mapping;
+        System.out.println(entry.getKey() + "-&gt;" + entry.getValue());
     }
-}</pre></div>
+}
+</code></pre>
 <h3>6.3 Map的主要实现类：HashMap</h3>
 <h4>6.3.1 HashMap概述</h4>
 <ul>
@@ -977,282 +1000,289 @@ private成员变量year,month,day；并为每一个属性定义 getter, setter �
 <p>**练习1：**添加你喜欢的歌手以及你喜欢他唱过的歌曲</p>
 <p>例如：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/image-20220914190805362.png"><img src="images/image-20220914190805362.png" alt="" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//方式1</span>
-<span class="pl-c">/**</span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @create 9:03</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SingerTest1</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+<pre lang="java" class="notranslate"><code class="notranslate">//方式1
+/**
+ * @author 尚硅谷-宋红康
+ * @create 9:03
+ */
+public class SingerTest1 {
+    public static void main(String[] args) {
 
-        <span class="pl-c">//创建一个HashMap用于保存歌手和其歌曲集</span>
+        //创建一个HashMap用于保存歌手和其歌曲集
 
-        <span class="pl-smi">HashMap</span> <span class="pl-s1">singers</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>();
-        <span class="pl-c">//声明一组key,value</span>
-        <span class="pl-smi">String</span> <span class="pl-s1">singer1</span> = <span class="pl-s">"周杰伦"</span>;
+        HashMap singers = new HashMap();
+        //声明一组key,value
+        String singer1 = "周杰伦";
 
-        <span class="pl-smi">ArrayList</span> <span class="pl-s1">songs1</span> = <span class="pl-k">new</span> <span class="pl-smi">ArrayList</span>();
-        <span class="pl-s1">songs1</span>.<span class="pl-en">add</span>(<span class="pl-s">"双节棍"</span>);
-        <span class="pl-s1">songs1</span>.<span class="pl-en">add</span>(<span class="pl-s">"本草纲目"</span>);
-        <span class="pl-s1">songs1</span>.<span class="pl-en">add</span>(<span class="pl-s">"夜曲"</span>);
-        <span class="pl-s1">songs1</span>.<span class="pl-en">add</span>(<span class="pl-s">"稻香"</span>);
-        <span class="pl-c">//添加到map中</span>
-        <span class="pl-s1">singers</span>.<span class="pl-en">put</span>(<span class="pl-s1">singer1</span>,<span class="pl-s1">songs1</span>);
-        <span class="pl-c">//声明一组key,value</span>
-        <span class="pl-smi">String</span> <span class="pl-s1">singer2</span> = <span class="pl-s">"陈奕迅"</span>;
-        <span class="pl-smi">List</span> <span class="pl-s1">songs2</span> = <span class="pl-smi">Arrays</span>.<span class="pl-en">asList</span>(<span class="pl-s">"浮夸"</span>, <span class="pl-s">"十年"</span>, <span class="pl-s">"红玫瑰"</span>, <span class="pl-s">"好久不见"</span>, <span class="pl-s">"孤勇者"</span>);
-        <span class="pl-c">//添加到map中</span>
-        <span class="pl-s1">singers</span>.<span class="pl-en">put</span>(<span class="pl-s1">singer2</span>,<span class="pl-s1">songs2</span>);
+        ArrayList songs1 = new ArrayList();
+        songs1.add("双节棍");
+        songs1.add("本草纲目");
+        songs1.add("夜曲");
+        songs1.add("稻香");
+        //添加到map中
+        singers.put(singer1,songs1);
+        //声明一组key,value
+        String singer2 = "陈奕迅";
+        List songs2 = Arrays.asList("浮夸", "十年", "红玫瑰", "好久不见", "孤勇者");
+        //添加到map中
+        singers.put(singer2,songs2);
 
-        <span class="pl-c">//遍历map</span>
-        <span class="pl-smi">Set</span> <span class="pl-s1">entrySet</span> = <span class="pl-s1">singers</span>.<span class="pl-en">entrySet</span>();
-        <span class="pl-k">for</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span> : <span class="pl-s1">entrySet</span>){
-            <span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span> <span class="pl-s1">entry</span> = (<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>)<span class="pl-s1">obj</span>;
-            <span class="pl-smi">String</span> <span class="pl-s1">singer</span> = (<span class="pl-smi">String</span>) <span class="pl-s1">entry</span>.<span class="pl-en">getKey</span>();
-            <span class="pl-smi">List</span> <span class="pl-s1">songs</span> = (<span class="pl-smi">List</span>) <span class="pl-s1">entry</span>.<span class="pl-en">getValue</span>();
+        //遍历map
+        Set entrySet = singers.entrySet();
+        for(Object obj : entrySet){
+            Map.Entry entry = (Map.Entry)obj;
+            String singer = (String) entry.getKey();
+            List songs = (List) entry.getValue();
 
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"歌手："</span> + <span class="pl-s1">singer</span>);
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"歌曲有："</span> + <span class="pl-s1">songs</span>);
+            System.out.println("歌手：" + singer);
+            System.out.println("歌曲有：" + songs);
         }
 
     }
-}</pre></div>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">//方式2：改为HashSet实现</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SingerTest2</span> {
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>() {
+}
+</code></pre>
+<pre lang="java" class="notranslate"><code class="notranslate">//方式2：改为HashSet实现
+public class SingerTest2 {
+    @Test
+    public void test1() {
 
-        <span class="pl-smi">Singer</span> <span class="pl-s1">singer1</span> = <span class="pl-k">new</span> <span class="pl-smi">Singer</span>(<span class="pl-s">"周杰伦"</span>);
-        <span class="pl-smi">Singer</span> <span class="pl-s1">singer2</span> = <span class="pl-k">new</span> <span class="pl-smi">Singer</span>(<span class="pl-s">"陈奕迅"</span>);
+        Singer singer1 = new Singer("周杰伦");
+        Singer singer2 = new Singer("陈奕迅");
 
-        <span class="pl-smi">Song</span> <span class="pl-s1">song1</span> = <span class="pl-k">new</span> <span class="pl-smi">Song</span>(<span class="pl-s">"双节棍"</span>);
-        <span class="pl-smi">Song</span> <span class="pl-s1">song2</span> = <span class="pl-k">new</span> <span class="pl-smi">Song</span>(<span class="pl-s">"本草纲目"</span>);
-        <span class="pl-smi">Song</span> <span class="pl-s1">song3</span> = <span class="pl-k">new</span> <span class="pl-smi">Song</span>(<span class="pl-s">"夜曲"</span>);
-        <span class="pl-smi">Song</span> <span class="pl-s1">song4</span> = <span class="pl-k">new</span> <span class="pl-smi">Song</span>(<span class="pl-s">"浮夸"</span>);
-        <span class="pl-smi">Song</span> <span class="pl-s1">song5</span> = <span class="pl-k">new</span> <span class="pl-smi">Song</span>(<span class="pl-s">"十年"</span>);
-        <span class="pl-smi">Song</span> <span class="pl-s1">song6</span> = <span class="pl-k">new</span> <span class="pl-smi">Song</span>(<span class="pl-s">"孤勇者"</span>);
+        Song song1 = new Song("双节棍");
+        Song song2 = new Song("本草纲目");
+        Song song3 = new Song("夜曲");
+        Song song4 = new Song("浮夸");
+        Song song5 = new Song("十年");
+        Song song6 = new Song("孤勇者");
 
-        <span class="pl-smi">HashSet</span> <span class="pl-s1">h1</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>();<span class="pl-c">// 放歌手一的歌曲</span>
-        <span class="pl-s1">h1</span>.<span class="pl-en">add</span>(<span class="pl-s1">song1</span>);
-        <span class="pl-s1">h1</span>.<span class="pl-en">add</span>(<span class="pl-s1">song2</span>);
-        <span class="pl-s1">h1</span>.<span class="pl-en">add</span>(<span class="pl-s1">song3</span>);
+        HashSet h1 = new HashSet();// 放歌手一的歌曲
+        h1.add(song1);
+        h1.add(song2);
+        h1.add(song3);
 
-        <span class="pl-smi">HashSet</span> <span class="pl-s1">h2</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>();<span class="pl-c">// 放歌手二的歌曲</span>
-        <span class="pl-s1">h2</span>.<span class="pl-en">add</span>(<span class="pl-s1">song4</span>);
-        <span class="pl-s1">h2</span>.<span class="pl-en">add</span>(<span class="pl-s1">song5</span>);
-        <span class="pl-s1">h2</span>.<span class="pl-en">add</span>(<span class="pl-s1">song6</span>);
+        HashSet h2 = new HashSet();// 放歌手二的歌曲
+        h2.add(song4);
+        h2.add(song5);
+        h2.add(song6);
 
-        <span class="pl-smi">HashMap</span> <span class="pl-s1">hashMap</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>();<span class="pl-c">// 放歌手和他对应的歌曲</span>
-        <span class="pl-s1">hashMap</span>.<span class="pl-en">put</span>(<span class="pl-s1">singer1</span>, <span class="pl-s1">h1</span>);
-        <span class="pl-s1">hashMap</span>.<span class="pl-en">put</span>(<span class="pl-s1">singer2</span>, <span class="pl-s1">h2</span>);
+        HashMap hashMap = new HashMap();// 放歌手和他对应的歌曲
+        hashMap.put(singer1, h1);
+        hashMap.put(singer2, h2);
 
-        <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">obj</span> : <span class="pl-s1">hashMap</span>.<span class="pl-en">keySet</span>()) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj</span> + <span class="pl-s">"="</span> + <span class="pl-s1">hashMap</span>.<span class="pl-en">get</span>(<span class="pl-s1">obj</span>));
+        for (Object obj : hashMap.keySet()) {
+            System.out.println(obj + "=" + hashMap.get(obj));
         }
 
     }
 }
 
-<span class="pl-c">//歌曲</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Song</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>{
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">songName</span>;<span class="pl-c">//歌名</span>
+//歌曲
+public class Song implements Comparable{
+    private String songName;//歌名
 
-    <span class="pl-k">public</span> <span class="pl-smi">Song</span>() {
-        <span class="pl-en">super</span>();
+    public Song() {
+        super();
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">Song</span>(<span class="pl-smi">String</span> <span class="pl-s1">songName</span>) {
-        <span class="pl-en">super</span>();
-        <span class="pl-smi">this</span>.<span class="pl-s1">songName</span> = <span class="pl-s1">songName</span>;
+    public Song(String songName) {
+        super();
+        this.songName = songName;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getSongName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">songName</span>;
+    public String getSongName() {
+        return songName;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setSongName</span>(<span class="pl-smi">String</span> <span class="pl-s1">songName</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">songName</span> = <span class="pl-s1">songName</span>;
+    public void setSongName(String songName) {
+        this.songName = songName;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"《"</span> + <span class="pl-s1">songName</span> + <span class="pl-s">"》"</span>;
+    @Override
+    public String toString() {
+        return "《" + songName + "》";
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> == <span class="pl-smi">this</span>){
-            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+    @Override
+    public int compareTo(Object o) {
+        if(o == this){
+            return 0;
         }
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> <span class="pl-k">instanceof</span> <span class="pl-smi">Song</span>){
-            <span class="pl-smi">Song</span> <span class="pl-s1">song</span> = (<span class="pl-smi">Song</span>)<span class="pl-s1">o</span>;
-            <span class="pl-k">return</span> <span class="pl-s1">songName</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">song</span>.<span class="pl-en">getSongName</span>());
+        if(o instanceof Song){
+            Song song = (Song)o;
+            return songName.compareTo(song.getSongName());
         }
-        <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+        return 0;
     }
     
     
 }
-<span class="pl-c">//歌手</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Singer</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>{
-    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-k">private</span> <span class="pl-smi">Song</span> <span class="pl-s1">song</span>;
+//歌手
+public class Singer implements Comparable{
+    private String name;
+    private Song song;
     
-    <span class="pl-k">public</span> <span class="pl-smi">Singer</span>() {
-        <span class="pl-en">super</span>();
+    public Singer() {
+        super();
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">Singer</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-en">super</span>();
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    public Singer(String name) {
+        super();
+        this.name = name;
         
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    public String getName() {
+        return name;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">Song</span> <span class="pl-en">getSong</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">song</span>;
+    public Song getSong() {
+        return song;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setSong</span>(<span class="pl-smi">Song</span> <span class="pl-s1">song</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">song</span> = <span class="pl-s1">song</span>;
+    public void setSong(Song song) {
+        this.song = song;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    @Override
+    public String toString() {
+        return name;
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> == <span class="pl-smi">this</span>){
-            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+    @Override
+    public int compareTo(Object o) {
+        if(o == this){
+            return 0;
         }
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> <span class="pl-k">instanceof</span> <span class="pl-smi">Singer</span>){
-            <span class="pl-smi">Singer</span> <span class="pl-s1">singer</span> = (<span class="pl-smi">Singer</span>)<span class="pl-s1">o</span>;
-            <span class="pl-k">return</span> <span class="pl-s1">name</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">singer</span>.<span class="pl-en">getName</span>());
+        if(o instanceof Singer){
+            Singer singer = (Singer)o;
+            return name.compareTo(singer.getName());
         }
-        <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+        return 0;
     }
-}</pre></div>
+}
+</code></pre>
 <p><strong>练习2</strong>：二级联动</p>
 <p>将省份和城市的名称保存在集合中，当用户选择省份以后，二级联动，显示对应省份的地级市供用户选择。</p>
 <p>效果演示：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="images/clip_image001.png"><img src="images/clip_image001.png" alt="" style="max-width: 100%;"></a></p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * @Description </span>
-<span class="pl-c"> * @author 尚硅谷-宋红康  Email:shkstart@126.com</span>
-<span class="pl-c"> * @version </span>
-<span class="pl-c"> * @date 2021年5月7日上午12:26:59</span>
-<span class="pl-c"> *</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">class</span> <span class="pl-smi">CityMap</span>{
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * 
+ * @Description 
+ * @author 尚硅谷-宋红康  Email:shkstart@126.com
+ * @version 
+ * @date 2021年5月7日上午12:26:59
+ *
+ */
+class CityMap{
     
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">Map</span> <span class="pl-s1">model</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>();
+    public static Map model = new HashMap();
     
-    <span class="pl-k">static</span> {
-        <span class="pl-s1">model</span>.<span class="pl-en">put</span>(<span class="pl-s">"北京"</span>, <span class="pl-k">new</span> <span class="pl-smi">String</span>[] {<span class="pl-s">"北京"</span>});
-        <span class="pl-s1">model</span>.<span class="pl-en">put</span>(<span class="pl-s">"上海"</span>, <span class="pl-k">new</span> <span class="pl-smi">String</span>[] {<span class="pl-s">"上海"</span>});
-        <span class="pl-s1">model</span>.<span class="pl-en">put</span>(<span class="pl-s">"天津"</span>, <span class="pl-k">new</span> <span class="pl-smi">String</span>[] {<span class="pl-s">"天津"</span>});
-        <span class="pl-s1">model</span>.<span class="pl-en">put</span>(<span class="pl-s">"重庆"</span>, <span class="pl-k">new</span> <span class="pl-smi">String</span>[] {<span class="pl-s">"重庆"</span>});
-        <span class="pl-s1">model</span>.<span class="pl-en">put</span>(<span class="pl-s">"黑龙江"</span>, <span class="pl-k">new</span> <span class="pl-smi">String</span>[] {<span class="pl-s">"哈尔滨"</span>,<span class="pl-s">"齐齐哈尔"</span>,<span class="pl-s">"牡丹江"</span>,<span class="pl-s">"大庆"</span>,<span class="pl-s">"伊春"</span>,<span class="pl-s">"双鸭山"</span>,<span class="pl-s">"绥化"</span>});
-        <span class="pl-s1">model</span>.<span class="pl-en">put</span>(<span class="pl-s">"吉林"</span>, <span class="pl-k">new</span> <span class="pl-smi">String</span>[] {<span class="pl-s">"长春"</span>,<span class="pl-s">"延边"</span>,<span class="pl-s">"吉林"</span>,<span class="pl-s">"白山"</span>,<span class="pl-s">"白城"</span>,<span class="pl-s">"四平"</span>,<span class="pl-s">"松原"</span>});
-        <span class="pl-s1">model</span>.<span class="pl-en">put</span>(<span class="pl-s">"河北"</span>, <span class="pl-k">new</span> <span class="pl-smi">String</span>[] {<span class="pl-s">"石家庄"</span>,<span class="pl-s">"张家口"</span>,<span class="pl-s">"邯郸"</span>,<span class="pl-s">"邢台"</span>,<span class="pl-s">"唐山"</span>,<span class="pl-s">"保定"</span>,<span class="pl-s">"秦皇岛"</span>});
+    static {
+        model.put("北京", new String[] {"北京"});
+        model.put("上海", new String[] {"上海"});
+        model.put("天津", new String[] {"天津"});
+        model.put("重庆", new String[] {"重庆"});
+        model.put("黑龙江", new String[] {"哈尔滨","齐齐哈尔","牡丹江","大庆","伊春","双鸭山","绥化"});
+        model.put("吉林", new String[] {"长春","延边","吉林","白山","白城","四平","松原"});
+        model.put("河北", new String[] {"石家庄","张家口","邯郸","邢台","唐山","保定","秦皇岛"});
     }
     
 }
 
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ProvinceTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+public class ProvinceTest {
+    public static void main(String[] args) {
         
-        <span class="pl-smi">Set</span> <span class="pl-s1">keySet</span> = <span class="pl-smi">CityMap</span>.<span class="pl-s1">model</span>.<span class="pl-en">keySet</span>();
-        <span class="pl-k">for</span>(<span class="pl-smi">Object</span> <span class="pl-s1">s</span> : <span class="pl-s1">keySet</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s1">s</span> + <span class="pl-s">"<span class="pl-cce">\t</span>"</span>);
+        Set keySet = CityMap.model.keySet();
+        for(Object s : keySet) {
+            System.out.print(s + "\t");
         }
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请选择你所在的省份："</span>);
-        <span class="pl-smi">Scanner</span> <span class="pl-s1">scan</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
-        <span class="pl-smi">String</span> <span class="pl-s1">province</span> = <span class="pl-s1">scan</span>.<span class="pl-en">next</span>();
+        System.out.println();
+        System.out.println("请选择你所在的省份：");
+        Scanner scan = new Scanner(System.in);
+        String province = scan.next();
         
-        <span class="pl-smi">String</span>[] <span class="pl-s1">citys</span> = (<span class="pl-smi">String</span>[])<span class="pl-smi">CityMap</span>.<span class="pl-s1">model</span>.<span class="pl-en">get</span>(<span class="pl-s1">province</span>);
-        <span class="pl-k">for</span>(<span class="pl-smi">String</span> <span class="pl-s1">city</span> : <span class="pl-s1">citys</span>) {
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s1">city</span> + <span class="pl-s">"<span class="pl-cce">\t</span>"</span>);
+        String[] citys = (String[])CityMap.model.get(province);
+        for(String city : citys) {
+            System.out.print(city + "\t");
         }
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>();
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"请选择你所在的城市："</span>);
-        <span class="pl-smi">String</span> <span class="pl-s1">city</span> = <span class="pl-s1">scan</span>.<span class="pl-en">next</span>();
+        System.out.println();
+        System.out.println("请选择你所在的城市：");
+        String city = scan.next();
         
-        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"信息登记完毕"</span>);
+        System.out.println("信息登记完毕");
     }
     
-}</pre></div>
+}
+
+</code></pre>
 <p><strong>练习3</strong>：WordCount统计</p>
 <p>需求：统计字符串中每个字符出现的次数</p>
 <p>String str = "aaaabbbcccccccccc";</p>
 <p>提示：</p>
 <p>char[] arr = str.toCharArray();   //将字符串转换成字符数组</p>
 <p>HashMap hm = new HashMap();   //创建双列集合存储键和值，键放字符，值放次数</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * </span>
-<span class="pl-c"> * @author 尚硅谷-宋红康 </span>
-<span class="pl-c"> * @date 2022年5月7日上午12:26:59</span>
-<span class="pl-c"> *</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">WordCountTest</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">String</span> <span class="pl-s1">str</span> = <span class="pl-s">"aaaabbbcccccccccc"</span>;
-        <span class="pl-smi">char</span>[] <span class="pl-s1">arr</span> = <span class="pl-s1">str</span>.<span class="pl-en">toCharArray</span>(); <span class="pl-c">// 将字符串转换成字符数组</span>
-        <span class="pl-smi">HashMap</span> <span class="pl-s1">map</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>(); <span class="pl-c">// 创建双列集合存储键和值</span>
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * 
+ * @author 尚硅谷-宋红康 
+ * @date 2022年5月7日上午12:26:59
+ *
+ */
+public class WordCountTest {
+    public static void main(String[] args) {
+        String str = "aaaabbbcccccccccc";
+        char[] arr = str.toCharArray(); // 将字符串转换成字符数组
+        HashMap map = new HashMap(); // 创建双列集合存储键和值
 
-        <span class="pl-k">for</span> (<span class="pl-smi">char</span> <span class="pl-s1">c</span> : <span class="pl-s1">arr</span>) { <span class="pl-c">// 遍历字符数组</span>
-            <span class="pl-k">if</span> (!<span class="pl-s1">map</span>.<span class="pl-en">containsKey</span>(<span class="pl-s1">c</span>)) { <span class="pl-c">// 如果不包含这个键</span>
-                <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s1">c</span>, <span class="pl-c1">1</span>); <span class="pl-c">// 就将键和值为1添加</span>
-            } <span class="pl-k">else</span> { <span class="pl-c">// 如果包含这个键</span>
-                <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s1">c</span>, (<span class="pl-smi">int</span>)<span class="pl-s1">map</span>.<span class="pl-en">get</span>(<span class="pl-s1">c</span>) + <span class="pl-c1">1</span>); <span class="pl-c">// 就将键和值再加1添加进来</span>
+        for (char c : arr) { // 遍历字符数组
+            if (!map.containsKey(c)) { // 如果不包含这个键
+                map.put(c, 1); // 就将键和值为1添加
+            } else { // 如果包含这个键
+                map.put(c, (int)map.get(c) + 1); // 就将键和值再加1添加进来
             }
 
         }
 
-        <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">key</span> : <span class="pl-s1">map</span>.<span class="pl-en">keySet</span>()) { <span class="pl-c">// 遍历双列集合</span>
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">key</span> + <span class="pl-s">"="</span> + <span class="pl-s1">map</span>.<span class="pl-en">get</span>(<span class="pl-s1">key</span>));
+        for (Object key : map.keySet()) { // 遍历双列集合
+            System.out.println(key + "=" + map.get(key));
         }
 
     }
-}</pre></div>
+}
+
+</code></pre>
 <h3>6.4 Map实现类之二：LinkedHashMap</h3>
 <ul>
 <li>LinkedHashMap 是 HashMap 的子类</li>
 <li>存储数据采用的哈希表结构+链表结构，在HashMap存储结构的基础上，使用了一对<code class="notranslate">双向链表</code>来<code class="notranslate">记录添加元素的先后顺序</code>，可以保证遍历元素时，与添加的顺序一致。</li>
 <li>通过哈希表结构可以保证键的唯一、不重复，需要键所在类重写hashCode()方法、equals()方法。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestLinkedHashMap</span> {
-    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
-        <span class="pl-smi">LinkedHashMap</span> <span class="pl-s1">map</span> = <span class="pl-k">new</span> <span class="pl-smi">LinkedHashMap</span>();
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"王五"</span>, <span class="pl-c1">13000.0</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"张三"</span>, <span class="pl-c1">10000.0</span>);
-        <span class="pl-c">//key相同，新的value会覆盖原来的value</span>
-        <span class="pl-c">//因为String重写了hashCode和equals方法</span>
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"张三"</span>, <span class="pl-c1">12000.0</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"李四"</span>, <span class="pl-c1">14000.0</span>);
-        <span class="pl-c">//HashMap支持key和value为null值</span>
-        <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-c1">null</span>;
-        <span class="pl-smi">Double</span> <span class="pl-s1">salary</span> = <span class="pl-c1">null</span>;
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s1">name</span>, <span class="pl-s1">salary</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">public class TestLinkedHashMap {
+    public static void main(String[] args) {
+        LinkedHashMap map = new LinkedHashMap();
+        map.put("王五", 13000.0);
+        map.put("张三", 10000.0);
+        //key相同，新的value会覆盖原来的value
+        //因为String重写了hashCode和equals方法
+        map.put("张三", 12000.0);
+        map.put("李四", 14000.0);
+        //HashMap支持key和value为null值
+        String name = null;
+        Double salary = null;
+        map.put(name, salary);
 
-        <span class="pl-smi">Set</span> <span class="pl-s1">entrySet</span> = <span class="pl-s1">map</span>.<span class="pl-en">entrySet</span>();
-        <span class="pl-k">for</span> (<span class="pl-smi">Object</span> <span class="pl-s1">obj</span> : <span class="pl-s1">entrySet</span>) {
-            <span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span> <span class="pl-s1">entry</span> = (<span class="pl-smi">Map</span>.<span class="pl-smi">Entry</span>)<span class="pl-s1">obj</span>;
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">entry</span>);
+        Set entrySet = map.entrySet();
+        for (Object obj : entrySet) {
+            Map.Entry entry = (Map.Entry)obj;
+            System.out.println(entry);
         }
     }
-}</pre></div>
+}
+</code></pre>
 <h3>6.5 Map实现类之三：TreeMap</h3>
 <ul>
 <li>TreeMap存储 key-value 对时，需要根据 key-value 对进行排序。TreeMap 可以保证所有的 key-value 对处于<code class="notranslate">有序状态</code>。</li>
@@ -1265,106 +1295,107 @@ private成员变量year,month,day；并为每一个属性定义 getter, setter �
 </li>
 <li>TreeMap判断<code class="notranslate">两个key相等的标准</code>：两个key通过compareTo()方法或者compare()方法返回0。</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
-<span class="pl-c"> * @author 尚硅谷-宋红康</span>
-<span class="pl-c"> * @create 1:23</span>
-<span class="pl-c"> */</span>
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">TestTreeMap</span> {
-    <span class="pl-c">/*</span>
-<span class="pl-c">    * 自然排序举例</span>
-<span class="pl-c">    * */</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test1</span>(){
-        <span class="pl-smi">TreeMap</span> <span class="pl-s1">map</span> = <span class="pl-k">new</span> <span class="pl-smi">TreeMap</span>();
+<pre lang="java" class="notranslate"><code class="notranslate">/**
+ * @author 尚硅谷-宋红康
+ * @create 1:23
+ */
+public class TestTreeMap {
+    /*
+    * 自然排序举例
+    * */
+    @Test
+    public void test1(){
+        TreeMap map = new TreeMap();
 
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"CC"</span>,<span class="pl-c1">45</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"MM"</span>,<span class="pl-c1">78</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"DD"</span>,<span class="pl-c1">56</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"GG"</span>,<span class="pl-c1">89</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-s">"JJ"</span>,<span class="pl-c1">99</span>);
+        map.put("CC",45);
+        map.put("MM",78);
+        map.put("DD",56);
+        map.put("GG",89);
+        map.put("JJ",99);
 
-        <span class="pl-smi">Set</span> <span class="pl-s1">entrySet</span> = <span class="pl-s1">map</span>.<span class="pl-en">entrySet</span>();
-        <span class="pl-k">for</span>(<span class="pl-smi">Object</span> <span class="pl-s1">entry</span> : <span class="pl-s1">entrySet</span>){
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">entry</span>);
+        Set entrySet = map.entrySet();
+        for(Object entry : entrySet){
+            System.out.println(entry);
         }
 
     }
 
-    <span class="pl-c">/*</span>
-<span class="pl-c">    * 定制排序</span>
-<span class="pl-c">    *</span>
-<span class="pl-c">    * */</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Test</span>
-    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test2</span>(){
-        <span class="pl-c">//按照User的姓名的从小到大的顺序排列</span>
+    /*
+    * 定制排序
+    *
+    * */
+    @Test
+    public void test2(){
+        //按照User的姓名的从小到大的顺序排列
 
-        <span class="pl-smi">TreeMap</span> <span class="pl-s1">map</span> = <span class="pl-k">new</span> <span class="pl-smi">TreeMap</span>(<span class="pl-k">new</span> <span class="pl-smi">Comparator</span>() {
-            <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-            <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compare</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o1</span>, <span class="pl-smi">Object</span> <span class="pl-s1">o2</span>) {
-                <span class="pl-k">if</span>(<span class="pl-s1">o1</span> <span class="pl-k">instanceof</span> <span class="pl-smi">User</span> &amp;&amp; <span class="pl-s1">o2</span> <span class="pl-k">instanceof</span> <span class="pl-smi">User</span>){
-                    <span class="pl-smi">User</span> <span class="pl-s1">u1</span> = (<span class="pl-smi">User</span>)<span class="pl-s1">o1</span>;
-                    <span class="pl-smi">User</span> <span class="pl-s1">u2</span> = (<span class="pl-smi">User</span>)<span class="pl-s1">o2</span>;
+        TreeMap map = new TreeMap(new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                if(o1 instanceof User &amp;&amp; o2 instanceof User){
+                    User u1 = (User)o1;
+                    User u2 = (User)o2;
 
-                    <span class="pl-k">return</span> <span class="pl-s1">u1</span>.<span class="pl-s1">name</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">u2</span>.<span class="pl-s1">name</span>);
+                    return u1.name.compareTo(u2.name);
                 }
-                <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"输入的类型不匹配"</span>);
+                throw new RuntimeException("输入的类型不匹配");
             }
         });
 
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Tom"</span>,<span class="pl-c1">12</span>),<span class="pl-c1">67</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Rose"</span>,<span class="pl-c1">23</span>),<span class="pl-s">"87"</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Jerry"</span>,<span class="pl-c1">2</span>),<span class="pl-c1">88</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Eric"</span>,<span class="pl-c1">18</span>),<span class="pl-c1">45</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Tommy"</span>,<span class="pl-c1">44</span>),<span class="pl-c1">77</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Jim"</span>,<span class="pl-c1">23</span>),<span class="pl-c1">88</span>);
-        <span class="pl-s1">map</span>.<span class="pl-en">put</span>(<span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"Maria"</span>,<span class="pl-c1">18</span>),<span class="pl-c1">34</span>);
+        map.put(new User("Tom",12),67);
+        map.put(new User("Rose",23),"87");
+        map.put(new User("Jerry",2),88);
+        map.put(new User("Eric",18),45);
+        map.put(new User("Tommy",44),77);
+        map.put(new User("Jim",23),88);
+        map.put(new User("Maria",18),34);
 
-        <span class="pl-smi">Set</span> <span class="pl-s1">entrySet</span> = <span class="pl-s1">map</span>.<span class="pl-en">entrySet</span>();
-        <span class="pl-k">for</span>(<span class="pl-smi">Object</span> <span class="pl-s1">entry</span> : <span class="pl-s1">entrySet</span>){
-            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">entry</span>);
+        Set entrySet = map.entrySet();
+        for(Object entry : entrySet){
+            System.out.println(entry);
         }
     }
 }
 
-<span class="pl-k">class</span> <span class="pl-smi">User</span> <span class="pl-k">implements</span> <span class="pl-smi">Comparable</span>{
-    <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
-    <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+class User implements Comparable{
+    String name;
+    int age;
 
-    <span class="pl-k">public</span> <span class="pl-smi">User</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
-        <span class="pl-smi">this</span>.<span class="pl-s1">age</span> = <span class="pl-s1">age</span>;
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
-    <span class="pl-k">public</span> <span class="pl-smi">User</span>() {
+    public User() {
     }
 
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
-        <span class="pl-k">return</span> <span class="pl-s">"User{"</span> +
-                <span class="pl-s">"name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
-                <span class="pl-s">", age="</span> + <span class="pl-s1">age</span> +
-                <span class="pl-s">'}'</span>;
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
-    <span class="pl-c">/*</span>
-<span class="pl-c">    举例：按照age从小到大的顺序排列，如果age相同，则按照name从大到小的顺序排列</span>
-<span class="pl-c">    * */</span>
-    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">int</span> <span class="pl-en">compareTo</span>(<span class="pl-smi">Object</span> <span class="pl-s1">o</span>) {
-        <span class="pl-k">if</span>(<span class="pl-smi">this</span> == <span class="pl-s1">o</span>){
-            <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+    /*
+    举例：按照age从小到大的顺序排列，如果age相同，则按照name从大到小的顺序排列
+    * */
+    @Override
+    public int compareTo(Object o) {
+        if(this == o){
+            return 0;
         }
 
-        <span class="pl-k">if</span>(<span class="pl-s1">o</span> <span class="pl-k">instanceof</span> <span class="pl-smi">User</span>){
-            <span class="pl-smi">User</span> <span class="pl-s1">user</span> = (<span class="pl-smi">User</span>)<span class="pl-s1">o</span>;
-            <span class="pl-smi">int</span> <span class="pl-s1">value</span> = <span class="pl-smi">this</span>.<span class="pl-s1">age</span> - <span class="pl-s1">user</span>.<span class="pl-s1">age</span>;
-            <span class="pl-k">if</span>(<span class="pl-s1">value</span> != <span class="pl-c1">0</span>){
-                <span class="pl-k">return</span> <span class="pl-s1">value</span>;
+        if(o instanceof User){
+            User user = (User)o;
+            int value = this.age - user.age;
+            if(value != 0){
+                return value;
             }
-            <span class="pl-k">return</span> -<span class="pl-smi">this</span>.<span class="pl-s1">name</span>.<span class="pl-en">compareTo</span>(<span class="pl-s1">user</span>.<span class="pl-s1">name</span>);
+            return -this.name.compareTo(user.name);
         }
-        <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">RuntimeException</span>(<span class="pl-s">"输入的类型不匹配"</span>);
+        throw new RuntimeException("输入的类型不匹配");
     }
-}</pre></div>
+}
+</code></pre>
 <h3>6.6 Map实现类之四：Hashtable</h3>
 <ul>
 <li>Hashtable是Map接口的<code class="notranslate">古老实现类</code>，JDK1.0就提供了。不同于HashMap，Hashtable是线程安全的。</li>
@@ -1391,27 +1422,28 @@ Properties集合是一个唯一和IO流相结合的集合
 <li>由于属性文件里的 key、value 都是字符串类型，所以 Properties 中要求 key 和 value 都是字符串类型</li>
 <li>存取数据时，建议使用setProperty(String key,String value)方法和getProperty(String key)方法</li>
 </ul>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test01</span>() {
-    <span class="pl-smi">Properties</span> <span class="pl-s1">properties</span> = <span class="pl-smi">System</span>.<span class="pl-en">getProperties</span>();
-    <span class="pl-smi">String</span> <span class="pl-s1">fileEncoding</span> = <span class="pl-s1">properties</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"file.encoding"</span>);<span class="pl-c">//当前源文件字符编码</span>
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"fileEncoding = "</span> + <span class="pl-s1">fileEncoding</span>);
+<pre lang="java" class="notranslate"><code class="notranslate">@Test
+public void test01() {
+    Properties properties = System.getProperties();
+    String fileEncoding = properties.getProperty("file.encoding");//当前源文件字符编码
+    System.out.println("fileEncoding = " + fileEncoding);
 }
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test02</span>() {
-    <span class="pl-smi">Properties</span> <span class="pl-s1">properties</span> = <span class="pl-k">new</span> <span class="pl-smi">Properties</span>();
-    <span class="pl-s1">properties</span>.<span class="pl-en">setProperty</span>(<span class="pl-s">"user"</span>,<span class="pl-s">"songhk"</span>);
-    <span class="pl-s1">properties</span>.<span class="pl-en">setProperty</span>(<span class="pl-s">"password"</span>,<span class="pl-s">"123456"</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">properties</span>);
+@Test
+public void test02() {
+    Properties properties = new Properties();
+    properties.setProperty("user","songhk");
+    properties.setProperty("password","123456");
+    System.out.println(properties);
 }
 
-<span class="pl-c1">@</span><span class="pl-c1">Test</span>
-<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">test03</span>() <span class="pl-k">throws</span> <span class="pl-smi">IOException</span> {
-    <span class="pl-smi">Properties</span> <span class="pl-s1">pros</span> = <span class="pl-k">new</span> <span class="pl-smi">Properties</span>();
-    <span class="pl-s1">pros</span>.<span class="pl-en">load</span>(<span class="pl-k">new</span> <span class="pl-smi">FileInputStream</span>(<span class="pl-s">"jdbc.properties"</span>));
-    <span class="pl-smi">String</span> <span class="pl-s1">user</span> = <span class="pl-s1">pros</span>.<span class="pl-en">getProperty</span>(<span class="pl-s">"user"</span>);
-    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">user</span>);
-}</pre></div>
+@Test
+public void test03() throws IOException {
+    Properties pros = new Properties();
+    pros.load(new FileInputStream("jdbc.properties"));
+    String user = pros.getProperty("user");
+    System.out.println(user);
+}
+</code></pre>
 <ol>
 <li>Map及其实现类对比
 <ul>
