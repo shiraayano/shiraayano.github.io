@@ -41,7 +41,7 @@ Maven 是一个基于 Java 的项目管理和构建工具，通过项目对象�
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/31.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 SSM Maven</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -155,15 +155,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li><strong>依赖管理</strong>： 在 <code class="notranslate">pom.xml</code> 文件中声明依赖：</li>
 </ol>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;junit&lt;/groupId&gt;
-        &lt;artifactId&gt;junit&lt;/artifactId&gt;
-        &lt;version&gt;4.12&lt;/version&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">dependencies</span>&gt;
+    &lt;<span class="pl-ent">dependency</span>&gt;
+        &lt;<span class="pl-ent">groupId</span>&gt;junit&lt;/<span class="pl-ent">groupId</span>&gt;
+        &lt;<span class="pl-ent">artifactId</span>&gt;junit&lt;/<span class="pl-ent">artifactId</span>&gt;
+        &lt;<span class="pl-ent">version</span>&gt;4.12&lt;/<span class="pl-ent">version</span>&gt;
+        &lt;<span class="pl-ent">scope</span>&gt;test&lt;/<span class="pl-ent">scope</span>&gt;
+    &lt;/<span class="pl-ent">dependency</span>&gt;
+&lt;/<span class="pl-ent">dependencies</span>&gt;</pre></div>
 <hr>
 <h3>配置环境变量</h3>
 <p>下载 <a href="https://maven.apache.org/download.cgi" rel="nofollow">Maven</a>，配置以下步骤：</p>
@@ -179,37 +178,34 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>配置 Maven</h3>
 <p>需要修改 <code class="notranslate">maven/conf/settings.xml</code> 文件，主要配置以下三项：</p>
 <h4>1. 配置本地仓库地址</h4>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;!-- 在 conf/settings.xml 的 55 行附近 --&gt;
-&lt;localRepository&gt;D:\repository&lt;/localRepository&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate"><span class="pl-c"><span class="pl-c">&lt;!--</span> 在 conf/settings.xml 的 55 行附近 <span class="pl-c">--&gt;</span></span>
+&lt;<span class="pl-ent">localRepository</span>&gt;D:\repository&lt;/<span class="pl-ent">localRepository</span>&gt;</pre></div>
 <p><strong>示例截图</strong>：<br>
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9531da03d46b42a5f2b1fe0047e15a54ce137f3738244309f422f25d6270dce3/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323630383039303034382d33373839646161372d646339322d346630372d383637322d3636313631363731303730652e706e67"><img src="https://camo.githubusercontent.com/9531da03d46b42a5f2b1fe0047e15a54ce137f3738244309f422f25d6270dce3/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323630383039303034382d33373839646161372d646339322d346630372d383637322d3636313631363731303730652e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732608090048-3789daa7-dc92-4f07-8672-66161671070e.png" style="max-width: 100%;"></a></p>
 <h4>2. 配置国内阿里镜像</h4>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;!-- 在 mirrors 节点下添加中央仓库镜像（160 行附近） --&gt;
-&lt;mirror&gt;
-    &lt;id&gt;alimaven&lt;/id&gt;
-    &lt;name&gt;aliyun maven&lt;/name&gt;
-    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
-    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
-&lt;/mirror&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate"><span class="pl-c"><span class="pl-c">&lt;!--</span> 在 mirrors 节点下添加中央仓库镜像（160 行附近） <span class="pl-c">--&gt;</span></span>
+&lt;<span class="pl-ent">mirror</span>&gt;
+    &lt;<span class="pl-ent">id</span>&gt;alimaven&lt;/<span class="pl-ent">id</span>&gt;
+    &lt;<span class="pl-ent">name</span>&gt;aliyun maven&lt;/<span class="pl-ent">name</span>&gt;
+    &lt;<span class="pl-ent">url</span>&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/<span class="pl-ent">url</span>&gt;
+    &lt;<span class="pl-ent">mirrorOf</span>&gt;central&lt;/<span class="pl-ent">mirrorOf</span>&gt;
+&lt;/<span class="pl-ent">mirror</span>&gt;</pre></div>
 <p><strong>示例截图</strong>：<br>
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6c3eca7a9b7cda9c06fdf56706cd85d57ee82d01622898b17fc76e4ec6a8fb46/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323630383230353937392d35393262343330622d363934382d343065352d383637342d3966316234396535666236622e706e67"><img src="https://camo.githubusercontent.com/6c3eca7a9b7cda9c06fdf56706cd85d57ee82d01622898b17fc76e4ec6a8fb46/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323630383230353937392d35393262343330622d363934382d343065352d383637342d3966316234396535666236622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732608205979-592b430b-6948-40e5-8674-9f1b49e5fb6b.png" style="max-width: 100%;"></a></p>
 <h4>3. 配置 JDK 17 项目构建</h4>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;!-- 在 profiles 节点下添加 JDK 配置（268 行附近） --&gt;
-&lt;profile&gt;
-    &lt;id&gt;jdk-17&lt;/id&gt;
-    &lt;activation&gt;
-        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
-        &lt;jdk&gt;17&lt;/jdk&gt;
-    &lt;/activation&gt;
-    &lt;properties&gt;
-        &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
-        &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
-        &lt;maven.compiler.compilerVersion&gt;17&lt;/maven.compiler.compilerVersion&gt;
-    &lt;/properties&gt;
-&lt;/profile&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate"><span class="pl-c"><span class="pl-c">&lt;!--</span> 在 profiles 节点下添加 JDK 配置（268 行附近） <span class="pl-c">--&gt;</span></span>
+&lt;<span class="pl-ent">profile</span>&gt;
+    &lt;<span class="pl-ent">id</span>&gt;jdk-17&lt;/<span class="pl-ent">id</span>&gt;
+    &lt;<span class="pl-ent">activation</span>&gt;
+        &lt;<span class="pl-ent">activeByDefault</span>&gt;true&lt;/<span class="pl-ent">activeByDefault</span>&gt;
+        &lt;<span class="pl-ent">jdk</span>&gt;17&lt;/<span class="pl-ent">jdk</span>&gt;
+    &lt;/<span class="pl-ent">activation</span>&gt;
+    &lt;<span class="pl-ent">properties</span>&gt;
+        &lt;<span class="pl-ent">maven</span>.compiler.source&gt;17&lt;/<span class="pl-ent">maven</span>.compiler.source&gt;
+        &lt;<span class="pl-ent">maven</span>.compiler.target&gt;17&lt;/<span class="pl-ent">maven</span>.compiler.target&gt;
+        &lt;<span class="pl-ent">maven</span>.compiler.compilerVersion&gt;17&lt;/<span class="pl-ent">maven</span>.compiler.compilerVersion&gt;
+    &lt;/<span class="pl-ent">properties</span>&gt;
+&lt;/<span class="pl-ent">profile</span>&gt;</pre></div>
 <p><strong>示例截图</strong>：<br>
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9991000b20dffc68ebfe7258f87aa8a79eb1e2bbfa085bf5e6c02b201dec6adc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323630383237333437332d32633837653439312d613131622d343034342d396334612d3433646138396235326165632e706e67"><img src="https://camo.githubusercontent.com/9991000b20dffc68ebfe7258f87aa8a79eb1e2bbfa085bf5e6c02b201dec6adc/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323630383237333437332d32633837653439312d613131622d343034342d396334612d3433646138396235326165632e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732608273473-2c87e491-a11b-4044-9c4a-43da89b52aec.png" style="max-width: 100%;"></a></p>
 <hr>
@@ -276,11 +272,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6c06457e7f7c7ac744bcb8c459b66fc4dc74c4e176f3ba4202b7da1aac30d3e6/68747470733a2f2f736563757265322e776f7374617469632e636e2f7374617469632f32695973473434736a5961794e71593774395774725a2f696d6167652e706e67"><img src="https://camo.githubusercontent.com/6c06457e7f7c7ac744bcb8c459b66fc4dc74c4e176f3ba4202b7da1aac30d3e6/68747470733a2f2f736563757265322e776f7374617469632e636e2f7374617469632f32695973473434736a5961794e71593774395774725a2f696d6167652e706e67" alt="Web项目结构" data-canonical-src="https://secure2.wostatic.cn/static/2iYsG44sjYayNqY7t9WtrZ/image.png" style="max-width: 100%;"></a></p>
 <ol start="3">
 <li>修改 <code class="notranslate">pom.xml</code> 文件，新增 <code class="notranslate">&lt;packaging&gt;</code> 标签，定义打包方式为 <code class="notranslate">war</code>：
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;groupId&gt;com.atguigu&lt;/groupId&gt;
-&lt;artifactId&gt;maven_parent&lt;/artifactId&gt;
-&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-&lt;packaging&gt;war&lt;/packaging&gt;
-</code></pre>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">groupId</span>&gt;com.atguigu&lt;/<span class="pl-ent">groupId</span>&gt;
+&lt;<span class="pl-ent">artifactId</span>&gt;maven_parent&lt;/<span class="pl-ent">artifactId</span>&gt;
+&lt;<span class="pl-ent">version</span>&gt;1.0-SNAPSHOT&lt;/<span class="pl-ent">version</span>&gt;
+&lt;<span class="pl-ent">packaging</span>&gt;war&lt;/<span class="pl-ent">packaging</span>&gt;</pre></div>
 </li>
 <li>刷新和校验，确认 <code class="notranslate">webapp</code> 文件夹出现小蓝点，表示成功。</li>
 </ol>
@@ -863,10 +858,9 @@ set REPOSITORY_PATH=D:\repository  改成你本地仓库地址即可！
 
 **最佳使用方案:**
 </code></pre>
-<pre lang="latex" class="notranslate"><code class="notranslate">打包: mvn clean package
+<div class="highlight highlight-text-tex-latex"><pre class="notranslate">打包: mvn clean package
 重新编译: mvn clean compile
-本地部署: mvn clean install 
-</code></pre>
+本地部署: mvn clean install </pre></div>
 <pre lang="plain" class="notranslate"><code class="notranslate">**周期，命令和插件:**
 
 周期→包含若干命令→包含若干插件!
