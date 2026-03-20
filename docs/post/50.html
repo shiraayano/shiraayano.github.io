@@ -25,7 +25,7 @@ Spring MVC 是一个基于 Java 的 Web 框架，主要用于构建 Web 应用�
 <meta property="og:url" content="https://blog.adouzi.eu.org/post/50.html">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
 <title>Java 学习笔记 SpringMVC </title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -49,7 +49,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
 </style>
 <style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
 
@@ -120,118 +130,108 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h2>简化参数接收</h2>
 <h3>路径设计</h3>
 <p>在 Spring MVC 中，路径设计通常通过 <code class="notranslate">@RequestMapping</code> 注解来实现。这个注解可以放在类或方法上，用于指定请求的 URL 路径。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Controller
-@RequestMapping("/user")
-public class UserController {
-    @RequestMapping("/get")
-    public String getUser() {
-        // 处理请求的逻辑
-        return "userView";
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Controller</span>
+<span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/user"</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserController</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/get"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getUser</span>() {
+        <span class="pl-c">// 处理请求的逻辑</span>
+        <span class="pl-k">return</span> <span class="pl-s">"userView"</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@RequestMapping("/user")</code> 指定了类级别的路径前缀，<code class="notranslate">@RequestMapping("/get")</code> 指定了方法级别的路径。因此，完整的请求路径是 <code class="notranslate">/user/get</code>。</p>
 <h3>参数接收</h3>
 <p>Spring MVC 提供了多种方式来接收请求参数：</p>
 <ul>
 <li>
 <p><strong>通过方法参数接收</strong>：可以直接在方法参数中接收请求参数，Spring MVC 会自动将请求参数绑定到方法参数上。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@RequestMapping("/get")
-public String getUser(@RequestParam("name") String name, @RequestParam("age") int age) {
-    // 处理请求的逻辑
-    return "userView";
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/get"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getUser</span>(<span class="pl-c1">@</span><span class="pl-c1">RequestParam</span>(<span class="pl-s">"name"</span>) <span class="pl-smi">String</span> <span class="pl-s1">name</span>, <span class="pl-c1">@</span><span class="pl-c1">RequestParam</span>(<span class="pl-s">"age"</span>) <span class="pl-smi">int</span> <span class="pl-s1">age</span>) {
+    <span class="pl-c">// 处理请求的逻辑</span>
+    <span class="pl-k">return</span> <span class="pl-s">"userView"</span>;
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@RequestParam</code> 注解用于指定请求参数的名称，Spring MVC 会将请求中的 <code class="notranslate">name</code> 和 <code class="notranslate">age</code> 参数绑定到方法的 <code class="notranslate">name</code> 和 <code class="notranslate">age</code> 参数上。</p>
 </li>
 <li>
 <p><strong>通过实体类接收</strong>：可以使用一个实体类来接收多个请求参数。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class User {
-    private String name;
-    private int age;
-    // getter 和 setter 方法
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">User</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
+    <span class="pl-c">// getter 和 setter 方法</span>
 }
 
-@RequestMapping("/get")
-public String getUser(User user) {
-    // 处理请求的逻辑
-    return "userView";
-}
-</code></pre>
+<span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/get"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getUser</span>(<span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+    <span class="pl-c">// 处理请求的逻辑</span>
+    <span class="pl-k">return</span> <span class="pl-s">"userView"</span>;
+}</pre></div>
 <p>在这个例子中，Spring MVC 会将请求中的 <code class="notranslate">name</code> 和 <code class="notranslate">age</code> 参数绑定到 <code class="notranslate">User</code> 实体类的 <code class="notranslate">name</code> 和 <code class="notranslate">age</code> 属性上。</p>
 </li>
 </ul>
 <h3>请求头接收</h3>
 <p>可以通过 <code class="notranslate">@RequestHeader</code> 注解来接收请求头中的信息。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@RequestMapping("/get")
-public String getUser(@RequestHeader("User-Agent") String userAgent) {
-    // 处理请求的逻辑
-    return "userView";
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/get"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getUser</span>(<span class="pl-c1">@</span><span class="pl-c1">RequestHeader</span>(<span class="pl-s">"User-Agent"</span>) <span class="pl-smi">String</span> <span class="pl-s1">userAgent</span>) {
+    <span class="pl-c">// 处理请求的逻辑</span>
+    <span class="pl-k">return</span> <span class="pl-s">"userView"</span>;
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@RequestHeader("User-Agent")</code> 注解用于接收请求头中的 <code class="notranslate">User-Agent</code> 信息，并将其绑定到方法的 <code class="notranslate">userAgent</code> 参数上。</p>
 <h3>Cookie 接收</h3>
 <p>可以通过 <code class="notranslate">@CookieValue</code> 注解来接收 Cookie 中的信息。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@RequestMapping("/get")
-public String getUser(@CookieValue("JSESSIONID") String jsessionid) {
-    // 处理请求的逻辑
-    return "userView";
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/get"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getUser</span>(<span class="pl-c1">@</span><span class="pl-c1">CookieValue</span>(<span class="pl-s">"JSESSIONID"</span>) <span class="pl-smi">String</span> <span class="pl-s1">jsessionid</span>) {
+    <span class="pl-c">// 处理请求的逻辑</span>
+    <span class="pl-k">return</span> <span class="pl-s">"userView"</span>;
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@CookieValue("JSESSIONID")</code> 注解用于接收 Cookie 中的 <code class="notranslate">JSESSIONID</code> 信息，并将其绑定到方法的 <code class="notranslate">jsessionid</code> 参数上。</p>
 <h2>简化数据响应</h2>
 <h3>模板页面</h3>
 <p>Spring MVC 支持多种模板技术，如 JSP、Velocity、Freemarker 等。可以通过返回视图名称来渲染模板页面。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@RequestMapping("/get")
-public String getUser(Model model) {
-    User user = new User("张三", 20);
-    model.addAttribute("user", user);
-    return "userView";
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/get"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getUser</span>(<span class="pl-smi">Model</span> <span class="pl-s1">model</span>) {
+    <span class="pl-smi">User</span> <span class="pl-s1">user</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"张三"</span>, <span class="pl-c1">20</span>);
+    <span class="pl-s1">model</span>.<span class="pl-en">addAttribute</span>(<span class="pl-s">"user"</span>, <span class="pl-s1">user</span>);
+    <span class="pl-k">return</span> <span class="pl-s">"userView"</span>;
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">Model</code> 对象用于传递模型数据到视图页面。<code class="notranslate">return "userView";</code> 表示返回 <code class="notranslate">userView</code> 视图，Spring MVC 会通过 <code class="notranslate">ViewResolver</code> 解析出实际的视图路径（如 <code class="notranslate">/WEB-INF/views/userView.jsp</code>），并使用模型数据渲染页面。</p>
 <h3>转发和重定向</h3>
 <ul>
 <li>
 <p><strong>转发</strong>：通过 <code class="notranslate">forward:</code> 前缀可以实现请求的转发。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@RequestMapping("/forward")
-public String forward() {
-    return "forward:/user/get";
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/forward"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">forward</span>() {
+    <span class="pl-k">return</span> <span class="pl-s">"forward:/user/get"</span>;
+}</pre></div>
 <p>在这个例子中，请求会被转发到 <code class="notranslate">/user/get</code> 路径。</p>
 </li>
 <li>
 <p><strong>重定向</strong>：通过 <code class="notranslate">redirect:</code> 前缀可以实现请求的重定向。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@RequestMapping("/redirect")
-public String redirect() {
-    return "redirect:/user/get";
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/redirect"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">redirect</span>() {
+    <span class="pl-k">return</span> <span class="pl-s">"redirect:/user/get"</span>;
+}</pre></div>
 <p>在这个例子中，请求会被重定向到 <code class="notranslate">/user/get</code> 路径。</p>
 </li>
 </ul>
 <h3>JSON 数据</h3>
 <p>可以通过 <code class="notranslate">@ResponseBody</code> 注解来返回 JSON 数据。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@RequestMapping("/getJson")
-@ResponseBody
-public User getUser() {
-    User user = new User("张三", 20);
-    return user;
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/getJson"</span>)
+<span class="pl-c1">@</span><span class="pl-c1">ResponseBody</span>
+<span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">getUser</span>() {
+    <span class="pl-smi">User</span> <span class="pl-s1">user</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>(<span class="pl-s">"张三"</span>, <span class="pl-c1">20</span>);
+    <span class="pl-k">return</span> <span class="pl-s1">user</span>;
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@ResponseBody</code> 注解表示方法的返回值会被转换为 JSON 数据并返回给客户端。</p>
 <h3>静态资源</h3>
 <p>Spring MVC 可以通过配置静态资源路径来处理静态资源请求。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Configuration
-public class WebConfig implements WebMvcConfigurer {
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">WebConfig</span> <span class="pl-k">implements</span> <span class="pl-smi">WebMvcConfigurer</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">addResourceHandlers</span>(<span class="pl-smi">ResourceHandlerRegistry</span> <span class="pl-s1">registry</span>) {
+        <span class="pl-s1">registry</span>.<span class="pl-en">addResourceHandler</span>(<span class="pl-s">"/static/**"</span>)
+                .<span class="pl-en">addResourceLocations</span>(<span class="pl-s">"classpath:/static/"</span>);
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">/static/**</code> 表示所有以 <code class="notranslate">/static/</code> 开头的请求都会被映射到类路径下的 <code class="notranslate">static</code> 目录中。</p>
 <h2>RESTful 风格设计</h2>
 <h3>主要作用</h3>
@@ -240,43 +240,38 @@ public class WebConfig implements WebMvcConfigurer {
 <ul>
 <li>
 <p><strong>GET</strong>：用于获取资源。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@GetMapping("/users/{id}")
-public User getUser(@PathVariable("id") Long id) {
-    // 获取用户信息
-    return userService.getUser(id);
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">GetMapping</span>(<span class="pl-s">"/users/{id}"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">getUser</span>(<span class="pl-c1">@</span><span class="pl-c1">PathVariable</span>(<span class="pl-s">"id"</span>) <span class="pl-smi">Long</span> <span class="pl-s1">id</span>) {
+    <span class="pl-c">// 获取用户信息</span>
+    <span class="pl-k">return</span> <span class="pl-s1">userService</span>.<span class="pl-en">getUser</span>(<span class="pl-s1">id</span>);
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@GetMapping</code> 注解表示这是一个 GET 请求，<code class="notranslate">@PathVariable("id")</code> 注解用于接收路径中的 <code class="notranslate">id</code> 参数。</p>
 </li>
 <li>
 <p><strong>POST</strong>：用于创建资源。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@PostMapping("/users")
-public User createUser(@RequestBody User user) {
-    // 创建用户
-    return userService.createUser(user);
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">PostMapping</span>(<span class="pl-s">"/users"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">createUser</span>(<span class="pl-c1">@</span><span class="pl-c1">RequestBody</span> <span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+    <span class="pl-c">// 创建用户</span>
+    <span class="pl-k">return</span> <span class="pl-s1">userService</span>.<span class="pl-en">createUser</span>(<span class="pl-s1">user</span>);
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@PostMapping</code> 注解表示这是一个 POST 请求，<code class="notranslate">@RequestBody</code> 注解用于接收请求体中的 JSON 数据并将其绑定到 <code class="notranslate">User</code> 实体类上。</p>
 </li>
 <li>
 <p><strong>PUT</strong>：用于更新资源。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">
-@PutMapping("/users/{id}")
-public User updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-    // 更新用户信息
-    return userService.updateUser(id, user);
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">PutMapping</span>(<span class="pl-s">"/users/{id}"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">updateUser</span>(<span class="pl-c1">@</span><span class="pl-c1">PathVariable</span>(<span class="pl-s">"id"</span>) <span class="pl-smi">Long</span> <span class="pl-s1">id</span>, <span class="pl-c1">@</span><span class="pl-c1">RequestBody</span> <span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+    <span class="pl-c">// 更新用户信息</span>
+    <span class="pl-k">return</span> <span class="pl-s1">userService</span>.<span class="pl-en">updateUser</span>(<span class="pl-s1">id</span>, <span class="pl-s1">user</span>);
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@PutMapping</code> 注解表示这是一个 PUT 请求，<code class="notranslate">@PathVariable("id")</code> 注解用于接收路径中的 <code class="notranslate">id</code> 参数，<code class="notranslate">@RequestBody</code> 注解用于接收请求体中的 JSON 数据并将其绑定到 <code class="notranslate">User</code> 实体类上。</p>
 </li>
 <li>
 <p><strong>DELETE</strong>：用于删除资源。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@DeleteMapping("/users/{id}")
-public void deleteUser(@PathVariable("id") Long id) {
-    // 删除用户
-    userService.deleteUser(id);
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">DeleteMapping</span>(<span class="pl-s">"/users/{id}"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">deleteUser</span>(<span class="pl-c1">@</span><span class="pl-c1">PathVariable</span>(<span class="pl-s">"id"</span>) <span class="pl-smi">Long</span> <span class="pl-s1">id</span>) {
+    <span class="pl-c">// 删除用户</span>
+    <span class="pl-s1">userService</span>.<span class="pl-en">deleteUser</span>(<span class="pl-s1">id</span>);
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@DeleteMapping</code> 注解表示这是一个 DELETE 请求，<code class="notranslate">@PathVariable("id")</code> 注解用于接收路径中的 <code class="notranslate">id</code> 参数。</p>
 </li>
 </ul>
@@ -284,124 +279,119 @@ public void deleteUser(@PathVariable("id") Long id) {
 <ul>
 <li><strong>请求方式</strong>：根据操作的性质选择合适的 HTTP 方法。例如，获取资源使用 GET，创建资源使用 POST，更新资源使用 PUT，删除资源使用 DELETE。</li>
 <li><strong>请求参数</strong>：对于简单的查询参数，可以使用 <code class="notranslate">@RequestParam</code> 注解；对于复杂的对象参数，可以使用 <code class="notranslate">@RequestBody</code> 注解；对于路径参数，可以使用 <code class="notranslate">@PathVariable</code> 注解。例如：
-<pre lang="java" class="notranslate"><code class="notranslate">@GetMapping("/users")
-public List&lt;User&gt; getUsers(@RequestParam("name") String name) {
-    // 根据用户名获取用户列表
-    return userService.getUsersByName(name);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">GetMapping</span>(<span class="pl-s">"/users"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">User</span>&gt; <span class="pl-en">getUsers</span>(<span class="pl-c1">@</span><span class="pl-c1">RequestParam</span>(<span class="pl-s">"name"</span>) <span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+    <span class="pl-c">// 根据用户名获取用户列表</span>
+    <span class="pl-k">return</span> <span class="pl-s1">userService</span>.<span class="pl-en">getUsersByName</span>(<span class="pl-s1">name</span>);
 }
 
-@PostMapping("/users")
-public User createUser(@RequestBody User user) {
-    // 创建用户
-    return userService.createUser(user);
+<span class="pl-c1">@</span><span class="pl-c1">PostMapping</span>(<span class="pl-s">"/users"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">createUser</span>(<span class="pl-c1">@</span><span class="pl-c1">RequestBody</span> <span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+    <span class="pl-c">// 创建用户</span>
+    <span class="pl-k">return</span> <span class="pl-s1">userService</span>.<span class="pl-en">createUser</span>(<span class="pl-s1">user</span>);
 }
 
-@PutMapping("/users/{id}")
-public User updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-    // 更新用户信息
-    return userService.updateUser(id, user);
+<span class="pl-c1">@</span><span class="pl-c1">PutMapping</span>(<span class="pl-s">"/users/{id}"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">updateUser</span>(<span class="pl-c1">@</span><span class="pl-c1">PathVariable</span>(<span class="pl-s">"id"</span>) <span class="pl-smi">Long</span> <span class="pl-s1">id</span>, <span class="pl-c1">@</span><span class="pl-c1">RequestBody</span> <span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+    <span class="pl-c">// 更新用户信息</span>
+    <span class="pl-k">return</span> <span class="pl-s1">userService</span>.<span class="pl-en">updateUser</span>(<span class="pl-s1">id</span>, <span class="pl-s1">user</span>);
 }
 
-@DeleteMapping("/users/{id}")
-public void deleteUser(@PathVariable("id") Long id) {
-    // 删除用户
-    userService.deleteUser(id);
-}
-</code></pre>
+<span class="pl-c1">@</span><span class="pl-c1">DeleteMapping</span>(<span class="pl-s">"/users/{id}"</span>)
+<span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">deleteUser</span>(<span class="pl-c1">@</span><span class="pl-c1">PathVariable</span>(<span class="pl-s">"id"</span>) <span class="pl-smi">Long</span> <span class="pl-s1">id</span>) {
+    <span class="pl-c">// 删除用户</span>
+    <span class="pl-s1">userService</span>.<span class="pl-en">deleteUser</span>(<span class="pl-s1">id</span>);
+}</pre></div>
 </li>
 </ul>
 <h2>功能扩展</h2>
 <h3>全局异常处理</h3>
 <p>可以通过 <code class="notranslate">@ControllerAdvice</code> 和 <code class="notranslate">@ExceptionHandler</code> 注解来实现全局异常处理。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@ControllerAdvice
-public class GlobalExceptionHandler {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">ControllerAdvice</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">GlobalExceptionHandler</span> {
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ResponseBody
-    public Map&lt;String, Object&gt; handleException(Exception e) {
-        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();
-        result.put("code", 500);
-        result.put("message", e.getMessage());
-        return result;
+    <span class="pl-c1">@</span><span class="pl-c1">ExceptionHandler</span>(<span class="pl-smi">Exception</span>.<span class="pl-k">class</span>)
+    <span class="pl-c1">@</span><span class="pl-c1">ResponseStatus</span>(<span class="pl-smi">HttpStatus</span>.<span class="pl-c1">INTERNAL_SERVER_ERROR</span>)
+    <span class="pl-c1">@</span><span class="pl-c1">ResponseBody</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Map</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Object</span>&gt; <span class="pl-en">handleException</span>(<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+        <span class="pl-smi">Map</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Object</span>&gt; <span class="pl-s1">result</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>&lt;&gt;();
+        <span class="pl-s1">result</span>.<span class="pl-en">put</span>(<span class="pl-s">"code"</span>, <span class="pl-c1">500</span>);
+        <span class="pl-s1">result</span>.<span class="pl-en">put</span>(<span class="pl-s">"message"</span>, <span class="pl-s1">e</span>.<span class="pl-en">getMessage</span>());
+        <span class="pl-k">return</span> <span class="pl-s1">result</span>;
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ResponseBody
-    public Map&lt;String, Object&gt; handleUserNotFoundException(UserNotFoundException e) {
-        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();
-        result.put("code", 404);
-        result.put("message", e.getMessage());
-        return result;
+    <span class="pl-c1">@</span><span class="pl-c1">ExceptionHandler</span>(<span class="pl-smi">UserNotFoundException</span>.<span class="pl-k">class</span>)
+    <span class="pl-c1">@</span><span class="pl-c1">ResponseStatus</span>(<span class="pl-smi">HttpStatus</span>.<span class="pl-c1">NOT_FOUND</span>)
+    <span class="pl-c1">@</span><span class="pl-c1">ResponseBody</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Map</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Object</span>&gt; <span class="pl-en">handleUserNotFoundException</span>(<span class="pl-smi">UserNotFoundException</span> <span class="pl-s1">e</span>) {
+        <span class="pl-smi">Map</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Object</span>&gt; <span class="pl-s1">result</span> = <span class="pl-k">new</span> <span class="pl-smi">HashMap</span>&lt;&gt;();
+        <span class="pl-s1">result</span>.<span class="pl-en">put</span>(<span class="pl-s">"code"</span>, <span class="pl-c1">404</span>);
+        <span class="pl-s1">result</span>.<span class="pl-en">put</span>(<span class="pl-s">"message"</span>, <span class="pl-s1">e</span>.<span class="pl-en">getMessage</span>());
+        <span class="pl-k">return</span> <span class="pl-s1">result</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@ControllerAdvice</code> 注解表示这是一个全局异常处理器，<code class="notranslate">@ExceptionHandler</code> 注解用于指定处理的异常类型。<code class="notranslate">@ResponseStatus</code> 注解用于设置响应的状态码，<code class="notranslate">@ResponseBody</code> 注解用于返回 JSON 数据。</p>
 <h3>拦截器</h3>
 <p>可以通过实现 <code class="notranslate">HandlerInterceptor</code> 接口或继承 <code class="notranslate">HandlerInterceptorAdapter</code> 类来创建拦截器。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class MyInterceptor implements HandlerInterceptor {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyInterceptor</span> <span class="pl-k">implements</span> <span class="pl-smi">HandlerInterceptor</span> {
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 请求处理前的逻辑
-        System.out.println("preHandle");
-        return true;
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">preHandle</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>, <span class="pl-smi">Object</span> <span class="pl-s1">handler</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-c">// 请求处理前的逻辑</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"preHandle"</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
     }
 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        // 请求处理后的逻辑
-        System.out.println("postHandle");
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">postHandle</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>, <span class="pl-smi">Object</span> <span class="pl-s1">handler</span>, <span class="pl-smi">ModelAndView</span> <span class="pl-s1">modelAndView</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-c">// 请求处理后的逻辑</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"postHandle"</span>);
     }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        // 请求完成后的逻辑
-        System.out.println("afterCompletion");
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">afterCompletion</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>, <span class="pl-smi">Object</span> <span class="pl-s1">handler</span>, <span class="pl-smi">Exception</span> <span class="pl-s1">ex</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-c">// 请求完成后的逻辑</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"afterCompletion"</span>);
     }
-}
-</code></pre>
+}</pre></div>
 <p>在 Spring 配置中注册拦截器：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">@Configuration
-public class WebConfig implements WebMvcConfigurer {
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">WebConfig</span> <span class="pl-k">implements</span> <span class="pl-smi">WebMvcConfigurer</span> {
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MyInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/static/**", "/error");
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">addInterceptors</span>(<span class="pl-smi">InterceptorRegistry</span> <span class="pl-s1">registry</span>) {
+        <span class="pl-s1">registry</span>.<span class="pl-en">addInterceptor</span>(<span class="pl-k">new</span> <span class="pl-smi">MyInterceptor</span>())
+                .<span class="pl-en">addPathPatterns</span>(<span class="pl-s">"/**"</span>)
+                .<span class="pl-en">excludePathPatterns</span>(<span class="pl-s">"/static/**"</span>, <span class="pl-s">"/error"</span>);
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">addInterceptors</code> 方法用于注册拦截器，<code class="notranslate">addPathPatterns</code> 方法用于指定拦截的路径模式，<code class="notranslate">excludePathPatterns</code> 方法用于排除不需要拦截的路径。</p>
 <h3>参数校验注解</h3>
 <p>Spring MVC 支持使用 JSR 303/JSR 349 标准的注解来进行参数校验。例如：</p>
-<pre lang="java" class="notranslate"><code class="notranslate">public class User {
-    @NotNull(message = "用户名不能为空")
-    private String name;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">User</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">NotNull</span>(<span class="pl-s1">message</span> = <span class="pl-s">"用户名不能为空"</span>)
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
 
-    @Min(value = 18, message = "年龄必须大于等于 18")
-    private int age;
+    <span class="pl-c1">@</span><span class="pl-c1">Min</span>(<span class="pl-s1">value</span> = <span class="pl-c1">18</span>, <span class="pl-s1">message</span> = <span class="pl-s">"年龄必须大于等于 18"</span>)
+    <span class="pl-k">private</span> <span class="pl-smi">int</span> <span class="pl-s1">age</span>;
 
-    // getter 和 setter 方法
+    <span class="pl-c">// getter 和 setter 方法</span>
 }
 
-@Controller
-public class UserController {
+<span class="pl-c1">@</span><span class="pl-c1">Controller</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserController</span> {
 
-    @PostMapping("/users")
-    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            // 校验失败，返回错误信息
-            return "userForm";
+    <span class="pl-c1">@</span><span class="pl-c1">PostMapping</span>(<span class="pl-s">"/users"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">createUser</span>(<span class="pl-c1">@</span><span class="pl-c1">Valid</span> <span class="pl-c1">@</span><span class="pl-c1">ModelAttribute</span> <span class="pl-smi">User</span> <span class="pl-s1">user</span>, <span class="pl-smi">BindingResult</span> <span class="pl-s1">bindingResult</span>) {
+        <span class="pl-k">if</span> (<span class="pl-s1">bindingResult</span>.<span class="pl-en">hasErrors</span>()) {
+            <span class="pl-c">// 校验失败，返回错误信息</span>
+            <span class="pl-k">return</span> <span class="pl-s">"userForm"</span>;
         }
-        // 校验成功，处理业务逻辑
-        userService.createUser(user);
-        return "redirect:/users";
+        <span class="pl-c">// 校验成功，处理业务逻辑</span>
+        <span class="pl-s1">userService</span>.<span class="pl-en">createUser</span>(<span class="pl-s1">user</span>);
+        <span class="pl-k">return</span> <span class="pl-s">"redirect:/users"</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个例子中，<code class="notranslate">@NotNull</code> 和 <code class="notranslate">@Min</code> 注解用于指定校验规则，<code class="notranslate">@Valid</code> 注解用于触发校验，<code class="notranslate">BindingResult</code> 对象用于获取校验结果。如果校验失败，<code class="notranslate">bindingResult.hasErrors()</code> 方法会返回 <code class="notranslate">true</code>，可以返回错误信息页面；如果校验成功，继续处理业务逻辑。</p>
 <h1>一些常见的问题和解决</h1>
 <h2>JSON 处理</h2>
@@ -413,23 +403,22 @@ public class UserController {
 </ul>
 <p><strong>示例</strong>：</p>
 <p>java复制</p>
-<pre lang="java" class="notranslate"><code class="notranslate">import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">GetMapping</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">ResponseBody</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">RestController</span>;
 
-@RestController
-public class UserController {
+<span class="pl-c1">@</span><span class="pl-c1">RestController</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserController</span> {
 
-    @GetMapping("/user")
-    @ResponseBody
-    public User getUser() {
-        User user = new User();
-        user.setName("Alice");
-        user.setAge(25);
-        return user;
+    <span class="pl-c1">@</span><span class="pl-c1">GetMapping</span>(<span class="pl-s">"/user"</span>)
+    <span class="pl-c1">@</span><span class="pl-c1">ResponseBody</span>
+    <span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">getUser</span>() {
+        <span class="pl-smi">User</span> <span class="pl-s1">user</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>();
+        <span class="pl-s1">user</span>.<span class="pl-en">setName</span>(<span class="pl-s">"Alice"</span>);
+        <span class="pl-s1">user</span>.<span class="pl-en">setAge</span>(<span class="pl-c1">25</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">user</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个示例中，<code class="notranslate">getUser</code>方法返回一个<code class="notranslate">User</code>对象，Spring会自动将其转换为JSON格式并返回给客户端。</p>
 <h3>2. <code class="notranslate">@RequestBody</code></h3>
 <p><strong>用途</strong>：</p>
@@ -438,21 +427,20 @@ public class UserController {
 </ul>
 <p><strong>示例</strong>：</p>
 <p>java复制</p>
-<pre lang="java" class="notranslate"><code class="notranslate">import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">PostMapping</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">RequestBody</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">RestController</span>;
 
-@RestController
-public class UserController {
+<span class="pl-c1">@</span><span class="pl-c1">RestController</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserController</span> {
 
-    @PostMapping("/user")
-    public User addUser(@RequestBody User user) {
-        // 处理添加用户的逻辑
-        userService.saveUser(user);
-        return user;
+    <span class="pl-c1">@</span><span class="pl-c1">PostMapping</span>(<span class="pl-s">"/user"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">addUser</span>(<span class="pl-c1">@</span><span class="pl-c1">RequestBody</span> <span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+        <span class="pl-c">// 处理添加用户的逻辑</span>
+        <span class="pl-s1">userService</span>.<span class="pl-en">saveUser</span>(<span class="pl-s1">user</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">user</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个示例中，<code class="notranslate">addUser</code>方法的参数<code class="notranslate">User user</code>会从请求体中获取JSON数据，并自动转换为<code class="notranslate">User</code>对象。</p>
 <h3>3. <code class="notranslate">@RestController</code></h3>
 <p><strong>用途</strong>：</p>
@@ -461,21 +449,20 @@ public class UserController {
 </ul>
 <p><strong>示例</strong>：</p>
 <p>java复制</p>
-<pre lang="java" class="notranslate"><code class="notranslate">import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">GetMapping</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">RestController</span>;
 
-@RestController
-public class UserController {
+<span class="pl-c1">@</span><span class="pl-c1">RestController</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserController</span> {
 
-    @GetMapping("/user")
-    public User getUser() {
-        User user = new User();
-        user.setName("Alice");
-        user.setAge(25);
-        return user;
+    <span class="pl-c1">@</span><span class="pl-c1">GetMapping</span>(<span class="pl-s">"/user"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">getUser</span>() {
+        <span class="pl-smi">User</span> <span class="pl-s1">user</span> = <span class="pl-k">new</span> <span class="pl-smi">User</span>();
+        <span class="pl-s1">user</span>.<span class="pl-en">setName</span>(<span class="pl-s">"Alice"</span>);
+        <span class="pl-s1">user</span>.<span class="pl-en">setAge</span>(<span class="pl-c1">25</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">user</span>;
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个示例中，<code class="notranslate">@RestController</code>注解使得<code class="notranslate">getUser</code>方法的返回值自动作为响应体返回给客户端，无需再添加<code class="notranslate">@ResponseBody</code>注解。</p>
 <h3>总结</h3>
 <ul>
@@ -488,97 +475,92 @@ public class UserController {
 <h3>1. 使用<code class="notranslate">web.xml</code>配置</h3>
 <p>在<code class="notranslate">web.xml</code>中配置静态资源的访问路径，可以将某些路径的请求直接映射到静态资源目录。例如：</p>
 <p>xml复制</p>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;servlet&gt;
-    &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
-    &lt;init-param&gt;
-        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
-        &lt;param-value&gt;/WEB-INF/spring/appServlet/servlet-context.xml&lt;/param-value&gt;
-    &lt;/init-param&gt;
-    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
-&lt;/servlet&gt;
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">servlet</span>&gt;
+    &lt;<span class="pl-ent">servlet-name</span>&gt;dispatcher&lt;/<span class="pl-ent">servlet-name</span>&gt;
+    &lt;<span class="pl-ent">servlet-class</span>&gt;org.springframework.web.servlet.DispatcherServlet&lt;/<span class="pl-ent">servlet-class</span>&gt;
+    &lt;<span class="pl-ent">init-param</span>&gt;
+        &lt;<span class="pl-ent">param-name</span>&gt;contextConfigLocation&lt;/<span class="pl-ent">param-name</span>&gt;
+        &lt;<span class="pl-ent">param-value</span>&gt;/WEB-INF/spring/appServlet/servlet-context.xml&lt;/<span class="pl-ent">param-value</span>&gt;
+    &lt;/<span class="pl-ent">init-param</span>&gt;
+    &lt;<span class="pl-ent">load-on-startup</span>&gt;1&lt;/<span class="pl-ent">load-on-startup</span>&gt;
+&lt;/<span class="pl-ent">servlet</span>&gt;
 
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
+&lt;<span class="pl-ent">servlet-mapping</span>&gt;
+    &lt;<span class="pl-ent">servlet-name</span>&gt;dispatcher&lt;/<span class="pl-ent">servlet-name</span>&gt;
+    &lt;<span class="pl-ent">url-pattern</span>&gt;/&lt;/<span class="pl-ent">url-pattern</span>&gt;
+&lt;/<span class="pl-ent">servlet-mapping</span>&gt;
 
-&lt;!-- 静态资源访问配置 --&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;*.css&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;*.js&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;*.png&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;*.jpg&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-</code></pre>
+<span class="pl-c"><span class="pl-c">&lt;!--</span> 静态资源访问配置 <span class="pl-c">--&gt;</span></span>
+&lt;<span class="pl-ent">servlet-mapping</span>&gt;
+    &lt;<span class="pl-ent">servlet-name</span>&gt;default&lt;/<span class="pl-ent">servlet-name</span>&gt;
+    &lt;<span class="pl-ent">url-pattern</span>&gt;*.css&lt;/<span class="pl-ent">url-pattern</span>&gt;
+&lt;/<span class="pl-ent">servlet-mapping</span>&gt;
+&lt;<span class="pl-ent">servlet-mapping</span>&gt;
+    &lt;<span class="pl-ent">servlet-name</span>&gt;default&lt;/<span class="pl-ent">servlet-name</span>&gt;
+    &lt;<span class="pl-ent">url-pattern</span>&gt;*.js&lt;/<span class="pl-ent">url-pattern</span>&gt;
+&lt;/<span class="pl-ent">servlet-mapping</span>&gt;
+&lt;<span class="pl-ent">servlet-mapping</span>&gt;
+    &lt;<span class="pl-ent">servlet-name</span>&gt;default&lt;/<span class="pl-ent">servlet-name</span>&gt;
+    &lt;<span class="pl-ent">url-pattern</span>&gt;*.png&lt;/<span class="pl-ent">url-pattern</span>&gt;
+&lt;/<span class="pl-ent">servlet-mapping</span>&gt;
+&lt;<span class="pl-ent">servlet-mapping</span>&gt;
+    &lt;<span class="pl-ent">servlet-name</span>&gt;default&lt;/<span class="pl-ent">servlet-name</span>&gt;
+    &lt;<span class="pl-ent">url-pattern</span>&gt;*.jpg&lt;/<span class="pl-ent">url-pattern</span>&gt;
+&lt;/<span class="pl-ent">servlet-mapping</span>&gt;</pre></div>
 <h3>2. 使用Spring MVC的<code class="notranslate">WebMvcConfigurer</code>接口</h3>
 <p>在Spring Boot项目中，可以实现<code class="notranslate">WebMvcConfigurer</code>接口来配置静态资源的访问路径。例如：</p>
 <p>java复制</p>
-<pre lang="java" class="notranslate"><code class="notranslate">import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Configuration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">ResourceHandlerRegistry</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">WebMvcConfigurer</span>;
 
-@Configuration
-public class WebConfig implements WebMvcConfigurer {
+<span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">WebConfig</span> <span class="pl-k">implements</span> <span class="pl-smi">WebMvcConfigurer</span> {
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">addResourceHandlers</span>(<span class="pl-smi">ResourceHandlerRegistry</span> <span class="pl-s1">registry</span>) {
+        <span class="pl-s1">registry</span>.<span class="pl-en">addResourceHandler</span>(<span class="pl-s">"/static/**"</span>)
+                .<span class="pl-en">addResourceLocations</span>(<span class="pl-s">"classpath:/static/"</span>);
     }
-}
-</code></pre>
+}</pre></div>
 <p>在这个配置中，<code class="notranslate">/static/**</code>表示所有以<code class="notranslate">/static/</code>开头的请求都会被映射到类路径下的<code class="notranslate">/static/</code>目录中查找静态资源。</p>
 <h3>3. 使用<code class="notranslate">springmvc</code>的<code class="notranslate">&lt;mvc:resources&gt;</code>标签</h3>
 <p>在传统的Spring MVC项目中，可以在<code class="notranslate">spring-servlet.xml</code>配置文件中使用<code class="notranslate">&lt;mvc:resources&gt;</code>标签来配置静态资源。例如：</p>
 <p>xml复制</p>
-<pre lang="xml" class="notranslate"><code class="notranslate">&lt;beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/mvc
-                           http://www.springframework.org/schema/mvc/spring-mvc.xsd"&gt;
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">beans</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.springframework.org/schema/beans<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">mvc</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.springframework.org/schema/mvc<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xsi</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="pl-pds">"</span></span>
+       <span class="pl-e">xsi</span><span class="pl-e">:</span><span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.springframework.org/schema/beans</span>
+<span class="pl-s">                           http://www.springframework.org/schema/beans/spring-beans.xsd</span>
+<span class="pl-s">                           http://www.springframework.org/schema/mvc</span>
+<span class="pl-s">                           http://www.springframework.org/schema/mvc/spring-mvc.xsd<span class="pl-pds">"</span></span>&gt;
 
-    &lt;!-- 静态资源访问配置 --&gt;
-    &lt;mvc:resources mapping="/static/**" location="/static/" /&gt;
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> 静态资源访问配置 <span class="pl-c">--&gt;</span></span>
+    &lt;<span class="pl-ent">mvc</span><span class="pl-ent">:</span><span class="pl-ent">resources</span> <span class="pl-e">mapping</span>=<span class="pl-s"><span class="pl-pds">"</span>/static/**<span class="pl-pds">"</span></span> <span class="pl-e">location</span>=<span class="pl-s"><span class="pl-pds">"</span>/static/<span class="pl-pds">"</span></span> /&gt;
 
-    &lt;!-- 启用Spring MVC的注解支持 --&gt;
-    &lt;mvc:annotation-driven /&gt;
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> 启用Spring MVC的注解支持 <span class="pl-c">--&gt;</span></span>
+    &lt;<span class="pl-ent">mvc</span><span class="pl-ent">:</span><span class="pl-ent">annotation-driven</span> /&gt;
 
-    &lt;!-- 视图解析器 --&gt;
-    &lt;bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;
-        &lt;property name="prefix" value="/WEB-INF/views/"/&gt;
-        &lt;property name="suffix" value=".jsp"/&gt;
-    &lt;/bean&gt;
-&lt;/beans&gt;
-</code></pre>
+    <span class="pl-c"><span class="pl-c">&lt;!--</span> 视图解析器 <span class="pl-c">--&gt;</span></span>
+    &lt;<span class="pl-ent">bean</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>org.springframework.web.servlet.view.InternalResourceViewResolver<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">property</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>prefix<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>/WEB-INF/views/<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">property</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>suffix<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>.jsp<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">bean</span>&gt;
+&lt;/<span class="pl-ent">beans</span>&gt;</pre></div>
 <p>在这个配置中，<code class="notranslate">/static/**</code>表示所有以<code class="notranslate">/static/</code>开头的请求都会被映射到Web应用的<code class="notranslate">/static/</code>目录中查找静态资源。</p>
 <h3>4. 使用Spring Boot的<code class="notranslate">application.properties</code>或<code class="notranslate">application.yml</code>文件</h3>
 <p>在Spring Boot项目中，可以在<code class="notranslate">application.properties</code>或<code class="notranslate">application.yml</code>文件中配置静态资源的访问路径。例如：</p>
 <p><strong>application.properties</strong>：</p>
 <p>properties复制</p>
-<pre lang="properties" class="notranslate"><code class="notranslate">spring.mvc.static-path-pattern=/static/**
-spring.resources.static-locations=classpath:/static/
-</code></pre>
+<div class="highlight highlight-source-ini"><pre class="notranslate"><span class="pl-k">spring.mvc.static-path-pattern</span>=/static/**
+<span class="pl-k">spring.resources.static-locations</span>=classpath:/static/</pre></div>
 <p><strong>application.yml</strong>：</p>
 <p>yaml复制</p>
-<pre lang="yaml" class="notranslate"><code class="notranslate">spring:
-  mvc:
-    static-path-pattern: /static/**
-  resources:
-    static-locations: classpath:/static/
-</code></pre>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">spring</span>:
+  <span class="pl-ent">mvc</span>:
+    <span class="pl-ent">static-path-pattern</span>: <span class="pl-s">/static/**</span>
+  <span class="pl-ent">resources</span>:
+    <span class="pl-ent">static-locations</span>: <span class="pl-s">classpath:/static/</span></pre></div>
 <h3></h3></div>
 <div style="font-size:small;margin-top:8px;float:right;"><footer style="padding:10px 15px;text-align:left;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif"><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href="https://blog.adouzi.eu.org/post/21.html" style="color:#0078d7;text-decoration:none">关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href="https://adouzi.eu.org" style="color:#0078d7;text-decoration:none">https://adouzi.eu.org</a></span><span> | Email：<a href="mailto:shiraayano@adouzi.eu.org" style="color:#0078d7;text-decoration:none">shiraayano@adouzi.eu.org</a><br><br><br>支持笔者：<a href="https://www.profitableratecpm.com/euxxr69t?key=f815bdc51cd258ab9f699175b0ef4446" style="color:#0078d7;text-decoration:none">点击广告</a><br>广告收入是本站唯一的收入，若本站内容帮到了您，可以点击广告支持笔者。</span><script async data-cfasync="false" src="//pl27420049.profitableratecpm.com/0f4f9e716ea5257a380097bb2d39a0bb/invoke.js"></script><div id="container-0f4f9e716ea5257a380097bb2d39a0bb"></div><br><script type="text/javascript">
 atOptions = {
@@ -611,7 +593,7 @@ if("07/12/2024"!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -685,7 +667,70 @@ function iFrameLoading(){
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
 
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
 
 </script>
 <script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
