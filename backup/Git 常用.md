@@ -105,7 +105,12 @@ git push origin main
 > $ git config --global user.email shiraayano@adouzi.eu.org
 >
 
+https方式需要输入频繁密码
+> 方式1：缓存 30 天（推荐先用这个）
+git config --global credential.helper 'cache --timeout=2592000'
 
+> 方式2：永久保存到本机 ~/.git-credentials（明文）
+git config --global credential.helper store
 
 [https://www.runoob.com/git/git-create-repository.html](https://www.runoob.com/git/git-create-repository.html)
 
