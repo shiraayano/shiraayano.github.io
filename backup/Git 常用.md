@@ -112,5 +112,61 @@ git config --global credential.helper 'cache --timeout=2592000'
 > 方式2：永久保存到本机 ~/.git-credentials（明文）
 git config --global credential.helper store
 
+## 从以前的提交中分叉并且合并
+
+### 完整操作记录（时间线顺序）
+#### 1. 初始状态：查看Git提交记录
+```bash
+git log
+```
+- 确认当前分支状态、提交历史，确定目标回滚版本为 `c4efd40`（FFT真实频谱版本）。
+
+#### 2. 基于指定提交创建新分支
+```bash
+# 基于c4efd40创建feature/fft-optimize分支，并自动切换到该分支
+git checkout -b feature/fft-optimize c4efd4091d8680ef960ecbe9023e1d45ab640061
+```
+- 分支命名：`feature/fft-optimize`（体现功能为FFT优化）
+- 此时工作目录为 `c4efd40` 版本状态，可在该分支上进行开发修改。
+
+#### 3. 合并分支到master（覆盖式合并，自动忽略冲突）
+```bash
+# 第一步：切回master主分支
+git checkout master
+
+# 第二步：核心合并操作，所有冲突以feature/fft-optimize分支代码为准
+git merge -X theirs feature/fft-optimize
+```
+- 若弹出nano编辑器编辑合并提交信息：
+  - 按 `Ctrl + O` → 回车（保存）
+  - 按 `Ctrl + X`（退出）
+- 合并后生成新提交 `9c6e083`，提交信息为 `Merge branch 'feature/fft-optimize' 合并分支`。
+
+#### 4. 验证合并结果
+```bash
+# 查看当前分支（确认在master上）
+git branch
+# 输出示例：
+#   feature/fft-optimize
+#   main
+# * master
+
+# 查看最新提交（确认是合并后的提交）
+git log --oneline -1
+# 输出示例：
+# 9c6e083 (HEAD -> master, origin/master) Merge branch 'feature/fft-optimize' 合并分支
+```
+
+#### 5. 删除老分支（确认合并成功后）
+```bash
+# 删除本地feature/fft-optimize分支
+git branch -d feature/fft-optimize
+
+# （可选）如果之前推送到了远程，同时删除远程分支
+git push origin --delete feature/fft-optimize
+```
+
+
+
 [https://www.runoob.com/git/git-create-repository.html](https://www.runoob.com/git/git-create-repository.html)
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sat, 21 Mar 2026 12:49:44 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>新年快乐~</title><link>https://blog.adouzi.eu.org/post/68.html</link><description>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>白綾乃的博客</title><link>https://blog.adouzi.eu.org</link><description>永远相信，美好的事情即将发生！</description><copyright>白綾乃的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/69860501?v=4</url><title>avatar</title><link>https://blog.adouzi.eu.org</link></image><lastBuildDate>Sun, 22 Mar 2026 12:28:17 +0000</lastBuildDate><managingEditor>白綾乃的博客</managingEditor><ttl>60</ttl><webMaster>白綾乃的博客</webMaster><item><title>新年快乐~</title><link>https://blog.adouzi.eu.org/post/68.html</link><description>
 
 上次写文章是在什么时候来着……有点模糊了
 
@@ -134,9 +134,14 @@ git config --global credential.helper 'cache --timeout=2592000'
 &gt; 方式2：永久保存到本机 ~/.git-credentials（明文）
 git config --global credential.helper store
 
-[https://www.runoob.com/git/git-create-repository.html](https://www.runoob.com/git/git-create-repository.html)
+## 从以前的提交中分叉并且合并
 
-。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/64.html</guid><pubDate>Wed, 13 Aug 2025 15:12:04 +0000</pubDate></item><item><title>Linux &amp; Win 上创建Python虚拟环境与设置开机自启（自用）</title><link>https://blog.adouzi.eu.org/post/63.html</link><description>
+### 完整操作记录（时间线顺序）
+#### 1. 初始状态：查看Git提交记录
+```bash
+git log
+```
+- 确认当前分支状态、提交历史，确定目标回滚版本为 `c4efd40`（FFT真实频谱版本）。</description><guid isPermaLink="true">https://blog.adouzi.eu.org/post/64.html</guid><pubDate>Wed, 13 Aug 2025 15:12:04 +0000</pubDate></item><item><title>Linux &amp; Win 上创建Python虚拟环境与设置开机自启（自用）</title><link>https://blog.adouzi.eu.org/post/63.html</link><description>
 
 ### **在 Linux 上结合虚拟环境设置开机自启**
 #### **步骤 1：创建虚拟环境并安装依赖**
