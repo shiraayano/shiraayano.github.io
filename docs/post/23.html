@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/69860501?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="泛型
+
+
+
+比喻 标签纸
+
+
+
+#### 什么是泛型？
+泛型就是允许在自定义类，接口时通过一个 ` 标识 ` 表示类中的某个“属性的类型”或者是某个方法的“返回值或参数的类型”。">
+<meta property="og:title" content="Java 学习笔记 基础篇 012 泛型">
+<meta property="og:description" content="泛型
+
+
+
+比喻 标签纸
+
+
+
+#### 什么是泛型？
+泛型就是允许在自定义类，接口时通过一个 ` 标识 ` 表示类中的某个“属性的类型”或者是某个方法的“返回值或参数的类型”。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.adouzi.eu.org/post/23.html">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Meekdai/meekdai.github.io/logo64.jpg">
+<title>Java 学习笔记 基础篇 012 泛型</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+<style>img{max-width:100%;height:auto;display:block;margin:1em auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .2s ease,box-shadow .2s ease;}img[data-src]{opacity:0;animation:fadeIn 1s forwards;}@keyframes fadeIn{to{opacity:1;}}img:hover{transform:scale(1.05);box-shadow:0 8px 12px rgba(0,0,0,.2);}@media(max-width:600px){img{margin:.5em auto;}}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Java 学习笔记 基础篇 012 泛型</h1>
+<div class="title-right">
+    <a href="https://blog.adouzi.eu.org" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/shiraayano/shiraayano.github.io/issues/23" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>泛型</p>
+<p>比喻 标签纸</p>
+<h4>什么是泛型？</h4>
+<p>泛型就是允许在自定义类，接口时通过一个 <code class="notranslate">标识</code> 表示类中的某个“属性的类型”或者是某个方法的“返回值或参数的类型”。这个类型参数在使用时（eg 继承或实现这个类的接口，创建对象或调用方法时）确定（即传入实际的类型参数，也称为类型实参）</p>
+<h4>在集合中使用泛型之前可能会存在的问题</h4>
+<p>1，类型不安全，因为 add()的参数时 Object 类型，意味着任何类型的对象都可以添加成功</p>
+<p>2，需要使用强转操作，繁琐。还可能倒是 ClassCastException 异常</p>
+<h4>使用说明</h4>
+<p>集合框架你在声明接口和其实现类时，使用了泛型（JDK5.0），在实例化集合对象时，如果没有泛型，则默认为 Object 类型的数据。</p>
+<p>如果使用了泛型，则需指明泛型的具体类型。一旦指明了泛型的具体类型，则在集合相关的方法中。凡是使用类的泛型的位置，都替换为具体的泛型类型。</p>
+<h4>在集合，比较器中使用泛型（重点）</h4>
+<pre lang="plain" class="notranslate"><code class="notranslate">class Test4{
+    public static void main(String[] args) {
+        //体会使用泛型的场景
+        List list1 = new ArrayList();
+        list1.add(34);
+        list1.add(12);
+        //问题1 类型不安全 因为add()的参数是Object类型 意味着任何类型的对象都录添加成功
+        list1.add("AA");
+
+        Iterator iterator = list1.iterator();
+        while (iterator.hasNext()) {
+            //问题2 需要使用强转 繁琐，还有可能导致ClassCastException异常
+            Integer integer = (Integer) iterator.next();
+            int score = integer;
+            System.out.println(score);
+        }
+        
+        /*
+        34
+        12
+        Exception in thread "main" java.lang.ClassCastException: class java.lang.String cannot be cast to class java.lang.Integer (java.lang.String and java.lang.Integer are in module java.base of loader 'bootstrap')
+        at Test4.main(CollectionsTest.java:85)*/
+    }
+}
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">class Test5{
+    public static void main(String[] args) {
+        List&lt;Integer&gt; list1 = new ArrayList&lt;Integer&gt;();
+        list1.add(34);
+        list1.add(12);
+        list1.add(45);
+
+        //list1.add("AA");
+        //java: 不兼容的类型: java.lang.String无法转换为java.lang.Integer
+        //编译报错 保证类型安全
+
+        Iterator&lt;Integer&gt; iterator = list1.iterator();
+        while (iterator.hasNext()) {
+            Integer integer = (Integer) iterator.next();
+            int score = integer;
+            System.out.println(score);
+            //因为添加的都是Intrger类型，所以避免了强转操作
+        }
+
+    }
+}
+</code></pre>
+<pre lang="plain" class="notranslate"><code class="notranslate">class Test6{
+    public static void main(String[] args) {
+        //泛型在Map中的例子
+        //HashMap&lt;String,Integer&gt; map = new HashMap&lt;String,Integer&gt;();
+        HashMap&lt;String,Integer&gt; map = new HashMap&lt;&gt;();//类型推断 jdk7新特性
+
+        map.put("Tom", 67);
+        map.put("Jack", 23);
+        map.put("Jill", 22);
+
+        Set&lt;Map.Entry&lt;String,Integer&gt;&gt; entrySet = map.entrySet();
+        Iterator&lt;Map.Entry&lt;String,Integer&gt;&gt; iterator = entrySet.iterator();
+//       var Set = map.entrySet();
+//       var Iterator = entrySet.iterator();
+ //JDK10 新特性
+        while (iterator.hasNext()) {
+            Map.Entry&lt;String,Integer&gt; entry = iterator.next();
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            System.out.println(key + "---&gt;" +value);
+        }
+    }
+}
+</code></pre>
+<p>泛型补充</p>
+<h3>泛型的作用</h3>
+<p>泛型（Generics）是Java语言的一项重要特性，它允许在定义类、接口和方法时使用类型参数，从而使代码更加通用和灵活。泛型的主要作用包括：</p>
+<p><strong>类型安全</strong>：</p>
+<pre class="notranslate"><code class="notranslate">- 泛型可以在编译时检查类型，从而避免了运行时的类型转换异常。例如，在使用集合时，泛型可以确保集合中的元素都是指定类型，避免了类型转换错误。
+</code></pre>
+<ol>
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">List&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add("Hello");
+// list.add(123); // 编译时会报错
+</code></pre>
+<p><strong>代码重用</strong>：</p>
+<pre class="notranslate"><code class="notranslate">- 泛型使得代码更加通用，可以处理不同类型的数据，从而提高了代码的重用性。例如，泛型类和泛型方法可以适用于多种类型，而不需要为每种类型编写重复的代码。
+</code></pre>
+<ol start="2">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">public class Box&lt;T&gt; {
+    private T value;
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    public T getValue() {
+        return value;
+    }
+}
+
+Box&lt;String&gt; stringBox = new Box&lt;&gt;();
+stringBox.setValue("Hello");
+
+Box&lt;Integer&gt; intBox = new Box&lt;&gt;();
+intBox.setValue(123);
+</code></pre>
+<p><strong>减少类型转换</strong>：</p>
+<pre class="notranslate"><code class="notranslate">- 泛型可以减少显式的类型转换操作，从而使代码更加简洁和易读。例如，在使用泛型集合时，不需要进行显式的类型转换。
+</code></pre>
+<ol start="3">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">List&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add("Hello");
+String str = list.get(0); // 不需要类型转换
+</code></pre>
+<p><strong>提高代码的可读性和可维护性</strong>：</p>
+<pre class="notranslate"><code class="notranslate">- 泛型使得代码更加清晰，类型信息更加明确，从而提高了代码的可读性和可维护性。例如，通过泛型，可以清楚地知道集合中存储的元素类型。
+</code></pre>
+<ol start="4">
+<li>java</li>
+</ol>
+<pre lang="plain" class="notranslate"><code class="notranslate">Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+map.put("one", 1);
+map.put("two", 2);
+</code></pre>
+<p>ORM思想</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7a43ad348991ea4d3bff7e2de389203027c6e9a4254e930d6e1944a9f18788bf/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431333733353539362d63373534306634652d366539632d343264362d396339372d3265643066623061316337392e706e67"><img src="https://camo.githubusercontent.com/7a43ad348991ea4d3bff7e2de389203027c6e9a4254e930d6e1944a9f18788bf/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431333733353539362d63373534306634652d366539632d343264362d396339372d3265643066623061316337392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732413735596-c7540f4e-6e9c-42d6-9c97-2ed0fb0a1c79.png" style="max-width: 100%;"></a></p>
+<h3>ORM思想</h3>
+<h4>概念</h4>
+<p><strong>ORM</strong>（Object-Relational Mapping，面向对象关系映射）是一种通过描述对象与数据库之间的映射关系，将面向对象编程语言中的对象与关系数据库中的数据进行自动转换的技术。它使得开发者可以使用面向对象的方式来操作数据库，而不需要编写大量的SQL语句。</p>
+<h4>优点</h4>
+<ol>
+<li><strong>提高开发效率</strong>：开发者可以专注于业务逻辑，而不需要关心底层的数据库操作。</li>
+<li><strong>减少代码量</strong>：通过自动生成SQL语句，减少了手写SQL的工作量。</li>
+<li><strong>增强可维护性</strong>：ORM框架提供了统一的接口，使得代码更易于维护和扩展。</li>
+<li><strong>跨数据库支持</strong>：ORM框架通常支持多种数据库，使得应用程序可以更容易地切换数据库。</li>
+</ol>
+<h4>常见的ORM框架</h4>
+<ol>
+<li><strong>Hibernate</strong>：Java领域最流行的ORM框架，提供了强大的映射功能和丰富的配置选项。</li>
+<li><strong>Entity Framework</strong>：微软提供的.NET平台上的ORM框架，集成在Visual Studio中，使用方便。</li>
+<li><strong>Django ORM</strong>：Python的Django框架自带的ORM，简洁易用，适合快速开发。</li>
+</ol>
+<h4>工作原理</h4>
+<ol>
+<li><strong>映射配置</strong>：通过配置文件或注解，将类与数据库表、类的属性与表的字段进行映射。</li>
+<li><strong>对象操作</strong>：开发者通过操作对象来进行数据的增删改查，ORM框架会自动生成相应的SQL语句并执行。</li>
+<li><strong>事务管理</strong>：ORM框架通常提供了事务管理功能，确保数据操作的原子性和一致性。</li>
+</ol>
+<h4>示例代码（以Hibernate为例）</h4>
+<p>java</p>
+<pre lang="plain" class="notranslate"><code class="notranslate">@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    // Getters and setters
+}
+
+// 使用Hibernate进行数据操作
+Session session = sessionFactory.openSession();
+Transaction transaction = session.beginTransaction();
+
+User user = new User();
+user.setUsername("john_doe");
+user.setPassword("password123");
+
+session.save(user);
+transaction.commit();
+session.close();
+</code></pre>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5547f7b6cca85728430cb38c353644c22e10bdc79c2f8deddd8672dfc48f9d8b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353132373532312d39626235366266302d353832662d343461612d383234322d3838383730646135313733622e706e67"><img src="https://camo.githubusercontent.com/5547f7b6cca85728430cb38c353644c22e10bdc79c2f8deddd8672dfc48f9d8b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353132373532312d39626235366266302d353832662d343461612d383234322d3838383730646135313733622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732415127521-9bb56bf0-582f-44aa-8242-88870da5173b.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/26adaa3f98162402329c0d264a7546328f154423d40bff89d231004e44be743a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353232373333342d33663732303266372d333238382d346562642d383333312d3266373337613536306530362e706e67"><img src="https://camo.githubusercontent.com/26adaa3f98162402329c0d264a7546328f154423d40bff89d231004e44be743a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353232373333342d33663732303266372d333238382d346562642d383333312d3266373337613536306530362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732415227334-3f7202f7-3288-4ebd-8331-2f737a560e06.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/77a1d7ccba309618fd4502e7c6d9e0efce1f48cbdfbd8e94b2b27951b4f204e7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353231313538372d61666565396134382d623865332d343835332d393738312d3334323934653839323262312e706e67"><img src="https://camo.githubusercontent.com/77a1d7ccba309618fd4502e7c6d9e0efce1f48cbdfbd8e94b2b27951b4f204e7/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353231313538372d61666565396134382d623865332d343835332d393738312d3334323934653839323262312e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732415211587-afee9a48-b8e3-4853-9781-34294e8922b1.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/82b4a4fac8b76b7f18725cee3e06fcb1fec66a90d682a0bd1594acc1a6961b24/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353639343133362d61333138326133332d326430362d346232332d396234392d6337373263326431313839362e706e67"><img src="https://camo.githubusercontent.com/82b4a4fac8b76b7f18725cee3e06fcb1fec66a90d682a0bd1594acc1a6961b24/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353639343133362d61333138326133332d326430362d346232332d396234392d6337373263326431313839362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732415694136-a3182a33-2d06-4b23-9b49-c772c2d11896.png" style="max-width: 100%;"></a></p>
+<p>想要使用可以用通配符?</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/33da16a3a521fb2f443e17b8794c6c369d10f198924cf728b82fb0f4d1cc1625/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353432333536302d35643634613662612d663734302d343431322d393935352d6331656632613938373031352e706e67"><img src="https://camo.githubusercontent.com/33da16a3a521fb2f443e17b8794c6c369d10f198924cf728b82fb0f4d1cc1625/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353432333536302d35643634613662612d663734302d343431322d393935352d6331656632613938373031352e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732415423560-5d64a6ba-f740-4412-9955-c1ef2a987015.png" style="max-width: 100%;"></a></p>
+<p>在通配符时无法写入数据</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c75a5e57a8a2696e415ba99d62b1278802b885a95adb84a8db28113d29225575/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353538303635372d66393137333036662d323930372d343236662d616161622d3733393265383662323065362e706e67"><img src="https://camo.githubusercontent.com/c75a5e57a8a2696e415ba99d62b1278802b885a95adb84a8db28113d29225575/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353538303635372d66393137333036662d323930372d343236662d616161622d3733393265383662323065362e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732415580657-f917306f-2907-426f-aaab-7392e86b20e6.png" style="max-width: 100%;"></a></p>
+<p>除了null</p>
+<p>有限制条件的通配符</p>
+<p>ArrayList&lt;?extends A&gt;:可以将List或List<b>赋值给List&lt;?extends A&gt;。其中B类是A类的子类,</b></p><b>
+</b><b><p>List&lt;?super A&gt;:可以将List或List<b>赋值给List&lt;?extends A&gt;。其中B类是A类的父类。</b></p><b>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3b13187e02edbcf1271109e73f6fd53d824e73397c382cece58367ede6ebb3a0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353834333732392d39306562623838372d346230302d343866332d623665302d6563323666346234343530622e706e67"><img src="https://camo.githubusercontent.com/3b13187e02edbcf1271109e73f6fd53d824e73397c382cece58367ede6ebb3a0/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353834333732392d39306562623838372d346230302d343866332d623665302d6563323666346234343530622e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732415843729-90ebb887-4b00-48f3-b6e0-ec26f4b4450b.png" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c6163cc76eb607044e397b5e4fc29f597d8952d8b840fac01d0ebf883660cd9a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353836383730322d34656164633730342d316564352d343063622d393763652d3264653861373338303037392e706e67"><img src="https://camo.githubusercontent.com/c6163cc76eb607044e397b5e4fc29f597d8952d8b840fac01d0ebf883660cd9a/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431353836383730322d34656164633730342d316564352d343063622d393763652d3264653861373338303037392e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732415868702-4eadc704-1ed5-40cb-97ce-2de8a7380079.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/34616f05bf30c59844d03808d76dcfaeefb9580af08f480ce7cb2ccb1e55a62b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431363235363939392d35396437666162642d613532352d346531662d386332392d6563333734656562323063642e706e67"><img src="https://camo.githubusercontent.com/34616f05bf30c59844d03808d76dcfaeefb9580af08f480ce7cb2ccb1e55a62b/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431363235363939392d35396437666162642d613532352d346531662d386332392d6563333734656562323063642e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732416256999-59d7fabd-a525-4e1f-8c29-ec374eeb20cd.png" style="max-width: 100%;"></a></p>
+<p>有限制条件的统配符的读写操作(难、了解)</p>
+<p>技巧:开发中，遇到了带限制条件的通配符，在赋值时，如果没报错，那就正常使用</p>
+<p>如果报错了，知道不能这样写。改改!</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/055ca8225bfcbc19962e9448eea0c010ea43f5f4276c0bbe6eb0a87a50334c51/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431363434383631392d63663464343739642d646335642d346264372d623139632d3938613733663439373431342e706e67"><img src="https://camo.githubusercontent.com/055ca8225bfcbc19962e9448eea0c010ea43f5f4276c0bbe6eb0a87a50334c51/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323032342f706e672f34393435353431312f313733323431363434383631392d63663464343739642d646335642d346264372d623139632d3938613733663439373431342e706e67" alt="" data-canonical-src="https://cdn.nlark.com/yuque/0/2024/png/49455411/1732416448619-cf4d479d-dc5d-4bd7-b19c-98a73f497414.png" style="max-width: 100%;"></a></p></b></b></div>
+<div style="font-size:small;margin-top:8px;float:right;"><footer style="padding:10px 15px;text-align:left;font-size:14px;color:#555;border-top:1px solid #e0e0e0;line-height:1.8;font-family:Arial,sans-serif"><span>注意：转载请注明出处 <br> 转载请先阅读以下文章 </span><a href="https://blog.adouzi.eu.org/post/21.html" style="color:#0078d7;text-decoration:none">关于博客文章转载规则以及一些闲聊</a> <br><br> <span>  个人主页：<a href="https://adouzi.eu.org" style="color:#0078d7;text-decoration:none">https://adouzi.eu.org</a></span><span> | Email：<a href="mailto:shiraayano@adouzi.eu.org" style="color:#0078d7;text-decoration:none">shiraayano@adouzi.eu.org</a><br><br><br>支持笔者：<a href="https://www.profitableratecpm.com/euxxr69t?key=f815bdc51cd258ab9f699175b0ef4446" style="color:#0078d7;text-decoration:none">点击广告</a><br>广告收入是本站唯一的收入，若本站内容帮到了您，可以点击广告支持笔者。</span><script async data-cfasync="false" src="//pl27420049.profitableratecpm.com/0f4f9e716ea5257a380097bb2d39a0bb/invoke.js"></script><div id="container-0f4f9e716ea5257a380097bb2d39a0bb"></div><br><script type="text/javascript">
+atOptions = {
+	'key' : '7a765266e94fd2cc53f429f1806bfa33',
+	'format' : 'iframe',
+	'height' : 90,
+	'width' : 728,
+	'params' : {}
+}; </script><script type='text/javascript' src='//www.highperformanceformat.com/7a765266e94fd2cc53f429f1806bfa33/invoke.js'></script></footer></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://blog.adouzi.eu.org">白綾乃的博客</a></div>
+<div id="footer2"><span id="filingNum"><a href="https://beian.miit.gov.cn/" target="_blank"><a href='https://icp.gov.moe/?keyword=20240287' target='_blank'>萌ICP备20240287号</a></a> • </span>
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/12/2024"!=""){
+    var startSite=new Date("07/12/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行 "+diffDay+" 天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.disabled=true;
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","shiraayano/shiraayano.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script>document.addEventListener('visibilitychange',function(){const o=document.title;const i=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=i[Math.floor(Math.random()*i.length)];}else{document.title='欢迎回来喵~';setTimeout(function(){document.title=o;},1000);}});</script><script src='https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js'></script><script>document.addEventListener('visibilitychange',function(){if(!window.originalTitle){window.originalTitle=document.title;}const h=['不来看看咱喵~？','喵喵喵~？'];if(document.visibilityState==='hidden'){document.title=h[Math.floor(Math.random()*h.length)];}else{document.title='欢迎回来喵~';setTimeout(()=>{document.title=window.originalTitle;},1000);}});</script>
+
+</html>
